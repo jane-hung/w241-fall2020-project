@@ -1,0 +1,272 @@
+---
+title: "Untitled"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+```{r}
+library(foreign)
+library(data.table)
+library(knitr)
+library(stargazer)
+library(sandwich)
+library(car)
+library(dplyr)
+```
+
+```{r}
+d <- fread('Lungs_November+14,+2020_17.33.csv')
+head(d)
+```
+
+```{r}
+d_respondents_only <- d[ Status == "IP Address" , ]
+head(d_respondents_only)
+```
+
+```{r}
+#rename task phase questions
+setnames(d_respondents_only,
+         old = c('Q2', 'Q42'),
+         new = c('Self_Reflect_Q1', 'Self_Reflect_Q2'))
+
+setnames(d_respondents_only,
+         old = c('Q69', 'Q89'),
+         new = c('Control_Q1', 'Control_Q2'))
+
+setnames(d_respondents_only,
+         old = c('Q80', 'Q82', 'Q83', 'Q84', 'SC0', 'FL_6_DO'),
+         new = c('Amazon_Turk_ID', 'Gender', 'Age_Range', 'Education_Level', 'Total_Score', 'Assignment'))
+
+setnames(d_respondents_only, 
+         old = c('Q1', 'Q5', 'Q6', 'Q7', 'Q16', 'Q17', 'Q18', 'Q19', 'Q20', 'Q21',
+                 'Q8', 'Q9', 'Q10', 'Q11', 'Q22', 'Q23', 'Q24', 'Q25', 'Q26', 'Q27',
+                 'Q12', 'Q13', 'Q14', 'Q15', 'Q28', 'Q29', 'Q30', 'Q31', 'Q32', 'Q33'), 
+         new = c('Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9', 'Q10',
+                 'Q11', 'Q12', 'Q13', 'Q14', 'Q15', 'Q16', 'Q17', 'Q18', 'Q19', 'Q20',
+                 'Q21', 'Q22', 'Q23', 'Q24', 'Q25', 'Q26', 'Q27', 'Q28', 'Q29', 'Q30'))
+
+
+
+
+d_respondents_only[ , c("Q1_Score", "Q2_Score", "Q3_Score", "Q4_Score", "Q5_Score",
+                        "Q6_Score", "Q7_Score", "Q8_Score", "Q9_Score", "Q10_Score",
+                        "Q11_Score", "Q12_Score", "Q13_Score", "Q14_Score", "Q15_Score", 
+                        "Q16_Score", "Q17_Score", "Q18_Score", "Q19_Score", "Q20_Score", 
+                        "Q21_Score", "Q22_Score", "Q23_Score", "Q24_Score", "Q25_Score", "Q26_Score",
+                        "Q27_Score", "Q28_Score", "Q29_Score", "Q30_Score") := 
+                      list(ifelse(Q1 == "Normal", 1, 0),
+                            ifelse(Q2 == "Normal", 1, 0),
+                            ifelse(Q3 == "Pneumonia", 1, 0),
+                            ifelse(Q4 == "Pneumonia", 1, 0),
+                            ifelse(Q5 == "Normal", 1, 0),
+                            ifelse(Q6 == "Pneumonia", 1, 0),
+                            ifelse(Q7 == "Pneumonia", 1, 0),
+                            ifelse(Q8 == "Normal", 1, 0),
+                            ifelse(Q9 == "Pneumonia", 1, 0),
+                            ifelse(Q10 == "Normal", 1, 0),
+                            ifelse(Q11 == "Pneumonia", 1, 0),
+                            ifelse(Q12 == "Normal", 1, 0),
+                            ifelse(Q13 == "Pneumonia", 1, 0),
+                            ifelse(Q14 == "Pneumonia", 1, 0),
+                            ifelse(Q15 == "Normal", 1, 0),
+                            ifelse(Q16 == "Normal", 1, 0),
+                            ifelse(Q17 == "Pneumonia", 1, 0),
+                            ifelse(Q18 == "Normal", 1, 0),
+                            ifelse(Q19 == "Pneumonia", 1, 0),
+                            ifelse(Q20 == "Normal", 1, 0),
+                            ifelse(Q21 == "Normal", 1, 0),
+                            ifelse(Q22 == "Normal", 1, 0),
+                            ifelse(Q23 == "Pneumonia", 1, 0),
+                            ifelse(Q24 == "Normal", 1, 0),
+                            ifelse(Q25 == "Pneumonia", 1, 0),
+                            ifelse(Q26 == "Pneumonia", 1, 0),
+                            ifelse(Q27 == "Pneumonia", 1, 0),
+                            ifelse(Q28 == "Pneumonia", 1, 0),
+                            ifelse(Q29 == "Normal", 1, 0),
+                            ifelse(Q30 == "Normal", 1, 0))]
+
+d_respondents_only[ , Assignment_Group := ifelse(Assignment == "FL_17", "Control", 
+                             ifelse(Assignment == "FL_14", "Self-Reflect",
+                                    ifelse(Assignment == "FL_15", "Medical Feedback",
+                                           ifelse(Assignment == "FL_16", "Positive Images", "Negative Images"))))]
+
+d_respondents_only[ , c("TaskPhase1_Score", "TaskPhase2_Score", "TaskPhase3_Score") :=
+                      list(sum(Q1_Score, Q2_Score, Q3_Score, Q4_Score, Q5_Score, Q6_Score, Q7_Score, Q8_Score, Q9_Score, Q10_Score),
+                           sum(Q11_Score, Q12_Score, Q13_Score, Q14_Score, Q15_Score, Q16_Score, Q17_Score, Q18_Score, Q19_Score, Q20_Score),
+                           sum(Q21_Score, Q22_Score, Q23_Score, Q24_Score, Q25_Score, Q26_Score, Q27_Score, Q28_Score, Q29_Score, Q30_Score)),
+                    by = Amazon_Turk_ID]
+
+head(d_respondents_only)
+
+```
+
+
+```{r}
+#install.packages("ggmap")
+library(ggmap)
+
+install.packages("revgeo")
+library(revgeo)
+```
+
+```{r}
+# ?register_google
+# register_google(key = "AIzaSyCTk2a5vIEqcvgz9KmQmItoNF7J8_hiMMk")
+
+#uses Google API to obtain location data based on longitude and latitude....dont use unless necessary for new data
+# d_respondents_only[ , c("housenumber", "street", "city", "county", "state", "zip", "country") := revgeo(as.numeric(LocationLongitude),as.numeric(LocationLatitude), provider = 'google', API = "AIzaSyCTk2a5vIEqcvgz9KmQmItoNF7J8_hiMMk", output='frame')]
+# 
+# head(d_respondents_only)
+# 
+# 
+# fwrite(d_respondents_only, file='datatable_clean_survey_responses.dta')
+
+d_respondents <- fread('datatable_clean_survey_responses.dta')
+head(d_respondents)
+```
+
+```{r}
+#skip
+
+?register_google
+register_google(key = "AIzaSyCTk2a5vIEqcvgz9KmQmItoNF7J8_hiMMk")
+ggmap_show_api_key()
+
+
+revgeocode(c(df$lon[1], df$lat[1]))
+
+d_respondents_only[ Q80 == "A1AC47WJLNW4G7", revgeocode(c(as.numeric(LocationLongitude)[1], as.numeric(LocationLatitude)[1]), output = "address")]
+?revgeocode
+```
+
+```{r}
+#remove duplicate Amazon Turk IDs
+nrow(d_respondents)  #381 rows
+d_respondents <- d_respondents[ !duplicated(d_respondents$Amazon_Turk_ID) , ]  #378 rows
+```
+
+
+```{r}
+#some EDA
+
+#d_respondents[ , table(state, country)]
+
+
+table(d_respondents$state, d_respondents$country) %>% 
+        as.data.frame() %>% 
+        arrange(desc(Freq))
+
+table(d_respondents$country) %>% 
+        as.data.frame() %>% 
+        arrange(desc(Freq))
+
+```
+
+```{r}
+
+table(d_respondents$Total_Score) %>%
+  as.data.frame() %>%
+  arrange(desc(Var1))
+
+d_respondents %>% 
+  group_by(Assignment_Group) %>%
+  summarise(mean = mean(Total_Score),
+            count = n(),
+            time_duration = mean(`Duration (in seconds)`))
+#d_respondents[ , .(count = .N, avg = mean(Total_Score)), by=Assignment_Group] #same thing
+
+d_respondents[ , hist(Total_Score)]
+
+
+tapply(d_respondents$Total_Score, d_respondents$Assignment_Group, summary)
+tapply(d_respondents$Total_Score, d_respondents$Assignment_Group, sd)
+d_respondents[ , sd(Total_Score)]
+```
+
+
+next steps...covariate balance check
+```{r}
+d_respondents %>% 
+  group_by(Assignment_Group) %>%
+  summarise(num_respondents = n(),
+            pre_treatment_avg = mean(TaskPhase1_Score),
+            taskphase2_avg = mean(TaskPhase2_Score),
+            taskphase3_avg = mean(TaskPhase3_Score))
+```
+```{r}
+#http://www.sthda.com/english/wiki/chi-square-goodness-of-fit-test-in-r
+
+respondent_counts <- d_respondents[ , .(.N), keyby=Assignment_Group][,2]
+
+respondent_counts_chisq_test <- chisq.test(respondent_counts, p=c(1/5, 1/5, 1/5, 1/5, 1/5))
+
+respondent_counts_chisq_test
+#p-value = 0.9982, which is greater than significance level of 0.05. 
+#We can conclude that the observed proportions are not significantly different from the expected proportions
+```
+
+```{r}
+#check balance between age-range, education, age
+
+d_respondents[ , table(Assignment_Group, Gender)]
+d_respondents[ , table(Assignment_Group, Age_Range)]
+d_respondents[ , table(Assignment_Group, Education_Level)]
+```
+
+```{r}
+d_respondents[ , Treatment_Dummy := ifelse(Assignment_Group != "Control", 1, 0)]
+head(d_respondents)
+```
+
+```{r}
+d_respondents[ Treatment_Dummy == 1, mean(Total_Score)] - d_respondents[ Treatment_Dummy == 0, mean(Total_Score)] 
+
+```
+
+```{r}
+library(AER)
+d_respondents[ , lm(Total_Score ~ Education_Level)]
+d_respondents[ , ivreg(Total_Score ~ Education_Level | Assignment_Group)]
+
+```
+
+```{r}
+power.t.test( delta = 1.2, sd=3.78, sig.level = 0.05, power=0.8)
+?power.t.test
+```
+
+```{r}
+qmplot(LocationLongitude, LocationLatitude, data = d_respondents, geom = "blank", 
+  zoom = 1, maptype = "toner-background", darken = .7, legend = "topleft")
+# ) +
+#   stat_density_2d(aes(fill = ..level..), geom = "polygon", alpha = .3, color = NA) +
+#   scale_fill_gradient2("Robbery\nPropensity", low = "white", mid = "yellow", high = "red", midpoint = 650)
+?qmplot
+d_respondents[ , qmplot(LocationLongitude, LocationLatitude, geom="blank", zoom = 1)]
+
+```
