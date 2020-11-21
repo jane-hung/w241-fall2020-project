@@ -218,6 +218,7 @@ d_respondents %>%
             taskphase2_avg = mean(TaskPhase2_Score),
             taskphase3_avg = mean(TaskPhase3_Score))
 ```
+
 ```{r}
 #http://www.sthda.com/english/wiki/chi-square-goodness-of-fit-test-in-r
 
@@ -239,6 +240,35 @@ d_respondents[ , table(Assignment_Group, Education_Level)]
 ```
 
 ```{r}
+#let's consider adding age bins and education bins
+
+d_respondents[ Age_Range == "18-24", age_bin := 1]
+d_respondents[ Age_Range == "25-34", age_bin := 2]
+d_respondents[ Age_Range == "35-44", age_bin := 3]
+d_respondents[ Age_Range == "45-54", age_bin := 4]
+d_respondents[ Age_Range == "55-64", age_bin := 5]
+d_respondents[ Age_Range == "Above 65", age_bin := 6]
+
+d_respondents[ Education_Level == "Associate's degree", edu_bin := 1]
+d_respondents[ Education_Level == "Bachelor's degree", edu_bin := 2]
+d_respondents[ Education_Level == "High school", edu_bin := 3]
+d_respondents[ Education_Level == "Master's degree and above", edu_bin := 4]
+d_respondents[ Education_Level == "Some high school", edu_bin := 5]
+d_respondents[ Education_Level == "Trade school", edu_bin := 6]
+
+d_respondents[ Assignment_Group == "Control", assign_bin := 1]
+d_respondents[ Assignment_Group == "Medical Feedback", assign_bin := 2]
+d_respondents[ Assignment_Group == "Negative Images", assign_bin := 3]
+d_respondents[ Assignment_Group == "Positive Images", assign_bin := 4]
+d_respondents[ Assignment_Group == "Self-Reflect", assign_bin := 5]
+
+head(d_respondents)
+
+
+
+```
+
+```{r}
 d_respondents[ , Treatment_Dummy := ifelse(Assignment_Group != "Control", 1, 0)]
 head(d_respondents)
 ```
@@ -246,6 +276,7 @@ head(d_respondents)
 ```{r}
 d_respondents[ Treatment_Dummy == 1, mean(Total_Score)] - d_respondents[ Treatment_Dummy == 0, mean(Total_Score)] 
 
+sd(d_respondents$Total_Score)
 ```
 
 ```{r}
@@ -259,6 +290,69 @@ d_respondents[ , ivreg(Total_Score ~ Education_Level | Assignment_Group)]
 power.t.test( delta = 1.2, sd=3.78, sig.level = 0.05, power=0.8)
 ?power.t.test
 ```
+
+```{r}
+#does treatment have an effect on total score?
+
+mod1 <- d_respondents[, lm(Total_Score ~ Treatment_Dummy)]
+#summary(mod1)
+#confint(mod1 )[2,]  #CI w/o RSE
+
+mod1$vcovHC_ <- vcovHC(mod1)
+stargazer(mod1, se = list(sqrt(diag(mod1$vcovHC_))), type='text')
+
+```
+
+```{r}
+#does treatment and pretreatment score have an effect on total score?
+
+mod2 <- d_respondents[, lm(Total_Score ~ Treatment_Dummy + TaskPhase1_Score)]
+
+
+mod2$vcovHC_ <- vcovHC(mod2)
+stargazer(mod2, se = list(sqrt(diag(mod2$vcovHC_))), type='text')
+
+```
+
+```{r}
+# does treatment have an effect on task phase 2 score?
+
+mod3 <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy)]
+
+
+mod3$vcovHC_ <- vcovHC(mod3)
+stargazer(mod3, se = list(sqrt(diag(mod3$vcovHC_))), type='text')
+
+```
+
+```{r}
+#does the treatment group have an effect on task phase 2 score?
+
+mod4 <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group))]
+
+
+mod4$vcovHC_ <- vcovHC(mod4)
+stargazer(mod4, se = list(sqrt(diag(mod4$vcovHC_))), type='text')
+
+```
+
+```{r}
+# Do you think that there are features of the data that might systematically predict that people will respond strongly or weakly to the treatment effect? List two that you think might be there, in the order that you would like to test them. Then, test for these heterogeneities. 
+
+mod5 <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy + as.factor(assign_bin) + 
+                             Treatment_Dummy * as.factor(assign_bin))]
+
+
+mod5$vcovHC_ <- vcovHC(mod5)
+stargazer(mod5, se = list(sqrt(diag(mod5$vcovHC_))), type='text')
+
+```
+
+
+
+
+
+
 
 ```{r}
 qmplot(LocationLongitude, LocationLatitude, data = d_respondents, geom = "blank", 
