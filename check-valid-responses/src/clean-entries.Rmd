@@ -15,6 +15,8 @@ library(ggplot2)
 library(magrittr)
 library(matrixStats)
 
+# clears workspace
+rm(list = ls())
 
 theme_set(theme_minimal())
 knitr::opts_chunk$set(dpi = 300)
@@ -24,12 +26,12 @@ knitr::opts_chunk$set(dpi = 300)
 
 
 ```{r cars}
-mturk <- fread('../data/mturk_workers.csv')
+mturk <- fread('../data/mturk_workers_final.csv')
 mturk_subset <- mturk[,c("AssignmentId","WorkerId","AssignmentStatus","AcceptTime","SubmitTime","Answer.surveycode","WorkTimeInSeconds")]
 mturk_subset[,duration_min_mturk := as.numeric(WorkTimeInSeconds)/60]
 head(mturk_subset)
 
-qualtrics <- fread('../data/qualtrics_results.csv')
+qualtrics <- fread('../data/qualtrics_results_final.csv')
 # colnames(qualtrics)
 qualtrics_subset <-
   qualtrics[, c(
@@ -74,15 +76,24 @@ Throw out A2WP71VTV1F1DV because can't find their survey results.
 Find duplicates on the Qualtrics side.
 ```{r}
 table(qualtrics_subset[,duplicated(WorkerId)])
-qualtrics_subset[WorkerId %in% qualtrics_subset[qualtrics_subset[,duplicated(WorkerId)],WorkerId]]
+qualtrics_subset[WorkerId %in% qualtrics_subset[qualtrics_subset[,duplicated(WorkerId)],WorkerId]][order(WorkerId,RecordedDate)]
 ```
-
+ResponseIds to throw out because these are related to people who took the survey again:
+- R_1eRkKqfVAmkVzj2
+- R_3FR03xu5zyOsRSU
+- R_3HBQsMSMCgXPpKf
+- R_dbzictBknL9jG3T
 ```{r}
-mturk_subset[WorkerId %in% qualtrics_subset[qualtrics_subset[,duplicated(WorkerId)],WorkerId]]
+mturk_subset[WorkerId %in% qualtrics_subset[qualtrics_subset[,duplicated(WorkerId)],WorkerId]][order(WorkerId)]
+
 ```
 These guys did the survey multiple times but only submitted to Mturk once. Let's see if they used the same survey code elsewhere
 ```{r}
-mturk_subset[Answer.surveycode %in% c("42254", "37684", "72442", "31052", "33364")]
+mturk_subset[WorkerId %in% qualtrics_subset[qualtrics_subset[,duplicated(WorkerId)],WorkerId]][order(WorkerId)][,Answer.surveycode]
+
+mturk_subset[Answer.surveycode %in% mturk_subset[WorkerId %in% qualtrics_subset[qualtrics_subset[,duplicated(WorkerId)],WorkerId]][order(WorkerId)][,Answer.surveycode]]
+
+# mturk_subset[Answer.surveycode %in% c("42254", "37684", "72442", "31052", "33364")]
 
 ```
 
@@ -97,6 +108,8 @@ workers_not_complete <-data[is.na(RandomID),][order(WorkerId)][,WorkerId]
 length(workers_not_complete)
 workers_not_complete
 
+qualtrics_subset[WorkerId %in% workers_not_complete]
+
 # This specific worker entered in an additional space by accident
 mturk_subset[WorkerId=="AQP4PHYDXRBPI"]
 qualtrics_subset[WorkerId=="AQP4PHYDXRBPI "][,WorkerId]
@@ -109,17 +122,26 @@ workers_not_complete2 <- data2[is.na(Finished),][order(WorkerId)][,WorkerId]
 length(workers_not_complete2)
 workers_not_complete2[!workers_not_complete2 %in% workers_not_complete]
 
+data2[WorkerId %in% workers_not_complete2[!workers_not_complete2 %in% workers_not_complete]]
+# This person just put in the wrong random code but finished the survey
+qualtrics_subset[WorkerId =='A2SBZCFAVT83GN']
+
+# This person typed in the her WorkerId incorrectly
 qualtrics_subset[WorkerId == "A1VJ6JU89HP7MC"]
 mturk_subset[WorkerId == "A1VJ6JU89HP7MC"]
 ```
 
-This Worker does not have matching survey codes, but he sent me a message with the correct survey code.
+Are there people who have wrong survey codes?
 ```{r}
 data3 <- merge(mturk_subset,qualtrics_subset,by.x='Answer.surveycode',by.y='RandomID',all.x = TRUE)
 workers_not_complete3 <- data3[is.na(WorkerId.y)][order(WorkerId.x)][,WorkerId.x]
 # workers_not_complete[!workers_not_complete %in% workers_not_complete3]
 workers_not_complete3[!workers_not_complete3 %in% workers_not_complete]
 
+qualtrics_subset[WorkerId %in% workers_not_complete3[!workers_not_complete3 %in% workers_not_complete]]
+mturk_subset[WorkerId %in% workers_not_complete3[!workers_not_complete3 %in% workers_not_complete]]
+
+# This Worker does not have matching survey codes, but he sent me a message with the correct survey code.
 qualtrics_subset[WorkerId=="A1VJ6JU89HP7MC",]
 mturk_subset[WorkerId=="A1VJ6JU89HP7MC",]
 ```
