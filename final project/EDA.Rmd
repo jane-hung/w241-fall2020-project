@@ -7,27 +7,6 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
-
 ```{r}
 library(foreign)
 library(data.table)
@@ -127,10 +106,7 @@ head(d_respondents_only)
 
 
 ```{r}
-#install.packages("ggmap")
 library(ggmap)
-
-install.packages("revgeo")
 library(revgeo)
 ```
 
@@ -153,15 +129,15 @@ head(d_respondents)
 ```{r}
 #skip
 
-?register_google
-register_google(key = "AIzaSyCTk2a5vIEqcvgz9KmQmItoNF7J8_hiMMk")
-ggmap_show_api_key()
-
-
-revgeocode(c(df$lon[1], df$lat[1]))
-
-d_respondents_only[ Q80 == "A1AC47WJLNW4G7", revgeocode(c(as.numeric(LocationLongitude)[1], as.numeric(LocationLatitude)[1]), output = "address")]
-?revgeocode
+# ?register_google
+# register_google(key = "AIzaSyCTk2a5vIEqcvgz9KmQmItoNF7J8_hiMMk")
+# ggmap_show_api_key()
+# 
+# 
+# revgeocode(c(df$lon[1], df$lat[1]))
+# 
+# d_respondents_only[ Q80 == "A1AC47WJLNW4G7", revgeocode(c(as.numeric(LocationLongitude)[1], as.numeric(LocationLatitude)[1]), output = "address")]
+# ?revgeocode
 ```
 
 ```{r}
@@ -355,12 +331,12 @@ stargazer(mod5, se = list(sqrt(diag(mod5$vcovHC_))), type='text')
 
 
 ```{r}
-qmplot(LocationLongitude, LocationLatitude, data = d_respondents, geom = "blank", 
-  zoom = 1, maptype = "toner-background", darken = .7, legend = "topleft")
-# ) +
-#   stat_density_2d(aes(fill = ..level..), geom = "polygon", alpha = .3, color = NA) +
-#   scale_fill_gradient2("Robbery\nPropensity", low = "white", mid = "yellow", high = "red", midpoint = 650)
-?qmplot
-d_respondents[ , qmplot(LocationLongitude, LocationLatitude, geom="blank", zoom = 1)]
+# qmplot(LocationLongitude, LocationLatitude, data = d_respondents, geom = "blank", 
+#   zoom = 1, maptype = "toner-background", darken = .7, legend = "topleft")
+# # ) +
+# #   stat_density_2d(aes(fill = ..level..), geom = "polygon", alpha = .3, color = NA) +
+# #   scale_fill_gradient2("Robbery\nPropensity", low = "white", mid = "yellow", high = "red", midpoint = 650)
+# 
+# d_respondents[ , qmplot(LocationLongitude, LocationLatitude, geom="blank", zoom = 1)]
 
 ```
