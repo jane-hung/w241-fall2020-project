@@ -27,12 +27,13 @@ rm(list = ls())
 
 # Load Data
 ```{r}
-d <- fread('Lungs_November+14,+2020_17.33.csv')
+# d <- fread('Lungs_November+14,+2020_17.33.csv')
+d <- fread('../check-valid-responses/data/qualtrics_results_final.csv')
 #head(d)
 ```
 
 ```{r}
-d_respondents_only <- d[ Status == "IP Address" , ]
+d_respondents_only <- d[ (Status == "IP Address") & (Finished=='True'), ]
 #head(d_respondents_only)
 ```
 
@@ -57,9 +58,6 @@ setnames(d_respondents_only,
          new = c('Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9', 'Q10',
                  'Q11', 'Q12', 'Q13', 'Q14', 'Q15', 'Q16', 'Q17', 'Q18', 'Q19', 'Q20',
                  'Q21', 'Q22', 'Q23', 'Q24', 'Q25', 'Q26', 'Q27', 'Q28', 'Q29', 'Q30'))
-
-
-
 
 d_respondents_only[ , c("Q1_Score", "Q2_Score", "Q3_Score", "Q4_Score", "Q5_Score",
                         "Q6_Score", "Q7_Score", "Q8_Score", "Q9_Score", "Q10_Score",
@@ -214,10 +212,16 @@ d_respondents %>%
 
 ```{r}
 #check balance between age-range, education, age
-
 d_respondents[ , table(Assignment_Group, Gender)]
+chisq.test(d_respondents[ , table(Assignment_Group, Gender)])
+
 d_respondents[ , table(Assignment_Group, Age_Range)]
+# expected frequency count for each cell of the contingency table should be at least 5. Since this is not the case, we set simulate.p.value as a version of the Fisher exact test
+# https://stats.stackexchange.com/questions/81483/warning-in-r-chi-squared-approximation-may-be-incorrect
+chisq.test(d_respondents[ , table(Assignment_Group, Age_Range)],simulate.p.value = TRUE)
+
 d_respondents[ , table(Assignment_Group, Education_Level)]
+chisq.test(d_respondents[ , table(Assignment_Group, Education_Level)],simulate.p.value = TRUE)
 ```
 
 ```{r}
