@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "Feedback MTurk Study"
 output: pdf_document
 ---
 
@@ -7,28 +7,7 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
-
-```{r}
+```{r, include=FALSE}
 library(foreign)
 library(data.table)
 library(knitr)
@@ -36,16 +15,91 @@ library(stargazer)
 library(sandwich)
 library(car)
 library(dplyr)
+library(ggmap)
+library(revgeo)
+library(AER)
+
+# clears workspace
+rm(list = ls())
+```
+
+# Introduction
+
+# Load Data
+```{r}
+# d <- fread('Lungs_November+14,+2020_17.33.csv')
+d <- fread('../check-valid-responses/data/qualtrics_results_final.csv')
+#head(d)
 ```
 
 ```{r}
-d <- fread('Lungs_November+14,+2020_17.33.csv')
-head(d)
-```
+d_respondents_only <-
+  d[(Status == "IP Address") & (Finished == 'True'),]
 
-```{r}
-d_respondents_only <- d[ Status == "IP Address" , ]
-head(d_respondents_only)
+# Remove these survey responses because they were from people who did the survey again. Double check that they are removed:
+d_respondents_only <-
+  d_respondents_only[!ResponseId %in% c(
+    'R_1eRkKqfVAmkVzj2',
+    'R_3FR03xu5zyOsRSU',
+    'R_3HBQsMSMCgXPpKf',
+    'R_dbzictBknL9jG3T'
+  ), ]
+
+# These WorkerId put in all 1 response (all Normal or all Pneumonia)
+d_respondents_only <-
+  d_respondents_only[!Q80 %in% c(
+    "A119EX2L0DNN1B",
+    "A12NQJV6TA5OWB",
+    "A18WFPSLFV4FKY",
+    "A1BUYK6LXYWMLL",
+    "A1FHRZXSE7XNJ4",
+    "A1GMYDH5MKN105",
+    "A2GSZ3D2XXC533",
+    "A2IGIOD74EPOEF",
+    "A2J016DRTOBXWO",
+    "A2NGFU82LMJ80X",
+    "A32K1M0A36EAK5",
+    "A371SNJNNUY9Z6",
+    "A3BPENSX5EVJ2H",
+    "A3EPIT2P3ISA3K",
+    "A3NYIJYBHAJ74V",
+    "AUFLTHQAXWLH1",
+    "AVINXZZV3FNG7" ,
+    "A1CD7O60QAQQRT",
+    "A1CF1W8CP0DHB0",
+    "A1PGY59BR6C5BX",
+    "A1YSYI926BBOHW",
+    "A1Z3GFH6MNSU46",
+    "A211KGJ94WNFLN",
+    "A26RPQDD0RQEHL",
+    "A2BUHMLNE3LUU0",
+    "A2J5BRQ88W745H",
+    "A2XIHO2W7EEP32",
+    "A3EZ0H07TSDAPW",
+    "A3FLBC6LC5GJ3W",
+    "A3QLKLIQW1B1FR",
+    "A8F6JFG0WSELT",
+    "A9K6IVBA0J1CX",
+    "ADLZLGHKOAEE6",
+    "AE7NJG0KOVZYJ" ,
+    "AG5RF4UGQJ7A7" ,
+    "AQ9Y6WD8O72ZC" ,
+    "tuturtu"
+  ), ]
+
+# These people just gave alternating responses (Normal, Pneumonia, Normal,...,Pneumonia)
+
+d_respondents_only <- d_respondents_only[!Q80 %in% c(
+'A1W05TSPORJPXR'
+,'A3SUWCLD1GEGM7'
+,'A3A09JB9X1RBXW'
+,'A7VQQEIBSM9IU'
+,'A8DER1QY96C5X'
+,'A1M8MNKK8H5ZGW'
+,'A34D5D6PU193AR'
+)]
+
+#head(d_respondents_only)
 ```
 
 ```{r}
@@ -69,9 +123,6 @@ setnames(d_respondents_only,
          new = c('Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9', 'Q10',
                  'Q11', 'Q12', 'Q13', 'Q14', 'Q15', 'Q16', 'Q17', 'Q18', 'Q19', 'Q20',
                  'Q21', 'Q22', 'Q23', 'Q24', 'Q25', 'Q26', 'Q27', 'Q28', 'Q29', 'Q30'))
-
-
-
 
 d_respondents_only[ , c("Q1_Score", "Q2_Score", "Q3_Score", "Q4_Score", "Q5_Score",
                         "Q6_Score", "Q7_Score", "Q8_Score", "Q9_Score", "Q10_Score",
@@ -111,28 +162,20 @@ d_respondents_only[ , c("Q1_Score", "Q2_Score", "Q3_Score", "Q4_Score", "Q5_Scor
                             ifelse(Q30 == "Normal", 1, 0))]
 
 d_respondents_only[ , Assignment_Group := ifelse(Assignment == "FL_17", "Control", 
-                             ifelse(Assignment == "FL_14", "Self-Reflect",
-                                    ifelse(Assignment == "FL_15", "Medical Feedback",
-                                           ifelse(Assignment == "FL_16", "Positive Images", "Negative Images"))))]
+                                          ifelse(Assignment == "FL_14", "Self-Reflect",
+                                          ifelse(Assignment == "FL_15", "Medical Feedback",
+                                          ifelse(Assignment == "FL_16", "Positive Images", "Negative Images"))))]
 
 d_respondents_only[ , c("TaskPhase1_Score", "TaskPhase2_Score", "TaskPhase3_Score") :=
-                      list(sum(Q1_Score, Q2_Score, Q3_Score, Q4_Score, Q5_Score, Q6_Score, Q7_Score, Q8_Score, Q9_Score, Q10_Score),
-                           sum(Q11_Score, Q12_Score, Q13_Score, Q14_Score, Q15_Score, Q16_Score, Q17_Score, Q18_Score, Q19_Score, Q20_Score),
-                           sum(Q21_Score, Q22_Score, Q23_Score, Q24_Score, Q25_Score, Q26_Score, Q27_Score, Q28_Score, Q29_Score, Q30_Score)),
+                      list(sum(Q1_Score, Q2_Score, Q3_Score, Q4_Score, Q5_Score, Q6_Score, Q7_Score, Q8_Score, Q9_Score, Q10_Score)/10,
+                           sum(Q11_Score, Q12_Score, Q13_Score, Q14_Score, Q15_Score, Q16_Score, Q17_Score, Q18_Score, Q19_Score, Q20_Score)/10,
+                           sum(Q21_Score, Q22_Score, Q23_Score, Q24_Score, Q25_Score, Q26_Score, Q27_Score, Q28_Score, Q29_Score, Q30_Score)/10),
                     by = Amazon_Turk_ID]
 
-head(d_respondents_only)
+#head(d_respondents_only)
 
 ```
 
-
-```{r}
-#install.packages("ggmap")
-library(ggmap)
-
-install.packages("revgeo")
-library(revgeo)
-```
 
 ```{r}
 # ?register_google
@@ -141,27 +184,27 @@ library(revgeo)
 #uses Google API to obtain location data based on longitude and latitude....dont use unless necessary for new data
 # d_respondents_only[ , c("housenumber", "street", "city", "county", "state", "zip", "country") := revgeo(as.numeric(LocationLongitude),as.numeric(LocationLatitude), provider = 'google', API = "AIzaSyCTk2a5vIEqcvgz9KmQmItoNF7J8_hiMMk", output='frame')]
 # 
-# head(d_respondents_only)
+# #head(d_respondents_only)
 # 
 # 
 # fwrite(d_respondents_only, file='datatable_clean_survey_responses.dta')
 
 d_respondents <- fread('datatable_clean_survey_responses.dta')
-head(d_respondents)
+#head(d_respondents)
 ```
 
 ```{r}
 #skip
 
-?register_google
-register_google(key = "AIzaSyCTk2a5vIEqcvgz9KmQmItoNF7J8_hiMMk")
-ggmap_show_api_key()
-
-
-revgeocode(c(df$lon[1], df$lat[1]))
-
-d_respondents_only[ Q80 == "A1AC47WJLNW4G7", revgeocode(c(as.numeric(LocationLongitude)[1], as.numeric(LocationLatitude)[1]), output = "address")]
-?revgeocode
+# ?register_google
+# register_google(key = "AIzaSyCTk2a5vIEqcvgz9KmQmItoNF7J8_hiMMk")
+# ggmap_show_api_key()
+# 
+# 
+# revgeocode(c(df$lon[1], df$lat[1]))
+# 
+# d_respondents_only[ Q80 == "A1AC47WJLNW4G7", revgeocode(c(as.numeric(LocationLongitude)[1], as.numeric(LocationLatitude)[1]), output = "address")]
+# ?revgeocode
 ```
 
 ```{r}
@@ -170,7 +213,7 @@ nrow(d_respondents)  #381 rows
 d_respondents <- d_respondents[ !duplicated(d_respondents$Amazon_Turk_ID) , ]  #378 rows
 ```
 
-
+# EDA
 ```{r}
 #some EDA
 
@@ -208,17 +251,7 @@ tapply(d_respondents$Total_Score, d_respondents$Assignment_Group, sd)
 d_respondents[ , sd(Total_Score)]
 ```
 
-
-next steps...covariate balance check
-```{r}
-d_respondents %>% 
-  group_by(Assignment_Group) %>%
-  summarise(num_respondents = n(),
-            pre_treatment_avg = mean(TaskPhase1_Score),
-            taskphase2_avg = mean(TaskPhase2_Score),
-            taskphase3_avg = mean(TaskPhase3_Score))
-```
-
+## Randomization Check
 ```{r}
 #http://www.sthda.com/english/wiki/chi-square-goodness-of-fit-test-in-r
 
@@ -231,12 +264,29 @@ respondent_counts_chisq_test
 #We can conclude that the observed proportions are not significantly different from the expected proportions
 ```
 
+## Covariate Balance Check
+```{r}
+d_respondents %>% 
+  group_by(Assignment_Group) %>%
+  summarise(num_respondents = n(),
+            pre_treatment_avg = mean(TaskPhase1_Score),
+            taskphase2_avg = mean(TaskPhase2_Score),
+            taskphase3_avg = mean(TaskPhase3_Score))
+```
+
+
 ```{r}
 #check balance between age-range, education, age
-
 d_respondents[ , table(Assignment_Group, Gender)]
+chisq.test(d_respondents[ , table(Assignment_Group, Gender)])
+
 d_respondents[ , table(Assignment_Group, Age_Range)]
+# expected frequency count for each cell of the contingency table should be at least 5. Since this is not the case, we set simulate.p.value as a version of the Fisher exact test
+# https://stats.stackexchange.com/questions/81483/warning-in-r-chi-squared-approximation-may-be-incorrect
+chisq.test(d_respondents[ , table(Assignment_Group, Age_Range)],simulate.p.value = TRUE)
+
 d_respondents[ , table(Assignment_Group, Education_Level)]
+chisq.test(d_respondents[ , table(Assignment_Group, Education_Level)],simulate.p.value = TRUE)
 ```
 
 ```{r}
@@ -262,7 +312,7 @@ d_respondents[ Assignment_Group == "Negative Images", assign_bin := 3]
 d_respondents[ Assignment_Group == "Positive Images", assign_bin := 4]
 d_respondents[ Assignment_Group == "Self-Reflect", assign_bin := 5]
 
-head(d_respondents)
+#head(d_respondents)
 
 
 
@@ -270,7 +320,7 @@ head(d_respondents)
 
 ```{r}
 d_respondents[ , Treatment_Dummy := ifelse(Assignment_Group != "Control", 1, 0)]
-head(d_respondents)
+#head(d_respondents)
 ```
 
 ```{r}
@@ -280,7 +330,6 @@ sd(d_respondents$Total_Score)
 ```
 
 ```{r}
-library(AER)
 d_respondents[ , lm(Total_Score ~ Education_Level)]
 d_respondents[ , ivreg(Total_Score ~ Education_Level | Assignment_Group)]
 
@@ -288,79 +337,126 @@ d_respondents[ , ivreg(Total_Score ~ Education_Level | Assignment_Group)]
 
 ```{r}
 power.t.test( delta = 1.2, sd=3.78, sig.level = 0.05, power=0.8)
-?power.t.test
 ```
 
+# Analysis
+
+## Helper Functions
+```{r}
+get_robust_se <- function(model){
+  # Get robust SE for use in stargazer
+  vcov <- vcovHC(model)
+  return(sqrt(diag(vcov)))
+}
+```
+
+## Total Score Analysis
 ```{r}
 #does treatment have an effect on total score?
-
 mod1 <- d_respondents[, lm(Total_Score ~ Treatment_Dummy)]
-#summary(mod1)
-#confint(mod1 )[2,]  #CI w/o RSE
 
-mod1$vcovHC_ <- vcovHC(mod1)
-stargazer(mod1, se = list(sqrt(diag(mod1$vcovHC_))), type='text')
-
-```
-
-```{r}
 #does treatment and pretreatment score have an effect on total score?
-
 mod2 <- d_respondents[, lm(Total_Score ~ Treatment_Dummy + TaskPhase1_Score)]
 
-
-mod2$vcovHC_ <- vcovHC(mod2)
-stargazer(mod2, se = list(sqrt(diag(mod2$vcovHC_))), type='text')
-
-```
-
-```{r}
-# does treatment have an effect on task phase 2 score?
-
-mod3 <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy)]
-
-
-mod3$vcovHC_ <- vcovHC(mod3)
-stargazer(mod3, se = list(sqrt(diag(mod3$vcovHC_))), type='text')
+stargazer(mod1,
+          mod2,
+          se = list(get_robust_se(mod1),get_robust_se(mod2)),
+          type='text')
 
 ```
 
+## Task Phase 2 Analysis
 ```{r}
-#does the treatment group have an effect on task phase 2 score?
+# does any treatment have an effect on task phase 2 score?
+mod_task2_a <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy)]
 
-mod4 <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group))]
+mod_task2_b <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy + 
+                                                     TaskPhase1_Score + 
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range))]
+
+stargazer(mod_task2_a,
+          mod_task2_b,
+          se = list(get_robust_se(mod_task2_a),get_robust_se(mod_task2_b)),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
+                           c('Age Fixed Effects','No','Yes')),
+          type='text')
 
 
-mod4$vcovHC_ <- vcovHC(mod4)
-stargazer(mod4, se = list(sqrt(diag(mod4$vcovHC_))), type='text')
+#does the specific treatment group have an effect on task phase 2 score?
+mod_task2_c <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group))]
+
+mod_task2_d <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group) + 
+                                                     TaskPhase1_Score + 
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range))]
+
+# Do you think that there are features of the data that might systematically predict that people will respond strongly or weakly to the treatment effect? List two that you think might be there, in the order that you would like to test them. Then, test for these heterogeneities.
+# TODO update this heterogeneity issue. I'm not quite sure this applies because they're both considered treatment groups, just with different granularities
+# mod5 <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy + as.factor(assign_bin) + 
+#                              Treatment_Dummy * as.factor(assign_bin))]
+stargazer(mod_task2_c,
+          mod_task2_d,
+          se = list(get_robust_se(mod_task2_c),get_robust_se(mod_task2_d)),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
+                           c('Age Fixed Effects','No','Yes')),
+          type='text')
 
 ```
 
+## Task Phase 3 Analysis
+
 ```{r}
-# Do you think that there are features of the data that might systematically predict that people will respond strongly or weakly to the treatment effect? List two that you think might be there, in the order that you would like to test them. Then, test for these heterogeneities. 
+# test final task and any treatment
+mod_task3_a <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy)]
+mod_task3_b <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy + 
+                                                     TaskPhase1_Score + 
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range))]
 
-mod5 <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy + as.factor(assign_bin) + 
-                             Treatment_Dummy * as.factor(assign_bin))]
-
-
-mod5$vcovHC_ <- vcovHC(mod5)
-stargazer(mod5, se = list(sqrt(diag(mod5$vcovHC_))), type='text')
+stargazer(mod_task3_a,
+          mod_task3_b,
+          se = list(get_robust_se(mod_task3_a),get_robust_se(mod_task3_b)),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
+                           c('Age Fixed Effects','No','Yes')),
+          type='text')
 
 ```
 
 
+```{r}
+# test final task and specific treatment
+mod_task3_c <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group))]
+mod_task3_d <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group) + 
+                                                     TaskPhase1_Score + 
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range))]
 
+stargazer(mod_task3_c,
+          mod_task3_d,
+          se = list(get_robust_se(mod_task3_c),get_robust_se(mod_task3_d)),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
+                           c('Age Fixed Effects','No','Yes')),
+          type='text')
 
-
+```
 
 
 ```{r}
-qmplot(LocationLongitude, LocationLatitude, data = d_respondents, geom = "blank", 
-  zoom = 1, maptype = "toner-background", darken = .7, legend = "topleft")
-# ) +
-#   stat_density_2d(aes(fill = ..level..), geom = "polygon", alpha = .3, color = NA) +
-#   scale_fill_gradient2("Robbery\nPropensity", low = "white", mid = "yellow", high = "red", midpoint = 650)
-?qmplot
-d_respondents[ , qmplot(LocationLongitude, LocationLatitude, geom="blank", zoom = 1)]
+# qmplot(LocationLongitude, LocationLatitude, data = d_respondents, geom = "blank", 
+#   zoom = 1, maptype = "toner-background", darken = .7, legend = "topleft")
+# # ) +
+# #   stat_density_2d(aes(fill = ..level..), geom = "polygon", alpha = .3, color = NA) +
+# #   scale_fill_gradient2("Robbery\nPropensity", low = "white", mid = "yellow", high = "red", midpoint = 650)
+# 
+# d_respondents[ , qmplot(LocationLongitude, LocationLatitude, geom="blank", zoom = 1)]
 
 ```

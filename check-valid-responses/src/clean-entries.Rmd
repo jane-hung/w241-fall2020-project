@@ -1,0 +1,217 @@
+---
+title: "Clean Entries"
+author: "Jane Hung"
+date: "12 Nov 2020"
+output:
+    github_document: 
+    pandoc_args: --webtex
+
+---
+
+```{r load packages, echo=TRUE, message=FALSE, warning=FALSE}
+library(data.table) 
+library(gsynth)
+library(ggplot2)
+library(magrittr)
+library(matrixStats)
+
+# clears workspace
+rm(list = ls())
+
+theme_set(theme_minimal())
+knitr::opts_chunk$set(dpi = 300)
+```
+
+## Import MTurk Data
+
+
+```{r cars}
+mturk <- fread('../data/mturk_workers_final.csv')
+mturk_subset <- mturk[,c("AssignmentId","WorkerId","AssignmentStatus","AcceptTime","SubmitTime","Answer.surveycode","WorkTimeInSeconds")]
+mturk_subset[,duration_min_mturk := as.numeric(WorkTimeInSeconds)/60]
+head(mturk_subset)
+
+qualtrics <- fread('../data/qualtrics_results_final.csv')
+# colnames(qualtrics)
+qualtrics_subset <-
+  qualtrics[, c(
+    "StartDate",
+    "EndDate",
+    "Status" ,
+    "IPAddress" ,
+    "Progress",
+    "Duration (in seconds)",
+    "Finished",
+    "RecordedDate",
+    "ResponseId",
+    "Q80",
+    "Random ID",
+    "FL_6_DO"
+  )]
+
+nrow(qualtrics)
+# get rid of results from pilot
+qualtrics_subset <- qualtrics_subset[63:.N,]
+nrow(qualtrics_subset)
+setnames(qualtrics_subset,'Q80','WorkerId')
+setnames(qualtrics_subset,'Random ID', 'RandomID')
+qualtrics_subset[,duration_min := as.numeric(`Duration (in seconds)`)/60]
+head(qualtrics_subset)
+```
+
+# Find Workers who did not actually answer the survey but submitted a random code
+
+Find people who have the same survey code and verify if they're actually different repsonses
+```{r}
+table(mturk_subset[,duplicated(WorkerId)])
+table(mturk_subset[,duplicated(Answer.surveycode)])
+mturk_subset[Answer.surveycode %in% mturk_subset[mturk_subset[,duplicated(Answer.surveycode)]][,Answer.surveycode],]
+```
+
+```{r}
+qualtrics_subset[WorkerId %in% c('A1CIDX22PNZ73D','A3CEAFFVG5PLF5','A2WP71VTV1F1DV','A2PK7L31SZG0F3'),]
+```
+Throw out A2WP71VTV1F1DV because can't find their survey results.
+
+Find duplicates on the Qualtrics side.
+```{r}
+table(qualtrics_subset[,duplicated(WorkerId)])
+qualtrics_subset[WorkerId %in% qualtrics_subset[qualtrics_subset[,duplicated(WorkerId)],WorkerId]][order(WorkerId,RecordedDate)]
+```
+ResponseIds to throw out because these are related to people who took the survey again:
+- R_1eRkKqfVAmkVzj2
+- R_3FR03xu5zyOsRSU
+- R_3HBQsMSMCgXPpKf
+- R_dbzictBknL9jG3T
+```{r}
+mturk_subset[WorkerId %in% qualtrics_subset[qualtrics_subset[,duplicated(WorkerId)],WorkerId]][order(WorkerId)]
+
+```
+These guys did the survey multiple times but only submitted to Mturk once. Let's see if they used the same survey code elsewhere
+```{r}
+mturk_subset[WorkerId %in% qualtrics_subset[qualtrics_subset[,duplicated(WorkerId)],WorkerId]][order(WorkerId)][,Answer.surveycode]
+
+mturk_subset[Answer.surveycode %in% mturk_subset[WorkerId %in% qualtrics_subset[qualtrics_subset[,duplicated(WorkerId)],WorkerId]][order(WorkerId)][,Answer.surveycode]]
+
+# mturk_subset[Answer.surveycode %in% c("42254", "37684", "72442", "31052", "33364")]
+
+```
+
+
+Do we have many people who did not take the survey and just entered in a random survey code?
+```{r}
+length(unique(mturk_subset$WorkerId))
+length(unique(qualtrics_subset$WorkerId))
+
+data <- merge(mturk_subset,qualtrics_subset,by='WorkerId',all.x = TRUE)
+workers_not_complete <-data[is.na(RandomID),][order(WorkerId)][,WorkerId]
+length(workers_not_complete)
+workers_not_complete
+
+qualtrics_subset[WorkerId %in% workers_not_complete]
+
+# This specific worker entered in an additional space by accident
+mturk_subset[WorkerId=="AQP4PHYDXRBPI"]
+qualtrics_subset[WorkerId=="AQP4PHYDXRBPI "][,WorkerId]
+```
+
+There's one person who started the survey and completed the code in MTurk before finishing up the survey.
+```{r}
+data2 <- merge(mturk_subset,qualtrics_subset,by.x=c('WorkerId','Answer.surveycode'),by.y = c('WorkerId','RandomID'),all.x = TRUE)
+workers_not_complete2 <- data2[is.na(Finished),][order(WorkerId)][,WorkerId]
+length(workers_not_complete2)
+workers_not_complete2[!workers_not_complete2 %in% workers_not_complete]
+
+data2[WorkerId %in% workers_not_complete2[!workers_not_complete2 %in% workers_not_complete]]
+# This person just put in the wrong random code but finished the survey
+qualtrics_subset[WorkerId =='A2SBZCFAVT83GN']
+
+# This person typed in the her WorkerId incorrectly
+qualtrics_subset[WorkerId == "A1VJ6JU89HP7MC"]
+mturk_subset[WorkerId == "A1VJ6JU89HP7MC"]
+```
+
+Are there people who have wrong survey codes?
+```{r}
+data3 <- merge(mturk_subset,qualtrics_subset,by.x='Answer.surveycode',by.y='RandomID',all.x = TRUE)
+workers_not_complete3 <- data3[is.na(WorkerId.y)][order(WorkerId.x)][,WorkerId.x]
+# workers_not_complete[!workers_not_complete %in% workers_not_complete3]
+workers_not_complete3[!workers_not_complete3 %in% workers_not_complete]
+
+qualtrics_subset[WorkerId %in% workers_not_complete3[!workers_not_complete3 %in% workers_not_complete]]
+mturk_subset[WorkerId %in% workers_not_complete3[!workers_not_complete3 %in% workers_not_complete]]
+
+# This Worker does not have matching survey codes, but he sent me a message with the correct survey code.
+qualtrics_subset[WorkerId=="A1VJ6JU89HP7MC",]
+mturk_subset[WorkerId=="A1VJ6JU89HP7MC",]
+```
+
+Check to see if there are any survey codes that are more than 6 digits.
+```{r}
+qualtrics_subset[WorkerId %in% mturk_subset[nchar(Answer.surveycode)>5,WorkerId]]
+workers_not_complete4 <- mturk_subset[nchar(Answer.surveycode)>5,][order(WorkerId)][,WorkerId]
+workers_not_complete4[!workers_not_complete4 %in% workers_not_complete]
+```
+
+
+# Test survey results that are odd
+
+Testing out duration to see if there are any weird time durations. Let's also see if the duration matches mturk duration.
+```{r}
+summary(qualtrics_subset$duration_min)
+qualtrics_subset[duration_min>13,]
+qualtrics_subset[duration_min<6,]
+qualtrics_subset[,hist(duration_min,breaks = 20)]
+
+```
+```{r}
+merge_data <- merge(mturk_subset,qualtrics_subset,by='WorkerId')
+merge_data[, time_diff := abs(duration_min - duration_min_mturk)][order(-rank(time_diff))][
+  time_diff>2,c("WorkerId","duration_min","duration_min_mturk","time_diff")]
+summary(merge_data$time_diff)
+hist(merge_data$time_diff)
+```
+Not removing these for now. Will be a concern for compliance.
+
+Test responses that are all Normal or all Positive. Remove these because they are erroneous.
+```{r}
+qualtrics_quest <- qualtrics[63:.N, c("Q1",	"Q5",	"Q6",	"Q7",	"Q16",	"Q17",	"Q18",	"Q19",	"Q20",	"Q21",
+                                      "Q8",	"Q9",	"Q10",	"Q11",	"Q22"	, "Q23",	"Q24",	"Q25",	"Q26",	"Q27",
+                                      "Q12",	"Q13",	"Q14",	"Q15",	"Q28",	"Q29",	"Q30",	"Q31",	"Q32",	"Q33")]
+
+qualtrics_quest[rowSums(qualtrics_quest[,qualtrics_quest=='Normal']) == 30]
+qualtrics_quest[rowSums(qualtrics_quest[,qualtrics_quest=='Normal']) == 0]
+
+qualtrics_subset[rowSums(qualtrics_quest[,qualtrics_quest=='Normal']) == 30,][order(WorkerId)][,WorkerId]
+qualtrics_subset[rowSums(qualtrics_quest[,qualtrics_quest=='Normal']) == 0,][order(WorkerId)][,WorkerId]
+
+```
+
+```{r}
+# for (i in 1:nrow(qualtrics_quest)) {
+#   print(qualtrics_quest[1,])
+#   rep(c('Normal','Pneumonia'),15)
+# }
+
+# qualtrics_quest[,lapply(.SD,function(x) if(x == rep(c('Normal','Pneumonia'),15)) TRUE else FALSE)]
+nrow(t(qualtrics_quest))
+ncol(t(qualtrics_quest))
+
+data.table(t(qualtrics_quest))[,lapply(.SD,function(x) if(x == rep(c('Normal','Pneumonia'),15)) TRUE else FALSE)]
+
+qualtrics_quest[5,]
+```
+In the interest of time, just using Google sheets to find this. Normal, Pneumonia alternating
+A1W05TSPORJPXR
+A3SUWCLD1GEGM7
+A3A09JB9X1RBXW
+A7VQQEIBSM9IU
+A8DER1QY96C5X
+A1M8MNKK8H5ZGW
+A34D5D6PU193AR
+
+```{r}
+qualtrics_subset[Finished=='True',]
+```
+
+
