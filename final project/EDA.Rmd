@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "Feedback MTurk Study"
 output: pdf_document
 ---
 
@@ -7,7 +7,7 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r, include=FALSE}
 library(foreign)
 library(data.table)
 library(knitr)
@@ -15,16 +15,25 @@ library(stargazer)
 library(sandwich)
 library(car)
 library(dplyr)
+library(ggmap)
+library(revgeo)
+library(AER)
+
+# clears workspace
+rm(list = ls())
 ```
 
+# Introduction
+
+# Load Data
 ```{r}
 d <- fread('Lungs_November+14,+2020_17.33.csv')
-head(d)
+#head(d)
 ```
 
 ```{r}
 d_respondents_only <- d[ Status == "IP Address" , ]
-head(d_respondents_only)
+#head(d_respondents_only)
 ```
 
 ```{r}
@@ -90,25 +99,20 @@ d_respondents_only[ , c("Q1_Score", "Q2_Score", "Q3_Score", "Q4_Score", "Q5_Scor
                             ifelse(Q30 == "Normal", 1, 0))]
 
 d_respondents_only[ , Assignment_Group := ifelse(Assignment == "FL_17", "Control", 
-                             ifelse(Assignment == "FL_14", "Self-Reflect",
-                                    ifelse(Assignment == "FL_15", "Medical Feedback",
-                                           ifelse(Assignment == "FL_16", "Positive Images", "Negative Images"))))]
+                                          ifelse(Assignment == "FL_14", "Self-Reflect",
+                                          ifelse(Assignment == "FL_15", "Medical Feedback",
+                                          ifelse(Assignment == "FL_16", "Positive Images", "Negative Images"))))]
 
 d_respondents_only[ , c("TaskPhase1_Score", "TaskPhase2_Score", "TaskPhase3_Score") :=
-                      list(sum(Q1_Score, Q2_Score, Q3_Score, Q4_Score, Q5_Score, Q6_Score, Q7_Score, Q8_Score, Q9_Score, Q10_Score),
-                           sum(Q11_Score, Q12_Score, Q13_Score, Q14_Score, Q15_Score, Q16_Score, Q17_Score, Q18_Score, Q19_Score, Q20_Score),
-                           sum(Q21_Score, Q22_Score, Q23_Score, Q24_Score, Q25_Score, Q26_Score, Q27_Score, Q28_Score, Q29_Score, Q30_Score)),
+                      list(sum(Q1_Score, Q2_Score, Q3_Score, Q4_Score, Q5_Score, Q6_Score, Q7_Score, Q8_Score, Q9_Score, Q10_Score)/10,
+                           sum(Q11_Score, Q12_Score, Q13_Score, Q14_Score, Q15_Score, Q16_Score, Q17_Score, Q18_Score, Q19_Score, Q20_Score)/10,
+                           sum(Q21_Score, Q22_Score, Q23_Score, Q24_Score, Q25_Score, Q26_Score, Q27_Score, Q28_Score, Q29_Score, Q30_Score)/10),
                     by = Amazon_Turk_ID]
 
-head(d_respondents_only)
+#head(d_respondents_only)
 
 ```
 
-
-```{r}
-library(ggmap)
-library(revgeo)
-```
 
 ```{r}
 # ?register_google
@@ -117,13 +121,13 @@ library(revgeo)
 #uses Google API to obtain location data based on longitude and latitude....dont use unless necessary for new data
 # d_respondents_only[ , c("housenumber", "street", "city", "county", "state", "zip", "country") := revgeo(as.numeric(LocationLongitude),as.numeric(LocationLatitude), provider = 'google', API = "AIzaSyCTk2a5vIEqcvgz9KmQmItoNF7J8_hiMMk", output='frame')]
 # 
-# head(d_respondents_only)
+# #head(d_respondents_only)
 # 
 # 
 # fwrite(d_respondents_only, file='datatable_clean_survey_responses.dta')
 
 d_respondents <- fread('datatable_clean_survey_responses.dta')
-head(d_respondents)
+#head(d_respondents)
 ```
 
 ```{r}
@@ -146,7 +150,7 @@ nrow(d_respondents)  #381 rows
 d_respondents <- d_respondents[ !duplicated(d_respondents$Amazon_Turk_ID) , ]  #378 rows
 ```
 
-
+# EDA
 ```{r}
 #some EDA
 
@@ -184,17 +188,7 @@ tapply(d_respondents$Total_Score, d_respondents$Assignment_Group, sd)
 d_respondents[ , sd(Total_Score)]
 ```
 
-
-next steps...covariate balance check
-```{r}
-d_respondents %>% 
-  group_by(Assignment_Group) %>%
-  summarise(num_respondents = n(),
-            pre_treatment_avg = mean(TaskPhase1_Score),
-            taskphase2_avg = mean(TaskPhase2_Score),
-            taskphase3_avg = mean(TaskPhase3_Score))
-```
-
+## Randomization Check
 ```{r}
 #http://www.sthda.com/english/wiki/chi-square-goodness-of-fit-test-in-r
 
@@ -206,6 +200,17 @@ respondent_counts_chisq_test
 #p-value = 0.9982, which is greater than significance level of 0.05. 
 #We can conclude that the observed proportions are not significantly different from the expected proportions
 ```
+
+## Covariate Balance Check
+```{r}
+d_respondents %>% 
+  group_by(Assignment_Group) %>%
+  summarise(num_respondents = n(),
+            pre_treatment_avg = mean(TaskPhase1_Score),
+            taskphase2_avg = mean(TaskPhase2_Score),
+            taskphase3_avg = mean(TaskPhase3_Score))
+```
+
 
 ```{r}
 #check balance between age-range, education, age
@@ -238,7 +243,7 @@ d_respondents[ Assignment_Group == "Negative Images", assign_bin := 3]
 d_respondents[ Assignment_Group == "Positive Images", assign_bin := 4]
 d_respondents[ Assignment_Group == "Self-Reflect", assign_bin := 5]
 
-head(d_respondents)
+#head(d_respondents)
 
 
 
@@ -246,7 +251,7 @@ head(d_respondents)
 
 ```{r}
 d_respondents[ , Treatment_Dummy := ifelse(Assignment_Group != "Control", 1, 0)]
-head(d_respondents)
+#head(d_respondents)
 ```
 
 ```{r}
@@ -256,7 +261,6 @@ sd(d_respondents$Total_Score)
 ```
 
 ```{r}
-library(AER)
 d_respondents[ , lm(Total_Score ~ Education_Level)]
 d_respondents[ , ivreg(Total_Score ~ Education_Level | Assignment_Group)]
 
@@ -264,9 +268,11 @@ d_respondents[ , ivreg(Total_Score ~ Education_Level | Assignment_Group)]
 
 ```{r}
 power.t.test( delta = 1.2, sd=3.78, sig.level = 0.05, power=0.8)
-?power.t.test
 ```
 
+# Analysis
+
+## Total Score Analysis
 ```{r}
 #does treatment have an effect on total score?
 
@@ -290,6 +296,7 @@ stargazer(mod2, se = list(sqrt(diag(mod2$vcovHC_))), type='text')
 
 ```
 
+## Task Phase 2 Analysis
 ```{r}
 # does treatment have an effect on task phase 2 score?
 
@@ -324,10 +331,46 @@ stargazer(mod5, se = list(sqrt(diag(mod5$vcovHC_))), type='text')
 
 ```
 
+## Task Phase 3 Analysis
+
+```{r}
+# test final task and treatment
+get_robust_se <- function(model){
+  # Get robust SE for use in stargazer
+  vcov <- vcovHC(model)
+  return(sqrt(diag(vcov)))
+}
+
+mod_task3_a <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy)]
+mod_task3_b <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy + 
+                                    TaskPhase1_Score + as.factor(Gender) + as.factor(Education_Level) + as.factor(Age_Range))]
+
+stargazer(mod_task3_a,
+          mod_task3_b,
+          se = list(get_robust_se(mod_task3_a),get_robust_se(mod_task3_b)),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
+                           c('Age Fixed Effects','No','Yes')),
+          type='text')
+
+```
 
 
+```{r}
 
+mod_task3_c <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group))]
+mod_task3_d <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group) + 
+                                    TaskPhase1_Score + as.factor(Gender) + as.factor(Education_Level) + as.factor(Age_Range))]
 
+stargazer(mod_task3_c,
+          mod_task3_d,
+          se = list(get_robust_se(mod_task3_c),get_robust_se(mod_task3_d)),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
+                           c('Age Fixed Effects','No','Yes')),
+          type='text')
+
+```
 
 
 ```{r}
