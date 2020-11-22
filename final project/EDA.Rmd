@@ -33,7 +33,72 @@ d <- fread('../check-valid-responses/data/qualtrics_results_final.csv')
 ```
 
 ```{r}
-d_respondents_only <- d[ (Status == "IP Address") & (Finished=='True'), ]
+d_respondents_only <-
+  d[(Status == "IP Address") & (Finished == 'True'),]
+
+# Remove these survey responses because they were from people who did the survey again. Double check that they are removed:
+d_respondents_only <-
+  d_respondents_only[!ResponseId %in% c(
+    'R_1eRkKqfVAmkVzj2',
+    'R_3FR03xu5zyOsRSU',
+    'R_3HBQsMSMCgXPpKf',
+    'R_dbzictBknL9jG3T'
+  ), ]
+
+# These WorkerId put in all 1 response (all Normal or all Pneumonia)
+d_respondents_only <-
+  d_respondents_only[!Q80 %in% c(
+    "A119EX2L0DNN1B",
+    "A12NQJV6TA5OWB",
+    "A18WFPSLFV4FKY",
+    "A1BUYK6LXYWMLL",
+    "A1FHRZXSE7XNJ4",
+    "A1GMYDH5MKN105",
+    "A2GSZ3D2XXC533",
+    "A2IGIOD74EPOEF",
+    "A2J016DRTOBXWO",
+    "A2NGFU82LMJ80X",
+    "A32K1M0A36EAK5",
+    "A371SNJNNUY9Z6",
+    "A3BPENSX5EVJ2H",
+    "A3EPIT2P3ISA3K",
+    "A3NYIJYBHAJ74V",
+    "AUFLTHQAXWLH1",
+    "AVINXZZV3FNG7" ,
+    "A1CD7O60QAQQRT",
+    "A1CF1W8CP0DHB0",
+    "A1PGY59BR6C5BX",
+    "A1YSYI926BBOHW",
+    "A1Z3GFH6MNSU46",
+    "A211KGJ94WNFLN",
+    "A26RPQDD0RQEHL",
+    "A2BUHMLNE3LUU0",
+    "A2J5BRQ88W745H",
+    "A2XIHO2W7EEP32",
+    "A3EZ0H07TSDAPW",
+    "A3FLBC6LC5GJ3W",
+    "A3QLKLIQW1B1FR",
+    "A8F6JFG0WSELT",
+    "A9K6IVBA0J1CX",
+    "ADLZLGHKOAEE6",
+    "AE7NJG0KOVZYJ" ,
+    "AG5RF4UGQJ7A7" ,
+    "AQ9Y6WD8O72ZC" ,
+    "tuturtu"
+  ), ]
+
+# These people just gave alternating responses (Normal, Pneumonia, Normal,...,Pneumonia)
+
+d_respondents_only <- d_respondents_only[!Q80 %in% c(
+'A1W05TSPORJPXR'
+,'A3SUWCLD1GEGM7'
+,'A3A09JB9X1RBXW'
+,'A7VQQEIBSM9IU'
+,'A8DER1QY96C5X'
+,'A1M8MNKK8H5ZGW'
+,'A34D5D6PU193AR'
+)]
+
 #head(d_respondents_only)
 ```
 
@@ -306,7 +371,10 @@ stargazer(mod1,
 mod_task2_a <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy)]
 
 mod_task2_b <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy + 
-                                    TaskPhase1_Score + as.factor(Gender) + as.factor(Education_Level) + as.factor(Age_Range))]
+                                                     TaskPhase1_Score + 
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range))]
 
 stargazer(mod_task2_a,
           mod_task2_b,
@@ -321,7 +389,10 @@ stargazer(mod_task2_a,
 mod_task2_c <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group))]
 
 mod_task2_d <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group) + 
-                                    TaskPhase1_Score + as.factor(Gender) + as.factor(Education_Level) + as.factor(Age_Range))]
+                                                     TaskPhase1_Score + 
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range))]
 
 # Do you think that there are features of the data that might systematically predict that people will respond strongly or weakly to the treatment effect? List two that you think might be there, in the order that you would like to test them. Then, test for these heterogeneities.
 # TODO update this heterogeneity issue. I'm not quite sure this applies because they're both considered treatment groups, just with different granularities
@@ -343,7 +414,10 @@ stargazer(mod_task2_c,
 # test final task and any treatment
 mod_task3_a <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy)]
 mod_task3_b <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy + 
-                                    TaskPhase1_Score + as.factor(Gender) + as.factor(Education_Level) + as.factor(Age_Range))]
+                                                     TaskPhase1_Score + 
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range))]
 
 stargazer(mod_task3_a,
           mod_task3_b,
@@ -360,7 +434,10 @@ stargazer(mod_task3_a,
 # test final task and specific treatment
 mod_task3_c <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group))]
 mod_task3_d <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group) + 
-                                    TaskPhase1_Score + as.factor(Gender) + as.factor(Education_Level) + as.factor(Age_Range))]
+                                                     TaskPhase1_Score + 
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range))]
 
 stargazer(mod_task3_c,
           mod_task3_d,
