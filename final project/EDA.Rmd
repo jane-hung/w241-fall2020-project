@@ -272,75 +272,71 @@ power.t.test( delta = 1.2, sd=3.78, sig.level = 0.05, power=0.8)
 
 # Analysis
 
+## Helper Functions
+```{r}
+get_robust_se <- function(model){
+  # Get robust SE for use in stargazer
+  vcov <- vcovHC(model)
+  return(sqrt(diag(vcov)))
+}
+```
+
 ## Total Score Analysis
 ```{r}
 #does treatment have an effect on total score?
-
 mod1 <- d_respondents[, lm(Total_Score ~ Treatment_Dummy)]
-#summary(mod1)
-#confint(mod1 )[2,]  #CI w/o RSE
 
-mod1$vcovHC_ <- vcovHC(mod1)
-stargazer(mod1, se = list(sqrt(diag(mod1$vcovHC_))), type='text')
-
-```
-
-```{r}
 #does treatment and pretreatment score have an effect on total score?
-
 mod2 <- d_respondents[, lm(Total_Score ~ Treatment_Dummy + TaskPhase1_Score)]
 
-
-mod2$vcovHC_ <- vcovHC(mod2)
-stargazer(mod2, se = list(sqrt(diag(mod2$vcovHC_))), type='text')
+stargazer(mod1,
+          mod2,
+          se = list(get_robust_se(mod1),get_robust_se(mod2)),
+          type='text')
 
 ```
 
 ## Task Phase 2 Analysis
 ```{r}
-# does treatment have an effect on task phase 2 score?
+# does any treatment have an effect on task phase 2 score?
+mod_task2_a <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy)]
 
-mod3 <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy)]
+mod_task2_b <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy + 
+                                    TaskPhase1_Score + as.factor(Gender) + as.factor(Education_Level) + as.factor(Age_Range))]
 
-
-mod3$vcovHC_ <- vcovHC(mod3)
-stargazer(mod3, se = list(sqrt(diag(mod3$vcovHC_))), type='text')
-
-```
-
-```{r}
-#does the treatment group have an effect on task phase 2 score?
-
-mod4 <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group))]
-
-
-mod4$vcovHC_ <- vcovHC(mod4)
-stargazer(mod4, se = list(sqrt(diag(mod4$vcovHC_))), type='text')
-
-```
-
-```{r}
-# Do you think that there are features of the data that might systematically predict that people will respond strongly or weakly to the treatment effect? List two that you think might be there, in the order that you would like to test them. Then, test for these heterogeneities. 
-
-mod5 <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy + as.factor(assign_bin) + 
-                             Treatment_Dummy * as.factor(assign_bin))]
+stargazer(mod_task2_a,
+          mod_task2_b,
+          se = list(get_robust_se(mod_task2_a),get_robust_se(mod_task2_b)),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
+                           c('Age Fixed Effects','No','Yes')),
+          type='text')
 
 
-mod5$vcovHC_ <- vcovHC(mod5)
-stargazer(mod5, se = list(sqrt(diag(mod5$vcovHC_))), type='text')
+#does the specific treatment group have an effect on task phase 2 score?
+mod_task2_c <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group))]
+
+mod_task2_d <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group) + 
+                                    TaskPhase1_Score + as.factor(Gender) + as.factor(Education_Level) + as.factor(Age_Range))]
+
+# Do you think that there are features of the data that might systematically predict that people will respond strongly or weakly to the treatment effect? List two that you think might be there, in the order that you would like to test them. Then, test for these heterogeneities.
+# TODO update this heterogeneity issue. I'm not quite sure this applies because they're both considered treatment groups, just with different granularities
+# mod5 <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy + as.factor(assign_bin) + 
+#                              Treatment_Dummy * as.factor(assign_bin))]
+stargazer(mod_task2_c,
+          mod_task2_d,
+          se = list(get_robust_se(mod_task2_c),get_robust_se(mod_task2_d)),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
+                           c('Age Fixed Effects','No','Yes')),
+          type='text')
 
 ```
 
 ## Task Phase 3 Analysis
 
 ```{r}
-# test final task and treatment
-get_robust_se <- function(model){
-  # Get robust SE for use in stargazer
-  vcov <- vcovHC(model)
-  return(sqrt(diag(vcov)))
-}
-
+# test final task and any treatment
 mod_task3_a <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy)]
 mod_task3_b <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy + 
                                     TaskPhase1_Score + as.factor(Gender) + as.factor(Education_Level) + as.factor(Age_Range))]
@@ -357,7 +353,7 @@ stargazer(mod_task3_a,
 
 
 ```{r}
-
+# test final task and specific treatment
 mod_task3_c <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group))]
 mod_task3_d <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group) + 
                                     TaskPhase1_Score + as.factor(Gender) + as.factor(Education_Level) + as.factor(Age_Range))]
