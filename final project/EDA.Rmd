@@ -99,7 +99,7 @@ d_respondents_only <- d_respondents_only[!Q80 %in% c(
 ,'A34D5D6PU193AR'
 )]
 
-#head(d_respondents_only)
+head(d_respondents_only)
 ```
 
 ```{r}
@@ -172,7 +172,7 @@ d_respondents_only[ , c("TaskPhase1_Score", "TaskPhase2_Score", "TaskPhase3_Scor
                            sum(Q21_Score, Q22_Score, Q23_Score, Q24_Score, Q25_Score, Q26_Score, Q27_Score, Q28_Score, Q29_Score, Q30_Score)/10),
                     by = Amazon_Turk_ID]
 
-#head(d_respondents_only)
+head(d_respondents_only)
 
 ```
 
@@ -180,17 +180,23 @@ d_respondents_only[ , c("TaskPhase1_Score", "TaskPhase2_Score", "TaskPhase3_Scor
 ```{r}
 # ?register_google
 # register_google(key = "AIzaSyCTk2a5vIEqcvgz9KmQmItoNF7J8_hiMMk")
-
-#uses Google API to obtain location data based on longitude and latitude....dont use unless necessary for new data
+# 
+# #uses Google API to obtain location data based on longitude and latitude....dont use unless necessary for new data
 # d_respondents_only[ , c("housenumber", "street", "city", "county", "state", "zip", "country") := revgeo(as.numeric(LocationLongitude),as.numeric(LocationLatitude), provider = 'google', API = "AIzaSyCTk2a5vIEqcvgz9KmQmItoNF7J8_hiMMk", output='frame')]
-# 
-# #head(d_respondents_only)
-# 
-# 
-# fwrite(d_respondents_only, file='datatable_clean_survey_responses.dta')
+# # 
+# head(d_respondents_only)
+# # 
+# # 
+# fwrite(d_respondents_only, file='datatable_clean_survey_responses_v2.dta')
 
-d_respondents <- fread('datatable_clean_survey_responses.dta')
-#head(d_respondents)
+d_respondents <- fread('datatable_clean_survey_responses_v2.dta')
+
+
+head(d_respondents)
+```
+
+```{r}
+nrow(d_respondents)
 ```
 
 ```{r}
@@ -209,8 +215,8 @@ d_respondents <- fread('datatable_clean_survey_responses.dta')
 
 ```{r}
 #remove duplicate Amazon Turk IDs
-nrow(d_respondents)  #381 rows
-d_respondents <- d_respondents[ !duplicated(d_respondents$Amazon_Turk_ID) , ]  #378 rows
+nrow(d_respondents)  #350 rows
+d_respondents <- d_respondents[ !duplicated(d_respondents$Amazon_Turk_ID) , ]  #350 rows
 ```
 
 # EDA
@@ -251,6 +257,25 @@ tapply(d_respondents$Total_Score, d_respondents$Assignment_Group, sd)
 d_respondents[ , sd(Total_Score)]
 ```
 
+```{r}
+library(ggmap)
+?register_google
+register_google(key = "AIzaSyCTk2a5vIEqcvgz9KmQmItoNF7J8_hiMMk")
+#ggmap_show_api_key()
+
+us_map<-get_map(location='united states', zoom=4, maptype = "terrain",
+             source='google',color='color')
+
+ggmap(us_map) + geom_point(x=d_respondents$LocationLongitude, y = d_respondents$LocationLatitude, show_guide = TRUE, data = d_respondents, alpha = 0.5, na.rm = T) + scale_color_gradient(low="beige", high="red")
+
+india_map<-get_map(location='india', zoom=5, maptype = "terrain",
+             source='google',color='color')
+
+ggmap(india_map) + geom_point(x=d_respondents$LocationLongitude, y = d_respondents$LocationLatitude, show_guide = TRUE, data = d_respondents, alpha = 0.5, na.rm = T) + scale_color_gradient(low="beige", high="red")
+```
+
+
+
 ## Randomization Check
 ```{r}
 #http://www.sthda.com/english/wiki/chi-square-goodness-of-fit-test-in-r
@@ -260,7 +285,7 @@ respondent_counts <- d_respondents[ , .(.N), keyby=Assignment_Group][,2]
 respondent_counts_chisq_test <- chisq.test(respondent_counts, p=c(1/5, 1/5, 1/5, 1/5, 1/5))
 
 respondent_counts_chisq_test
-#p-value = 0.9982, which is greater than significance level of 0.05. 
+#p-value = 0.9991, which is greater than significance level of 0.05. 
 #We can conclude that the observed proportions are not significantly different from the expected proportions
 ```
 
@@ -312,13 +337,17 @@ d_respondents[ Assignment_Group == "Negative Images", assign_bin := 3]
 d_respondents[ Assignment_Group == "Positive Images", assign_bin := 4]
 d_respondents[ Assignment_Group == "Self-Reflect", assign_bin := 5]
 
-#head(d_respondents)
+d_respondents[ , US_Dummy := ifelse(country == "United States", 1, 0)]
+
+head(d_respondents)
 
 
 
 ```
 
 ```{r}
+#add treatment dummy
+
 d_respondents[ , Treatment_Dummy := ifelse(Assignment_Group != "Control", 1, 0)]
 #head(d_respondents)
 ```
@@ -450,13 +479,46 @@ stargazer(mod_task3_c,
 ```
 
 
-```{r}
-# qmplot(LocationLongitude, LocationLatitude, data = d_respondents, geom = "blank", 
-#   zoom = 1, maptype = "toner-background", darken = .7, legend = "topleft")
-# # ) +
-# #   stat_density_2d(aes(fill = ..level..), geom = "polygon", alpha = .3, color = NA) +
-# #   scale_fill_gradient2("Robbery\nPropensity", low = "white", mid = "yellow", high = "red", midpoint = 650)
-# 
-# d_respondents[ , qmplot(LocationLongitude, LocationLatitude, geom="blank", zoom = 1)]
 
+
+
+```{r}
+
+### linear model playground
+
+#does treatment have an effect on total score?
+mod_test1 <- d_respondents[ , lm(TaskPhase2_Score ~ TaskPhase1_Score + Treatment_Dummy)]
+
+
+mod_test2 <- d_respondents[, lm(TaskPhase2_Score ~ TaskPhase1_Score + Treatment_Dummy + (TaskPhase1_Score * Treatment_Dummy))]
+
+#does treatment and pretreatment score have an effect on total score?
+
+
+###
+# seems that if i ad in TaskPhase1 to the linear model, the RSEs disappear...
+mod_test3 <- d_respondents[, lm(TaskPhase2_Score ~  TaskPhase1_Score +
+                                  Treatment_Dummy  + 
+                                  as.factor(edu_bin) +  
+                                  as.factor(Gender) +
+                                  as.factor(age_bin))]
+
+coeftest(mod_test3, vcov = vcovHC(mod_test3))
+
+summary(d_respondents$TaskPhase1_Score)
+
+
+stargazer(mod_test1,
+          mod_test2,
+          mod_test3,
+          se = list(get_robust_se(mod_test1),get_robust_se(mod_test2), get_robust_se(mod_test3)),
+          type='text')
+
+
+# use Robust SE
+mod_test2 <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy  + as.factor(Education_Level) + (Treatment_Dummy * as.factor(Education_Level)))]
+mod_test2$vcovHC_ <- vcovHC(mod_test2)
+coeftest(mod_test2, vcov = mod_test2$vcovHC_)
 ```
+
+
