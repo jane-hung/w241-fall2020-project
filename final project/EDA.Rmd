@@ -97,9 +97,9 @@ d_respondents_only <- d_respondents_only[!Q80 %in% c(
 ,'A8DER1QY96C5X'
 ,'A1M8MNKK8H5ZGW'
 ,'A34D5D6PU193AR'
-)]
+),]
 
-head(d_respondents_only)
+#head(d_respondents_only)
 ```
 
 ```{r}
@@ -172,7 +172,7 @@ d_respondents_only[ , c("TaskPhase1_Score", "TaskPhase2_Score", "TaskPhase3_Scor
                            sum(Q21_Score, Q22_Score, Q23_Score, Q24_Score, Q25_Score, Q26_Score, Q27_Score, Q28_Score, Q29_Score, Q30_Score)/10),
                     by = Amazon_Turk_ID]
 
-head(d_respondents_only)
+#head(d_respondents_only)
 
 ```
 
@@ -192,7 +192,7 @@ head(d_respondents_only)
 d_respondents <- fread('datatable_clean_survey_responses_v2.dta')
 
 
-head(d_respondents)
+#head(d_respondents)
 ```
 
 ```{r}
@@ -219,6 +219,8 @@ nrow(d_respondents)  #350 rows
 d_respondents <- d_respondents[ !duplicated(d_respondents$Amazon_Turk_ID) , ]  #350 rows
 ```
 
+
+
 # EDA
 ```{r}
 #some EDA
@@ -228,7 +230,8 @@ d_respondents <- d_respondents[ !duplicated(d_respondents$Amazon_Turk_ID) , ]  #
 
 table(d_respondents$state, d_respondents$country) %>% 
         as.data.frame() %>% 
-        arrange(desc(Freq))
+        arrange(desc(Freq)) %>%
+        filter(Freq>0)
 
 table(d_respondents$country) %>% 
         as.data.frame() %>% 
@@ -339,7 +342,7 @@ d_respondents[ Assignment_Group == "Self-Reflect", assign_bin := 5]
 
 d_respondents[ , US_Dummy := ifelse(country == "United States", 1, 0)]
 
-head(d_respondents)
+#head(d_respondents)
 
 
 
@@ -374,24 +377,9 @@ power.t.test( delta = 1.2, sd=3.78, sig.level = 0.05, power=0.8)
 ```{r}
 get_robust_se <- function(model){
   # Get robust SE for use in stargazer
-  vcov <- vcovHC(model)
+  vcov <- vcovHC(model,type = "HC1")
   return(sqrt(diag(vcov)))
 }
-```
-
-## Total Score Analysis
-```{r}
-#does treatment have an effect on total score?
-mod1 <- d_respondents[, lm(Total_Score ~ Treatment_Dummy)]
-
-#does treatment and pretreatment score have an effect on total score?
-mod2 <- d_respondents[, lm(Total_Score ~ Treatment_Dummy + TaskPhase1_Score)]
-
-stargazer(mod1,
-          mod2,
-          se = list(get_robust_se(mod1),get_robust_se(mod2)),
-          type='text')
-
 ```
 
 ## Task Phase 2 Analysis
@@ -479,31 +467,31 @@ stargazer(mod_task3_c,
 ```
 
 
-
-
-
+## Playground
 ```{r}
 
 ### linear model playground
+d_test <- d_respondents[,c("Assignment_Group","TaskPhase1_Score","TaskPhase2_Score","TaskPhase3_Score",'Age_Range',"Education_Level","Gender","Treatment_Dummy")]
 
 #does treatment have an effect on total score?
-mod_test1 <- d_respondents[ , lm(TaskPhase2_Score ~ TaskPhase1_Score + Treatment_Dummy)]
+mod_test1 <- d_test[ , lm(TaskPhase2_Score ~ TaskPhase1_Score + Treatment_Dummy)]
 
 
-mod_test2 <- d_respondents[, lm(TaskPhase2_Score ~ TaskPhase1_Score + Treatment_Dummy + (TaskPhase1_Score * Treatment_Dummy))]
+mod_test2 <- d_test[, lm(TaskPhase2_Score ~ TaskPhase1_Score + Treatment_Dummy + (TaskPhase1_Score * Treatment_Dummy))]
 
 #does treatment and pretreatment score have an effect on total score?
 
 
 ###
 # seems that if i ad in TaskPhase1 to the linear model, the RSEs disappear...
-mod_test3 <- d_respondents[, lm(TaskPhase2_Score ~  TaskPhase1_Score +
-                                  Treatment_Dummy  + 
-                                  as.factor(edu_bin) +  
+mod_test3 <- d_test[, lm(TaskPhase2_Score ~  Treatment_Dummy  + 
+                                  TaskPhase1_Score +
+                                  as.factor(Education_Level) +  
                                   as.factor(Gender) +
-                                  as.factor(age_bin))]
+                                  as.factor(Age_Range)
+                         )]
 
-coeftest(mod_test3, vcov = vcovHC(mod_test3))
+coeftest(mod_test3, vcov = vcovHC(mod_test3,"HC1"))
 
 summary(d_respondents$TaskPhase1_Score)
 
@@ -519,6 +507,6 @@ stargazer(mod_test1,
 mod_test2 <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy  + as.factor(Education_Level) + (Treatment_Dummy * as.factor(Education_Level)))]
 mod_test2$vcovHC_ <- vcovHC(mod_test2)
 coeftest(mod_test2, vcov = mod_test2$vcovHC_)
-```
 
+```
 
