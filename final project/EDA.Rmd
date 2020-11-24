@@ -192,7 +192,7 @@ d_respondents_only[ , c("TaskPhase1_Score", "TaskPhase2_Score", "TaskPhase3_Scor
 d_respondents <- fread('datatable_clean_survey_responses_v2.dta')
 
 
-#head(d_respondents)
+head(d_respondents)
 ```
 
 ```{r}
@@ -293,29 +293,6 @@ respondent_counts_chisq_test
 ```
 
 ## Covariate Balance Check
-```{r}
-d_respondents %>% 
-  group_by(Assignment_Group) %>%
-  summarise(num_respondents = n(),
-            pre_treatment_avg = mean(TaskPhase1_Score),
-            taskphase2_avg = mean(TaskPhase2_Score),
-            taskphase3_avg = mean(TaskPhase3_Score))
-```
-
-
-```{r}
-#check balance between age-range, education, age
-d_respondents[ , table(Assignment_Group, Gender)]
-chisq.test(d_respondents[ , table(Assignment_Group, Gender)])
-
-d_respondents[ , table(Assignment_Group, Age_Range)]
-# expected frequency count for each cell of the contingency table should be at least 5. Since this is not the case, we set simulate.p.value as a version of the Fisher exact test
-# https://stats.stackexchange.com/questions/81483/warning-in-r-chi-squared-approximation-may-be-incorrect
-chisq.test(d_respondents[ , table(Assignment_Group, Age_Range)],simulate.p.value = TRUE)
-
-d_respondents[ , table(Assignment_Group, Education_Level)]
-chisq.test(d_respondents[ , table(Assignment_Group, Education_Level)],simulate.p.value = TRUE)
-```
 
 ```{r}
 #let's consider adding age bins and education bins
@@ -342,33 +319,78 @@ d_respondents[ Assignment_Group == "Self-Reflect", assign_bin := 5]
 
 d_respondents[ , US_Dummy := ifelse(country == "United States", 1, 0)]
 
-#head(d_respondents)
+d_respondents[ , Male_Dummy := ifelse(Gender == "Male", 1, 0)]
 
-
-
-```
-
-```{r}
 #add treatment dummy
 
 d_respondents[ , Treatment_Dummy := ifelse(Assignment_Group != "Control", 1, 0)]
+
 #head(d_respondents)
+
+
+
 ```
 
+
 ```{r}
+d_respondents %>% 
+  group_by(Assignment_Group) %>%
+  summarise(num_respondents = n(),
+            pre_treatment_avg = mean(TaskPhase1_Score),
+            taskphase2_avg = mean(TaskPhase2_Score),
+            taskphase3_avg = mean(TaskPhase3_Score),
+            avg_age_bin = mean(age_bin),
+            avg_edu_bin = mean(edu_bin),
+            male = mean(Male_Dummy),
+            US = mean(US_Dummy))
+```
+
+
+```{r}
+#check balance between age-range, education, age
+d_respondents[ , table(Assignment_Group, Gender)]
+chisq.test(d_respondents[ , table(Assignment_Group, Gender)])
+
+d_respondents[ , table(Assignment_Group, Age_Range)]
+# expected frequency count for each cell of the contingency table should be at least 5. Since this is not the case, we set simulate.p.value as a version of the Fisher exact test
+# https://stats.stackexchange.com/questions/81483/warning-in-r-chi-squared-approximation-may-be-incorrect
+chisq.test(d_respondents[ , table(Assignment_Group, Age_Range)],simulate.p.value = TRUE)
+
+d_respondents[ , table(Assignment_Group, Education_Level)]
+chisq.test(d_respondents[ , table(Assignment_Group, Education_Level)],simulate.p.value = TRUE)
+
+d_respondents[ , table(Assignment_Group, US_Dummy)]
+chisq.test(d_respondents[ , table(Assignment_Group, US_Dummy)],simulate.p.value = TRUE)
+```
+
+
+```{r}
+# ATE of treatment on Total Score
+
 d_respondents[ Treatment_Dummy == 1, mean(Total_Score)] - d_respondents[ Treatment_Dummy == 0, mean(Total_Score)] 
 
 sd(d_respondents$Total_Score)
 ```
 
 ```{r}
-d_respondents[ , lm(Total_Score ~ Education_Level)]
-d_respondents[ , ivreg(Total_Score ~ Education_Level | Assignment_Group)]
+# ATE of treatment on TaskPhase2 Score
+
+d_respondents[ Treatment_Dummy == 1, mean(TaskPhase2_Score)] - d_respondents[ Treatment_Dummy == 0, mean(TaskPhase2_Score)] 
+
+sd(d_respondents$TaskPhase2_Score)
 
 ```
 
 ```{r}
-power.t.test( delta = 1.2, sd=3.78, sig.level = 0.05, power=0.8)
+#trying 2SLS...but dont think it applies here
+
+# d_respondents[ , lm(Total_Score ~ Education_Level)]
+# d_respondents[ , ivreg(Total_Score ~ Education_Level | Assignment_Group)]
+
+```
+
+```{r}
+power.t.test( delta = .05, sd=.16, sig.level = 0.05, power=0.8)
 ```
 
 # Analysis
@@ -401,6 +423,8 @@ stargazer(mod_task2_a,
                            c('Age Fixed Effects','No','Yes')),
           type='text')
 
+#add an F test to compare
+anova(mod_task2_a, mod_task2_b, test='F')
 
 #does the specific treatment group have an effect on task phase 2 score?
 mod_task2_c <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group))]
@@ -423,6 +447,7 @@ stargazer(mod_task2_c,
                            c('Age Fixed Effects','No','Yes')),
           type='text')
 
+anova(mod_task2_c, mod_task2_d, test='F')
 ```
 
 ## Task Phase 3 Analysis
@@ -444,6 +469,7 @@ stargazer(mod_task3_a,
                            c('Age Fixed Effects','No','Yes')),
           type='text')
 
+anova(mod_task3_a, mod_task3_b, test='F')
 ```
 
 
@@ -464,10 +490,84 @@ stargazer(mod_task3_c,
                            c('Age Fixed Effects','No','Yes')),
           type='text')
 
+anova(mod_task3_c, mod_task3_d, test='F')
+```
+
+## Wearing Off Effects
+```{r}
+mod_task3_e <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score)]
+mod_task3_f <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + Treatment_Dummy)]
+mod_task3_g <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + as.factor(Assignment_Group))]
+mod_task3_h <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + 
+                                                      as.factor(Assignment_Group) + 
+                                                      as.factor(Gender) + 
+                                                      as.factor(Education_Level) + 
+                                                      as.factor(Age_Range))]
+
+stargazer(mod_task3_e,
+          mod_task3_f,
+          mod_task3_g,
+          mod_task3_h,
+          se = list(get_robust_se(mod_task3_e),
+                    get_robust_se(mod_task3_f),
+                    get_robust_se(mod_task3_g),
+                    get_robust_se(mod_task3_h)),
+          type='text')
+
+anova(mod_task3_e, mod_task3_f, test='F')
+anova(mod_task3_g, mod_task3_h, test='F')
+
+```
+
+```{r}
+##
+mod_task3_i <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase1_Score + TaskPhase2_Score)]
+mod_task3_j <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase1_Score + TaskPhase2_Score + Treatment_Dummy)]
+mod_task3_k <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase1_Score + TaskPhase2_Score + as.factor(Assignment_Group))]
+mod_task3_l <- d_respondents[, lm(TaskPhase3_Score ~ TaskPhase1_Score + TaskPhase2_Score + 
+                                                      as.factor(Assignment_Group) + 
+                                                      as.factor(Gender) + 
+                                                      as.factor(Education_Level) + 
+                                                      as.factor(Age_Range))]
+
+stargazer(mod_task3_i,
+          mod_task3_j,
+          mod_task3_k,
+          mod_task3_l,
+          se = list(get_robust_se(mod_task3_i),
+                    get_robust_se(mod_task3_j),
+                    get_robust_se(mod_task3_k),
+                    get_robust_se(mod_task3_l)),
+          type='text')
+
+anova(mod_task3_i, mod_task3_j, test = 'F')
+anova(mod_task3_k, mod_task3_l, test = 'F')
+
+# lm(TaskPhase3_Score ~ TaskPhase2_Score) vs lm(TaskPhase3_Score ~ TaskPhase1_Score + TaskPhase2_Score)
+anova(mod_task3_e, mod_task3_i, test = 'F')  
 ```
 
 
 ## Playground
+
+```{r}
+# compare self-reflect against medical feedback groups?
+#make dummies
+d_respondents[ , Self_Reflect_Dummy := ifelse(Assignment_Group == "Self-Reflect", 1, 0)]
+d_respondents[ , Med_Feedback_Dummy := ifelse(Assignment_Group == "Medical Feedback", 1, 0)]
+
+mod_test_dummies1 <- d_respondents[ , lm(TaskPhase2_Score ~ Treatment_Dummy + Self_Reflect_Dummy)]
+mod_test_dummies2 <- d_respondents[ , lm(TaskPhase2_Score ~ Treatment_Dummy + Med_Feedback_Dummy)]
+
+stargazer(mod_test_dummies1,
+          mod_test_dummies2,
+          se = list(get_robust_se(mod_test_dummies1),
+                    get_robust_se(mod_test_dummies2)),
+          type = 'text')
+
+```
+
+## Playground 2
 ```{r}
 
 ### linear model playground
@@ -502,6 +602,9 @@ stargazer(mod_test1,
           se = list(get_robust_se(mod_test1),get_robust_se(mod_test2), get_robust_se(mod_test3)),
           type='text')
 
+
+mod_test4 <- d_test[ , lm(TaskPhase3_Score ~ TaskPhase2_Score)]
+coeftest(mod_test4)
 
 # use Robust SE
 mod_test2 <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy  + as.factor(Education_Level) + (Treatment_Dummy * as.factor(Education_Level)))]
