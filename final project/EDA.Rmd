@@ -18,6 +18,8 @@ library(dplyr)
 library(ggmap)
 library(revgeo)
 library(AER)
+library(ggplot2)
+library(expss)
 
 # clears workspace
 rm(list = ls())
@@ -26,13 +28,13 @@ rm(list = ls())
 # Introduction
 
 # Load Data
-```{r}
+```{{r, include=FALSE}}
 # d <- fread('Lungs_November+14,+2020_17.33.csv')
 d <- fread('../check-valid-responses/data/qualtrics_results_final.csv')
 #head(d)
 ```
 
-```{r}
+```{{r, include=FALSE}}
 d_respondents_only <-
   d[(Status == "IP Address") & (Finished == 'True'),]
 
@@ -102,7 +104,7 @@ d_respondents_only <- d_respondents_only[!Q80 %in% c(
 #head(d_respondents_only)
 ```
 
-```{r}
+```{{r, include=FALSE}}
 #rename task phase questions
 setnames(d_respondents_only,
          old = c('Q2', 'Q42'),
@@ -191,7 +193,9 @@ d_respondents_only[ , c("TaskPhase1_Score", "TaskPhase2_Score", "TaskPhase3_Scor
 
 d_respondents <- fread('datatable_clean_survey_responses_v2.dta')
 
-
+setnames(d_respondents,
+         old = c('Duration (in seconds)'),
+         new = c('Survey_Duration'))
 head(d_respondents)
 ```
 
@@ -249,7 +253,7 @@ d_respondents %>%
   group_by(Assignment_Group) %>%
   summarise(mean = mean(Total_Score),
             count = n(),
-            time_duration = mean(`Duration (in seconds)`))
+            time_duration = mean(Survey_Duration))
 #d_respondents[ , .(count = .N, avg = mean(Total_Score)), by=Assignment_Group] #same thing
 
 d_respondents[ , hist(Total_Score)]
@@ -338,28 +342,79 @@ d_respondents %>%
   summarise(num_respondents = n(),
             pre_treatment_avg = mean(TaskPhase1_Score),
             taskphase2_avg = mean(TaskPhase2_Score),
-            taskphase3_avg = mean(TaskPhase3_Score),
+            taskphase3_avg = mean(TaskPhase3_Score))
+
+
+d_respondents %>% 
+  group_by(Assignment_Group) %>%
+  summarise(num_respondents = n(),
             avg_age_bin = mean(age_bin),
             avg_edu_bin = mean(edu_bin),
             male = mean(Male_Dummy),
             US = mean(US_Dummy))
+
+d_respondents %>%
+  group_by(Assignment_Group) %>%
+  summarise(num_respondents = n(),
+            )
 ```
 
+## Visuals
+```{r}
+#Density distribution of Survey Duration
+ggplot(d_respondents, aes(x=Survey_Duration, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + 
+  geom_density(alpha = 0.3) + 
+  xlim(0, 1500) + 
+  xlab("Completion Time (seconds)") +
+  ggtitle("Survey Duration Distribution")
+
+
+#Comparing pretreatment values
+ggplot(d_respondents, aes(x=TaskPhase1_Score, fill = as.factor(Treatment_Dummy), colour=as.factor(Treatment_Dummy))) + geom_density(alpha = 0.3)
+
+ggplot(d_respondents, aes(x=TaskPhase1_Score, fill = as.factor(Assignment_Group), colour=as.factor(Assignment_Group))) + geom_density(alpha = 0.3) + ggtitle("PreTreatment Scores by Group") + theme(plot.title = element_text(hjust = 0.5))
+
+
+#Comparing taskphase2 values
+ggplot(d_respondents, aes(x=TaskPhase2_Score, fill = as.factor(Assignment_Group), colour=as.factor(Assignment_Group))) + geom_density(alpha = 0.2) + ggtitle("TaskPhase2 Scores by Group") + theme(plot.title = element_text(hjust = 0.5))
+
+#Comparing taskphase3 values
+ggplot(d_respondents, aes(x=TaskPhase3_Score, fill = as.factor(Assignment_Group), colour=as.factor(Assignment_Group))) + geom_density(alpha = 0.2) + ggtitle("TaskPhase3 Scores by Group") + theme(plot.title = element_text(hjust = 0.5))
+
+#boxplots for pretreatment values
+ggplot(d_respondents, aes(x = Assignment_Group, y=TaskPhase1_Score, colour=as.factor(Assignment_Group))) + geom_boxplot() + stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..),
+                 width = .75, linetype = "dashed") + ggtitle("PreTreatment Values") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) + theme(plot.title = element_text(hjust = 0.5))
+
+#boxplots for TaskPhase2 values
+ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase2_Score, colour=as.factor(Treatment_Dummy))) + geom_boxplot() + stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..),
+                 width = .75, linetype = "dashed") + ggtitle("TaskPhase2 Scores") + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) + theme(plot.title = element_text(hjust = 0.5))
+
+#boxplots for TaskPhase3 values
+ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase3_Score, colour=as.factor(Treatment_Dummy))) + geom_boxplot() + stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..),
+                 width = .75, linetype = "dashed") + ggtitle("TaskPhase3 Scores") + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) + theme(plot.title = element_text(hjust = 0.5))
+
+
+```
 
 ```{r}
 #check balance between age-range, education, age
 d_respondents[ , table(Assignment_Group, Gender)]
+#cro(d_respondents$Assignment_Group, d_respondents$Gender)
+
 chisq.test(d_respondents[ , table(Assignment_Group, Gender)])
 
-d_respondents[ , table(Assignment_Group, Age_Range)]
+(d_respondents[ , table(Assignment_Group, Age_Range)])
 # expected frequency count for each cell of the contingency table should be at least 5. Since this is not the case, we set simulate.p.value as a version of the Fisher exact test
 # https://stats.stackexchange.com/questions/81483/warning-in-r-chi-squared-approximation-may-be-incorrect
 chisq.test(d_respondents[ , table(Assignment_Group, Age_Range)],simulate.p.value = TRUE)
 
-d_respondents[ , table(Assignment_Group, Education_Level)]
+(d_respondents[ , table(Assignment_Group, Education_Level)])
 chisq.test(d_respondents[ , table(Assignment_Group, Education_Level)],simulate.p.value = TRUE)
 
-d_respondents[ , table(Assignment_Group, US_Dummy)]
+(d_respondents[ , table(Assignment_Group, US_Dummy)])
 chisq.test(d_respondents[ , table(Assignment_Group, US_Dummy)],simulate.p.value = TRUE)
 ```
 
