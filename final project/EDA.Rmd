@@ -21,12 +21,20 @@ library(revgeo)
 library(AER)
 library(ggplot2)
 library(expss)
+library(grid)
+library(gridExtra)
+```
 
+
+```{r, include=FALSE}
 # clears workspace
 rm(list = ls())
 
 # round all numbers to 4 decimals
 options(digits=4)
+
+# set theme for ggplot to be cleaner
+theme_set(theme_light())
 ```
 
 # Introduction
@@ -410,24 +418,123 @@ ggplot(d_respondents, aes(x=TaskPhase2_Score, fill = as.factor(Assignment_Group)
 
 #Comparing taskphase3 values
 ggplot(d_respondents, aes(x=TaskPhase3_Score, fill = as.factor(Assignment_Group), colour=as.factor(Assignment_Group))) + geom_density(alpha = 0.2) + ggtitle("TaskPhase3 Scores by Group") + theme(plot.title = element_text(hjust = 0.5))
+```
 
-#boxplots for pretreatment values
-ggplot(d_respondents, aes(x = Assignment_Group, y=TaskPhase1_Score, colour=as.factor(Assignment_Group))) + geom_boxplot() + stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..),
-                 width = .75, linetype = "dashed") + ggtitle("PreTreatment Values") +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) + theme(plot.title = element_text(hjust = 0.5))
 
-#boxplots for TaskPhase2 values
-ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase2_Score, colour=as.factor(Treatment_Dummy))) + geom_boxplot() + stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..),
-                 width = .75, linetype = "dashed") + ggtitle("TaskPhase2 Scores") + 
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) + theme(plot.title = element_text(hjust = 0.5))
+```{r}
+# boxplots for multiple treatment groups
+task1a_bp <- ggplot(d_respondents, aes(x = Assignment_Group, y=TaskPhase1_Score, colour=as.factor(Assignment_Group))) +
+  geom_boxplot() + 
+  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
+  xlab('') +
+  ylab('Task Score (%)') +
+  ggtitle("Pre Treatment Scores") +
+  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank(), 
+        plot.title = element_text(hjust = 0.5,size=10),
+        legend.position = "bottom",
+        legend.title = element_blank())
 
-#boxplots for TaskPhase3 values
-ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase3_Score, colour=as.factor(Treatment_Dummy))) + geom_boxplot() + stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..),
-                 width = .75, linetype = "dashed") + ggtitle("TaskPhase3 Scores") + 
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) + theme(plot.title = element_text(hjust = 0.5))
+task1b_bp <- ggplot(d_respondents, aes(x = Assignment_Group, y=TaskPhase2_Score, colour=as.factor(Assignment_Group))) +
+  geom_boxplot() + 
+  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
+  xlab('') +
+  ylab('') +
+  ggtitle("Task Phase 2 Scores") +
+  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank(), 
+        plot.title = element_text(hjust = 0.5,size=10),
+        legend.position = "none")
+
+task1c_bp <- ggplot(d_respondents, aes(x = Assignment_Group, y=TaskPhase3_Score, colour=as.factor(Assignment_Group))) +
+  geom_boxplot() + 
+  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
+  xlab('') +
+  ylab('') +
+  ggtitle("Task Phase 3 Scores") +
+  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank(), 
+        plot.title = element_text(hjust = 0.5,size=10),
+        legend.position = "none")
+
+# TODO add these boxplots for binary treatment/control groups
+
+# task2_bp <- ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase2_Score, colour=as.factor(Treatment_Dummy))) + 
+#   geom_boxplot() + 
+#   stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..),
+#                  width = .75, linetype = "dashed") + ggtitle("TaskPhase2 Scores") + 
+#   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
+#         plot.title = element_text(hjust = 0.5),
+#         legend.position = "none")
+
+# #boxplots for TaskPhase2 values
+# task2_bp <- ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase2_Score, colour=as.factor(Treatment_Dummy))) + 
+#   geom_boxplot() + 
+#   stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..),
+#                  width = .75, linetype = "dashed") + ggtitle("TaskPhase2 Scores") + 
+#   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
+#         plot.title = element_text(hjust = 0.5),
+#         legend.position = "none")
+# 
+# #boxplots for TaskPhase3 values
+# task3_bp <- ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase3_Score, colour=as.factor(Treatment_Dummy))) + 
+#   geom_boxplot() + 
+#   stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..),
+#                  width = .75, linetype = "dashed") + ggtitle("TaskPhase3 Scores") + 
+#   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
+#         plot.title = element_text(hjust = 0.5),
+#         legend.position = "none")
+
+
+g_legend<-function(a.gplot){
+  #extract legend from a ggplot object
+  #https://stackoverflow.com/questions/13649473/add-a-common-legend-for-combined-ggplots
+  #https://github.com/hadley/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)}
+
+mylegend_1<-g_legend(task1a_bp)
+
+grid.arrange(arrangeGrob(task1a_bp + theme(legend.position="none"),task1b_bp,task1c_bp,ncol=3),
+             mylegend_1, 
+             nrow=2, 
+             heights=c(10,1),
+             top = textGrob("Compare task scores in different phases\n",just='right',gp=gpar(fontsize=14,font=1)))
+
+# d_respondents[,c('Assignment_Group','TaskPhase1_Score','TaskPhase2_Score','TaskPhase3_Score')][,.(mean(TaskPhase1_Score),mean(TaskPhase2_Score),mean(TaskPhase3_Score)),keyby=Assignment_Group]
+```
+
+```{r}
+# Compare score across time for all groups
+# https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_Confidence_Intervals/BS704_Confidence_Intervals_print.html
+# TODO finish formatting
+summary_task_score <- (melt(d_respondents,id.vars=c('Assignment_Group'),
+                            measure.vars = c('TaskPhase1_Score','TaskPhase2_Score','TaskPhase3_Score'))[
+  ,.('avg_score'=mean(value),'sd_score'=sd(value),'obs'=.N),keyby=.(Assignment_Group,variable)])[
+    ,se:=1.96*sd_score/sqrt(obs)]
+
+summary_task_score %>%
+  ggplot( aes(x=variable, y=avg_score, group=Assignment_Group, color=Assignment_Group)) +
+  geom_errorbar(aes(ymin=avg_score-1.96*sd_score/sqrt(obs), ymax=avg_score+1.96*sd_score/sqrt(obs)), 
+                width=.2, 
+                position=position_dodge(0.25)) +
+  geom_line(position=position_dodge(0.25)) + 
+  geom_point(position=position_dodge(0.25)) +
+  scale_y_continuous(labels = scales::percent)
 
 
 ```
+
+
+```{r}
+summary_task_score
+```
+
 
 #### Gender
 ```{r fig.width=9}
