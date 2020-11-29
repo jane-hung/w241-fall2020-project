@@ -1,6 +1,7 @@
 ---
 title: "Feedback MTurk Study"
-output: pdf_document
+author: "Dahler Battle, Guy El Khoury, Jane Hung, and Julian Tsang"
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -23,18 +24,21 @@ library(expss)
 
 # clears workspace
 rm(list = ls())
+
+# round all numbers to 4 decimals
+options(digits=4)
 ```
 
 # Introduction
 
 # Load Data
-```{{r, include=FALSE}}
+```{r, include=FALSE}
 # d <- fread('Lungs_November+14,+2020_17.33.csv')
 d <- fread('../check-valid-responses/data/qualtrics_results_final.csv')
 #head(d)
 ```
 
-```{{r, include=FALSE}}
+```{r, include=FALSE}
 d_respondents_only <-
   d[(Status == "IP Address") & (Finished == 'True'),]
 
@@ -104,7 +108,7 @@ d_respondents_only <- d_respondents_only[!Q80 %in% c(
 #head(d_respondents_only)
 ```
 
-```{{r, include=FALSE}}
+```{r, include=FALSE}
 #rename task phase questions
 setnames(d_respondents_only,
          old = c('Q2', 'Q42'),
@@ -203,7 +207,7 @@ head(d_respondents)
 nrow(d_respondents)
 ```
 
-```{r}
+```{r, include=FALSE}
 #skip
 
 # ?register_google
@@ -226,6 +230,20 @@ d_respondents <- d_respondents[ !duplicated(d_respondents$Amazon_Turk_ID) , ]  #
 
 
 # EDA
+
+## Helper Functions
+```{r}
+create_heatmap <- function(var1, var2) {
+  ### Create a heatmap for a table of frequencies between two variables ###
+  df <- data.frame(table(var1,var2))
+  
+  ggplot(df,aes(x=var1,y=var2)) +
+    geom_tile(aes(fill=Freq,color=Freq),show.legend=FALSE,alpha=.8) +
+    geom_text(aes(label=Freq)) +
+    scale_fill_continuous(high = "darkslategray4", low = "powderblue")
+}
+```
+
 ```{r}
 #some EDA
 
@@ -268,7 +286,7 @@ d_respondents[ , sd(Total_Score)]
 library(ggmap)
 ?register_google
 register_google(key = "AIzaSyCTk2a5vIEqcvgz9KmQmItoNF7J8_hiMMk")
-#ggmap_show_api_key()
+# ggmap_show_api_key()
 
 us_map<-get_map(location='united states', zoom=4, maptype = "terrain",
              source='google',color='color')
@@ -284,14 +302,25 @@ ggmap(india_map) + geom_point(x=d_respondents$LocationLongitude, y = d_responden
 
 
 ## Randomization Check
-```{r}
+```{r, results='asis'}
 #http://www.sthda.com/english/wiki/chi-square-goodness-of-fit-test-in-r
 
-respondent_counts <- d_respondents[ , .(.N), keyby=Assignment_Group][,2]
+respondent_counts <- d_respondents[ , .(.N), keyby=Assignment_Group]
 
-respondent_counts_chisq_test <- chisq.test(respondent_counts, p=c(1/5, 1/5, 1/5, 1/5, 1/5))
+respondent_counts_chisq_test <- chisq.test(respondent_counts[,2], p=c(1/5, 1/5, 1/5, 1/5, 1/5))
 
-respondent_counts_chisq_test
+respondent_counts %>% 
+  ggplot(aes(x = Assignment_Group,y=N)) + 
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  xlab('Assignment Group') +
+  ylab('Number of Observations') +
+  labs(title='Randomization check among assignment groups',
+       caption = paste0('Assuming equal distribution among assignment groups, a chi-squared goodness of fit test with ',
+                        round(respondent_counts_chisq_test$parameter,4),' degrees of \nfreedom ', 'yields p=',
+                        round(respondent_counts_chisq_test$p.value,4),
+                        ', suggesting that the observed proportions are not significantly different from the \nexpected proportions at a significance level of 0.05.')) + 
+  theme(plot.caption = element_text(hjust = 0))
 #p-value = 0.9991, which is greater than significance level of 0.05. 
 #We can conclude that the observed proportions are not significantly different from the expected proportions
 ```
@@ -359,7 +388,8 @@ d_respondents %>%
             )
 ```
 
-## Visuals
+### Visuals
+
 ```{r}
 #Density distribution of Survey Duration
 ggplot(d_respondents, aes(x=Survey_Duration, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + 
@@ -399,23 +429,80 @@ ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase3_Score, colour=as.fac
 
 ```
 
-```{r}
-#check balance between age-range, education, age
-d_respondents[ , table(Assignment_Group, Gender)]
-#cro(d_respondents$Assignment_Group, d_respondents$Gender)
+#### Gender
+```{r fig.width=9}
+# TODO format figures and captions
+#check balance between gender
 
-chisq.test(d_respondents[ , table(Assignment_Group, Gender)])
+gender_chiqq <- chisq.test(d_respondents[ , table(Assignment_Group, Gender)])
 
-(d_respondents[ , table(Assignment_Group, Age_Range)])
-# expected frequency count for each cell of the contingency table should be at least 5. Since this is not the case, we set simulate.p.value as a version of the Fisher exact test
+create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Gender) +
+  xlab('Assignment Group') +
+  ylab('Gender') +
+  labs(title = 'Contingency table between gender and assignment group',
+       caption = paste0('Assuming gender distributions are the same among assignment groups, a chi-squared test for independence with ',
+                        round(gender_chiqq$parameter,4),' \ndegrees of freedom ', 'yields p=',
+                        round(gender_chiqq$p.value,4),
+                        ', suggesting that there is no relationship between gender and assignment groups at a \nsignificance level of 0.05.')) + 
+  theme(plot.caption = element_text(hjust = 0))
+
+```
+
+#### Age Range
+```{r fig.width=9}
+# TODO format figures and captions
+#check balance between age-range
+
+# expected frequency count for each cell of the contingency table should be at least 5. Since this is not the case, we set simulate.p.value = TRUE to use Monte Carlo simulation
 # https://stats.stackexchange.com/questions/81483/warning-in-r-chi-squared-approximation-may-be-incorrect
-chisq.test(d_respondents[ , table(Assignment_Group, Age_Range)],simulate.p.value = TRUE)
+age_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, Age_Range)],simulate.p.value = TRUE)
 
-(d_respondents[ , table(Assignment_Group, Education_Level)])
-chisq.test(d_respondents[ , table(Assignment_Group, Education_Level)],simulate.p.value = TRUE)
+create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Age_Range) +
+  xlab('Assignment Group') +
+  ylab('Age') +
+  labs(title = 'Contingency table between age range and assignment group',
+       caption = paste0('Assuming age distributions are the same among assignment groups, a chi-squared test for independence with Monte \nCarlo simulation yields p=',
+                        round(age_chisq$p.value,4),
+                        ', suggesting that there is no relationship between age and assignment groups at a \nsignificance level of 0.05.')) + 
+  theme(plot.caption = element_text(hjust = 0))
+```
 
-(d_respondents[ , table(Assignment_Group, US_Dummy)])
-chisq.test(d_respondents[ , table(Assignment_Group, US_Dummy)],simulate.p.value = TRUE)
+#### Education Level
+```{r fig.width=9}
+# TODO format figures and captions
+#check balance between education levels
+edu_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, Education_Level)],simulate.p.value = TRUE)
+
+create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Education_Level) +
+  xlab('Assignment Group') +
+  ylab('Education Level') +
+  labs(title = 'Contingency table between education and assignment group',
+       caption = paste0('Assuming education distributions are the same among assignment groups, a chi-squared test for \nindependence with Monte Carlo simulation yields p=',
+                        round(edu_chisq$p.value,4),
+                        ', suggesting that there is no relationship \nbetween education and assignment groups at a significance level of 0.05.')) + 
+  theme(plot.caption = element_text(hjust = 0))
+```
+
+#### Country: US, non-US
+```{r fig.width=9}
+# TODO format figures and captions
+# out.width = "80%"
+# check balance between US and non-US respondents
+
+us_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, US_Dummy)])
+
+create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$US_Dummy) +
+  xlab('Assignment Group') +
+  ylab('Country') +
+  scale_y_discrete(breaks=c("0", "1"),
+                      labels=c("Non-US", "United States")) +
+  labs(title = 'Contingency table between country and assignment group',
+       caption = paste0('Assuming country distributions are the same among assignment groups, a chi-squared test for independence with \n',
+                        round(us_chisq$parameter,4),' degrees of freedom ', 'yields p=',
+                        round(us_chisq$p.value,4),
+                        ', suggesting that there is no relationship between country and assignment \ngroups at a significance level of 0.05.')) + 
+  theme(plot.caption = element_text(hjust = 0))
+
 ```
 
 
@@ -549,7 +636,7 @@ anova(mod_task3_c, mod_task3_d, test='F')
 ```
 
 ## Wearing Off Effects
-```{r}
+```{r,results='asis',message=FALSE}
 mod_task3_e <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score)]
 mod_task3_f <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + Treatment_Dummy)]
 mod_task3_g <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + as.factor(Assignment_Group))]
@@ -565,16 +652,19 @@ stargazer(mod_task3_e,
           mod_task3_h,
           se = list(get_robust_se(mod_task3_e),
                     get_robust_se(mod_task3_f),
-                    get_robust_se(mod_task3_g),
                     get_robust_se(mod_task3_h)),
-          type='text')
+                    get_robust_se(mod_task3_g),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','No','No','Yes'),
+                           c('Age Fixed Effects','No','No','No','Yes')),
+          type='html')
 
 anova(mod_task3_e, mod_task3_f, test='F')
 anova(mod_task3_g, mod_task3_h, test='F')
 
 ```
 
-```{r}
+```{r,results='asis',message=FALSE}
 ##
 mod_task3_i <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase1_Score + TaskPhase2_Score)]
 mod_task3_j <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase1_Score + TaskPhase2_Score + Treatment_Dummy)]
@@ -593,7 +683,7 @@ stargazer(mod_task3_i,
                     get_robust_se(mod_task3_j),
                     get_robust_se(mod_task3_k),
                     get_robust_se(mod_task3_l)),
-          type='text')
+          type='html')
 
 anova(mod_task3_i, mod_task3_j, test = 'F')
 anova(mod_task3_k, mod_task3_l, test = 'F')
