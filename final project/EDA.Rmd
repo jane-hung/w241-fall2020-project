@@ -1,7 +1,7 @@
 ---
 title: "Feedback MTurk Study"
 author: "Dahler Battle, Guy El Khoury, Jane Hung, and Julian Tsang"
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -23,6 +23,7 @@ library(ggplot2)
 library(expss)
 library(grid)
 library(gridExtra)
+library(pander)
 ```
 
 
@@ -250,6 +251,15 @@ create_heatmap <- function(var1, var2) {
     geom_text(aes(label=Freq)) +
     scale_fill_continuous(high = "darkslategray4", low = "powderblue")
 }
+
+g_legend<-function(a.gplot){
+  #extract legend from a ggplot object
+  #https://stackoverflow.com/questions/13649473/add-a-common-legend-for-combined-ggplots
+  #https://github.com/hadley/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)}
 ```
 
 ```{r}
@@ -420,6 +430,56 @@ ggplot(d_respondents, aes(x=TaskPhase2_Score, fill = as.factor(Assignment_Group)
 ggplot(d_respondents, aes(x=TaskPhase3_Score, fill = as.factor(Assignment_Group), colour=as.factor(Assignment_Group))) + geom_density(alpha = 0.2) + ggtitle("TaskPhase3 Scores by Group") + theme(plot.title = element_text(hjust = 0.5))
 ```
 
+```{r}
+# TODO add these boxplots for binary treatment/control groups
+
+task2a_bp <- ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase1_Score, colour=as.factor(Treatment_Dummy))) +
+  geom_boxplot() + 
+  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
+  xlab('') +
+  ylab('Task Score (%)') +
+  ggtitle("Pre Treatment Scores") +
+  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank(), 
+        plot.title = element_text(hjust = 0.5,size=10),
+        legend.position = "bottom",
+        legend.title = element_blank())
+
+task2b_bp <- ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase2_Score, colour=as.factor(Treatment_Dummy))) +
+  geom_boxplot() + 
+  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
+  xlab('') +
+  ylab('') +
+  ggtitle("Task Phase 2 Scores") +
+  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank(), 
+        plot.title = element_text(hjust = 0.5,size=10),
+        legend.position = "none")
+
+task2c_bp <- ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase3_Score, colour=as.factor(Treatment_Dummy))) +
+  geom_boxplot() + 
+  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
+  xlab('') +
+  ylab('') +
+  ggtitle("Task Phase 3 Scores") +
+  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank(), 
+        plot.title = element_text(hjust = 0.5,size=10),
+        legend.position = "none")
+
+mylegend_2<-g_legend(task2a_bp)
+
+grid.arrange(arrangeGrob(task2a_bp + theme(legend.position="none"),task2b_bp,task2c_bp,ncol=3),
+             mylegend_2, 
+             nrow=2, 
+             heights=c(10,1),
+             top = textGrob("Compare task scores in different phases\n",just='right',gp=gpar(fontsize=14,font=1)))
+
+```
+
 
 ```{r}
 # boxplots for multiple treatment groups
@@ -460,44 +520,6 @@ task1c_bp <- ggplot(d_respondents, aes(x = Assignment_Group, y=TaskPhase3_Score,
         plot.title = element_text(hjust = 0.5,size=10),
         legend.position = "none")
 
-# TODO add these boxplots for binary treatment/control groups
-
-# task2_bp <- ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase2_Score, colour=as.factor(Treatment_Dummy))) + 
-#   geom_boxplot() + 
-#   stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..),
-#                  width = .75, linetype = "dashed") + ggtitle("TaskPhase2 Scores") + 
-#   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
-#         plot.title = element_text(hjust = 0.5),
-#         legend.position = "none")
-
-# #boxplots for TaskPhase2 values
-# task2_bp <- ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase2_Score, colour=as.factor(Treatment_Dummy))) + 
-#   geom_boxplot() + 
-#   stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..),
-#                  width = .75, linetype = "dashed") + ggtitle("TaskPhase2 Scores") + 
-#   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
-#         plot.title = element_text(hjust = 0.5),
-#         legend.position = "none")
-# 
-# #boxplots for TaskPhase3 values
-# task3_bp <- ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase3_Score, colour=as.factor(Treatment_Dummy))) + 
-#   geom_boxplot() + 
-#   stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..),
-#                  width = .75, linetype = "dashed") + ggtitle("TaskPhase3 Scores") + 
-#   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
-#         plot.title = element_text(hjust = 0.5),
-#         legend.position = "none")
-
-
-g_legend<-function(a.gplot){
-  #extract legend from a ggplot object
-  #https://stackoverflow.com/questions/13649473/add-a-common-legend-for-combined-ggplots
-  #https://github.com/hadley/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
-  tmp <- ggplot_gtable(ggplot_build(a.gplot))
-  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
-  legend <- tmp$grobs[[leg]]
-  return(legend)}
-
 mylegend_1<-g_legend(task1a_bp)
 
 grid.arrange(arrangeGrob(task1a_bp + theme(legend.position="none"),task1b_bp,task1c_bp,ncol=3),
@@ -506,13 +528,13 @@ grid.arrange(arrangeGrob(task1a_bp + theme(legend.position="none"),task1b_bp,tas
              heights=c(10,1),
              top = textGrob("Compare task scores in different phases\n",just='right',gp=gpar(fontsize=14,font=1)))
 
-# d_respondents[,c('Assignment_Group','TaskPhase1_Score','TaskPhase2_Score','TaskPhase3_Score')][,.(mean(TaskPhase1_Score),mean(TaskPhase2_Score),mean(TaskPhase3_Score)),keyby=Assignment_Group]
 ```
 
 ```{r}
 # Compare score across time for all groups
 # https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_Confidence_Intervals/BS704_Confidence_Intervals_print.html
 # TODO finish formatting
+# TODO duplicate for treatment dummy as well
 summary_task_score <- (melt(d_respondents,id.vars=c('Assignment_Group'),
                             measure.vars = c('TaskPhase1_Score','TaskPhase2_Score','TaskPhase3_Score'))[
   ,.('avg_score'=mean(value),'sd_score'=sd(value),'obs'=.N),keyby=.(Assignment_Group,variable)])[
@@ -525,14 +547,20 @@ summary_task_score %>%
                 position=position_dodge(0.25)) +
   geom_line(position=position_dodge(0.25)) + 
   geom_point(position=position_dodge(0.25)) +
-  scale_y_continuous(labels = scales::percent)
+  scale_y_continuous(labels = scales::percent,limits = c(.35,.75)) +
+  scale_x_discrete(breaks=c("TaskPhase1_Score", "TaskPhase2_Score","TaskPhase3_Score"),
+                      labels=c("Phase 1", "Phase 2", "Phase 3")) +
+  xlab('Task Phases') +
+  ylab('Average Task Score (%)') +
+  labs(title='Average score across task phases', color = "Assignment Group")
 
 
 ```
 
 
-```{r}
-summary_task_score
+```{r, results='asis'}
+# TODO add this to the appendix
+kable(summary_task_score)
 ```
 
 
@@ -654,7 +682,7 @@ get_robust_se <- function(model){
 ```
 
 ## Task Phase 2 Analysis
-```{r}
+```{r,results='asis',message=FALSE}
 # does any treatment have an effect on task phase 2 score?
 mod_task2_a <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy)]
 
@@ -670,10 +698,11 @@ stargazer(mod_task2_a,
           omit = c("Education_Level","Age_Range"),
           add.lines = list(c('Education Fixed Effects', 'No','Yes'),
                            c('Age Fixed Effects','No','Yes')),
-          type='text')
+          header=FALSE,
+          type='latex')
 
 #add an F test to compare
-anova(mod_task2_a, mod_task2_b, test='F')
+pander(anova(mod_task2_a, mod_task2_b, test='F'),stle='rmarkdown')
 
 #does the specific treatment group have an effect on task phase 2 score?
 mod_task2_c <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group))]
@@ -694,14 +723,15 @@ stargazer(mod_task2_c,
           omit = c("Education_Level","Age_Range"),
           add.lines = list(c('Education Fixed Effects', 'No','Yes'),
                            c('Age Fixed Effects','No','Yes')),
-          type='text')
+          header=FALSE,
+          type='latex')
 
-anova(mod_task2_c, mod_task2_d, test='F')
+pander(anova(mod_task2_c, mod_task2_d, test='F'),style='rmarkdown')
 ```
 
 ## Task Phase 3 Analysis
 
-```{r}
+```{r,results='asis',message=FALSE}
 # test final task and any treatment
 mod_task3_a <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy)]
 mod_task3_b <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy + 
@@ -716,13 +746,14 @@ stargazer(mod_task3_a,
           omit = c("Education_Level","Age_Range"),
           add.lines = list(c('Education Fixed Effects', 'No','Yes'),
                            c('Age Fixed Effects','No','Yes')),
-          type='text')
+          header=FALSE,
+          type='latex')
 
-anova(mod_task3_a, mod_task3_b, test='F')
+pander(anova(mod_task3_a, mod_task3_b, test='F'),style='rmarkdown')
 ```
 
 
-```{r}
+```{r,results='asis',message=FALSE}
 # test final task and specific treatment
 mod_task3_c <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group))]
 mod_task3_d <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group) + 
@@ -737,9 +768,10 @@ stargazer(mod_task3_c,
           omit = c("Education_Level","Age_Range"),
           add.lines = list(c('Education Fixed Effects', 'No','Yes'),
                            c('Age Fixed Effects','No','Yes')),
-          type='text')
+          header=FALSE,
+          type='latex')
 
-anova(mod_task3_c, mod_task3_d, test='F')
+pander(anova(mod_task3_c, mod_task3_d, test='F'),style='rmarkdown')
 ```
 
 ## Wearing Off Effects
@@ -764,10 +796,11 @@ stargazer(mod_task3_e,
           omit = c("Education_Level","Age_Range"),
           add.lines = list(c('Education Fixed Effects', 'No','No','No','Yes'),
                            c('Age Fixed Effects','No','No','No','Yes')),
-          type='html')
+          header=FALSE,
+          type='latex')
 
-anova(mod_task3_e, mod_task3_f, test='F')
-anova(mod_task3_g, mod_task3_h, test='F')
+pander(anova(mod_task3_e, mod_task3_f, test='F'),style='rmarkdown')
+pander(anova(mod_task3_g, mod_task3_h, test='F'),style='rmarkdown')
 
 ```
 
@@ -790,13 +823,14 @@ stargazer(mod_task3_i,
                     get_robust_se(mod_task3_j),
                     get_robust_se(mod_task3_k),
                     get_robust_se(mod_task3_l)),
-          type='html')
+          header=FALSE,
+          type='latex')
 
-anova(mod_task3_i, mod_task3_j, test = 'F')
-anova(mod_task3_k, mod_task3_l, test = 'F')
+pander(anova(mod_task3_i, mod_task3_j, test = 'F'),style='rmarkdown')
+pander(anova(mod_task3_k, mod_task3_l, test = 'F'),style='rmarkdown')
 
 # lm(TaskPhase3_Score ~ TaskPhase2_Score) vs lm(TaskPhase3_Score ~ TaskPhase1_Score + TaskPhase2_Score)
-anova(mod_task3_e, mod_task3_i, test = 'F')  
+pander(anova(mod_task3_e, mod_task3_i, test = 'F'),style='rmarkdown')
 ```
 
 
@@ -815,7 +849,8 @@ stargazer(mod_test_dummies1,
           mod_test_dummies2,
           se = list(get_robust_se(mod_test_dummies1),
                     get_robust_se(mod_test_dummies2)),
-          type = 'text')
+          header=FALSE,
+          type = 'latex')
 
 ```
 
@@ -852,7 +887,7 @@ stargazer(mod_test1,
           mod_test2,
           mod_test3,
           se = list(get_robust_se(mod_test1),get_robust_se(mod_test2), get_robust_se(mod_test3)),
-          type='text')
+          type='latex')
 
 
 mod_test4 <- d_test[ , lm(TaskPhase3_Score ~ TaskPhase2_Score)]
