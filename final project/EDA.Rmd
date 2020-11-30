@@ -657,7 +657,7 @@ stargazer(mod_task3_e,
           omit = c("Education_Level","Age_Range"),
           add.lines = list(c('Education Fixed Effects', 'No','No','No','Yes'),
                            c('Age Fixed Effects','No','No','No','Yes')),
-          type='html')
+          type='text')
 
 anova(mod_task3_e, mod_task3_f, test='F')
 anova(mod_task3_g, mod_task3_h, test='F')
@@ -683,7 +683,7 @@ stargazer(mod_task3_i,
                     get_robust_se(mod_task3_j),
                     get_robust_se(mod_task3_k),
                     get_robust_se(mod_task3_l)),
-          type='html')
+          type='text')
 
 anova(mod_task3_i, mod_task3_j, test = 'F')
 anova(mod_task3_k, mod_task3_l, test = 'F')
@@ -708,6 +708,23 @@ stargazer(mod_test_dummies1,
           mod_test_dummies2,
           se = list(get_robust_se(mod_test_dummies1),
                     get_robust_se(mod_test_dummies2)),
+          type = 'text')
+
+```
+
+```{r}
+# compare positive images against negative images feedback groups?
+#make dummies
+d_respondents[ , Positive_Images_Dummy := ifelse(Assignment_Group == "Positive Images", 1, 0)]
+d_respondents[ , Negative_Images_Dummy := ifelse(Assignment_Group == "Negative Images", 1, 0)]
+
+mod_test_dummies3 <- d_respondents[ , lm(TaskPhase2_Score ~ Treatment_Dummy + Positive_Images_Dummy)]
+mod_test_dummies4 <- d_respondents[ , lm(TaskPhase2_Score ~ Treatment_Dummy + Negative_Images_Dummy)]
+
+stargazer(mod_test_dummies3,
+          mod_test_dummies4,
+          se = list(get_robust_se(mod_test_dummies3),
+                    get_robust_se(mod_test_dummies4)),
           type = 'text')
 
 ```
