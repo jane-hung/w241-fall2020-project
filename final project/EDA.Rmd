@@ -326,6 +326,7 @@ ggmap(india_map) + geom_point(x=d_respondents$LocationLongitude, y = d_responden
 respondent_counts <- d_respondents[ , .(.N), keyby=Assignment_Group]
 
 respondent_counts_chisq_test <- chisq.test(respondent_counts[,2], p=c(1/5, 1/5, 1/5, 1/5, 1/5))
+pander(respondent_counts_chisq_test,style ='rmarkdown')
 
 respondent_counts %>% 
   ggplot(aes(x = Assignment_Group,y=N)) + 
@@ -570,6 +571,7 @@ kable(summary_task_score)
 #check balance between gender
 
 gender_chiqq <- chisq.test(d_respondents[ , table(Assignment_Group, Gender)])
+pander(gender_chiq,style='rmarkdown')
 
 create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Gender) +
   xlab('Assignment Group') +
@@ -591,6 +593,7 @@ create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Gender
 # expected frequency count for each cell of the contingency table should be at least 5. Since this is not the case, we set simulate.p.value = TRUE to use Monte Carlo simulation
 # https://stats.stackexchange.com/questions/81483/warning-in-r-chi-squared-approximation-may-be-incorrect
 age_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, Age_Range)],simulate.p.value = TRUE)
+pander(age_chisq,style='rmarkdown')
 
 create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Age_Range) +
   xlab('Assignment Group') +
@@ -607,6 +610,7 @@ create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Age_Ra
 # TODO format figures and captions
 #check balance between education levels
 edu_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, Education_Level)],simulate.p.value = TRUE)
+pander(edu_chisq,style='rmarkdown')
 
 create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Education_Level) +
   xlab('Assignment Group') +
@@ -625,6 +629,7 @@ create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Educat
 # check balance between US and non-US respondents
 
 us_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, US_Dummy)])
+pander(us_chisq,style='rmarkdown')
 
 create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$US_Dummy) +
   xlab('Assignment Group') +
@@ -776,6 +781,9 @@ pander(anova(mod_task3_c, mod_task3_d, test='F'),style='rmarkdown')
 
 ## Wearing Off Effects
 ```{r,results='asis',message=FALSE}
+# TODO add within subjects design
+# TODO d_respondents[ , lm(mean(TaskPhase3_Score,TaskPhase2_Score) ~  Assignment_Group + TaskPhase1_Score)]
+# TODO d_respondents[ , lm(TaskPhaseB ~  Assignment_Group + TaskPhaseA + as.factor(AmazonTurk_ID))] where each respondent is duplicated for task 2 and 3
 mod_task3_e <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score)]
 mod_task3_f <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + Treatment_Dummy)]
 mod_task3_g <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + as.factor(Assignment_Group))]
@@ -797,7 +805,7 @@ stargazer(mod_task3_e,
           add.lines = list(c('Education Fixed Effects', 'No','No','No','Yes'),
                            c('Age Fixed Effects','No','No','No','Yes')),
           header=FALSE,
-          type='latex')
+          type='text')
 
 pander(anova(mod_task3_e, mod_task3_f, test='F'),style='rmarkdown')
 pander(anova(mod_task3_g, mod_task3_h, test='F'),style='rmarkdown')
@@ -824,7 +832,7 @@ stargazer(mod_task3_i,
                     get_robust_se(mod_task3_k),
                     get_robust_se(mod_task3_l)),
           header=FALSE,
-          type='latex')
+          type='text')
 
 pander(anova(mod_task3_i, mod_task3_j, test = 'F'),style='rmarkdown')
 pander(anova(mod_task3_k, mod_task3_l, test = 'F'),style='rmarkdown')
