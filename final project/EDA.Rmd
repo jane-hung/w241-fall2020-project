@@ -862,6 +862,23 @@ stargazer(mod_test_dummies1,
 
 ```
 
+```{r}
+# compare positive images against negative images feedback groups?
+#make dummies
+d_respondents[ , Positive_Images_Dummy := ifelse(Assignment_Group == "Positive Images", 1, 0)]
+d_respondents[ , Negative_Images_Dummy := ifelse(Assignment_Group == "Negative Images", 1, 0)]
+
+mod_test_dummies3 <- d_respondents[ , lm(TaskPhase2_Score ~ Treatment_Dummy + Positive_Images_Dummy)]
+mod_test_dummies4 <- d_respondents[ , lm(TaskPhase2_Score ~ Treatment_Dummy + Negative_Images_Dummy)]
+
+stargazer(mod_test_dummies3,
+          mod_test_dummies4,
+          se = list(get_robust_se(mod_test_dummies3),
+                    get_robust_se(mod_test_dummies4)),
+          type = 'text')
+
+```
+
 ## Playground 2
 ```{r}
 
