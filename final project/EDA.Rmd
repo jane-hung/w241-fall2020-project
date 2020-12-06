@@ -1,6 +1,7 @@
 ---
 title: "Feedback MTurk Study"
 author: "Dahler Battle, Guy El Khoury, Jane Hung, and Julian Tsang"
+date: "15 Dec 2020"
 output: pdf_document
 ---
 
@@ -192,7 +193,7 @@ d_respondents_only[ , c("TaskPhase1_Score", "TaskPhase2_Score", "TaskPhase3_Scor
 ```
 
 
-```{r}
+```{r, results='asis'}
 # ?register_google
 # register_google(key = "AIzaSyCTk2a5vIEqcvgz9KmQmItoNF7J8_hiMMk")
 # 
@@ -209,7 +210,18 @@ d_respondents <- fread('datatable_clean_survey_responses_v2.dta')
 setnames(d_respondents,
          old = c('Duration (in seconds)'),
          new = c('Survey_Duration'))
-head(d_respondents)
+kable(t(head(d_respondents[, names(d_respondents)[!names(d_respondents) %in% c(
+    "Q70_First Click","Q70_Last Click","Q70_Page Submit","Q70_Click Count",
+    "Q90_First Click","Q90_Last Click","Q90_Page Submit","Q90_Click Count",
+    "Q61_First Click","Q61_Last Click","Q61_Page Submit","Q61_Click Count",
+    "Q62_First Click","Q62_Last Click","Q62_Page Submit","Q62_Click Count",
+    "Q63_First Click","Q63_Last Click","Q63_Page Submit","Q63_Click Count",
+    "Q64_First Click","Q64_Last Click","Q64_Page Submit","Q64_Click Count",
+    "Q65_First Click","Q65_Last Click","Q65_Page Submit","Q65_Click Count",
+    "Q66_First Click","Q66_Last Click","Q66_Page Submit","Q66_Click Count",
+    "Q67_First Click","Q67_Last Click","Q67_Page Submit","Q67_Click Count",
+    "Q68_First Click","Q68_Last Click","Q68_Page Submit","Q68_Click Count",
+    "housenumber","street","zip")],with=FALSE],3)))
 ```
 
 ```{r}
