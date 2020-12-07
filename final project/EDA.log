@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  7 DEC 2020 18:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  7 DEC 2020 18:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -395,6 +395,9 @@ LaTeX Warning: Label `' multiply defined.
 
 LaTeX Warning: Label `' multiply defined.
 
+
+LaTeX Warning: Label `' multiply defined.
+
 )
 \openout1 = `EDA.aux'.
 
@@ -560,724 +563,688 @@ LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 136.
 [1
 
-{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (517.24211pt too wide) in paragraph at lines 377--377
-[]\T1/lmtt/m/n/10 ##                                                           
-                                                                               
-                                      Control_Q1[] 
- []
-
-
-Overfull \hbox (511.99213pt too wide) in paragraph at lines 377--377
-[]\T1/lmtt/m/n/10 ## 5: The sentiment that this place brings, and how much hosp
-itality means to them. How open, diverse and welcoming they are as well that br
-ing people in. It\TS1/lmtt/m/n/10 '\T1/lmtt/m/n/10 s very heartfelt and warming
-.[] 
- []
-
-[2]
-Overfull \hbox (307.24272pt too wide) in paragraph at lines 377--377
-[]\T1/lmtt/m/n/10 ##                                                           
-                                                                             Co
-ntrol_Q2[] 
- []
-
-
-Overfull \hbox (307.24272pt too wide) in paragraph at lines 377--377
-[]\T1/lmtt/m/n/10 ## 5: It brings awareness to a serious issue that can harm pe
-ople. It\TS1/lmtt/m/n/10 '\T1/lmtt/m/n/10 s an advertisement to bring people to
-gether to be more knowledgeable about it.[] 
- []
-
-
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 377--377
-[]\T1/lmtt/m/n/10 ##                                                           
-               Self_Reflect_Q2[] 
- []
-
-
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 377--377
-[]\T1/lmtt/m/n/10 ## 4: I think I did incredible. I only got 2 wrong. This was 
-harder than the previous page.[] 
- []
-
-[3]
-Overfull \hbox (13.24358pt too wide) in paragraph at lines 377--377
-[]\T1/lmtt/m/n/10 ##                                                           
-                            Q38[] 
- []
-
-
-Overfull \hbox (13.24358pt too wide) in paragraph at lines 377--377
-[]\T1/lmtt/m/n/10 ## 6: Image 2Correct diagnosis: Normal\nYou chose: ${q://QID5
-/ChoiceGroup/SelectedChoices}\n[] 
- []
-
-[4] [5] [6] [7]
-<EDA_files/figure-latex/unnamed-chunk-12-1.pdf, id=111, 422.57875pt x 285.065pt
+{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+[4] [5]
+<EDA_files/figure-latex/unnamed-chunk-12-1.pdf, id=103, 422.57875pt x 285.065pt
 >
 File: EDA_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-12-1.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-12-1.pdf  used on
- input line 591.
+ input line 492.
 (pdftex.def)             Requested size: 422.57771pt x 285.0643pt.
-[8] [9 <./EDA_files/figure-latex/unnamed-chunk-12-1.pdf>]
-Overfull \hbox (307.24272pt too wide) in paragraph at lines 682--682
+[6] [7 <./EDA_files/figure-latex/unnamed-chunk-12-1.pdf>]
+Overfull \hbox (307.24272pt too wide) in paragraph at lines 583--583
 []\T1/lmtt/m/n/10 ## Source : https://maps.googleapis.com/maps/api/staticmap?ce
 nter=united%20states&zoom=4&size=640x640&scale=2&maptype=terrain&language=en-EN
 &key=xxx[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 686--686
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 587--587
 []\T1/lmtt/m/n/10 ## Source : https://maps.googleapis.com/maps/api/geocode/json
 ?address=united+states&key=xxx[] 
  []
 
-<EDA_files/figure-latex/unnamed-chunk-13-1.pdf, id=128, 317.185pt x 313.17pt>
+<EDA_files/figure-latex/unnamed-chunk-13-1.pdf, id=121, 317.185pt x 313.17pt>
 File: EDA_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-13-1.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-13-1.pdf  used on
- input line 698.
+ input line 599.
 (pdftex.def)             Requested size: 317.19388pt x 313.17877pt.
-[10]
-Overfull \hbox (254.74287pt too wide) in paragraph at lines 709--709
+[8]
+Overfull \hbox (254.74287pt too wide) in paragraph at lines 610--610
 []\T1/lmtt/m/n/10 ## Source : https://maps.googleapis.com/maps/api/staticmap?ce
 nter=india&zoom=5&size=640x640&scale=2&maptype=terrain&language=en-EN&key=xxx[]
  
  []
 
-<EDA_files/figure-latex/unnamed-chunk-13-2.pdf, id=133, 317.185pt x 313.17pt>
+<EDA_files/figure-latex/unnamed-chunk-13-2.pdf, id=126, 317.185pt x 313.17pt>
 File: EDA_files/figure-latex/unnamed-chunk-13-2.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-13-2.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-13-2.pdf  used on
- input line 725.
+ input line 626.
 (pdftex.def)             Requested size: 317.19388pt x 313.17877pt.
-[11 <./EDA_files/figure-latex/unnamed-chunk-13-1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 743--743
-[]\T1/lmr/m/n/10 (+20) Table 1: Chi-squared test for given prob-a-bil-i-ties:
+[9 <./EDA_files/figure-latex/unnamed-chunk-13-1.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 644--644
+[]\T1/lmr/m/n/10 (+20) Table 2: Chi-squared test for given prob-a-bil-i-ties:
  []
 
-[12 <./EDA_files/figure-latex/unnamed-chunk-13-2.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-14-1.pdf, id=169, 468.75125pt x 316.18124
+[10 <./EDA_files/figure-latex/unnamed-chunk-13-2.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-14-1.pdf, id=161, 468.75125pt x 316.18124
 pt>
 File: EDA_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-14-1.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-14-1.pdf  used on
- input line 773.
+ input line 674.
 (pdftex.def)             Requested size: 468.75009pt x 316.18047pt.
-[13 <./EDA_files/figure-latex/unnamed-chunk-14-1.pdf>] [14]
-<EDA_files/figure-latex/unnamed-chunk-17-1.pdf, id=187, 453.695pt x 316.18124pt
+[11 <./EDA_files/figure-latex/unnamed-chunk-14-1.pdf>] [12]
+<EDA_files/figure-latex/unnamed-chunk-17-1.pdf, id=179, 453.695pt x 316.18124pt
 >
 File: EDA_files/figure-latex/unnamed-chunk-17-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-17-1.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-17-1.pdf  used on
- input line 917.
+ input line 818.
 (pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-<EDA_files/figure-latex/unnamed-chunk-17-2.pdf, id=188, 453.695pt x 315.1775pt>
+<EDA_files/figure-latex/unnamed-chunk-17-2.pdf, id=180, 453.695pt x 315.1775pt>
 
 File: EDA_files/figure-latex/unnamed-chunk-17-2.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-17-2.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-17-2.pdf  used on
- input line 926.
+ input line 827.
 (pdftex.def)             Requested size: 453.6939pt x 315.17673pt.
-[15 <./EDA_files/figure-latex/unnamed-chunk-17-1.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-17-3.pdf, id=205, 453.695pt x 315.1775pt>
+[13 <./EDA_files/figure-latex/unnamed-chunk-17-1.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-17-3.pdf, id=198, 453.695pt x 315.1775pt>
 
 File: EDA_files/figure-latex/unnamed-chunk-17-3.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-17-3.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-17-3.pdf  used on
- input line 934.
+ input line 835.
 (pdftex.def)             Requested size: 453.6939pt x 315.17673pt.
-[16 <./EDA_files/figure-latex/unnamed-chunk-17-2.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-17-4.pdf, id=220, 453.695pt x 315.1775pt>
+[14 <./EDA_files/figure-latex/unnamed-chunk-17-2.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-17-4.pdf, id=213, 453.695pt x 315.1775pt>
 
 File: EDA_files/figure-latex/unnamed-chunk-17-4.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-17-4.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-17-4.pdf  used on
- input line 943.
+ input line 844.
 (pdftex.def)             Requested size: 453.6939pt x 315.17673pt.
-[17 <./EDA_files/figure-latex/unnamed-chunk-17-3.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-17-5.pdf, id=235, 453.695pt x 315.1775pt>
+[15 <./EDA_files/figure-latex/unnamed-chunk-17-3.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-17-5.pdf, id=228, 453.695pt x 315.1775pt>
 
 File: EDA_files/figure-latex/unnamed-chunk-17-5.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-17-5.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-17-5.pdf  used on
- input line 952.
+ input line 853.
 (pdftex.def)             Requested size: 453.6939pt x 315.17673pt.
-[18 <./EDA_files/figure-latex/unnamed-chunk-17-4.pdf>]
-Overfull \vbox (1.08018pt too high) detected at line 991
- []
-
-[19 <./EDA_files/figure-latex/unnamed-chunk-17-5.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-18-1.pdf, id=265, 464.73625pt x 317.185pt
+[16 <./EDA_files/figure-latex/unnamed-chunk-17-4.pdf>] [17 <./EDA_files/figure-
+latex/unnamed-chunk-17-5.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-18-1.pdf, id=257, 464.73625pt x 317.185pt
 >
 File: EDA_files/figure-latex/unnamed-chunk-18-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-18-1.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-18-1.pdf  used on
- input line 1029.
+ input line 928.
 (pdftex.def)             Requested size: 464.74928pt x 317.19388pt.
-[20 <./EDA_files/figure-latex/unnamed-chunk-18-1.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-19-1.pdf, id=277, 464.73625pt x 317.185pt
+
+Underfull \hbox (badness 10000) in paragraph at lines 941--941
+[]\T1/lmr/m/n/10 (+20) Table 3: Welch Two Sam-ple t-test:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 941--941
+\T1/lmtt/m/n/10 d_respondents[Treatment_Dummy == 0, TaskPhase1_Score]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 941--941
+\T1/lmr/m/n/10 (+20) and \T1/lmtt/m/n/10 d_respondents[Treatment_Dummy == 1,
+ []
+
+[18 <./EDA_files/figure-latex/unnamed-chunk-18-1.pdf>] [19]
+<EDA_files/figure-latex/unnamed-chunk-19-1.pdf, id=275, 464.73625pt x 317.185pt
 >
 File: EDA_files/figure-latex/unnamed-chunk-19-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-19-1.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-19-1.pdf  used on
- input line 1105.
+ input line 1064.
 (pdftex.def)             Requested size: 464.74928pt x 317.19388pt.
-[21]
-<EDA_files/figure-latex/unnamed-chunk-20-1.pdf, id=282, 458.71375pt x 316.18124
+
+Underfull \vbox (badness 1436) detected at line 1098
+ []
+
+[20 <./EDA_files/figure-latex/unnamed-chunk-19-1.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-20-1.pdf, id=287, 458.71375pt x 316.18124
 pt>
 File: EDA_files/figure-latex/unnamed-chunk-20-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-20-1.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-20-1.pdf  used on
- input line 1134.
+ input line 1100.
 (pdftex.def)             Requested size: 458.73363pt x 316.19493pt.
-[22 <./EDA_files/figure-latex/unnamed-chunk-19-1.pdf>] [23 <./EDA_files/figure-
-latex/unnamed-chunk-20-1.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-22-1.pdf, id=309, 640.3925pt x 316.18124p
-t>
-File: EDA_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (type pdf)
-<use EDA_files/figure-latex/unnamed-chunk-22-1.pdf>
-Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-22-1.pdf  used on
- input line 1214.
-(pdftex.def)             Requested size: 469.75941pt x 231.9345pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 1234--1234
-[]\T1/lmr/m/n/10 (+20) Table 3: Pear-son's Chi-squared test with sim-u-lated
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1234--1234
-\T1/lmr/m/n/10 (+20) p-value (based on 2000 repli-cates): \T1/lmtt/m/n/10 d_res
-pondents[,
- []
-
-[24 <./EDA_files/figure-latex/unnamed-chunk-22-1.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-23-1.pdf, id=327, 640.3925pt x 316.18124p
-t>
-File: EDA_files/figure-latex/unnamed-chunk-23-1.pdf Graphic file (type pdf)
-<use EDA_files/figure-latex/unnamed-chunk-23-1.pdf>
-Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-23-1.pdf  used on
- input line 1260.
-(pdftex.def)             Requested size: 469.75941pt x 231.9345pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 1277--1277
-[]\T1/lmr/m/n/10 (+20) Table 4: Pear-son's Chi-squared test with sim-u-lated
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1277--1277
-\T1/lmr/m/n/10 (+20) p-value (based on 2000 repli-cates): \T1/lmtt/m/n/10 d_res
-pondents[,
- []
-
-<EDA_files/figure-latex/unnamed-chunk-24-1.pdf, id=328, 644.4075pt x 316.18124p
-t>
-File: EDA_files/figure-latex/unnamed-chunk-24-1.pdf Graphic file (type pdf)
-<use EDA_files/figure-latex/unnamed-chunk-24-1.pdf>
-Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-24-1.pdf  used on
- input line 1303.
-(pdftex.def)             Requested size: 469.77443pt x 230.49678pt.
-[25 <./EDA_files/figure-latex/unnamed-chunk-23-1.pdf>]
-Underfull \hbox (badness 5460) in paragraph at lines 1321--1321
+[21 <./EDA_files/figure-latex/unnamed-chunk-20-1.pdf>]
+Underfull \hbox (badness 5460) in paragraph at lines 1163--1163
 []\T1/lmr/m/n/10 (+20) Table 5: Pear-son's Chi-squared test: \T1/lmtt/m/n/10 d_
 respondents[,
  []
 
-<EDA_files/figure-latex/unnamed-chunk-25-1.pdf, id=347, 640.3925pt x 316.18124p
+<EDA_files/figure-latex/unnamed-chunk-22-1.pdf, id=303, 640.3925pt x 316.18124p
+t>
+File: EDA_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (type pdf)
+<use EDA_files/figure-latex/unnamed-chunk-22-1.pdf>
+Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-22-1.pdf  used on
+ input line 1190.
+(pdftex.def)             Requested size: 469.75941pt x 231.9345pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1210--1210
+[]\T1/lmr/m/n/10 (+20) Table 6: Pear-son's Chi-squared test with sim-u-lated
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1210--1210
+\T1/lmr/m/n/10 (+20) p-value (based on 2000 repli-cates): \T1/lmtt/m/n/10 d_res
+pondents[,
+ []
+
+[22 <./EDA_files/figure-latex/unnamed-chunk-22-1.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-23-1.pdf, id=322, 640.3925pt x 316.18124p
+t>
+File: EDA_files/figure-latex/unnamed-chunk-23-1.pdf Graphic file (type pdf)
+<use EDA_files/figure-latex/unnamed-chunk-23-1.pdf>
+Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-23-1.pdf  used on
+ input line 1236.
+(pdftex.def)             Requested size: 469.75941pt x 231.9345pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+[]\T1/lmr/m/n/10 (+20) Table 7: Pear-son's Chi-squared test with sim-u-lated
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/10 (+20) p-value (based on 2000 repli-cates): \T1/lmtt/m/n/10 d_res
+pondents[,
+ []
+
+[23 <./EDA_files/figure-latex/unnamed-chunk-23-1.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-24-1.pdf, id=340, 644.4075pt x 316.18124p
+t>
+File: EDA_files/figure-latex/unnamed-chunk-24-1.pdf Graphic file (type pdf)
+<use EDA_files/figure-latex/unnamed-chunk-24-1.pdf>
+Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-24-1.pdf  used on
+ input line 1279.
+(pdftex.def)             Requested size: 469.77443pt x 230.49678pt.
+
+Underfull \hbox (badness 5460) in paragraph at lines 1297--1297
+[]\T1/lmr/m/n/10 (+20) Table 8: Pear-son's Chi-squared test: \T1/lmtt/m/n/10 d_
+respondents[,
+ []
+
+[24 <./EDA_files/figure-latex/unnamed-chunk-24-1.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-25-1.pdf, id=358, 640.3925pt x 316.18124p
 t>
 File: EDA_files/figure-latex/unnamed-chunk-25-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-25-1.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-25-1.pdf  used on
- input line 1350.
+ input line 1326.
 (pdftex.def)             Requested size: 469.75941pt x 231.9345pt.
-[26 <./EDA_files/figure-latex/unnamed-chunk-24-1.pdf>] [27 <./EDA_files/figure-
-latex/unnamed-chunk-25-1.pdf>]
+[25 <./EDA_files/figure-latex/unnamed-chunk-25-1.pdf>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 1469.
+(Font)              <10> on input line 1445.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 1469.
+(Font)              <7> on input line 1445.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 1469.
-[28] [29] [30] [31] [32] [33]
-Overfull \hbox (582.13911pt too wide) in paragraph at lines 1871--1879
+(Font)              <5> on input line 1445.
+[26] [27]
+Overfull \hbox (193.39563pt too wide) in paragraph at lines 1575--1582
 []\T1/lmr/m/n/10 (-20) ========================================================
-===============================================================================
-===
+===============================
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1871--1879
+Underfull \hbox (badness 3209) in paragraph at lines 1575--1582
 \T1/lmr/m/n/10 (+20) ----------------------------------------------------------
--------------------------------------------------------------------------------
--
+----------------------------- as.factor(Assignment_Group)Medical
  []
 
-[34]
-Overfull \hbox (596.2312pt too wide) in paragraph at lines 1905--1914
-\T1/lmr/m/n/10 (-20) ==========================================================
+
+Overfull \hbox (418.89896pt too wide) in paragraph at lines 1603--1613
+\T1/lmr/m/n/10 (-20) F Statis-tic 1.874 (df = 4; 345) 2.805*** (df = 16; 333) =
 ===============================================================================
-= 
+=======
  []
 
-
-Overfull \hbox (1053.57648pt too wide) in paragraph at lines 1916--1921
+[28] [29]
+Overfull \hbox (185.77321pt too wide) in paragraph at lines 1738--1745
 []\T1/lmr/m/n/10 (-20) ========================================================
+==============================
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1738--1745
+\T1/lmr/m/n/10 (+20) ----------------------------------------------------------
+---------------------------- as.factor(Assignment_Group)Medical
+ []
+
+
+Overfull \hbox (406.37654pt too wide) in paragraph at lines 1766--1776
+\T1/lmr/m/n/10 (-20) F Statis-tic 0.545 (df = 4; 345) 1.971** (df = 16; 333) ==
 ===============================================================================
-=============================================================== 
+=====
+ []
+
+[30]
+Overfull \hbox (107.8297pt too wide) in paragraph at lines 1840--1884
+ [][] 
  []
 
 
-Overfull \vbox (0.41466pt too high) detected at line 1993
+Overfull \hbox (49.52362pt too wide) in paragraph at lines 1889--1897
+ [][] 
  []
 
-[35]
-Overfull \hbox (635.49606pt too wide) in paragraph at lines 1995--2003
-[]\T1/lmr/m/n/10 (-20) ========================================================
-===============================================================================
-==========
+[31] [32] [33]
+Overfull \hbox (233.44199pt too wide) in paragraph at lines 2029--2104
+ [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1995--2003
-\T1/lmr/m/n/10 (+10) ----------------------------------------------------------
--------------------------------------------------------------------------------
-----
- []
+LaTeX Warning: Float too large for page by 194.80946pt on input line 2104.
 
-[36]
-Overfull \hbox (635.49606pt too wide) in paragraph at lines 2060--2070
-\T1/lmr/m/n/10 (-20) ==========================================================
-===============================================================================
-========
- []
-
-[37]
-Overfull \hbox (13.24358pt too wide) in paragraph at lines 2193--2193
+[34] [35] [36]
+Overfull \hbox (13.24358pt too wide) in paragraph at lines 2228--2228
 []\T1/lmtt/m/n/10 ## \textit{Note:}  & \multicolumn{2}{r}{$^{*}$p$<$0.1; $^{**}
 $p$<$0.05; $^{***}$p$<$0.01} \\[] 
  []
 
-
-Underfull \vbox (badness 4805) detected at line 2211
- []
-
-[38] [39]
-Overfull \hbox (107.7433pt too wide) in paragraph at lines 2403--2403
+[37] [38]
+Overfull \hbox (107.7433pt too wide) in paragraph at lines 2438--2438
 []\T1/lmtt/m/n/10 ## % Table created by stargazer v.5.2.2 by Marek Hlavac, Harv
 ard University. E-mail: hlavac at fas.harvard.edu[] 
  []
 
-[40] [41]
-Overfull \hbox (107.7433pt too wide) in paragraph at lines 2403--2403
+[39]
+Overfull \hbox (107.7433pt too wide) in paragraph at lines 2438--2438
 []\T1/lmtt/m/n/10 ## F Statistic & 18.780$^{***}$ (df = 2; 347) & 12.920$^{***}
 $ (df = 3; 346) & 3.433$^{***}$ (df = 13; 336) \\[] 
  []
 
 
-Overfull \hbox (13.24358pt too wide) in paragraph at lines 2403--2403
+Overfull \hbox (13.24358pt too wide) in paragraph at lines 2438--2438
 []\T1/lmtt/m/n/10 ## \textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}
 $p$<$0.05; $^{***}$p$<$0.01} \\[] 
  []
 
+[40] [41]
+Underfull \vbox (badness 10000) detected at line 2610
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 2610
+ []
+
 [42] [43]
-Underfull \vbox (badness 10000) detected at line 2575
- []
-
-
-Underfull \vbox (badness 10000) detected at line 2575
- []
-
-[44]
-Underfull \vbox (badness 10000) detected at line 2640
- []
-
-[45]
-<EDA_files/figure-latex/unnamed-chunk-40-1.pdf, id=484, 453.695pt x 316.18124pt
+<EDA_files/figure-latex/unnamed-chunk-41-1.pdf, id=480, 453.695pt x 316.18124pt
 >
-File: EDA_files/figure-latex/unnamed-chunk-40-1.pdf Graphic file (type pdf)
-<use EDA_files/figure-latex/unnamed-chunk-40-1.pdf>
-Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-40-1.pdf  used on
- input line 2646.
-(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-<EDA_files/figure-latex/unnamed-chunk-40-2.pdf, id=485, 453.695pt x 316.18124pt
->
-File: EDA_files/figure-latex/unnamed-chunk-40-2.pdf Graphic file (type pdf)
-<use EDA_files/figure-latex/unnamed-chunk-40-2.pdf>
-Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-40-2.pdf  used on
- input line 2658.
-(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-[46 <./EDA_files/figure-latex/unnamed-chunk-40-1.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-40-3.pdf, id=500, 453.695pt x 316.18124pt
->
-File: EDA_files/figure-latex/unnamed-chunk-40-3.pdf Graphic file (type pdf)
-<use EDA_files/figure-latex/unnamed-chunk-40-3.pdf>
-Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-40-3.pdf  used on
- input line 2666.
-(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-[47 <./EDA_files/figure-latex/unnamed-chunk-40-2.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-40-4.pdf, id=515, 453.695pt x 316.18124pt
->
-File: EDA_files/figure-latex/unnamed-chunk-40-4.pdf Graphic file (type pdf)
-<use EDA_files/figure-latex/unnamed-chunk-40-4.pdf>
-Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-40-4.pdf  used on
- input line 2678.
-(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-[48 <./EDA_files/figure-latex/unnamed-chunk-40-3.pdf>] [49 <./EDA_files/figure-
-latex/unnamed-chunk-40-4.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-40-5.pdf, id=545, 453.695pt x 316.18124pt
->
-File: EDA_files/figure-latex/unnamed-chunk-40-5.pdf Graphic file (type pdf)
-<use EDA_files/figure-latex/unnamed-chunk-40-5.pdf>
-Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-40-5.pdf  used on
- input line 2749.
-(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-[50]
-<EDA_files/figure-latex/unnamed-chunk-40-6.pdf, id=550, 453.695pt x 316.18124pt
->
-File: EDA_files/figure-latex/unnamed-chunk-40-6.pdf Graphic file (type pdf)
-<use EDA_files/figure-latex/unnamed-chunk-40-6.pdf>
-Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-40-6.pdf  used on
- input line 2757.
-(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-[51 <./EDA_files/figure-latex/unnamed-chunk-40-5.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-40-7.pdf, id=566, 453.695pt x 316.18124pt
->
-File: EDA_files/figure-latex/unnamed-chunk-40-7.pdf Graphic file (type pdf)
-<use EDA_files/figure-latex/unnamed-chunk-40-7.pdf>
-Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-40-7.pdf  used on
- input line 2765.
-(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-[52 <./EDA_files/figure-latex/unnamed-chunk-40-6.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-40-8.pdf, id=581, 453.695pt x 316.18124pt
->
-File: EDA_files/figure-latex/unnamed-chunk-40-8.pdf Graphic file (type pdf)
-<use EDA_files/figure-latex/unnamed-chunk-40-8.pdf>
-Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-40-8.pdf  used on
- input line 2777.
-(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-[53 <./EDA_files/figure-latex/unnamed-chunk-40-7.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-41-1.pdf, id=596, 431.6125pt x 285.065pt>
-
 File: EDA_files/figure-latex/unnamed-chunk-41-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-41-1.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-41-1.pdf  used on
- input line 2793.
-(pdftex.def)             Requested size: 431.61143pt x 285.0643pt.
-[54 <./EDA_files/figure-latex/unnamed-chunk-40-8.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-41-2.pdf, id=611, 422.57875pt x 285.065pt
+ input line 2681.
+(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
+<EDA_files/figure-latex/unnamed-chunk-41-2.pdf, id=481, 453.695pt x 316.18124pt
 >
 File: EDA_files/figure-latex/unnamed-chunk-41-2.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-41-2.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-41-2.pdf  used on
- input line 2825.
-(pdftex.def)             Requested size: 422.57771pt x 285.0643pt.
-[55 <./EDA_files/figure-latex/unnamed-chunk-41-1.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-41-3.pdf, id=625, 422.57875pt x 285.065pt
+ input line 2693.
+(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
+[44 <./EDA_files/figure-latex/unnamed-chunk-41-1.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-41-3.pdf, id=496, 453.695pt x 316.18124pt
 >
 File: EDA_files/figure-latex/unnamed-chunk-41-3.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-41-3.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-41-3.pdf  used on
- input line 2857.
-(pdftex.def)             Requested size: 422.57771pt x 285.0643pt.
-[56 <./EDA_files/figure-latex/unnamed-chunk-41-2.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-41-4.pdf, id=638, 431.6125pt x 285.065pt>
-
+ input line 2701.
+(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
+[45 <./EDA_files/figure-latex/unnamed-chunk-41-2.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-41-4.pdf, id=511, 453.695pt x 316.18124pt
+>
 File: EDA_files/figure-latex/unnamed-chunk-41-4.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-41-4.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-41-4.pdf  used on
- input line 2889.
-(pdftex.def)             Requested size: 431.61143pt x 285.0643pt.
-[57 <./EDA_files/figure-latex/unnamed-chunk-41-3.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-41-5.pdf, id=651, 422.57875pt x 285.065pt
+ input line 2713.
+(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
+[46 <./EDA_files/figure-latex/unnamed-chunk-41-3.pdf>] [47 <./EDA_files/figure-
+latex/unnamed-chunk-41-4.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-41-5.pdf, id=540, 453.695pt x 316.18124pt
 >
 File: EDA_files/figure-latex/unnamed-chunk-41-5.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-41-5.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-41-5.pdf  used on
- input line 2921.
+ input line 2784.
+(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
+[48]
+<EDA_files/figure-latex/unnamed-chunk-41-6.pdf, id=545, 453.695pt x 316.18124pt
+>
+File: EDA_files/figure-latex/unnamed-chunk-41-6.pdf Graphic file (type pdf)
+<use EDA_files/figure-latex/unnamed-chunk-41-6.pdf>
+Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-41-6.pdf  used on
+ input line 2792.
+(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
+[49 <./EDA_files/figure-latex/unnamed-chunk-41-5.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-41-7.pdf, id=561, 453.695pt x 316.18124pt
+>
+File: EDA_files/figure-latex/unnamed-chunk-41-7.pdf Graphic file (type pdf)
+<use EDA_files/figure-latex/unnamed-chunk-41-7.pdf>
+Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-41-7.pdf  used on
+ input line 2800.
+(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
+[50 <./EDA_files/figure-latex/unnamed-chunk-41-6.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-41-8.pdf, id=577, 453.695pt x 316.18124pt
+>
+File: EDA_files/figure-latex/unnamed-chunk-41-8.pdf Graphic file (type pdf)
+<use EDA_files/figure-latex/unnamed-chunk-41-8.pdf>
+Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-41-8.pdf  used on
+ input line 2812.
+(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
+[51 <./EDA_files/figure-latex/unnamed-chunk-41-7.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-42-1.pdf, id=592, 431.6125pt x 285.065pt>
+
+File: EDA_files/figure-latex/unnamed-chunk-42-1.pdf Graphic file (type pdf)
+<use EDA_files/figure-latex/unnamed-chunk-42-1.pdf>
+Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-42-1.pdf  used on
+ input line 2828.
+(pdftex.def)             Requested size: 431.61143pt x 285.0643pt.
+[52 <./EDA_files/figure-latex/unnamed-chunk-41-8.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-42-2.pdf, id=607, 422.57875pt x 285.065pt
+>
+File: EDA_files/figure-latex/unnamed-chunk-42-2.pdf Graphic file (type pdf)
+<use EDA_files/figure-latex/unnamed-chunk-42-2.pdf>
+Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-42-2.pdf  used on
+ input line 2860.
 (pdftex.def)             Requested size: 422.57771pt x 285.0643pt.
-[58 <./EDA_files/figure-latex/unnamed-chunk-41-4.pdf>] [59 <./EDA_files/figure-
-latex/unnamed-chunk-41-5.pdf>] [60] [61] [62] [63] [64] [65] [66] [67]
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+[53 <./EDA_files/figure-latex/unnamed-chunk-42-1.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-42-3.pdf, id=620, 422.57875pt x 285.065pt
+>
+File: EDA_files/figure-latex/unnamed-chunk-42-3.pdf Graphic file (type pdf)
+<use EDA_files/figure-latex/unnamed-chunk-42-3.pdf>
+Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-42-3.pdf  used on
+ input line 2892.
+(pdftex.def)             Requested size: 422.57771pt x 285.0643pt.
+[54 <./EDA_files/figure-latex/unnamed-chunk-42-2.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-42-4.pdf, id=633, 431.6125pt x 285.065pt>
+
+File: EDA_files/figure-latex/unnamed-chunk-42-4.pdf Graphic file (type pdf)
+<use EDA_files/figure-latex/unnamed-chunk-42-4.pdf>
+Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-42-4.pdf  used on
+ input line 2924.
+(pdftex.def)             Requested size: 431.61143pt x 285.0643pt.
+[55 <./EDA_files/figure-latex/unnamed-chunk-42-3.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-42-5.pdf, id=647, 422.57875pt x 285.065pt
+>
+File: EDA_files/figure-latex/unnamed-chunk-42-5.pdf Graphic file (type pdf)
+<use EDA_files/figure-latex/unnamed-chunk-42-5.pdf>
+Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-42-5.pdf  used on
+ input line 2956.
+(pdftex.def)             Requested size: 422.57771pt x 285.0643pt.
+[56 <./EDA_files/figure-latex/unnamed-chunk-42-4.pdf>] [57 <./EDA_files/figure-
+latex/unnamed-chunk-42-5.pdf>] [58] [59] [60] [61] [62] [63] [64] [65]
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ##                                                           
                                  Q36[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ##  1:     Image 1Correct diagnosis: Normal\nYou chose: ${q:/
 /QID1/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ##  2:  Image 3Correct diagnosis: Pneumonia\nYou chose: ${q:/
 /QID6/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ##  3:    Image 5Correct diagnosis: Normal\nYou chose: ${q://
 QID16/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ##  5:      Image 10 Correct diagnosis: NormalYou chose: ${q:
 //QID21/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ##  7:      Image 10 Correct diagnosis: NormalYou chose: ${q:
 //QID21/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ##  8:  Image 7Correct diagnosis: Pneumonia\nYou chose ${q://
 QID18/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ##  9:      Image 4Correct diagnosis: PneumoniaYou chose: ${q
 ://QID7/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 10:  Image 3Correct diagnosis: Pneumonia\nYou chose: ${q:/
 /QID6/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 11:      Image 10 Correct diagnosis: NormalYou chose: ${q:
 //QID21/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 12:  Image 3Correct diagnosis: Pneumonia\nYou chose: ${q:/
 /QID6/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 13:     Image 1Correct diagnosis: Normal\nYou chose: ${q:/
 /QID1/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 14:     Image 2Correct diagnosis: Normal\nYou chose: ${q:/
 /QID5/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 15:  Image 7Correct diagnosis: Pneumonia\nYou chose ${q://
 QID18/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 16:  Image 7Correct diagnosis: Pneumonia\nYou chose ${q://
 QID18/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 18: Image 9Correct diagnosis: Pneumonia\nYou chose: ${q://
 QID20/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 19:  Image 7Correct diagnosis: Pneumonia\nYou chose ${q://
 QID18/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 20: Image 9Correct diagnosis: Pneumonia\nYou chose: ${q://
 QID20/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 21:  Image 7Correct diagnosis: Pneumonia\nYou chose ${q://
 QID18/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 23:  Image 6Correct diagnosis: Pneumonia\nYou chose ${q://
 QID17/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 24:  Image 3Correct diagnosis: Pneumonia\nYou chose: ${q:/
 /QID6/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 25:     Image 1Correct diagnosis: Normal\nYou chose: ${q:/
 /QID1/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 27:     Image 2Correct diagnosis: Normal\nYou chose: ${q:/
 /QID5/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ##                                                           
                                  Q36[] 
  []
 
-[68] [69]
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+[66] [67]
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ##                                                           
                                   Q41[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ##  1:    Image 15Correct diagnosis: Normal\nYou chose: ${q:/
 /QID22/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ##  2:  Image 11Correct diagnosis: Pneumonia\nYou chose: ${q:
 //QID8/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ##  3:       Image 12Correct diagnosis: Normal\nYou chose: ${
 q://QID9/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ##  4:     Image 13Correct diagnosis: PneumoniaYou chose: ${q
 ://QID10/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ##  5:    Image 15Correct diagnosis: Normal\nYou chose: ${q:/
 /QID22/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ##  8:  Image 11Correct diagnosis: Pneumonia\nYou chose: ${q:
 //QID8/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ##  9:     Image 13Correct diagnosis: PneumoniaYou chose: ${q
 ://QID10/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 10:       Image 12Correct diagnosis: Normal\nYou chose: ${
 q://QID9/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 11:     Image 13Correct diagnosis: PneumoniaYou chose: ${q
 ://QID10/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 12:       Image 12Correct diagnosis: Normal\nYou chose: ${
 q://QID9/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 13:  Image 11Correct diagnosis: Pneumonia\nYou chose: ${q:
 //QID8/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 14:    Image 20Correct diagnosis: Normal\nYou chose: ${q:/
 /QID27/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 16:    Image 20Correct diagnosis: Normal\nYou chose: ${q:/
 /QID27/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 19:  Image 11Correct diagnosis: Pneumonia\nYou chose: ${q:
 //QID8/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 20:     Image 19Correct diagnosis: PneumoniaYou chose: ${q
 ://QID26/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 21:     Image 19Correct diagnosis: PneumoniaYou chose: ${q
 ://QID26/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 23: Image 17Correct diagnosis: Pneumonia\nYou chose: ${q:/
 /QID24/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 24:       Image 12Correct diagnosis: Normal\nYou chose: ${
 q://QID9/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 25:  Image 11Correct diagnosis: Pneumonia\nYou chose: ${q:
 //QID8/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ## 27:       Image 12Correct diagnosis: Normal\nYou chose: ${
 q://QID9/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 4370--4370
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 4405--4405
 []\T1/lmtt/m/n/10 ##                                                           
                                   Q41[] 
  []
 
-[70] [71] [72] [73] [74] [75] [76] [77] [78] [79] [80] [81] [82] [83] [84] [85]
-[86] [87] [88] [89] [90] [91] [92] [93] [94] [95] [96] [97] [98] [99] [100] [10
-1] [102] [103] [104] [105] [106] [107] [108] [109] [110]
-Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8551--8551
+[68] [69] [70] [71] [72] [73] [74] [75] [76] [77] [78] [79] [80] [81] [82] [83]
+[84] [85] [86] [87] [88] [89] [90] [91] [92] [93] [94] [95] [96] [97] [98] [99]
+[100] [101] [102] [103] [104] [105] [106] [107] [108]
+Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ##                                                           
                                                                                
                                                                                
@@ -1288,7 +1255,7 @@ Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8551--8551
  []
 
 
-Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ##  7: r thoughts on the advertisement? Please answer in two 
 sentences.r thoughts on the advertisement? Please answer in two sentences.r tho
 ughts on the advertisement? Please answer in two sentences.r thoughts on the ad
@@ -1299,7 +1266,7 @@ two sentences.r thoughts on the advertisement? Please answer in two sentences.r
  []
 
 
-Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 13:                                                       
                                                                                
                                                                                
@@ -1309,8 +1276,8 @@ Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8551--8551
                               The advertisement is emergency an[] 
  []
 
-[111]
-Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8551--8551
+[109]
+Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 35:                                                       
                                                                                
                                                                                
@@ -1321,7 +1288,7 @@ Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8551--8551
  []
 
 
-Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 45:                                                       
                                                                                
                                                                                
@@ -1332,7 +1299,7 @@ Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8551--8551
  []
 
 
-Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 57:                                                       
                                                                                
                                                                                
@@ -1343,7 +1310,7 @@ pare and contrast the messages of the advertisement and the ...\n[]
  []
 
 
-Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 63:                                                       
                                                                                
                                                                                
@@ -1354,7 +1321,7 @@ lly appreciated that this hospital gives back to the community.[]
  []
 
 
-Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 66:                                                       
                                                                                
                                                                                
@@ -1366,7 +1333,7 @@ ly and physically[]
  []
 
 
-Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ##                                                           
                                                                                
                                                                                
@@ -1376,8 +1343,8 @@ Overfull \hbox (2254.98706pt too wide) in paragraph at lines 8551--8551
                                                      Control_Q1[] 
  []
 
-[112] [113] [114] [115] [116] [117]
-Overfull \hbox (1294.23985pt too wide) in paragraph at lines 8551--8551
+[110] [111] [112] [113] [114] [115]
+Overfull \hbox (1294.23985pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ##                                                           
                                                                                
                                                                                
@@ -1386,7 +1353,7 @@ Overfull \hbox (1294.23985pt too wide) in paragraph at lines 8551--8551
  []
 
 
-Overfull \hbox (1294.23985pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (1294.23985pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 35:                                                       
                                                                                
                                                                                
@@ -1395,7 +1362,7 @@ Overfull \hbox (1294.23985pt too wide) in paragraph at lines 8551--8551
  []
 
 
-Overfull \hbox (1294.23985pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (1294.23985pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 45:                                                       
                                                                                
                                                                                
@@ -1403,8 +1370,8 @@ Overfull \hbox (1294.23985pt too wide) in paragraph at lines 8551--8551
                                    yes[] 
  []
 
-[118]
-Overfull \hbox (1294.23985pt too wide) in paragraph at lines 8551--8551
+[116]
+Overfull \hbox (1294.23985pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 57:                                                       
                                                                                
                                         Jul 9, 2017 ^^V Find an answer to your 
@@ -1413,7 +1380,7 @@ sages of the advertisement and the ...\n[]
  []
 
 
-Overfull \hbox (1294.23985pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (1294.23985pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 63: I don\TS1/lmtt/m/n/10 '\T1/lmtt/m/n/10 t like this adv
 ertisement at all. Pharmaceutical ads have always seemed very counterintuitive 
 to me and I feel they would only give doctors more work because people would be
@@ -1422,7 +1389,7 @@ to me and I feel they would only give doctors more work because people would be
  []
 
 
-Overfull \hbox (1288.98987pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (1288.98987pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 66:                                                       
                                                                                
                                                                                
@@ -1431,7 +1398,7 @@ ess things so we dont think like that[]
  []
 
 
-Overfull \hbox (1294.23985pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (1294.23985pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ##                                                           
                                                                                
                                                                                
@@ -1439,335 +1406,335 @@ Overfull \hbox (1294.23985pt too wide) in paragraph at lines 8551--8551
                             Control_Q2[] 
  []
 
-[119] [120] [121] [122] [123]
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 8551--8551
+[117] [118] [119] [120] [121]
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ##                                                           
                                  Q36[] 
  []
 
-[124]
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 8551--8551
+[122]
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 39:  Image 3Correct diagnosis: Pneumonia\nYou chose: ${q:/
 /QID6/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 44: Image 9Correct diagnosis: Pneumonia\nYou chose: ${q://
 QID20/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 48:     Image 2Correct diagnosis: Normal\nYou chose: ${q:/
 /QID5/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 50:  Image 7Correct diagnosis: Pneumonia\nYou chose ${q://
 QID18/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 56:    Image 5Correct diagnosis: Normal\nYou chose: ${q://
 QID16/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ##                                                           
                                  Q36[] 
  []
 
 
-Overfull \hbox (123.49326pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (123.49326pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ##                                                           
                                      Self_Reflect_Q1[] 
  []
 
-[125]
-Overfull \hbox (123.49326pt too wide) in paragraph at lines 8551--8551
+[123]
+Overfull \hbox (123.49326pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 28: Assuming the labels are correct, I correctly identifie
 d them all.  Therefore I could not have done better.[] 
  []
 
 
-Overfull \hbox (123.49326pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (123.49326pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 39:                                                       
                                                 GOOD[] 
  []
 
 
-Overfull \hbox (123.49326pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (123.49326pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 44:                                                       
                                               better[] 
  []
 
 
-Overfull \hbox (123.49326pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (123.49326pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 48:                                                       
                                                  yes[] 
  []
 
 
-Overfull \hbox (123.49326pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (123.49326pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 50:                                                       
                                                  yes[] 
  []
 
 
-Overfull \hbox (123.49326pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (123.49326pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 52:                                                       
                          good and tech for scan body[] 
  []
 
 
-Overfull \hbox (123.49326pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (123.49326pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 56:                                                       
             in some images i must been highly noted.[] 
  []
 
 
-Overfull \hbox (123.49326pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (123.49326pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 62:                                                       
    Anything further would need training. I did good.[] 
  []
 
 
-Overfull \hbox (123.49326pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (123.49326pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ##                                                           
                                      Self_Reflect_Q1[] 
  []
 
-[126] [127] [128]
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 8551--8551
+[124] [125] [126]
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ##                                                           
                                   Q41[] 
  []
 
-[129]
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 8551--8551
+[127]
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 39:    Image 20Correct diagnosis: Normal\nYou chose: ${q:/
 /QID27/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 44: Image 17Correct diagnosis: Pneumonia\nYou chose: ${q:/
 /QID24/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 48:       Image 12Correct diagnosis: Normal\nYou chose: ${
 q://QID9/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 50:     Image 19Correct diagnosis: PneumoniaYou chose: ${q
 ://QID26/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 52: Image 17Correct diagnosis: Pneumonia\nYou chose: ${q:/
 /QID24/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 56: Image 14Correct diagnosis: Pneumonia\nYou chose: ${q:/
 /QID11/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (44.74348pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ##                                                           
                                   Q41[] 
  []
 
 
-Overfull \hbox (569.74196pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (569.74196pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ##                                                           
                                                                                
                                            Self_Reflect_Q2[] 
  []
 
-[130]
-Overfull \hbox (569.74196pt too wide) in paragraph at lines 8551--8551
+[128]
+Overfull \hbox (569.74196pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 28: Some of the normal are looking like the ones with pneu
 monia. While I could have technically done better since I missed two, I do not 
 feel I would have performed better the second time around.[] 
  []
 
 
-Overfull \hbox (569.74196pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (569.74196pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 39:                                                       
                                                                                
                                                       GOOD[] 
  []
 
 
-Overfull \hbox (569.74196pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (569.74196pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 44:                                                       
                                                                                
                                                     better[] 
  []
 
 
-Overfull \hbox (569.74196pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (569.74196pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 48:                                                       
                                                                                
                                                        yes[] 
  []
 
 
-Overfull \hbox (569.74196pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (569.74196pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 50:                                                       
                                                                                
                                                        yes[] 
  []
 
 
-Overfull \hbox (569.74196pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (569.74196pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 52:                                                       
                                                                                
                                                        goo[] 
  []
 
 
-Overfull \hbox (569.74196pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (569.74196pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 56:                                                       
                                                                                
                                                       None[] 
  []
 
 
-Overfull \hbox (569.74196pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (569.74196pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ##                                                           
                                                                                
                                            Self_Reflect_Q2[] 
  []
 
-[131] [132] [133]
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 8551--8551
+[129] [130] [131]
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ##                                                           
                                  Q38[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 12: Image 6Correct diagnosis: Pneumonia\nYou chose: ${q://
 QID17/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 18:      Image 10 Correct diagnosis: NormalYou chose: ${q:
 //QID21/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 24:     Image 1Correct diagnosis: Normal\nYou chose: ${q:/
 /QID1/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 33:      Image 4Correct diagnosis: PneumoniaYou chose: ${q
 ://QID7/ChoiceGroup/SelectedChoices}[] 
  []
 
-[134]
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 8551--8551
+[132]
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 38:     Image 2Correct diagnosis: Normal\nYou chose: ${q:/
 /QID5/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 42:      Image 10 Correct diagnosis: NormalYou chose: ${q:
 //QID21/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 51:  Image 3Correct diagnosis: Pneumonia\nYou chose: ${q:/
 /QID6/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (39.4935pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (39.4935pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ##                                                           
                                  Q38[] 
  []
 
-[135] [136] [137] [138]
-Overfull \hbox (28.99353pt too wide) in paragraph at lines 8551--8551
+[133] [134] [135] [136]
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ##                                                           
                                Q43[] 
  []
 
 
-Overfull \hbox (28.99353pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 18:     Image 16Correct diagnosis: NormalYou chose: ${q://
 QID23/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (28.99353pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 24:  Image 12Correct diagnosis: Normal\nYou chose: ${q://Q
 ID9/ChoiceGroup/SelectedChoices}\n[] 
  []
 
-[139]
-Overfull \hbox (28.99353pt too wide) in paragraph at lines 8551--8551
+[137]
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 42: Image 20Correct diagnosis: Normal\nYou chose: ${q://QI
 D27/ChoiceGroup/SelectedChoices}\n[] 
  []
 
 
-Overfull \hbox (28.99353pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ## 51:  Image 13Correct diagnosis: PneumoniaYou chose: ${q://
 QID10/ChoiceGroup/SelectedChoices}[] 
  []
 
 
-Overfull \hbox (28.99353pt too wide) in paragraph at lines 8551--8551
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 8586--8586
 []\T1/lmtt/m/n/10 ##                                                           
                                Q43[] 
  []
 
-[140] [141] [142] [143] [144] [145] [146] [147] [148] [149] [150] [151] [152] [
-153] [154] [155] [156] [157] [158] [159] [160] [161]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 8608.
-[162]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 8608.
+[138] [139] [140] [141] [142] [143] [144] [145] [146] [147] [148] [149] [150] [
+151] [152] [153] [154] [155] [156] [157] [158] [159]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 8643.
+[160]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 8643.
 (./EDA.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 8608.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 8608.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 8643.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 8643.
 
 Package rerunfilecheck Info: File `EDA.out' has not changed.
-(rerunfilecheck)             Checksum: 3F6923E6D0F8C2D4E79FCD36C5B54D18;2117.
+(rerunfilecheck)             Checksum: F232FC568638456CA05949C6D6500426;2043.
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 13384 strings out of 480608
- 201868 string characters out of 5903631
- 610654 words of memory out of 5000000
- 28760 multiletter control sequences out of 15000+600000
- 589001 words of font info for 83 fonts, out of 8000000 for 9000
+ 13382 strings out of 480608
+ 201862 string characters out of 5903631
+ 610837 words of memory out of 5000000
+ 28761 multiletter control sequences out of 15000+600000
+ 588835 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 34i,10n,42p,1323b,465s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/
-texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/20
-20/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2020/texmf-dist/
+ 34i,10n,42p,1323b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/
+texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2020/t
+exmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2020/texmf-dist/
 fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2020/texmf-dist/fonts/enc/
 dvips/lm/lm-ts1.enc}</usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/l
 mbx10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmbx12.pfb>
@@ -1782,10 +1749,10 @@ ic/lm/lmr7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmri10
 ive/2020/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/local/texlive/2020/t
 exmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2020/texmf-dist/
 fonts/type1/public/lm/lmtti10.pfb>
-Output written on EDA.pdf (162 pages, 2151343 bytes).
+Output written on EDA.pdf (160 pages, 2153895 bytes).
 PDF statistics:
- 1216 PDF objects out of 1440 (max. 8388607)
+ 1214 PDF objects out of 1440 (max. 8388607)
  939 compressed objects within 10 object streams
- 222 named destinations out of 1000 (max. 500000)
+ 223 named destinations out of 1000 (max. 500000)
  12562 words of extra memory for PDF output out of 14400 (max. 10000000)
 
