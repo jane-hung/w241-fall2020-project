@@ -1334,5 +1334,4 @@ d_attrition[(Q1 != "") & (Q11 != "") & (Q21 != "") & (Q30 != ""), Attrition_Stag
 ```{r}
 # look at where people fall off
 d_attrition[ , (.N), by = .(Attrition_Stage)]
-chisq.test(d_attrition[ , (.N), by = .(Attrition_Stage)],simulate.p.value = TRUE)
 ```
