@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  6 DEC 2020 13:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  6 DEC 2020 17:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -395,6 +395,15 @@ LaTeX Warning: Label `' multiply defined.
 
 LaTeX Warning: Label `' multiply defined.
 
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
 )
 \openout1 = `EDA.aux'.
 
@@ -562,7 +571,7 @@ LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
 
 {/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
 [4] [5]
-<EDA_files/figure-latex/unnamed-chunk-12-1.pdf, id=99, 422.57875pt x 285.065pt>
+<EDA_files/figure-latex/unnamed-chunk-12-1.pdf, id=95, 422.57875pt x 285.065pt>
 
 File: EDA_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-12-1.pdf>
@@ -582,7 +591,7 @@ Overfull \hbox (7.99359pt too wide) in paragraph at lines 582--582
 ?address=united+states&key=xxx[] 
  []
 
-<EDA_files/figure-latex/unnamed-chunk-13-1.pdf, id=117, 317.185pt x 313.17pt>
+<EDA_files/figure-latex/unnamed-chunk-13-1.pdf, id=113, 317.185pt x 313.17pt>
 File: EDA_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-13-1.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-13-1.pdf  used on
@@ -595,7 +604,7 @@ nter=india&zoom=5&size=640x640&scale=2&maptype=terrain&language=en-EN&key=xxx[]
  
  []
 
-<EDA_files/figure-latex/unnamed-chunk-13-2.pdf, id=122, 317.185pt x 313.17pt>
+<EDA_files/figure-latex/unnamed-chunk-13-2.pdf, id=118, 317.185pt x 313.17pt>
 File: EDA_files/figure-latex/unnamed-chunk-13-2.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-13-2.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-13-2.pdf  used on
@@ -607,7 +616,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 639--639
  []
 
 [10 <./EDA_files/figure-latex/unnamed-chunk-13-2.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-14-1.pdf, id=157, 468.75125pt x 316.18124
+<EDA_files/figure-latex/unnamed-chunk-14-1.pdf, id=153, 468.75125pt x 316.18124
 pt>
 File: EDA_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-14-1.pdf>
@@ -615,14 +624,14 @@ Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-14-1.pdf  used on
  input line 669.
 (pdftex.def)             Requested size: 468.75009pt x 316.18047pt.
 [11 <./EDA_files/figure-latex/unnamed-chunk-14-1.pdf>] [12]
-<EDA_files/figure-latex/unnamed-chunk-17-1.pdf, id=175, 453.695pt x 316.18124pt
+<EDA_files/figure-latex/unnamed-chunk-17-1.pdf, id=171, 453.695pt x 316.18124pt
 >
 File: EDA_files/figure-latex/unnamed-chunk-17-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-17-1.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-17-1.pdf  used on
  input line 813.
 (pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-<EDA_files/figure-latex/unnamed-chunk-17-2.pdf, id=176, 453.695pt x 315.1775pt>
+<EDA_files/figure-latex/unnamed-chunk-17-2.pdf, id=172, 453.695pt x 315.1775pt>
 
 File: EDA_files/figure-latex/unnamed-chunk-17-2.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-17-2.pdf>
@@ -630,7 +639,7 @@ Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-17-2.pdf  used on
  input line 822.
 (pdftex.def)             Requested size: 453.6939pt x 315.17673pt.
 [13 <./EDA_files/figure-latex/unnamed-chunk-17-1.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-17-3.pdf, id=194, 453.695pt x 315.1775pt>
+<EDA_files/figure-latex/unnamed-chunk-17-3.pdf, id=190, 453.695pt x 315.1775pt>
 
 File: EDA_files/figure-latex/unnamed-chunk-17-3.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-17-3.pdf>
@@ -638,7 +647,7 @@ Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-17-3.pdf  used on
  input line 830.
 (pdftex.def)             Requested size: 453.6939pt x 315.17673pt.
 [14 <./EDA_files/figure-latex/unnamed-chunk-17-2.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-17-4.pdf, id=209, 453.695pt x 315.1775pt>
+<EDA_files/figure-latex/unnamed-chunk-17-4.pdf, id=205, 453.695pt x 315.1775pt>
 
 File: EDA_files/figure-latex/unnamed-chunk-17-4.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-17-4.pdf>
@@ -646,232 +655,217 @@ Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-17-4.pdf  used on
  input line 839.
 (pdftex.def)             Requested size: 453.6939pt x 315.17673pt.
 [15 <./EDA_files/figure-latex/unnamed-chunk-17-3.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-17-5.pdf, id=224, 453.695pt x 315.1775pt>
+<EDA_files/figure-latex/unnamed-chunk-17-5.pdf, id=220, 453.695pt x 315.1775pt>
 
 File: EDA_files/figure-latex/unnamed-chunk-17-5.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-17-5.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-17-5.pdf  used on
  input line 848.
 (pdftex.def)             Requested size: 453.6939pt x 315.17673pt.
-[16 <./EDA_files/figure-latex/unnamed-chunk-17-4.pdf>]
-Overfull \vbox (1.08018pt too high) detected at line 887
- []
-
-[17 <./EDA_files/figure-latex/unnamed-chunk-17-5.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-18-1.pdf, id=253, 464.73625pt x 317.185pt
+[16 <./EDA_files/figure-latex/unnamed-chunk-17-4.pdf>] [17 <./EDA_files/figure-
+latex/unnamed-chunk-17-5.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-18-1.pdf, id=249, 464.73625pt x 317.185pt
 >
 File: EDA_files/figure-latex/unnamed-chunk-18-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-18-1.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-18-1.pdf  used on
- input line 925.
+ input line 923.
 (pdftex.def)             Requested size: 464.74928pt x 317.19388pt.
-[18 <./EDA_files/figure-latex/unnamed-chunk-18-1.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-19-1.pdf, id=265, 464.73625pt x 317.185pt
+
+Underfull \hbox (badness 10000) in paragraph at lines 936--936
+[]\T1/lmr/m/n/10 (+20) Table 3: Welch Two Sam-ple t-test:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 936--936
+\T1/lmtt/m/n/10 d_respondents[Treatment_Dummy == 0, TaskPhase1_Score]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 936--936
+\T1/lmr/m/n/10 (+20) and \T1/lmtt/m/n/10 d_respondents[Treatment_Dummy == 1,
+ []
+
+[18 <./EDA_files/figure-latex/unnamed-chunk-18-1.pdf>] [19]
+<EDA_files/figure-latex/unnamed-chunk-19-1.pdf, id=267, 464.73625pt x 317.185pt
 >
 File: EDA_files/figure-latex/unnamed-chunk-19-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-19-1.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-19-1.pdf  used on
- input line 1001.
+ input line 1059.
 (pdftex.def)             Requested size: 464.74928pt x 317.19388pt.
-[19]
-<EDA_files/figure-latex/unnamed-chunk-20-1.pdf, id=271, 458.71375pt x 316.18124
+
+Underfull \vbox (badness 1436) detected at line 1093
+ []
+
+[20 <./EDA_files/figure-latex/unnamed-chunk-19-1.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-20-1.pdf, id=279, 458.71375pt x 316.18124
 pt>
 File: EDA_files/figure-latex/unnamed-chunk-20-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-20-1.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-20-1.pdf  used on
- input line 1030.
+ input line 1095.
 (pdftex.def)             Requested size: 458.73363pt x 316.19493pt.
-[20 <./EDA_files/figure-latex/unnamed-chunk-19-1.pdf>] [21 <./EDA_files/figure-
-latex/unnamed-chunk-20-1.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-22-1.pdf, id=297, 640.3925pt x 316.18124p
+[21 <./EDA_files/figure-latex/unnamed-chunk-20-1.pdf>]
+Underfull \hbox (badness 5460) in paragraph at lines 1158--1158
+[]\T1/lmr/m/n/10 (+20) Table 5: Pear-son's Chi-squared test: \T1/lmtt/m/n/10 d_
+respondents[,
+ []
+
+<EDA_files/figure-latex/unnamed-chunk-22-1.pdf, id=294, 640.3925pt x 316.18124p
 t>
 File: EDA_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-22-1.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-22-1.pdf  used on
- input line 1110.
+ input line 1185.
 (pdftex.def)             Requested size: 469.75941pt x 231.9345pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1130--1130
-[]\T1/lmr/m/n/10 (+20) Table 4: Pear-son's Chi-squared test with sim-u-lated
+Underfull \hbox (badness 10000) in paragraph at lines 1205--1205
+[]\T1/lmr/m/n/10 (+20) Table 6: Pear-son's Chi-squared test with sim-u-lated
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1130--1130
+Underfull \hbox (badness 10000) in paragraph at lines 1205--1205
 \T1/lmr/m/n/10 (+20) p-value (based on 2000 repli-cates): \T1/lmtt/m/n/10 d_res
 pondents[,
  []
 
 [22 <./EDA_files/figure-latex/unnamed-chunk-22-1.pdf>]
-<EDA_files/figure-latex/unnamed-chunk-23-1.pdf, id=316, 640.3925pt x 316.18124p
+<EDA_files/figure-latex/unnamed-chunk-23-1.pdf, id=314, 640.3925pt x 316.18124p
 t>
 File: EDA_files/figure-latex/unnamed-chunk-23-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-23-1.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-23-1.pdf  used on
- input line 1156.
+ input line 1231.
 (pdftex.def)             Requested size: 469.75941pt x 231.9345pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1173--1173
-[]\T1/lmr/m/n/10 (+20) Table 5: Pear-son's Chi-squared test with sim-u-lated
+Underfull \hbox (badness 10000) in paragraph at lines 1248--1248
+[]\T1/lmr/m/n/10 (+20) Table 7: Pear-son's Chi-squared test with sim-u-lated
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1173--1173
+Underfull \hbox (badness 10000) in paragraph at lines 1248--1248
 \T1/lmr/m/n/10 (+20) p-value (based on 2000 repli-cates): \T1/lmtt/m/n/10 d_res
 pondents[,
  []
 
-<EDA_files/figure-latex/unnamed-chunk-24-1.pdf, id=317, 644.4075pt x 316.18124p
+[23 <./EDA_files/figure-latex/unnamed-chunk-23-1.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-24-1.pdf, id=332, 644.4075pt x 316.18124p
 t>
 File: EDA_files/figure-latex/unnamed-chunk-24-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-24-1.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-24-1.pdf  used on
- input line 1199.
+ input line 1274.
 (pdftex.def)             Requested size: 469.77443pt x 230.49678pt.
-[23 <./EDA_files/figure-latex/unnamed-chunk-23-1.pdf>]
-Underfull \hbox (badness 5460) in paragraph at lines 1217--1217
-[]\T1/lmr/m/n/10 (+20) Table 6: Pear-son's Chi-squared test: \T1/lmtt/m/n/10 d_
+
+Underfull \hbox (badness 5460) in paragraph at lines 1292--1292
+[]\T1/lmr/m/n/10 (+20) Table 8: Pear-son's Chi-squared test: \T1/lmtt/m/n/10 d_
 respondents[,
  []
 
-<EDA_files/figure-latex/unnamed-chunk-25-1.pdf, id=335, 640.3925pt x 316.18124p
+[24 <./EDA_files/figure-latex/unnamed-chunk-24-1.pdf>]
+<EDA_files/figure-latex/unnamed-chunk-25-1.pdf, id=350, 640.3925pt x 316.18124p
 t>
 File: EDA_files/figure-latex/unnamed-chunk-25-1.pdf Graphic file (type pdf)
 <use EDA_files/figure-latex/unnamed-chunk-25-1.pdf>
 Package pdftex.def Info: EDA_files/figure-latex/unnamed-chunk-25-1.pdf  used on
- input line 1246.
+ input line 1321.
 (pdftex.def)             Requested size: 469.75941pt x 231.9345pt.
-[24 <./EDA_files/figure-latex/unnamed-chunk-24-1.pdf>] [25 <./EDA_files/figure-
-latex/unnamed-chunk-25-1.pdf>]
+[25 <./EDA_files/figure-latex/unnamed-chunk-25-1.pdf>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 1365.
+(Font)              <10> on input line 1440.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 1365.
+(Font)              <7> on input line 1440.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 1365.
-[26] [27] [28] [29] [30] [31]
-Overfull \hbox (582.13911pt too wide) in paragraph at lines 1765--1773
-[]\T1/lmr/m/n/10 (-20) ========================================================
-===============================================================================
-===
+(Font)              <5> on input line 1440.
+[26] [27] [28]
+Overfull \vbox (0.55887pt too high) detected at line 1738
+ []
+
+[29] [30] [31]
+Overfull \hbox (107.8297pt too wide) in paragraph at lines 1845--1889
+ [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1765--1773
-\T1/lmr/m/n/10 (+20) ----------------------------------------------------------
--------------------------------------------------------------------------------
--
+Overfull \hbox (49.52362pt too wide) in paragraph at lines 1894--1902
+ [][] 
  []
 
-[32]
-Overfull \hbox (596.2312pt too wide) in paragraph at lines 1799--1808
-\T1/lmr/m/n/10 (-20) ==========================================================
-===============================================================================
-= 
+[32] [33]
+Overfull \hbox (233.44199pt too wide) in paragraph at lines 1974--2049
+ [][] 
  []
 
 
-Overfull \hbox (1053.57648pt too wide) in paragraph at lines 1810--1815
-[]\T1/lmr/m/n/10 (-20) ========================================================
-===============================================================================
-=============================================================== 
- []
+LaTeX Warning: Float too large for page by 194.80946pt on input line 2049.
 
-
-Overfull \vbox (0.41466pt too high) detected at line 1887
- []
-
-[33]
-Overfull \hbox (635.49606pt too wide) in paragraph at lines 1889--1897
-[]\T1/lmr/m/n/10 (-20) ========================================================
-===============================================================================
-==========
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1889--1897
-\T1/lmr/m/n/10 (+10) ----------------------------------------------------------
--------------------------------------------------------------------------------
-----
- []
-
-[34]
-Overfull \hbox (635.49606pt too wide) in paragraph at lines 1954--1964
-\T1/lmr/m/n/10 (-20) ==========================================================
-===============================================================================
-========
- []
-
-[35]
-Overfull \hbox (13.24358pt too wide) in paragraph at lines 2087--2087
+[34] [35]
+Overfull \hbox (13.24358pt too wide) in paragraph at lines 2173--2173
 []\T1/lmtt/m/n/10 ## \textit{Note:}  & \multicolumn{2}{r}{$^{*}$p$<$0.1; $^{**}
 $p$<$0.05; $^{***}$p$<$0.01} \\[] 
  []
 
-
-Underfull \vbox (badness 4805) detected at line 2105
- []
-
 [36] [37]
-Overfull \hbox (107.7433pt too wide) in paragraph at lines 2297--2297
+Overfull \hbox (107.7433pt too wide) in paragraph at lines 2383--2383
 []\T1/lmtt/m/n/10 ## % Table created by stargazer v.5.2.2 by Marek Hlavac, Harv
 ard University. E-mail: hlavac at fas.harvard.edu[] 
  []
 
 [38] [39]
-Overfull \hbox (107.7433pt too wide) in paragraph at lines 2297--2297
+Overfull \hbox (107.7433pt too wide) in paragraph at lines 2383--2383
 []\T1/lmtt/m/n/10 ## F Statistic & 18.780$^{***}$ (df = 2; 347) & 12.920$^{***}
 $ (df = 3; 346) & 3.433$^{***}$ (df = 13; 336) \\[] 
  []
 
 
-Overfull \hbox (13.24358pt too wide) in paragraph at lines 2297--2297
+Overfull \hbox (13.24358pt too wide) in paragraph at lines 2383--2383
 []\T1/lmtt/m/n/10 ## \textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}
 $p$<$0.05; $^{***}$p$<$0.01} \\[] 
  []
 
 [40]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2380.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2466.
 [41]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2380.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2466.
 (./EDA.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2380.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2380.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2466.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2466.
 
 Package rerunfilecheck Info: File `EDA.out' has not changed.
-(rerunfilecheck)             Checksum: 0CB7D4281B9533F925DC0C102BC24D9F;2006.
+(rerunfilecheck)             Checksum: 325C3F5776AD4F0BB10FF2F18910CA06;1759.
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 13183 strings out of 480608
- 197150 string characters out of 5903631
- 495599 words of memory out of 5000000
- 28694 multiletter control sequences out of 15000+600000
- 589001 words of font info for 83 fonts, out of 8000000 for 9000
+ 13176 strings out of 480608
+ 197043 string characters out of 5903631
+ 498888 words of memory out of 5000000
+ 28690 multiletter control sequences out of 15000+600000
+ 584564 words of font info for 80 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  34i,10n,42p,811b,465s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/
+{/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/
 texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/20
-20/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2020/texmf-dist/
-fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2020/texmf-dist/fonts/enc/
+20/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2020/texmf-d
+ist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2020/texmf-dist/fonts/enc/
 dvips/lm/lm-ts1.enc}</usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/l
 mbx10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmbx12.pfb>
-</usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></usr/loc
-al/texlive/2020/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive
-/2020/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2020/texmf
--dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2020/texmf-dist/fonts
-/type1/public/lm/lmr17.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/publ
-ic/lm/lmr7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmri10
-.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr
-/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texl
-ive/2020/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/local/texlive/2020/t
-exmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2020/texmf-dist/
-fonts/type1/public/lm/lmtti10.pfb>
-Output written on EDA.pdf (41 pages, 1934012 bytes).
+</usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/loca
+l/texlive/2020/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2
+020/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2020/texmf-d
+ist/fonts/type1/public/lm/lmr17.pfb></usr/local/texlive/2020/texmf-dist/fonts/t
+ype1/public/lm/lmr7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/
+lm/lmri10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmsy10.
+pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/l
+ocal/texlive/2020/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/local/texli
+ve/2020/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2020/te
+xmf-dist/fonts/type1/public/lm/lmtti10.pfb>
+Output written on EDA.pdf (41 pages, 1919223 bytes).
 PDF statistics:
- 541 PDF objects out of 1000 (max. 8388607)
- 429 compressed objects within 5 object streams
- 100 named destinations out of 1000 (max. 500000)
- 12489 words of extra memory for PDF output out of 14400 (max. 10000000)
+ 538 PDF objects out of 1000 (max. 8388607)
+ 427 compressed objects within 5 object streams
+ 102 named destinations out of 1000 (max. 500000)
+ 12481 words of extra memory for PDF output out of 14400 (max. 10000000)
 

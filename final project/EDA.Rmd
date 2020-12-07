@@ -444,8 +444,6 @@ ggplot(d_respondents, aes(x=TaskPhase3_Score, fill = as.factor(Assignment_Group)
 ```
 
 ```{r}
-# TODO add these boxplots for binary treatment/control groups
-
 task2a_bp <- ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase1_Score, colour=as.factor(Treatment_Dummy))) +
   geom_boxplot() + 
   stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
@@ -491,6 +489,8 @@ grid.arrange(arrangeGrob(task2a_bp + theme(legend.position="none"),task2b_bp,tas
              heights=c(10,1),
              top = textGrob("Compare task scores in different phases\n",just='right',gp=gpar(fontsize=14,font=1)))
 
+pander(t.test(d_respondents[Treatment_Dummy == 0, TaskPhase1_Score],
+       d_respondents[Treatment_Dummy == 1, TaskPhase1_Score]))
 ```
 
 
@@ -540,7 +540,8 @@ grid.arrange(arrangeGrob(task1a_bp + theme(legend.position="none"),task1b_bp,tas
              nrow=2, 
              heights=c(10,1),
              top = textGrob("Compare task scores in different phases\n",just='right',gp=gpar(fontsize=14,font=1)))
-
+# pander(t.test(d_respondents[Treatment_Dummy == 0, TaskPhase1_Score],
+#        d_respondents[Treatment_Dummy == 1, TaskPhase1_Score]))
 ```
 
 ```{r}
@@ -583,7 +584,7 @@ kable(summary_task_score)
 #check balance between gender
 
 gender_chiqq <- chisq.test(d_respondents[ , table(Assignment_Group, Gender)])
-pander(gender_chiq,style='rmarkdown')
+pander(gender_chiqq,style='rmarkdown')
 
 create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Gender) +
   xlab('Assignment Group') +
@@ -741,7 +742,7 @@ stargazer(mod_task2_c,
           add.lines = list(c('Education Fixed Effects', 'No','Yes'),
                            c('Age Fixed Effects','No','Yes')),
           header=FALSE,
-          type='latex')
+          type='text')
 
 pander(anova(mod_task2_c, mod_task2_d, test='F'),style='rmarkdown')
 ```
@@ -786,7 +787,7 @@ stargazer(mod_task3_c,
           add.lines = list(c('Education Fixed Effects', 'No','Yes'),
                            c('Age Fixed Effects','No','Yes')),
           header=FALSE,
-          type='latex')
+          type='text')
 
 pander(anova(mod_task3_c, mod_task3_d, test='F'),style='rmarkdown')
 ```
@@ -796,6 +797,8 @@ pander(anova(mod_task3_c, mod_task3_d, test='F'),style='rmarkdown')
 # TODO add within subjects design
 # TODO d_respondents[ , lm(mean(TaskPhase3_Score,TaskPhase2_Score) ~  Assignment_Group + TaskPhase1_Score)]
 # TODO d_respondents[ , lm(TaskPhaseB ~  Assignment_Group + TaskPhaseA + as.factor(AmazonTurk_ID))] where each respondent is duplicated for task 2 and 3
+# TODO move Gender Male covariate to the bottome fixed effect
+
 mod_task3_e <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score)]
 mod_task3_f <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + Treatment_Dummy)]
 mod_task3_g <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + as.factor(Assignment_Group))]
@@ -816,12 +819,23 @@ stargazer(mod_task3_e,
           omit = c("Education_Level","Age_Range"),
           add.lines = list(c('Education Fixed Effects', 'No','No','No','Yes'),
                            c('Age Fixed Effects','No','No','No','Yes')),
+          covariate.labels = c("Task Phase 2 Score", "Any Treatment", "Medical Feedback",
+                               "Negative Images", "Positive Images", "Self-reflection",'Male'),
           header=FALSE,
-          type='text')
+          type='latex')
 
 pander(anova(mod_task3_e, mod_task3_f, test='F'),style='rmarkdown')
 pander(anova(mod_task3_g, mod_task3_h, test='F'),style='rmarkdown')
 
+```
+
+## Within Subjects Design 
+```{r}
+
+d_respondents[,score_phase2_3 := mean(TaskPhase2_Score,TaskPhase3_Score,na.rm = FALSE),by = (Amazon_Turk_ID)]
+test <- d_respondents[ , lm(score_phase2_3 ~ Assignment_Group + TaskPhase1_Score)]
+stargazer(test,se = list(get_robust_se(test)),type='text'
+)
 ```
 
 ```{r,results='asis',message=FALSE}
@@ -844,7 +858,7 @@ stargazer(mod_task3_i,
                     get_robust_se(mod_task3_k),
                     get_robust_se(mod_task3_l)),
           header=FALSE,
-          type='text')
+          type='latex')
 
 pander(anova(mod_task3_i, mod_task3_j, test = 'F'),style='rmarkdown')
 pander(anova(mod_task3_k, mod_task3_l, test = 'F'),style='rmarkdown')
