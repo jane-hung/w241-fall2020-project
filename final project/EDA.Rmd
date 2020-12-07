@@ -1158,7 +1158,7 @@ d_respondents[d_respondents[ , Control_Phase1_NumWords < 5]]
 
 
 
-#Attrition
+# Attrition
 develop EDA where people churn off
 balance check for attrition
 
