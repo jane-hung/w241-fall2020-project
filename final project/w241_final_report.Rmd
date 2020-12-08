@@ -94,7 +94,8 @@ The survey was compatible with both mobile and desktop applications. This helped
 ## Randomization
 Participants recruited were randomly assigned to each of the 5 groups based on randomization logic pre-built on the Qualtrics system. Randomization occurred through the Qualtrics system after the first pre-treatment phase and split the remaining responses evenly between the four treatment groups and the control group. The Qualtrics Flow can be seen below. 
 
-## Need to replace local path name with github path name
+NOTE: Need to replace local path name with github path name
+
 ![Qualtrics Flow](//Users/dahlerbattle/Desktop/MIDS_Semester_3/Experiments and Causal Inference/w241/finalProject/w241_fall2020_taskperformance/final project/images/qualtrics_flow.png)
 
 In future iterations of the experiment, researchers may want to have a much larger control group to eliminate concerns over statistical power (as discussed in Part VII, Limitations and Future Enhancements). 
@@ -109,6 +110,7 @@ create_heatmap <- function(var1, var2) {
   ggplot(df,aes(x=var1,y=var2)) +
     geom_tile(aes(fill=Freq,color=Freq),show.legend=FALSE,alpha=.8) +
     geom_text(aes(label=Freq)) +
+    theme(axis.text.x = element_text(angle = 90)) + 
     scale_fill_continuous(high = "darkslategray4", low = "powderblue")
 }
 
@@ -142,7 +144,7 @@ edu_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, Education_Level
 
 create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Education_Level) +
   xlab('Assignment Group') +
-  ylab('Education Level') +
+  ylab('Education Level') + 
   labs(title = 'Contingency table between education and assignment group',
        caption = paste0('Assuming education distributions are the same among assignment groups, a chi-squared test for \nindependence with Monte Carlo simulation yields p=',
                         round(edu_chisq$p.value,4),
@@ -185,7 +187,9 @@ Out of this participant pool, we threw out 97 results. These results were thrown
 
 Attrition could be counted in two buckets. First, the 56 incomplete surveys were incomplete before random assignment.  An additional 43 dropped off after random assignment. Of these, 21 of these participants had made 99% progress but had failed to close the survey. However, we treated all 43 surveys left incomplete after assignment as part of attrition.  A flow diagram below shows the drop offs at each level of the experiment below:
 
-INSERT SURVEY FUNNEL DIAGRAM
+NOTE: Need to replace local path name with github path name
+
+![Survey Funnel Diagram](/Users/dahlerbattle/Desktop/w241_fall2020_taskperformance/final project/images/Blank diagram.png)
 
 # Results
 
