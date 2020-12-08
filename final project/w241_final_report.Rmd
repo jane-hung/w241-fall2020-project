@@ -1,0 +1,203 @@
+---
+title: 'Effect of Learning Critique Styles on Learning Outcomes'
+subtitle: 'Fall 2020 - W241 Final Report'
+author: 'Dahler Battle, Guy El Khoury, Jane Hung, Julian Tsang' 
+output: pdf_document
+knit: (function(inputFile, encoding) {
+  rmarkdown::render(
+    inputFile, encoding = encoding,
+    output_format = 'pdf_document') 
+    })
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r, include=FALSE}
+library(foreign)
+library(data.table)
+library(knitr)
+library(cobalt)
+library(stargazer)
+library(sandwich)
+library(car)
+library(dplyr)
+library(ggmap)
+library(revgeo)
+library(AER)
+library(ggplot2)
+library(expss)
+library(grid)
+library(gridExtra)
+library(pander)
+```
+
+# Load Data
+
+```{r}
+d_respondents <- fread('datatable_clean_survey_responses_v2.dta')
+d_respondents[ , US_Dummy := ifelse(country == "United States", 1, 0)]
+```
+
+# Abstract
+
+# Background
+
+# Research Question
+Our research highlights the broad field of research around the role of feedback on performance. Successful feedback mechanisms and improved performance are likely highly correlated with each other. However it is too broad of a question for an experiment to point to a causal claim.  Exogenous factors such as the learning environment, the learner’s psychological mentality, or the type of task being taught may come into play in an non-experimental analysis. 
+
+Additionally, this question can be broken down to ask what types of feedback are helpful. Specific types of feedback may be better than others and some may actually be detrimental to one’s performance (due to increased stress or mental strain. This could be attributed to several lines of reasoning. As such, a well designed experiment is necessary to find a true (if any) causal effect on learning outcomes. 
+
+The scope of our experiment is, as a result, intentionally narrow to measure the effect of different types of feedback on recognizing if an x-ray has healthy lungs or lungs with pneumonia. It is a binary outcome is simple and makes many elements consistent throughout for most participants (i.e. the computer-based learning environment, the feedback types, and the question being asked are the same throughout the program). 
+
+## Hypothesis 
+The research question in this experiment attempts to answer the following question: >*What type of feedback (positive reinforcement, negative reinforcement, self-reflective, etc.) leads to the largest improvements in individual performance on simple, recognition-based tasks, if any?*
+
+We are testing the null hypothesis that feedback does not lead to better outcomes. That the ATE for all feedback groups and those that receive a placebo will equal 0. 
+
+A related follow-up question addresses: 
+>*Does more frequent feedback yield higher task performance?*
+
+We anticipate that more feedback touchpoints may be associated with better individual performance because the receiver has more insight into how to improve and is able to calibrate to meet and surpass previous performance thresholds. 
+
+# Experimental Design
+## Overview
+This design is a different in differences experiment. Participants completed the three party survey in one sitting. The random assignment occurs after the first round of questions and the core analysis compares the difference in scores between the first iteration (pre-treatment) and the combined second and third iteration scores (post-treatment). 
+
+In this experiment, participants will view a set of X-Ray slides. Each slide contains an X-Ray image of a patient’s lungs. The participant will have to determine if the patient’s lungs are healthy or have pneumonia. Responses and timings will be recorded. Three rounds will create a answer set of 30 images (10  X-Ray images x 3 Rounds). Participants will be randomly assigned the following control or treatments, with two, one minute breaks in between sessions:
+
++ Control: Subject watches a pharmaceutical video and is asked how the video makes them feel
++ Self Reflective Treatment: Subject shown the last round’s images, their answer, and the correct answer. Asked to reflect in two sentences how they can improve. 
++ Positive Reinforcement Treatment: Subject shown the images of the last round’s healthy lungs only. Asked to study those images for 1 minute. 
++ Negative Reinforcement Treatment: Subject shown the images of the last round’s pneumonia filled lungs only. Asked to study those images for 1 minute. 
++ Specific  Feedback Treatment: Subject shown the last round’s images, their answer, and the correct answer. They are then given medical textbook info about how to spot pneumonia. 
+
+## Project Timeline
+The project was conducted on the following timeline: 
+
+| _Experiment Ideation & Design_  | _Trial Survey_ | _Survey Period_ | _Data Collection & Analysis_ | _Final Presentation_  | _Final Report_ | 
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| Oct. 28 - Nov. 5  | Nov. 6 - 8  | Nov. 9 - 14  | Nov. 15 - 30  | Dec. 8  | Dec. 15  |
+
+## Enrollment and Recruitment Process
+Subjects were recruited through Mechanical Turk and were properly incentivized to complete the survey by receiving $1 upon successful completion. MechanicalTurk lists the survey in a pool of others and payouts were given by the research team after successful completion of the survey. We ended up receiving 447 survey submissions. Since we charged too high of a price point per survey, we were able to receive all of these responses in a matter of 72 hours. This may have worked in our favor by mitigating time-series related effects in the resulting data, however included several drawbacks mentioned later in the paper. 
+
+Subjects were mostly from the United States (`r d_respondents[, sum(US_Dummy)]`) and India (`r d_respondents[country == "India", length(country)]`). There were more males that participated in the study (`r d_respondents[Gender == "Male", length(Gender)]`) than females (`r d_respondents[Gender == "Female", length(Gender)]`). 
+
+## Communication and Measurement Tooling
+The experiment recruited participants from Mechanical Turk, who were then given a link to the survey on Qualtrics. They were asked to enter their MTurk Worker ID and start the survey. The entire experiment flow was then run through Qualtrics. Every final participant was recruited through MTurk and did not rely on personal connections. 
+
+The survey was compatible with both mobile and desktop applications. This helped reduce the barrier to entry for the survey. To prevent participants from rushing through answers, we put timings on the responses and essentially required each subject to complete the survey in one sitting. 
+
+## Randomization
+Participants recruited were randomly assigned to each of the 5 groups based on randomization logic pre-built on the Qualtrics system. Randomization occurred through the Qualtrics system after the first pre-treatment phase and split the remaining responses evenly between the four treatment groups and the control group. The Qualtrics Flow can be seen below. 
+
+## Need to replace local path name with github path name
+![Qualtrics Flow](//Users/dahlerbattle/Desktop/MIDS_Semester_3/Experiments and Causal Inference/w241/finalProject/w241_fall2020_taskperformance/final project/images/qualtrics_flow.png)
+
+In future iterations of the experiment, researchers may want to have a much larger control group to eliminate concerns over statistical power (as discussed in Part VII, Limitations and Future Enhancements). 
+
+## Covariate Balance Checks
+
+```{r}
+create_heatmap <- function(var1, var2) {
+  ### Create a heatmap for a table of frequencies between two variables ###
+  df <- data.frame(table(var1,var2))
+  
+  ggplot(df,aes(x=var1,y=var2)) +
+    geom_tile(aes(fill=Freq,color=Freq),show.legend=FALSE,alpha=.8) +
+    geom_text(aes(label=Freq)) +
+    scale_fill_continuous(high = "darkslategray4", low = "powderblue")
+}
+
+# check balance between genders
+gender_chiqq <- chisq.test(d_respondents[ , table(Assignment_Group, Gender)])
+  
+create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Gender) +
+  xlab('Assignment Group') +
+  ylab('Gender') +
+  labs(title = 'Contingency table between gender and assignment group',
+       caption = paste0('Assuming gender distributions are the same among assignment groups, a chi-squared test for independence with ',
+                        round(gender_chiqq$parameter,4),' \ndegrees of freedom ', 'yields p=',
+                        round(gender_chiqq$p.value,4),
+                        ', suggesting that there is no relationship between gender and assignment groups at a \nsignificance level of 0.05.')) + 
+  theme(plot.caption = element_text(hjust = 0))
+
+# check balance between age ranges
+age_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, Age_Range)],simulate.p.value = TRUE)
+
+create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Age_Range) +
+  xlab('Assignment Group') +
+  ylab('Age') +
+  labs(title = 'Contingency table between age range and assignment group',
+       caption = paste0('Assuming age distributions are the same among assignment groups, a chi-squared test for independence with Monte \nCarlo simulation yields p=',
+                        round(age_chisq$p.value,4),
+                        ', suggesting that there is no relationship between age and assignment groups at a \nsignificance level of 0.05.')) + 
+  theme(plot.caption = element_text(hjust = 0))
+
+#check balance between education levels
+edu_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, Education_Level)],simulate.p.value = TRUE)
+
+create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Education_Level) +
+  xlab('Assignment Group') +
+  ylab('Education Level') +
+  labs(title = 'Contingency table between education and assignment group',
+       caption = paste0('Assuming education distributions are the same among assignment groups, a chi-squared test for \nindependence with Monte Carlo simulation yields p=',
+                        round(edu_chisq$p.value,4),
+                        ', suggesting that there is no relationship \nbetween education and assignment groups at a significance level of 0.05.')) + 
+  theme(plot.caption = element_text(hjust = 0))
+
+# check balance between US and non-US respondents
+us_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, US_Dummy)])
+
+create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$US_Dummy) +
+  xlab('Assignment Group') +
+  ylab('Country') +
+  scale_y_discrete(breaks=c("0", "1"),
+                      labels=c("Non-US", "United States")) +
+  labs(title = 'Contingency table between country and assignment group',
+       caption = paste0('Assuming country distributions are the same among assignment groups, a chi-squared test for independence with \n',
+                        round(us_chisq$parameter,4),' degrees of freedom ', 'yields p=',
+                        round(us_chisq$p.value,4),
+                        ', suggesting that there is no relationship between country and assignment \ngroups at a significance level of 0.05.')) + 
+  theme(plot.caption = element_text(hjust = 0))
+```
+
+## Observation and Outcome Measurables
+The data we collected was exported directly from Qualtrics into a CSV file. Data was then cleaned in R and exploratory data analysis was performed to check out data points. In all, we collected the following categorical data:
+
++ Metadata - Entry data such as start and end dates, IP Addresses, Locations, Duration, Survey Status (Finished, Incomplete)
++ Demographic Data - Age Range, Education Level
++ Assignment Group - Control, Positive Images, Negative Images, Self-Reflection, and Medical Feedback
++ Responses - Survey responses for Task Phase 1 (questions 1 - 10), Task Phase 2 (questions 11 - 20), and Task Phase 3 (questions 21 - 30)
++ Scores - Scores for Task Phase 1, Task Phase 2, Task Phase 3 (out of 10); treatment scores combining Task Phases 2 and 3 (out of 10); cumulative scores (out of 30)
+
+## Data Completeness 
+The experiment started off with 381 surveys sourced through MTurk. Off this initial batch of participants, some submitted multiple responses in order to try to take advantage of our higher than average survey price point. We included only their initial surveys, throwing out 4 responses. 4 had not done the survey but had only submitted a code. Additionally, 37 surveys had blatantly intentionally incorrect answers in one or more sections. This includes survey participants who marked responses in all one answer (e.g. all healthy) or alternating answers throughout the survey (e.g. healthy, pneumonia, healthy, pneumonia, etc.). 
+
+Out of this participant pool, we threw out 97 results. These results were thrown out for the following reasons: 
+
+1. Multiple entrants (n = 4):  The research team’s $1.00 per survey price point was too high. As a result, some participants tried to send in multiple survey responses to collect multiple payments. In these instances we only paid for (and used) the first survey.
+2. Incomplete surveys (n = 56): Some people started surveys but never finished them. This includes those who never completed the last step of the survey, by closing out their answers. These responses were thrown out and attrition is dealt with in the survey results shown below. 
+3. Clear non-compliance (n = 37): Some participants did not give honest effort on the survey and answered all true, all false, or all alternating responses. These were also thrown out of the analysis. 
+
+Attrition could be counted in two buckets. First, the 56 incomplete surveys were incomplete before random assignment.  An additional 43 dropped off after random assignment. Of these, 21 of these participants had made 99% progress but had failed to close the survey. However, we treated all 43 surveys left incomplete after assignment as part of attrition.  A flow diagram below shows the drop offs at each level of the experiment below:
+
+INSERT SURVEY FUNNEL DIAGRAM
+
+# Results
+
+## Overview
+
+## Regressions
+
+## Power
+
+# Conclusions
+
+# Limitations and Future Enhancements
+The research design generated an output with limited power due to several factors. First, we handicapped the total amount of participants by offering too high of a price point for the survey. Our experiment offered a \$1 price point per successful entry (limit of one entry per person). However we should have charged ~ \$0.25. We also randomized our subjects equally between the four treatment groups and the one control group. In retrospect our group needed to allocate 50% of the participants to the control group and randomly assigned the rest in equal proportions to the four different treatment groups. These changes would have given the experiment an estimated 1400 participants, with XYZ in the control group and XYZ split evenly between the different treatment groups. Power for the experiment would have increased substantially and allowed for more meaningful outcomes. 
+
+Think about implementing a factorial design for our treatments so we can learn more from HTEs. is it the presence of images that improves scores? Is it the presence of a writing component? Is it the presence of reading?
