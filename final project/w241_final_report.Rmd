@@ -53,11 +53,14 @@ Additionally, this question can be broken down to ask what types of feedback are
 The scope of our experiment is, as a result, intentionally narrow to measure the effect of different types of feedback on recognizing if an x-ray has healthy lungs or lungs with pneumonia. It is a binary outcome is simple and makes many elements consistent throughout for most participants (i.e. the computer-based learning environment, the feedback types, and the question being asked are the same throughout the program). 
 
 ## Hypothesis 
-The research question in this experiment attempts to answer the following question: >*What type of feedback (positive reinforcement, negative reinforcement, self-reflective, etc.) leads to the largest improvements in individual performance on simple, recognition-based tasks, if any?*
+The research question in this experiment attempts to answer the following question: 
+
+>*What type of feedback (positive reinforcement, negative reinforcement, self-reflective, etc.) leads to the largest improvements in individual performance on simple, recognition-based tasks, if any?*
 
 We are testing the null hypothesis that feedback does not lead to better outcomes. That the ATE for all feedback groups and those that receive a placebo will equal 0. 
 
 A related follow-up question addresses: 
+
 >*Does more frequent feedback yield higher task performance?*
 
 We anticipate that more feedback touchpoints may be associated with better individual performance because the receiver has more insight into how to improve and is able to calibrate to meet and surpass previous performance thresholds. 
@@ -66,13 +69,13 @@ We anticipate that more feedback touchpoints may be associated with better indiv
 ## Overview
 This design is a different in differences experiment. Participants completed the three party survey in one sitting. The random assignment occurs after the first round of questions and the core analysis compares the difference in scores between the first iteration (pre-treatment) and the combined second and third iteration scores (post-treatment). 
 
-In this experiment, participants will view a set of X-Ray slides. Each slide contains an X-Ray image of a patient’s lungs. The participant will have to determine if the patient’s lungs are healthy or have pneumonia. Responses and timings will be recorded. Three rounds will create a answer set of 30 images (10  X-Ray images x 3 Rounds). Participants will be randomly assigned the following control or treatments, with two, one minute breaks in between sessions:
+In this experiment, participants will view a set of X-Ray slides. Each slide contains an X-Ray image of a patient’s lungs. The participant will have to determine if the patient’s lungs are healthy or have pneumonia. Responses and timings will be recorded. Three rounds will create an answer set of 30 images (10  X-Ray images x 3 Rounds). Each of these intervention type, while limited in scope to the X-Ray recognition task, is meant to replicate a style of feedback (as seen in "What it Reflects" below). Participants will be randomly assigned the following control or treatments, with two, one minute breaks in between sessions. 
 
-+ Control: Subject watches a pharmaceutical video and is asked how the video makes them feel
-+ Self Reflective Treatment: Subject shown the last round’s images, their answer, and the correct answer. Asked to reflect in two sentences how they can improve. 
-+ Positive Reinforcement Treatment: Subject shown the images of the last round’s healthy lungs only. Asked to study those images for 1 minute. 
-+ Negative Reinforcement Treatment: Subject shown the images of the last round’s pneumonia filled lungs only. Asked to study those images for 1 minute. 
-+ Specific  Feedback Treatment: Subject shown the last round’s images, their answer, and the correct answer. They are then given medical textbook info about how to spot pneumonia. 
++ *Control* - Subject watches a pharmaceutical video and is asked how the video makes them feel. This replicates the experience of someone without any form of internal or external feedback.
++ *Self Reflective Treatment* - Subject shown the last round’s images, their answer, and the correct answer. They are then asked to reflect in two sentences how they can improve.This reflects someone who does not receive feedback from others but thinks critically about their own performance and how to improve.
++ *Positive Reinforcement Treatment* - Subject shown the images of the last round’s healthy lungs only and is asked to study those images for 1 minute. This reflects someone who is only told the positive aspects of their performance. 
++ *Negative Reinforcement Treatment* - Subject shown the images of the last round’s pneumonia filled lungs only and is asked to study those images for 1 minute. This reflects someone who is only told the negative aspects of their performance.
++ *Specific  Feedback Treatment* - Subject shown the last round’s images, their answer, and the correct answer. They are then given medical textbook info about how to spot pneumonia. This reflects a situation where someone who is given expert-driven advice on how to accomplish a task. 
 
 ## Project Timeline
 The project was conducted on the following timeline: 
@@ -90,6 +93,9 @@ Subjects were mostly from the United States (`r d_respondents[, sum(US_Dummy)]`)
 The experiment recruited participants from Mechanical Turk, who were then given a link to the survey on Qualtrics. They were asked to enter their MTurk Worker ID and start the survey. The entire experiment flow was then run through Qualtrics. Every final participant was recruited through MTurk and did not rely on personal connections. 
 
 The survey was compatible with both mobile and desktop applications. This helped reduce the barrier to entry for the survey. To prevent participants from rushing through answers, we put timings on the responses and essentially required each subject to complete the survey in one sitting. 
+
+## Exclusion and non-interference 
+ADD HERE
 
 ## Randomization
 Participants recruited were randomly assigned to each of the 5 groups based on randomization logic pre-built on the Qualtrics system. Randomization occurred through the Qualtrics system after the first pre-treatment phase and split the remaining responses evenly between the four treatment groups and the control group. The Qualtrics Flow can be seen below. 
@@ -166,6 +172,8 @@ create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$US_Dum
                         ', suggesting that there is no relationship between country and assignment \ngroups at a significance level of 0.05.')) + 
   theme(plot.caption = element_text(hjust = 0))
 ```
+
+Add independence tests that we did ADD HERE
 
 ## Observation and Outcome Measurables
 The data we collected was exported directly from Qualtrics into a CSV file. Data was then cleaned in R and exploratory data analysis was performed to check out data points. In all, we collected the following categorical data:
