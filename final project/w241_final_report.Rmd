@@ -209,6 +209,10 @@ NOTE: Need to replace local path name with github path name
 
 # Conclusions
 
+## Significance 
+
+## Generalizability 
+
 # Limitations and Future Enhancements
 The research design generated an output with limited power due to several factors. First, we handicapped the total amount of participants by offering too high of a price point for the survey. Our experiment offered a \$1 price point per successful entry (limit of one entry per person). However we should have charged ~ \$0.25. We also randomized our subjects equally between the four treatment groups and the one control group. In retrospect our group needed to allocate 50% of the participants to the control group and randomly assigned the rest in equal proportions to the four different treatment groups. These changes would have given the experiment an estimated 1400 participants, with XYZ in the control group and XYZ split evenly between the different treatment groups. Power for the experiment would have increased substantially and allowed for more meaningful outcomes. 
 
