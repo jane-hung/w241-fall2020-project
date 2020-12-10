@@ -108,6 +108,8 @@ In future iterations of the experiment, researchers may want to have a much larg
 
 ## Covariate Balance Checks
 
+We performed visual covariate balance checks on the survey data as it relates to gender, age range education, and country. We additionally performed a Chi Squared test to test for independence within each of these categories. None of the Chi-Squared tests were significant at the p = .05 level, signaling that is no relationship between these covariates and the treatment and control assignment groups. 
+
 ```{r}
 create_heatmap <- function(var1, var2) {
   ### Create a heatmap for a table of frequencies between two variables ###
@@ -173,8 +175,6 @@ create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$US_Dum
   theme(plot.caption = element_text(hjust = 0))
 ```
 
-Add independence tests that we did ADD HERE
-
 ## Observation and Outcome Measurables
 The data we collected was exported directly from Qualtrics into a CSV file. Data was then cleaned in R and exploratory data analysis was performed to check out data points. In all, we collected the following categorical data:
 
@@ -201,17 +201,26 @@ NOTE: Need to replace local path name with github path name
 
 # Results
 
-## Overview
-
 ## Regressions
 
 ## Power
 
-# Conclusions
+```{r}
+power.t.test( delta = .05, sd = .16, sig.level = 0.05, power = 0.8)
+power_n <- round(power.t.test( delta = .05, sd = .16, sig.level = 0.05, power = 0.8)$n)
 
-## Significance 
+d_respondents[, .N, by = .(Assignment_Group)]
 
-## Generalizability 
+```
+
+Power analysis shows that our groups did not have a large enough sample size required for each group. The number of subjects required is `r round(power.t.test( delta = .05, sd = .16, sig.level = 0.05, power = 0.8)$n)`. Our group sizes for the control group, as well as the medical, positive, negative, and self-reflect treatment groups were `r d_respondents[, .N, by = .(Assignment_Group)][4, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][5, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][2, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][1, 2]`, and `r d_respondents[, .N, by = .(Assignment_Group)][3, 2]` respectively. This is primarily due to the fact that we charged too high of a price point per completed survey. 
+
+# Conclusions 
+We can see from this study that we did find a statistically and practically significant impact of several styles of feedback as it relates to performance scores on the X-Ray lung health analysis. We can reject the null hypothesis that the scores in the feedback groups were the same as the scores in the placebo group. Breaking this down further, we see that (GO INTO THE INDIVIDUAL TREATMENT ATEs)
+
+This experiment faces potential limitations when making more generalized conclusions about the effects of feedback on performance. For example, the experiment required analysis of a more simple, X-Ray analysis, which is not as complex of a task when compared to writing a paper or performing more quantitative analysis. Furthermore, the experiment's computer-facing setting may have impacted results. Subjects may not have spent as much time on the task as in a real life scenario. They certainly did not face the same time or social pressures of a real life task. 
+
+However, the study's conclusions gives us confidence that feedback positively affects performance in a meaningful way and more specifically targeted, informative feedback drives success. The effects of feedback on performance are signficant and merit additional study. 
 
 # Limitations and Future Enhancements
 The research design generated an output with limited power due to several factors. First, we handicapped the total amount of participants by offering too high of a price point for the survey. Our experiment offered a \$1 price point per successful entry (limit of one entry per person). However we should have charged ~ \$0.25. We also randomized our subjects equally between the four treatment groups and the one control group. In retrospect our group needed to allocate 50% of the participants to the control group and randomly assigned the rest in equal proportions to the four different treatment groups. These changes would have given the experiment an estimated 1400 participants, with XYZ in the control group and XYZ split evenly between the different treatment groups. Power for the experiment would have increased substantially and allowed for more meaningful outcomes. 
