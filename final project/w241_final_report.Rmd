@@ -97,7 +97,7 @@ The experiment recruited participants from Mechanical Turk, who were then given 
 
 The survey was compatible with both mobile and desktop applications. This helped reduce the barrier to entry for the survey. To prevent participants from rushing through answers, we put timings on the responses and essentially required each subject to complete the survey in one sitting. 
 
-## Exclusion and non-interference 
+## Exclusion and Non-Interference 
 ADD HERE
 
 ## Randomization
