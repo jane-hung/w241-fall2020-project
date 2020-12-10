@@ -38,7 +38,10 @@ library(pander)
 
 ```{r}
 d_respondents <- fread('datatable_clean_survey_responses_v2.dta')
+
+#adds US and Treatment Dummy variables. Incorporate into imported dataset
 d_respondents[ , US_Dummy := ifelse(country == "United States", 1, 0)]
+d_respondents[ , Treatment_Dummy := ifelse(Assignment_Group != "Control", 1, 0)]
 ```
 
 # Abstract
@@ -184,6 +187,12 @@ The data we collected was exported directly from Qualtrics into a CSV file. Data
 + Responses - Survey responses for Task Phase 1 (questions 1 - 10), Task Phase 2 (questions 11 - 20), and Task Phase 3 (questions 21 - 30)
 + Scores - Scores for Task Phase 1, Task Phase 2, Task Phase 3 (out of 10); treatment scores combining Task Phases 2 and 3 (out of 10); cumulative scores (out of 30)
 
+Our outcome measurable follows a difference in differences deisgn. Scoring is based on number of questions a person gets right out of 10 questions per phase. This is then converted to a percentage value, so it will be easier to analyze regression results. So in this case, a 10 percentage point increase in performance would signify getting 1 additional question right. DO WE TAKE THE AVERAGE OF TASK PHASE 2 & 3 AS OUR OUTCOME VARIABLE?
+
+We will focus on two major comparisons. 
+1. Control vs. All Treatment Groups: This compares people who receive the control with people who receive any form of feedback treatment.
+2. Individual Treatment Effects: This second comparison focuses on comparing each individual treatment group with the control and with each other.
+
 ## Data Completeness 
 The experiment started off with 381 surveys sourced through MTurk. Off this initial batch of participants, some submitted multiple responses in order to try to take advantage of our higher than average survey price point. We included only their initial surveys, throwing out 4 responses. 4 had not done the survey but had only submitted a code. Additionally, 37 surveys had blatantly intentionally incorrect answers in one or more sections. This includes survey participants who marked responses in all one answer (e.g. all healthy) or alternating answers throughout the survey (e.g. healthy, pneumonia, healthy, pneumonia, etc.). 
 
@@ -200,25 +209,116 @@ NOTE: Need to replace local path name with github path name
 ![Survey Funnel Diagram](/Users/dahlerbattle/Desktop/w241_fall2020_taskperformance/final project/images/Blank diagram.png)
 
 # Results
+As far as outcome measures go, scoring is based on number of questions a person gets right out of 10 questions per phase. This is then converted to a percentage value, so it will be easier to analyze regression results. So in this case, a 10 percentage point increase in performance would signify getting 1 additional question right. 
+
+Overall, we have multiple ways we could have assessed this data based on our different treatment groups. We’ll primarily focus on two major comparisons.
+
+Control vs. all treatment groups. This compares people who receive the control with people who receive any form of feedback treatment.
+
+The second comparison focuses on comparing each individual treatment group with the control and with each other.
 
 ## Regressions
+
+```{r}
+
+get_robust_se <- function(model){
+  # Get robust SE for use in stargazer
+  vcov <- vcovHC(model,type = "HC1")
+  return(sqrt(diag(vcov)))
+}
+
+#does the specific treatment group have an effect on task phase 2 score?
+mod_task2_c <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group))]
+
+mod_task2_d <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group) + 
+                                                     TaskPhase1_Score + 
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range))]
+
+#stargazer output
+stargazer(mod_task2_c,
+          mod_task2_d,
+          se = list(get_robust_se(mod_task2_c),get_robust_se(mod_task2_d)),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
+                           c('Age Fixed Effects','No','Yes')),
+          header=FALSE, 
+          type="latex")
+
+pander(anova(mod_task2_c, mod_task2_d, test='F'),style='rmarkdown')
+```
+
+In our first experiment, we hoped to answer whether giving feedback will immediately impact task performance. As such, this model compares Phase 2 task performance results where the subjects have only received 1 round of treatment or placebo.
+
+In the left table you see, we wanted to condense cells into assessing “any feedback” by creating a treatment dummy variable. We reasoned that in the real world, managers may have diverse ways of giving feedback, but at the end of the day, the direct reports are still receiving ways to understand their past performance and how to improve. Therefore, we want to roll up to a treatment dummy regression to test out this theory.
+
+As we look at the second column of this table that contains our covariates (pre-treatment score, Gender, FE from education and age), we see that we experience a 5.1 percentage point increase in task performance when any feedback is given to the survey respondents, which is statistically significant given robust SE of 2.2. What is notable, though, is that adding in these covariates does not severely change our estimate for the effect of feedback and we do not see a marginal decrease in SE, so our estimate is no more precise when controlling for these other variables. As a gut check, we see that each 10% increase in Task Phase 1 scores is associated with a 2.4 percentage point increase in performance, which resonates with us; people who perform well before feedback may also perform well after feedback.
+
+Building off these results, we were further interested in exploring what type of feedback would yield the most positive impact on task performance. In this way, we were hoping to inform managers what type of feedback they should use with their direct reports. We believed that medical feedback would yield the most benefit because not only do you get information on what you got wrong but you also received expert opinion on how to properly assess the images. Abstracting this out to the real world, this would be akin to having a manager act as a mentor and using their experiences to enable your success. At a high level, we see that when people receive medical feedback, they experience a 5.5 percentage point increase in performance that is statistically significant, thereby confirming our hypothesis.
+
+We hypothesized that the negative images feedback would fare the worst because we are only sharing their responses on the pneumonia images and whether they got them right or wrong. In this way, we wanted to simulate when a manager focuses on giving feedback only in abnormal situations. As a result, direct reports may have a poorer understanding of what “normal” or “good” looks like. Taking a look at that estimate, we see that people in the negative image feedback group have only a 3.9 percentage point increase that is not statistically significant, indicating that negative feedback was not helpful in improving performance.
+
+Somewhat surprisingly, we found that people who were asked to self-reflect on their responses had a statistically significant 5.8 percentage point increase in performance. We were primarily interested in pursuing this type of feedback because it is a common personal growth technique to self-reflect that is touted in articles in HBR, Forbes, etc. In this way, we were able to confirm the positive effects of self-reflection; as a manager, you might encourage this behavior through incorporating self-assessments.
+
+Lastly, was this necessary to blow out this analysis to the multiple treatment groups? An F-test suggests that expanding on the treatment groups as shown in the table on the right yields a model that better represents this data.
+
+
+```{r}
+#does the specific treatment group have an effect on task phase 3 score?
+mod_task3_e <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score)]
+mod_task3_f <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + Treatment_Dummy)]
+mod_task3_g <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + as.factor(Assignment_Group))]
+mod_task3_h <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + 
+                                                      as.factor(Assignment_Group) + 
+                                                      as.factor(Gender) + 
+                                                      as.factor(Education_Level) + 
+                                                      as.factor(Age_Range))]
+#stargazer output
+stargazer(mod_task3_e,
+          mod_task3_f,
+          mod_task3_g,
+          mod_task3_h,
+          se = list(get_robust_se(mod_task3_e),
+                    get_robust_se(mod_task3_f),
+                    get_robust_se(mod_task3_h)),
+                    get_robust_se(mod_task3_g),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','No','No','Yes'),
+                           c('Age Fixed Effects','No','No','No','Yes')),
+          covariate.labels = c("Task Phase 2 Score", "Any Treatment", "Medical Feedback",
+                               "Negative Images", "Positive Images", "Self-reflection",'Male'),
+          header=FALSE, 
+          type="latex")
+
+pander(anova(mod_task3_e, mod_task3_f, test='F'),style='rmarkdown')
+pander(anova(mod_task3_g, mod_task3_h, test='F'),style='rmarkdown')
+```
+
+As a quick overview, we’d now like to assess Phase 3 results. As a reminder, this occurs after the subjects have received 2 rounds of treatment or placebo. We’re anticipating that giving more feedback will yield even higher task performance scores compared to Phase 2, and we’re hoping to understand if, as a manager, he/she should instantiate more touchbases to review performance.
+
+What we see across the board though is that the effects of treatment are severely attenuated over time and with an additional round of feedback. For example, when assessing the effect of any feedback, there is a meager .2 percentage point increase in performance, which is not statistically significant.
+
+This may be attributed to a number of things. For example, more frequent feedback during this short time span may be annoying to the receiver. The receiver may have then given much less attention to the feedback because they just received some critique fairly recently.
+
+On the other hand, a respondent paying close attention to this feedback may experience increased context switching, which may detract from completing the actual task.
+
+As a conclusion, we see that feedback has immediate positive effects on performance, specifically critique that provides SME or is completed through a self-assessment. Although we did not see statistically significant effects from repeated feedback, this further may be attributed to how we conducted our study and the timespan allotted.
+
 
 ## Power
 
 ```{r}
 power.t.test( delta = .05, sd = .16, sig.level = 0.05, power = 0.8)
-power_n <- round(power.t.test( delta = .05, sd = .16, sig.level = 0.05, power = 0.8)$n)
-
 d_respondents[, .N, by = .(Assignment_Group)]
-
 ```
 
-Power analysis shows that our groups did not have a large enough sample size required for each group. The number of subjects required is `r round(power.t.test( delta = .05, sd = .16, sig.level = 0.05, power = 0.8)$n)`. Our group sizes for the control group, as well as the medical, positive, negative, and self-reflect treatment groups were `r d_respondents[, .N, by = .(Assignment_Group)][4, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][5, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][2, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][1, 2]`, and `r d_respondents[, .N, by = .(Assignment_Group)][3, 2]` respectively. This is primarily due to the fact that we charged too high of a price point per completed survey. 
+Power analysis shows that our groups did not have a large enough sample size required for each group. The number of subjects required in each group is `r round(power.t.test( delta = .05, sd = .16, sig.level = 0.05, power = 0.8)$n)`. Our group sizes for the control group, as well as the medical, positive, negative, and self-reflect treatment groups were `r d_respondents[, .N, by = .(Assignment_Group)][4, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][5, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][2, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][1, 2]`, and `r d_respondents[, .N, by = .(Assignment_Group)][3, 2]` respectively. This is primarily due to the fact that we charged too high of a price point per completed survey. 
 
 # Conclusions 
 We can see from this study that we did find a statistically and practically significant impact of several styles of feedback as it relates to performance scores on the X-Ray lung health analysis. We can reject the null hypothesis that the scores in the feedback groups were the same as the scores in the placebo group. Breaking this down further, we see that (GO INTO THE INDIVIDUAL TREATMENT ATEs)
 
-This experiment faces potential limitations when making more generalized conclusions about the effects of feedback on performance. For example, the experiment required analysis of a more simple, X-Ray analysis, which is not as complex of a task when compared to writing a paper or performing more quantitative analysis. Furthermore, the experiment's computer-facing setting may have impacted results. Subjects may not have spent as much time on the task as in a real life scenario. They certainly did not face the same time or social pressures of a real life task. 
+This experiment faces potential limitations when making more generalized conclusions about the effects of feedback on performance in addition to lower power. For example, the experiment required analysis of a more simple, X-Ray analysis, which is not as complex of a task when compared to writing a paper or performing more quantitative analysis. Furthermore, the experiment's computer-facing setting may have impacted results. Subjects may not have spent as much time on the task as in a real life scenario. They certainly did not face the same time or social pressures of a real life task. 
 
 However, the study's conclusions gives us confidence that feedback positively affects performance in a meaningful way and more specifically targeted, informative feedback drives success. The effects of feedback on performance are signficant and merit additional study. 
 
