@@ -67,7 +67,6 @@ A related follow-up question addresses:
 >*Does more frequent feedback yield higher task performance?*
 
 We anticipate that more feedback touchpoints will associate with better individual performance because the receiver has more insight into how to improve and is able to calibrate to meet and surpass previous performance thresholds. However it is unclear if the marginal gains from the second feedback loop will be as meaningful as the first. 
-***TEAM IS THIS CORRECT? DO WE INCLUDE THIS IN OUR FINAL REGRESSION?^^^***
 
 # Experimental Design
 ## Overview
@@ -244,7 +243,7 @@ stargazer(mod_task2_c,
           add.lines = list(c('Education Fixed Effects', 'No','Yes'),
                            c('Age Fixed Effects','No','Yes')),
           header=FALSE, 
-          type="latex")
+          type="text")
 
 pander(anova(mod_task2_c, mod_task2_d, test='F'),style='rmarkdown')
 ```
@@ -289,7 +288,7 @@ stargazer(mod_task3_e,
           covariate.labels = c("Task Phase 2 Score", "Any Treatment", "Medical Feedback",
                                "Negative Images", "Positive Images", "Self-reflection",'Male'),
           header=FALSE, 
-          type="latex")
+          type="text")
 
 pander(anova(mod_task3_e, mod_task3_f, test='F'),style='rmarkdown')
 pander(anova(mod_task3_g, mod_task3_h, test='F'),style='rmarkdown')
@@ -299,9 +298,7 @@ As a quick overview, we’d now like to assess Phase 3 results. As a reminder, t
 
 What we see across the board though is that the effects of treatment are severely attenuated over time and with an additional round of feedback. For example, when assessing the effect of any feedback, there is a meager .2 percentage point increase in performance, which is not statistically significant.
 
-This may be attributed to a number of things. For example, more frequent feedback during this short time span may be annoying to the receiver. The receiver may have then given much less attention to the feedback because they just received some critique fairly recently.
-
-On the other hand, a respondent paying close attention to this feedback may experience increased context switching, which may detract from completing the actual task.
+This may be attributed to a number of things. For example, more frequent feedback during this short time span may be annoying to the receiver. The receiver may have then given much less attention to the feedback because they just received some critique fairly recently.On the other hand, a respondent paying close attention to this feedback may experience increased context switching, which may detract from completing the actual task.
 
 As a conclusion, we see that feedback has immediate positive effects on performance, specifically critique that provides SME or is completed through a self-assessment. Although we did not see statistically significant effects from repeated feedback, this further may be attributed to how we conducted our study and the timespan allotted.
 
