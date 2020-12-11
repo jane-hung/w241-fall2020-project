@@ -1,5 +1,5 @@
 ---
-title: 'Effect of Learning Critique Styles on Learning Outcomes'
+title: 'Effect of Learning Feedback Styles on Learning Outcomes'
 subtitle: 'Fall 2020 - W241 Final Report'
 author: 'Dahler Battle, Guy El Khoury, Jane Hung, Julian Tsang' 
 output: pdf_document
@@ -9,11 +9,6 @@ knit: (function(inputFile, encoding) {
     output_format = 'pdf_document') 
     })
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 
 ```{r, include=FALSE}
 library(foreign)
@@ -34,6 +29,14 @@ library(gridExtra)
 library(pander)
 ```
 
+
+```{r setup, include=FALSE}
+opts_knit$set()
+options(digits=4)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
 # Load Data
 
 ```{r}
@@ -43,19 +46,19 @@ d_respondents <- fread('datatable_clean_survey_responses_v2.dta')
 # Abstract
 
 # Background
-Whether its the coach and player, teacher and pupil, or manager and entry-level employee, feedback likely plays an important role in delivering successful outcomes. All managerial figures are encouraged to give feedback as understudies are likewise encouraged to receive feedback openly. However, what is good feedback and how much of ones success can be attributed to this feedback? Suprisingly few, well developed experiments have been conducted to investigate this relationship. In this study, we seek to better understand if feedback truly influences successful outcomes and if different types of feedback lead to better outcomes than others. 
+Whether its the coach and player, teacher and pupil, or manager and entry-level employee, feedback likely plays an important role in delivering successful outcomes. All managerial figures are encouraged to give feedback as understudies are likewise encouraged to receive critique openly. However, what is good feedback and how much of ones success can be attributed to this feedback? Suprisingly few, well developed experiments have been conducted to investigate this relationship. In this study, we seek to better understand if feedback truly influences successful outcomes and if different types of feedback lead to better outcomes than others. 
 
 # Research Question
 Our research highlights the broad field of research around the role of feedback on performance. Successful feedback is thought to lead to improved performance. However it is too broad of a question for an experiment to point to a causal claim.  Exogenous factors such as the learning environment, the learner’s psychological mentality, or the type of task being taught may come into play in an non-experimental analysis. 
 
-Additionally, this question can be broken down to ask what types of feedback are helpful. Specific types of feedback may be better than others and some may actually be detrimental to one’s performance (due to increased stress or mental strain. This could be attributed to several lines of reasoning. As such, a well designed experiment is necessary to find a true (if any) causal effect on learning outcomes. 
+Additionally, feedback comes in all different styles, both positive and negative, internal and external. Somes types of critique may be better than others, while others may actually be detrimental to one’s performance As such, a well designed experiment is necessary to find a true (if any) causal effect on learning outcomes. 
 
-The scope of our experiment is, as a result, intentionally narrow to measure the effect of different types of feedback on recognizing if an x-ray has healthy lungs or lungs with pneumonia. It is a binary outcome is simple and makes many elements consistent throughout for most participants (i.e. the computer-based learning environment, the feedback types, and the question being asked are the same throughout the program). 
+The scope of our experiment is, as a result, intentionally narrow to measure the effect of different types of feedback on recognizing if an x-ray has healthy lungs or lungs with pneumonia. This study introduces a novel concept to most, if not all subjects, requires strenous mental thought, and makes several extraneous elements consistent throughout the learning process (i.e. the computer-based learning environment, the feedback types, and the question being asked are the same throughout the program). 
 
 ## Hypothesis 
 The research question in this experiment attempts to answer the following question: 
 
->*What type of feedback (positive reinforcement, negative reinforcement, self-reflective, etc.) leads to the largest improvements in individual performance on simple, recognition-based tasks, if any?*
+>*What type of feedback (positive reinforcement, negative reinforcement, self-reflective, etc.) leads to the largest improvements in individual performance within a simple, recognition-based task, if any?*
 
 We are testing the null hypothesis that feedback does not lead to better outcomes. That the ATE for all feedback groups and those that receive a placebo will equal 0. 
 
@@ -63,19 +66,21 @@ A related follow-up question addresses:
 
 >*Does more frequent feedback yield higher task performance?*
 
-We anticipate that more feedback touchpoints may be associated with better individual performance because the receiver has more insight into how to improve and is able to calibrate to meet and surpass previous performance thresholds. 
+We anticipate that more feedback touchpoints will associate with better individual performance because the receiver has more insight into how to improve and is able to calibrate to meet and surpass previous performance thresholds. However it is unclear if the marginal gains from the second feedback loop will be as meaningful as the first. 
+***TEAM IS THIS CORRECT? DO WE INCLUDE THIS IN OUR FINAL REGRESSION?^^^***
 
 # Experimental Design
 ## Overview
-This design is a different in differences experiment. Participants completed the three party survey in one sitting. The random assignment occurs after the first round of questions and the core analysis compares the difference in scores between the first iteration (pre-treatment) and the combined second and third iteration scores (post-treatment). 
+This design follows a different in differences design. Participants completed the three party survey in one sitting. The random assignment occurs after the first round of questions and the core analysis compares the difference in scores between the first iteration (pre-treatment) and the combined second and third iteration scores (post-treatment). 
+***JANE IS THIS CORRECT?^^^***
 
-In this experiment, participants will view a set of X-Ray slides. Each slide contains an X-Ray image of a patient’s lungs. The participant will have to determine if the patient’s lungs are healthy or have pneumonia. Responses and timings will be recorded. Three rounds will create an answer set of 30 images (10  X-Ray images x 3 Rounds). Each of these intervention type, while limited in scope to the X-Ray recognition task, is meant to replicate a style of feedback (as seen in "What it Reflects" below). Participants will be randomly assigned the following control or treatments, with two, one minute breaks in between sessions. 
+In this experiment, participants will view a set of X-Ray slides. Each slide contains an X-Ray image of a patient’s lungs. The participant will have to determine if the patient’s lungs are healthy or have pneumonia. Responses and timings will be recorded. Three rounds will create an answer set of 30 images (3 Rounds x 10  X-Ray images in each round). Each intervention type, while limited in scope to the X-Ray recognition task, is meant to replicate a real-life style of feedback. Participants will be randomly assigned the following control or treatments, with two, one minute breaks in between sessions. 
 
-+ *Control* - Subject watches a pharmaceutical video and is asked how the video makes them feel. This replicates the experience of someone without any form of internal or external feedback.
-+ *Self Reflective Treatment* - Subject shown the last round’s images, their answer, and the correct answer. They are then asked to reflect in two sentences how they can improve.This reflects someone who does not receive feedback from others but thinks critically about their own performance and how to improve.
++ *Control* - Subject watches a pharmaceutical video and is asked how the video makes them feel. This replicates the experience of someone that does not receive any internal or external feedback.
++ *Self Reflective Treatment* - Subject shown the last round’s images, their answer, and the correct answer. They are then asked to reflect in two sentences how they can improve. This reflects someone who does not receive feedback from others but thinks critically about their own performance and how to improve.
 + *Positive Reinforcement Treatment* - Subject shown the images of the last round’s healthy lungs only and is asked to study those images for 1 minute. This reflects someone who is only told the positive aspects of their performance. 
 + *Negative Reinforcement Treatment* - Subject shown the images of the last round’s pneumonia filled lungs only and is asked to study those images for 1 minute. This reflects someone who is only told the negative aspects of their performance.
-+ *Specific  Feedback Treatment* - Subject shown the last round’s images, their answer, and the correct answer. They are then given medical textbook info about how to spot pneumonia. This reflects a situation where someone who is given expert-driven advice on how to accomplish a task. 
++ *Specific  Feedback Treatment* - Subject shown the last round’s images, their answer, and the correct answer. They are then given easy to digest information from a medical textbook on how to spot pneumonia. This reflects a situation where someone who is given expert-driven advice on how to accomplish a task. 
 
 ## Project Timeline
 The project was conducted on the following timeline: 
@@ -85,26 +90,25 @@ The project was conducted on the following timeline:
 | Oct. 28 - Nov. 5  | Nov. 6 - 8  | Nov. 9 - 14  | Nov. 15 - 30  | Dec. 8  | Dec. 15  |
 
 ## Enrollment and Recruitment Process
-Subjects were recruited through Mechanical Turk and were properly incentivized to complete the survey by receiving $1 upon successful completion. MechanicalTurk lists the survey in a pool of others and payouts were given by the research team after successful completion of the survey. We ended up receiving 447 survey submissions. Since we charged too high of a price point per survey, we were able to receive all of these responses in a matter of 72 hours. This may have worked in our favor by mitigating time-series related effects in the resulting data, however included several drawbacks mentioned later in the paper. 
+Subjects were recruited through Mechanical Turk and received $1 upon successful completion. Multiple entries were not permitted. MechanicalTurk lists the survey in a pool of others and payouts were given by the research team after successful completion of the survey. We ended up receiving 447 survey submissions. Since we charged too high of a price point per survey, we were able to receive all of these responses in a matter of 72 hours. This may have worked in our favor by mitigating time-series related effects in the resulting data, however included several drawbacks mentioned later in the paper. 
 
 Subjects were mostly from the United States (`r d_respondents[, sum(US_Dummy)]`) and India (`r d_respondents[country == "India", length(country)]`). There were more males that participated in the study (`r d_respondents[Gender == "Male", length(Gender)]`) than females (`r d_respondents[Gender == "Female", length(Gender)]`). 
 
 ## Communication and Measurement Tooling
-The experiment recruited participants from Mechanical Turk, who were then given a link to the survey on Qualtrics. They were asked to enter their MTurk Worker ID and start the survey. The entire experiment flow was then run through Qualtrics. Every final participant was recruited through MTurk and did not rely on personal connections. 
+The experiment recruited participants from Mechanical Turk, who were then given a link to the survey on Qualtrics. They were asked to enter their MTurk Worker ID and start the survey. The entire experiment flow was then run through Qualtrics. Every final participant was recruited through MTurk. Friends and family were used to test the experiment flow, however none were known to have taken the full experiment. 
 
-The survey was compatible with both mobile and desktop applications. This helped reduce the barrier to entry for the survey. To prevent participants from rushing through answers, we put timings on the responses and essentially required each subject to complete the survey in one sitting. 
+The survey was compatible with both mobile and desktop applications. This helped reduce the barrier to entry for the survey. To prevent participants from rushing through answers, we put timings on the responses so that subjects completed the survey in one sitting. 
 
 ## Exclusion and Non-Interference 
-ADD HERE
+***ADD HERE***
+***TAEK FROM FE CH. 1 or 2?***
 
 ## Randomization
 Participants recruited were randomly assigned to each of the 5 groups based on randomization logic pre-built on the Qualtrics system. Randomization occurred through the Qualtrics system after the first pre-treatment phase and split the remaining responses evenly between the four treatment groups and the control group. The Qualtrics Flow can be seen below. 
 
 NOTE: Need to replace local path name with github path name
 
-![Qualtrics Flow](//Users/dahlerbattle/Desktop/MIDS_Semester_3/Experiments and Causal Inference/w241/finalProject/w241_fall2020_taskperformance/final project/images/qualtrics_flow.png)
-
-In future iterations of the experiment, researchers may want to have a much larger control group to eliminate concerns over statistical power (as discussed in Part VII, Limitations and Future Enhancements). 
+![Qualtrics Flow](../final project/images/qualtrics_flow.png)
 
 ## Covariate Balance Checks
 
@@ -140,7 +144,7 @@ age_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, Age_Range)],sim
 
 create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Age_Range) +
   xlab('Assignment Group') +
-  ylab('Age') +
+  ylab('Age Range') +
   labs(title = 'Contingency table between age range and assignment group',
        caption = paste0('Assuming age distributions are the same among assignment groups, a chi-squared test for independence with Monte \nCarlo simulation yields p=',
                         round(age_chisq$p.value,4),
@@ -179,35 +183,34 @@ create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$US_Dum
 The data we collected was exported directly from Qualtrics into a CSV file. Data was then cleaned in R and exploratory data analysis was performed to check out data points. In all, we collected the following categorical data:
 
 + Metadata - Entry data such as start and end dates, IP Addresses, Locations, Duration, Survey Status (Finished, Incomplete)
-+ Demographic Data - Age Range, Education Level
++ Demographic Data - Age Range, Education Level, Gender
 + Assignment Group - Control, Positive Images, Negative Images, Self-Reflection, and Medical Feedback
 + Responses - Survey responses for Task Phase 1 (questions 1 - 10), Task Phase 2 (questions 11 - 20), and Task Phase 3 (questions 21 - 30)
 + Scores - Scores for Task Phase 1, Task Phase 2, Task Phase 3 (out of 10); treatment scores combining Task Phases 2 and 3 (out of 10); cumulative scores (out of 30)
 
-Our outcome measurable follows a difference in differences deisgn. Scoring is based on number of questions a person gets right out of 10 questions per phase. This is then converted to a percentage value, so it will be easier to analyze regression results. So in this case, a 10 percentage point increase in performance would signify getting 1 additional question right. DO WE TAKE THE AVERAGE OF TASK PHASE 2 & 3 AS OUR OUTCOME VARIABLE?
+Our outcome measurable follows a difference in differences deisgn. Scoring is based on number of questions a person gets right out of 10 questions per phase. This is then converted to a percentage value so that it will be easier to analyze regression results. So in this case, a 10 percentage point increase in performance would signify getting 1 additional question right. ***DO WE TAKE THE AVERAGE OF TASK PHASE 2 & 3 AS OUR OUTCOME VARIABLE?***
 
 We will focus on two major comparisons. 
 1. Control vs. All Treatment Groups: This compares people who receive the control with people who receive any form of feedback treatment.
 2. Individual Treatment Effects: This second comparison focuses on comparing each individual treatment group with the control and with each other.
+***DO WE FOCUS ON THE MARGINAL EFFECT OF THE SECOND FEEDBACK LOOP VS. THE FIRST FEEDBACK LOOP***
 
 ## Data Completeness 
-The experiment started off with 381 surveys sourced through MTurk. Off this initial batch of participants, some submitted multiple responses in order to try to take advantage of our higher than average survey price point. We included only their initial surveys, throwing out 4 responses. 4 had not done the survey but had only submitted a code. Additionally, 37 surveys had blatantly intentionally incorrect answers in one or more sections. This includes survey participants who marked responses in all one answer (e.g. all healthy) or alternating answers throughout the survey (e.g. healthy, pneumonia, healthy, pneumonia, etc.). 
+The experiment started off with 381 surveys sourced through MTurk. Off this initial batch of participants, some submitted multiple responses in order to try to take advantage of our higher than average survey price point. We included only their initial surveys, throwing out 4 responses. One person also had not done the survey but had only submitted a fake MTurk code. Additionally, 37 surveys had blatantly input incorrect answers in one or more sections. This includes survey participants who marked responses in all one answer (e.g. all healthy) or alternating answers throughout the survey (e.g. healthy, pneumonia, healthy, pneumonia, etc.). We treated these participants as non-compliers. 
 
 Out of this participant pool, we threw out 97 results. These results were thrown out for the following reasons: 
 
-1. Multiple entrants (n = 4):  The research team’s $1.00 per survey price point was too high. As a result, some participants tried to send in multiple survey responses to collect multiple payments. In these instances we only paid for (and used) the first survey.
-2. Incomplete surveys (n = 56): Some people started surveys but never finished them. This includes those who never completed the last step of the survey, by closing out their answers. These responses were thrown out and attrition is dealt with in the survey results shown below. 
-3. Clear non-compliance (n = 37): Some participants did not give honest effort on the survey and answered all true, all false, or all alternating responses. These were also thrown out of the analysis. 
+1. Clear non-compliance (n = 44): Some participants did not give honest effort on the survey and answered all true, all false, or all alternating responses. These were also thrown out of the analysis. 
+2. Multiple submissions and non-valid entries (n = 5):  The research team’s $1.00 per survey price point was too high. As a result, some participants tried to send in multiple survey responses to collect multiple payments or submit an invalid MTurk code. In these instances we only paid for (and used) the first survey.
+3. Incomplete surveys (n = 66): Some people started surveys but never finished. This includes those who never completed the last step of the survey, by closing out their answers. These responses were thrown out and attrition is dealt with in the survey results shown below. 
 
-Attrition could be counted in two buckets. First, the 56 incomplete surveys were incomplete before random assignment.  An additional 43 dropped off after random assignment. Of these, 21 of these participants had made 99% progress but had failed to close the survey. However, we treated all 43 surveys left incomplete after assignment as part of attrition.  A flow diagram below shows the drop offs at each level of the experiment below:
+Attrition occurred at several steps in the survey. 14 dropped off before Task Phase I while collecting demographic information and while entering the MTurk code. 20 dropped the survey during the 10 image set in Task Phase I or during the first intervention. 7 dropped off during Task Phase II or during the second intervention. 4 dropped out during Task Phase 3 and 21 of these participants had made 99% progress but had failed to close the survey. However, we treated all 66 surveys left incomplete after assignment as part of attrition.  A funnel diagram below shows the participant drop offs of each type and at each level of the experiment:
 
-NOTE: Need to replace local path name with github path name
+***NOTE: REPLACE LOCAL FILE REFERENCE WITH GITHUB FILE REFERENCE***
 
 ![Survey Funnel Diagram](/Users/dahlerbattle/Desktop/w241_fall2020_taskperformance/final project/images/Blank diagram.png)
 
 # Results
-As far as outcome measures go, scoring is based on number of questions a person gets right out of 10 questions per phase. This is then converted to a percentage value, so it will be easier to analyze regression results. So in this case, a 10 percentage point increase in performance would signify getting 1 additional question right. 
-
 Overall, we have multiple ways we could have assessed this data based on our different treatment groups. We’ll primarily focus on two major comparisons.
 
 Control vs. all treatment groups. This compares people who receive the control with people who receive any form of feedback treatment.
@@ -313,13 +316,11 @@ d_respondents[, .N, by = .(Assignment_Group)]
 Power analysis shows that our groups did not have a large enough sample size required for each group. The number of subjects required in each group is `r round(power.t.test( delta = .05, sd = .16, sig.level = 0.05, power = 0.8)$n)`. Our group sizes for the control group, as well as the medical, positive, negative, and self-reflect treatment groups were `r d_respondents[, .N, by = .(Assignment_Group)][4, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][5, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][2, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][1, 2]`, and `r d_respondents[, .N, by = .(Assignment_Group)][3, 2]` respectively. This is primarily due to the fact that we charged too high of a price point per completed survey. 
 
 # Conclusions 
-We can see from this study that we did find a statistically and practically significant impact of several styles of feedback as it relates to performance scores on the X-Ray lung health analysis. We can reject the null hypothesis that the scores in the feedback groups were the same as the scores in the placebo group. Breaking this down further, we see that (GO INTO THE INDIVIDUAL TREATMENT ATEs)
+Our study found a statistically and practically significant impact of several styles of feedback as it relates to performance scores on the X-Ray lung health analysis. We can reject the null hypothesis that the scores in the feedback groups were the same as the scores in the placebo group. Breaking this down further, we see that ***GO INTO THE INDIVIDUAL TREATMENT ATEs***
 
-This experiment faces potential limitations when making more generalized conclusions about the effects of feedback on performance in addition to lower power. For example, the experiment required analysis of a more simple, X-Ray analysis, which is not as complex of a task when compared to writing a paper or performing more quantitative analysis. Furthermore, the experiment's computer-facing setting may have impacted results. Subjects may not have spent as much time on the task as in a real life scenario. They certainly did not face the same time or social pressures of a real life task. 
+This experiment faces potential limitations when making more generalized conclusions about the effects of feedback on performance in addition to lower power. For example, the experiment required analysis of a more simple, X-Ray analysis, which is not as complex of a task when compared to writing a paper or performing more quantitative analysis. Furthermore, the experiment's computer-facing setting may have impacted results. Subjects may not have spent as much time on the task as in a real scenario. They certainly did not experiment the same time or social pressures or distractions usually present in most constructive feedback instances 
 
-However, the study's conclusions gives us confidence that feedback positively affects performance in a meaningful way and more specifically targeted, informative feedback drives success. The effects of feedback on performance are signficant and merit additional study. 
+However, the study's conclusions gives us confidence that feedback positively affects performance in a meaningful way and more specifically targeted, informative feedback drives success. The effects of feedback on performance are significant and merit additional study. 
 
 # Limitations and Future Enhancements
-The research design generated an output with limited power due to several factors. First, we handicapped the total amount of participants by offering too high of a price point for the survey. Our experiment offered a \$1 price point per successful entry (limit of one entry per person). However we should have charged ~ \$0.25. We also randomized our subjects equally between the four treatment groups and the one control group. In retrospect our group needed to allocate 50% of the participants to the control group and randomly assigned the rest in equal proportions to the four different treatment groups. These changes would have given the experiment an estimated 1400 participants, with XYZ in the control group and XYZ split evenly between the different treatment groups. Power for the experiment would have increased substantially and allowed for more meaningful outcomes. 
-
-Think about implementing a factorial design for our treatments so we can learn more from HTEs. is it the presence of images that improves scores? Is it the presence of a writing component? Is it the presence of reading?
+The research design generated an output with limited power due to several factors. First, we handicapped the total amount of participants by offering too high of a price point for the survey. Our experiment offered a \$1 price point per successful entry (limit of one entry per person). However we should have charged ~ \$0.25. ***DO WE INCLUDE THIS? We also randomized our subjects equally between the four treatment groups and the one control group. In retrospect our group needed to allocate 50% of the participants to the control group and randomly assigned the rest in equal proportions to the four different treatment groups.*** These changes would have given the experiment an estimated 1400 participants, with XYZ in the control group and XYZ split evenly between the different treatment groups. Power for the experiment would have increased substantially and allowed for more meaningful outcomes. 
