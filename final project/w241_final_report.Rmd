@@ -38,18 +38,15 @@ library(pander)
 
 ```{r}
 d_respondents <- fread('datatable_clean_survey_responses_v2.dta')
-
-#adds US and Treatment Dummy variables. Incorporate into imported dataset
-d_respondents[ , US_Dummy := ifelse(country == "United States", 1, 0)]
-d_respondents[ , Treatment_Dummy := ifelse(Assignment_Group != "Control", 1, 0)]
 ```
 
 # Abstract
 
 # Background
+Whether its the coach and player, teacher and pupil, or manager and entry-level employee, feedback likely plays an important role in delivering successful outcomes. All managerial figures are encouraged to give feedback as understudies are likewise encouraged to receive feedback openly. However, what is good feedback and how much of ones success can be attributed to this feedback? Suprisingly few, well developed experiments have been conducted to investigate this relationship. In this study, we seek to better understand if feedback truly influences successful outcomes and if different types of feedback lead to better outcomes than others. 
 
 # Research Question
-Our research highlights the broad field of research around the role of feedback on performance. Successful feedback mechanisms and improved performance are likely highly correlated with each other. However it is too broad of a question for an experiment to point to a causal claim.  Exogenous factors such as the learning environment, the learner’s psychological mentality, or the type of task being taught may come into play in an non-experimental analysis. 
+Our research highlights the broad field of research around the role of feedback on performance. Successful feedback is thought to lead to improved performance. However it is too broad of a question for an experiment to point to a causal claim.  Exogenous factors such as the learning environment, the learner’s psychological mentality, or the type of task being taught may come into play in an non-experimental analysis. 
 
 Additionally, this question can be broken down to ask what types of feedback are helpful. Specific types of feedback may be better than others and some may actually be detrimental to one’s performance (due to increased stress or mental strain. This could be attributed to several lines of reasoning. As such, a well designed experiment is necessary to find a true (if any) causal effect on learning outcomes. 
 
