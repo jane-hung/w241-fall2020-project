@@ -246,6 +246,30 @@ nrow(d_respondents)
 #remove duplicate Amazon Turk IDs
 nrow(d_respondents)  #350 rows
 d_respondents <- d_respondents[ !duplicated(d_respondents$Amazon_Turk_ID) , ]  #350 rows
+
+head(d_respondents)
+
+d_respondents[, hist(Survey_Duration), by = .(Assignment_Group)]
+
+ggplot(data=d_respondents,aes(x=d_respondents$Survey_Duration, group=d_respondents$Assignment_Group, fill=d_respondents$Assignment_Group))+
+  geom_histogram(position="dodge",binwidth=0.25)+theme_bw()
+
+ggplot(d_respondents, aes(x=Survey_Duration, fill = as.factor(Assignment_Group), colour=as.factor(Assignment_Group))) +
+  geom_density(alpha = 0.2) + 
+  ggtitle("Survey Duration by Assignment Group") + 
+  theme(plot.title = element_text(hjust = 0.5))
+
+outliers <- d_respondents[Survey_Duration > 60*60]
+completions <- d_respondents[Survey_Duration < 5000]
+
+ggplot(completions, aes(x=Survey_Duration/60, fill = as.factor(Assignment_Group), colour=as.factor(Assignment_Group))) +
+  geom_density(alpha = 0.35) + 
+  xlim(0,60) +
+  ggtitle("Survey Duration by Assignment Group") + 
+  labs(x = "Minutes") + 
+  geom_vline(xintercept = mean((completions$Survey_Duration)/60) + (2 *(sd(completions$Survey_Duration)/60)), linetype="dotted", color = "blue", size = 0.5) +
+  theme(plot.title = element_text(hjust = 0.5)) 
+    
 ```
 
 

@@ -29,13 +29,11 @@ library(gridExtra)
 library(pander)
 ```
 
-
 ```{r setup, include=FALSE}
 opts_knit$set()
 options(digits=4)
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
 
 # Load Data
 
@@ -98,16 +96,34 @@ The experiment recruited participants from Mechanical Turk, who were then given 
 
 The survey was compatible with both mobile and desktop applications. This helped reduce the barrier to entry for the survey. To prevent participants from rushing through answers, we put timings on the responses so that subjects completed the survey in one sitting. 
 
-## Exclusion and Non-Interference 
-***ADD HERE***
-***TAEK FROM FE CH. 1 or 2?***
-
 ## Randomization
 Participants recruited were randomly assigned to each of the 5 groups based on randomization logic pre-built on the Qualtrics system. Randomization occurred through the Qualtrics system after the first pre-treatment phase and split the remaining responses evenly between the four treatment groups and the control group. The Qualtrics Flow can be seen below. 
 
-NOTE: Need to replace local path name with github path name
-
 ![Qualtrics Flow](../final project/images/qualtrics_flow.png)
+
+## Excludability and Non-Interference
+This design also meets the excludability and non-interference assumptions needed to provide an unbiased average treatment effect. The excludability assumption is clearly met since the experiment flow seen above is used to measure both the outcomes in the treatment and the control group. Likewise subjects are asked to identify if a x-ray image of a lung has pnumonia or not. We picked this subject since it would be very difficult to do 3rd party research on the subject. However, we can more definatively answer this subject by looking at the completion times below. 
+
+```{r}
+#n survey responses > 30 mins., take outlier out for analysis but discuss below
+outlier <- round(d_respondents[`Duration (in seconds)` > 60*30, `Duration (in seconds)`/60/60],1)
+completions <- d_respondents[`Duration (in seconds)` < 60*30]
+
+#95% of participants finished below this point in mins. 
+upper_cl <- completions[, round(mean((`Duration (in seconds)`)/60) + (2 *(sd(`Duration (in seconds)`)/60)), 1)]
+
+#density plot of time completed by assignment group in mins.
+ggplot(completions, aes(x=`Duration (in seconds)`/60, fill = as.factor(Assignment_Group), colour=as.factor(Assignment_Group))) +
+  geom_density(alpha = 0.35) + 
+  xlim(0,60) +
+  ggtitle("Survey Duration by Assignment Group (sans Outlier)") + 
+  labs(x = "Minutes") + 
+  geom_vline(xintercept = upper_cl, linetype="dotted", color = "blue", size = 0.5) +
+  theme(plot.title = element_text(hjust = 0.5)) 
+
+```
+
+We had one entry that took `r outlier` hours to complete the survey. This could be due to research but is likely due to other factors such as just leaving your computer up for certain period of time. Eliminating this outlier, 95% of participants completed the survey in `r upper_cl` minutes or less. As such, subject driven, 3rd party research did not likely play a role in outcomes. The non-interference assumption is also met in this experiment since subjects are not aware of the treatments in other group. They also do not know each other and cannot share about their treatment status with untreated subjects or vice versa. 
 
 ## Covariate Balance Checks
 
