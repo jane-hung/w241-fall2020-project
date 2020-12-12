@@ -695,8 +695,11 @@ sd(d_respondents$Total_Score)
 # ATE of treatment on TaskPhase2 Score
 
 d_respondents[ Treatment_Dummy == 1, mean(TaskPhase2_Score)] - d_respondents[ Treatment_Dummy == 0, mean(TaskPhase2_Score)] 
-
 sd(d_respondents$TaskPhase2_Score)
+
+d_respondents[Assignment_Group == "Medical Feedback", mean(TaskPhase2_Score)] - d_respondents[Assignment_Group == "Control", mean(TaskPhase2_Score)]
+
+
 
 ```
 
@@ -709,7 +712,12 @@ sd(d_respondents$TaskPhase2_Score)
 ```
 
 ```{r}
-power.t.test( delta = .05, sd=.16, sig.level = 0.05, power=0.8)
+power.t.test( n = 70, delta = .05, sd=.16, sig.level = 0.05)
+#where we stand at group sizes of 70, power is at 45%
+
+power.t.test( delta = .05, sd=.16, sig.level = 0.05, power = 0.8)
+#requires each group size of 160 to be at 80% power
+
 ```
 
 # Analysis
