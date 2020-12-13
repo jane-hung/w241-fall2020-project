@@ -65,17 +65,17 @@ create_heatmap <- function(var1, var2) {
 # Abstract
 
 # Background
-Whether its the coach and player, teacher and pupil, or manager and entry-level employee, feedback likely plays an important role in delivering successful outcomes. All managerial figures are encouraged to give feedback as understudies are likewise encouraged to receive critique openly. However, what is good feedback and how much of one's success can be attributed to this feedback? Suprisingly few, well-developed experiments have been conducted to investigate this relationship. In this study, we seek to better understand if feedback truly influences successful outcomes and if different types of feedback lead to better outcomes than others. 
+Whether its the coach and player, teacher and pupil, or employer and employee, feedback likely plays an important role in delivering successful outcomes. All leaders are encouraged to give feedback while understudies are taught  to receive critique openly. However, what is good feedback and how much of one's success on a given task be attributed to this feedback? Suprisingly few, well-developed experiments have been conducted to investigate this relationship. In this study, we seek to better understand if feedback truly influences successful outcomes and if different types of feedback lead to better outcomes than others. 
 
 # Research Question
-Our research highlights the broad field of research around the role of feedback on performance. Successful feedback is thought to lead to improved performance. However it is too broad of a question for an experiment to point to a causal claim.  Exogenous factors such as the learning environment, the learner’s psychological mentality, or the type of task being taught may come into play in an non-experimental analysis. 
+Our study highlights the broad field of research around the role of feedback on performance. Successful feedback is thought to lead to improved performance. However it is too broad of a question for an experiment to point to a causal claim.  Exogenous factors such as the learning environment, the learner’s psychological mentality, or the type of task being taught may come into play in an non-experimental analysis. 
 
-Additionally, feedback comes in all different styles, both positive and negative, internal and external. Some types of critique may be better than others, while others may actually be detrimental to one’s performance. As such, a well-designed experiment is necessary to find a true (if any) causal effect on learning outcomes. 
+Additionally, feedback comes in various forms, both positive and negative, internal and external. Some strategies may be better than others and others may actually negatively influence performance. As such, a well-designed experiment is necessary to find a true causal effect on learning outcomes (if any). 
 
 The scope of our experiment is, as a result, intentionally narrow to measure the effect of different types of feedback on task performance. In our design, we ask survey respondents to recognize if an x-ray image shows healthy lungs or lungs with pneumonia. This study introduces a novel concept to most, if not all subjects, requires strenous mental thought, and makes several extraneous elements consistent throughout the learning process (i.e. the computer-based learning environment, the feedback types, and the question being asked are the same throughout the program). 
 
 ## Hypothesis 
-The research question in this experiment attempts to answer the following question: 
+Our study seeks to answer the following question: 
 
 >*What type of feedback (positive reinforcement, negative reinforcement, self-reflective, etc.) leads to the largest improvements in individual performance within a simple, recognition-based task, if any?*
 
@@ -91,7 +91,7 @@ We anticipate that more feedback touchpoints will associate with better individu
 ## Overview
 This design follows a difference-in-differences design and is implemented through regression adjustment. Participants completed a three-part survey in one sitting. The random assignment occurs after the first round of questions, which allows us to pre-screen for compliance. The core analysis compares the difference in scores between the first iteration (pre-treatment) and the second iteration (post first treatment) scores in order to test the immediate effects of feedback on performance. We further compare the first iteration scores with the third iteration (post second treatment) scores to understand the effect of repeated feedback.
 
-In this experiment, participants will view a set of X-Ray slides. Each slide contains an X-Ray image of a patient’s lungs. The participant will have to determine if the patient’s lungs are healthy or have pneumonia. Responses and timings will be recorded. Three rounds will create an answer set of 30 images (3 Rounds x 10  X-Ray images in each round). Each intervention type, while limited in scope to the X-Ray recognition task, is meant to replicate a real-life style of feedback. Participants will be randomly assigned to the following control or treatment groups, with two one-minute breaks in between sessions. 
+In this experiment, participants will view a set of X-Ray slides. Each slide contains an X-Ray image of a patient’s lungs. The participant will have to determine if the patient’s lungs are healthy or have pneumonia. Responses and timings will be recorded. Three rounds will create an answer set of 30 images (3 Rounds x 10  X-Ray images in each round). Participants will be randomly assigned to the following control or treatment groups, with two one-minute breaks in between sessions. Each intervention type, while limited in scope to the X-Ray recognition task, is meant to replicate a real-life style of feedback. The interventions are as follows: 
 
 + *Control* - Subject watches a pharmaceutical video and is asked how the video makes them feel. This replicates the experience of someone that does not receive any internal or external feedback.
 + *Self Reflective Treatment* - Subject is shown the last round’s images, their answers, and the correct answers. They are then asked to reflect in two sentences about how they can improve. This reflects someone who does not receive feedback from others but thinks critically about their own performance and how to improve.
@@ -112,12 +112,14 @@ Subjects were recruited through Mechanical Turk and received $1 upon successful 
 Subjects were mostly from the United States (`r d_respondents[, sum(US_Dummy)]`) and India (`r d_respondents[country == "India", length(country)]`). There were more males that participated in the study (`r d_respondents[Gender == "Male", length(Gender)]`) than females (`r d_respondents[Gender == "Female", length(Gender)]`). 
 
 ## Communication and Measurement Tooling
-The experiment recruited participants from Mechanical Turk, who were then given a link to the survey on Qualtrics. They were asked to enter their MTurk Worker ID and complete demographic questions before starting the survey. Friends and family were used to test the experiment flow, however none were known to have taken the full experiment, nor were part of our final analysis. 
+The recruited Mechanical Turk participants were then given a link to the survey on Qualtrics. They were asked to enter their MTurk Worker ID and complete demographic questions before starting the survey. Friends and family were used to test the experiment flow, however none were known to have taken the full experiment, nor were part of our final analysis. 
 The survey was compatible with both mobile and desktop applications. This helped reduce the barrier to entry for the survey. To help prevent non-compliance, we mandated timings on the treatment phases so that each subject fully received treatment. 
 
 
 ## Randomization
-Because subjects are recruited from Mechanical Turk, we have access to a global workforce pool. Then, participants were randomly assigned to each of the 5 groups based on randomization logic pre-built on the Qualtrics system. Randomization occurred through the Qualtrics system after the first pre-treatment phase and split the remaining responses evenly between the four treatment groups and the control group. This randomization process is important so that treatment assignments are independent of subjects' potential outcomes. Furthermore, unaccounted-for covariates of the subject pool would not bias our estimate of the ATE. The Qualtrics flow can be seen below.
+Since subjects were recruited from Mechanical Turk, we the experiment had access to a global pool of candidates. Then, participants were randomly assigned to each of the 5 groups based on randomization logic pre-built on the Qualtrics system. Randomization occurred through the Qualtrics system after the first pre-treatment phase and split the remaining responses evenly between the four treatment groups and the control group. This randomization process is important so that treatment assignments are independent of subjects' potential outcomes. Furthermore, unaccounted-for covariates of the subject pool would not bias our estimate of the ATE. 
+
+The Qualtrics flow can be seen below.
 
 ![Qualtrics Flow](../final project/images/flow_diagram.png)
 
@@ -145,29 +147,15 @@ ggplot(completions, aes(x=`Duration (in seconds)`/60, fill = as.factor(Assignmen
 
 ```
 
-We had one entry that took `r outlier` hours to complete the survey. This could be due to research but is likely due to other factors such as just leaving the computer idle up for certain period of time. Eliminating this outlier, 95% of participants completed the survey in `r upper_cl` minutes or less. As such, subject driven, third-party research did not likely play a role in outcomes. The non-interference assumption is also met in this experiment since subjects are not aware of the treatments in other groups. They also do not know each other and cannot share about their treatment status with untreated subjects or vice versa. 
+We had one entry that took `r outlier` hours to complete the survey. This could be due to research but is likely due to other factors such as just leaving the computer idle up for certain period of time. Eliminating this outlier, 95% of participants completed the survey in `r upper_cl` minutes or less (`r upper_cl/3` minutes or less per task phase). As such, subject driven, third-party research did not likely play a role in outcomes. The non-interference assumption is also met in this experiment since subjects are not aware of the treatments in other groups. They also do not know each other and cannot share about their treatment status with untreated subjects or vice versa. 
 
 ## Covariate Balance Checks
 
-We check how well our randomization worked by checking that the proportion of individuals assigned to each group was similar. Furthermore, we performed visual covariate balance checks on the survey data as it relates to gender, age range, education, and country. We additionally performed Chi Squared Tests for Independence to test for independence within each of these categories. None of the Chi-Squared tests were significant at the p = .05 level, signaling that there is no relationship between these covariates and the treatment and control assignment groups. Proportions of each covariate were consistent across assignment groups.
+We examined how well our randomization worked by checking that the proportion of individuals assigned to each group was similar. Furthermore, we performed visual covariate balance checks on the survey data as it relates to gender, age range, education, and country. We additionally performed Chi Squared Tests for Independence to test for independence within each of these categories. None of the Chi-Squared tests were significant at the p = .05 level, signaling that there is no relationship between these covariates and the treatment and control assignment groups. Proportions of each covariate were consistent across assignment groups.
 
 ```{r}
-create_heatmap <- function(var1, var2) {
-  ### Create a heatmap for a table of frequencies between two variables ###
-  df <- data.frame(table(var1,var2))
-  
-  ggplot(df,aes(x=var1,y=var2)) +
-    geom_tile(aes(fill=Freq,color=Freq),show.legend=FALSE,alpha=.8) +
-    geom_text(aes(label=Freq)) +
-    theme(axis.text.x = element_text(angle = 90)) + 
-    scale_fill_continuous(high = "darkslategray4", low = "powderblue")
-}
-
 # check balance between assignment groups
-d_respondents %>% 
-  group_by(Assignment_Group) %>%
-  summarise(count = n())
-
+d_respondents[, .N, by = .(Assignment_Group)]
 
 # check balance between genders
 gender_chiqq <- chisq.test(d_respondents[ , table(Assignment_Group, Gender)])
@@ -223,7 +211,7 @@ create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$US_Dum
 ```
 
 ## Observation and Outcome Measurables
-The data we collected was exported directly from Qualtrics into a CSV file. Data was then cleaned in R and exploratory data analysis was performed to check out data points. In all, we collected the following categorical data:
+The data we collected was exported directly from Qualtrics into a CSV file. Data was then cleaned in R and exploratory data analysis was performed to better understand our data points. In all, we collected the following categorical data:
 
 + Metadata - Entry data such as start and end dates, IP Addresses, Locations, Duration, Survey Status (Finished, Incomplete)
 + Demographic Data - Age Range, Education Level, Gender
