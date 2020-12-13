@@ -42,7 +42,7 @@ d_respondents <- fread('datatable_clean_survey_responses_v2.dta')
 ```
 
 # Functions
-```{r}
+```{r, include=FALSE}
 get_robust_se <- function(model){
   # Get robust SE for use in stargazer
   vcov <- vcovHC(model,type = "HC1")
@@ -50,7 +50,7 @@ get_robust_se <- function(model){
 }
 
 create_heatmap <- function(var1, var2) {
-  ### Create a heatmap for a table of frequencies between two variables ###
+  ### Create a heatmap for a table of frequencies between two variables
   df <- data.frame(table(var1,var2))
   
   ggplot(df,aes(x=var1,y=var2)) +
@@ -60,6 +60,14 @@ create_heatmap <- function(var1, var2) {
     scale_fill_continuous(high = "darkslategray4", low = "powderblue")
 }
 
+g_legend<-function(a.gplot){
+  #extract legend from a ggplot object
+  #https://stackoverflow.com/questions/13649473/add-a-common-legend-for-combined-ggplots
+  #https://github.com/hadley/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)}
 ```
 
 # Abstract
@@ -107,7 +115,7 @@ The project was conducted on the following timeline:
 | Oct. 28 - Nov. 5  | Nov. 6 - 8  | Nov. 9 - 14  | Nov. 15 - 30  | Dec. 8  | Dec. 15  |
 
 ## Enrollment and Recruitment Process
-Subjects were recruited through Mechanical Turk and received $1 upon successful completion. Multiple entries from the same respondent were not permitted. Mechanical Turk lists the survey in a pool of others and payouts were given by the research team after successful completion of the survey. We ended up receiving 447 survey submissions. Since we charged a relatively high price point per survey, we were able to receive all of these responses in a matter of 72 hours. This may have worked in our favor by mitigating time-series related effects in the resulting data, **however it also included several drawbacks mentioned later in the paper.** 
+Subjects were recruited through Mechanical Turk (MTurk) and received $1 upon successful completion. Multiple entries from the same respondent were not permitted. Mechanical Turk lists the survey in a pool of others and payouts were given by the research team after successful completion of the survey. We ended up receiving 447 survey submissions. Since we charged a relatively high price point per survey, we were able to receive all of these responses in a matter of 72 hours. This may have worked in our favor by mitigating time-series related effects in the resulting data, **however it also included several drawbacks mentioned later in the paper.** 
 
 Subjects were mostly from the United States (`r d_respondents[, sum(US_Dummy)]`) and India (`r d_respondents[country == "India", length(country)]`). There were more males that participated in the study (`r d_respondents[Gender == "Male", length(Gender)]`) than females (`r d_respondents[Gender == "Female", length(Gender)]`). 
 
@@ -152,17 +160,6 @@ We had one entry that took `r outlier` hours to complete the survey. This could 
 We check how well our randomization worked by checking that the proportion of individuals assigned to each group was similar. Furthermore, we performed visual covariate balance checks on the survey data as it relates to gender, age range, education, and country. We additionally performed Chi Squared Tests for Independence to test for independence within each of these categories. None of the Chi-Squared tests were significant at the p = .05 level, signaling that there is no relationship between these covariates and the treatment and control assignment groups. Proportions of each covariate were consistent across assignment groups.
 
 ```{r}
-create_heatmap <- function(var1, var2) {
-  ### Create a heatmap for a table of frequencies between two variables ###
-  df <- data.frame(table(var1,var2))
-  
-  ggplot(df,aes(x=var1,y=var2)) +
-    geom_tile(aes(fill=Freq,color=Freq),show.legend=FALSE,alpha=.8) +
-    geom_text(aes(label=Freq)) +
-    theme(axis.text.x = element_text(angle = 90)) + 
-    scale_fill_continuous(high = "darkslategray4", low = "powderblue")
-}
-
 # check balance between assignment groups
 d_respondents %>% 
   group_by(Assignment_Group) %>%
@@ -170,15 +167,15 @@ d_respondents %>%
 
 
 # check balance between genders
-gender_chiqq <- chisq.test(d_respondents[ , table(Assignment_Group, Gender)])
+gender_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, Gender)])
   
 create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Gender) +
   xlab('Assignment Group') +
   ylab('Gender') +
   labs(title = 'Contingency table between gender and assignment group',
        caption = paste0('Assuming gender distributions are the same among assignment groups, a chi-squared test for independence with ',
-                        round(gender_chiqq$parameter,4),' \ndegrees of freedom ', 'yields p=',
-                        round(gender_chiqq$p.value,4),
+                        round(gender_chisq$parameter,4),' \ndegrees of freedom ', 'yields p=',
+                        round(gender_chisq$p.value,4),
                         ', suggesting that there is no relationship between gender and assignment groups at a \nsignificance level of 0.05.')) + 
   theme(plot.caption = element_text(hjust = 0))
 
@@ -260,6 +257,130 @@ Control vs. all treatment groups. This compares people who receive the control w
 
 The second comparison focuses on comparing each individual treatment group with the control and with each other.
 
+## Task Score Analysis
+```{r, warning=FALSE, echo=FALSE}
+task2a_bp <- ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase1_Score, colour=as.factor(Treatment_Dummy))) +
+  geom_boxplot() + 
+  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
+  xlab('') +
+  ylab('Task Score (%)') +
+  ggtitle("Pre Treatment Scores") +
+  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank(), 
+        plot.title = element_text(hjust = 0.5,size=10),
+        legend.position = "bottom",
+        legend.title = element_blank())
+
+task2b_bp <- ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase2_Score, colour=as.factor(Treatment_Dummy))) +
+  geom_boxplot() + 
+  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
+  xlab('') +
+  ylab('') +
+  ggtitle("Task Phase 2 Scores") +
+  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank(), 
+        plot.title = element_text(hjust = 0.5,size=10),
+        legend.position = "none")
+
+task2c_bp <- ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase3_Score, colour=as.factor(Treatment_Dummy))) +
+  geom_boxplot() + 
+  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
+  xlab('') +
+  ylab('') +
+  ggtitle("Task Phase 3 Scores") +
+  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank(), 
+        plot.title = element_text(hjust = 0.5,size=10),
+        legend.position = "none")
+
+mylegend_2<-g_legend(task2a_bp)
+
+grid.arrange(arrangeGrob(task2a_bp + theme(legend.position="none"),task2b_bp,task2c_bp,ncol=3),
+             mylegend_2, 
+             nrow=2, 
+             heights=c(10,1),
+             top = textGrob("Compare task scores in different phases\n",just='right',gp=gpar(fontsize=14,font=1)))
+
+pander(t.test(d_respondents[Treatment_Dummy == 0, TaskPhase1_Score],
+       d_respondents[Treatment_Dummy == 1, TaskPhase1_Score]))
+```
+
+```{r, warning=FALSE, echo=FALSE}
+# boxplots for multiple treatment groups
+task1a_bp <- ggplot(d_respondents, aes(x = Assignment_Group, y=TaskPhase1_Score, colour=as.factor(Assignment_Group))) +
+  geom_boxplot() + 
+  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
+  xlab('') +
+  ylab('Task Score (%)') +
+  ggtitle("Pre Treatment Scores") +
+  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank(), 
+        plot.title = element_text(hjust = 0.5,size=10),
+        legend.position = "bottom",
+        legend.title = element_blank())
+
+task1b_bp <- ggplot(d_respondents, aes(x = Assignment_Group, y=TaskPhase2_Score, colour=as.factor(Assignment_Group))) +
+  geom_boxplot() + 
+  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
+  xlab('') +
+  ylab('') +
+  ggtitle("Task Phase 2 Scores") +
+  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank(), 
+        plot.title = element_text(hjust = 0.5,size=10),
+        legend.position = "none")
+
+task1c_bp <- ggplot(d_respondents, aes(x = Assignment_Group, y=TaskPhase3_Score, colour=as.factor(Assignment_Group))) +
+  geom_boxplot() + 
+  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
+  xlab('') +
+  ylab('') +
+  ggtitle("Task Phase 3 Scores") +
+  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank(), 
+        plot.title = element_text(hjust = 0.5,size=10),
+        legend.position = "none")
+
+mylegend_1<-g_legend(task1a_bp)
+
+grid.arrange(arrangeGrob(task1a_bp + theme(legend.position="none"),task1b_bp,task1c_bp,ncol=3),
+             mylegend_1, 
+             nrow=2, 
+             heights=c(10,1),
+             top = textGrob("Compare task scores in different phases\n",just='right',gp=gpar(fontsize=14,font=1)))
+```
+```{r, warning=FALSE, echo=FALSE}
+# Compare score across time for all groups
+# https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_Confidence_Intervals/BS704_Confidence_Intervals_print.html
+# TODO finish formatting
+# TODO duplicate for treatment dummy as well
+summary_task_score <- (melt(d_respondents,id.vars=c('Assignment_Group'),
+                            measure.vars = c('TaskPhase1_Score','TaskPhase2_Score','TaskPhase3_Score'))[
+  ,.('avg_score'=mean(value),'sd_score'=sd(value),'obs'=.N),keyby=.(Assignment_Group,variable)])[
+    ,se:=1.96*sd_score/sqrt(obs)]
+
+summary_task_score %>%
+  ggplot( aes(x=variable, y=avg_score, group=Assignment_Group, color=Assignment_Group)) +
+  geom_errorbar(aes(ymin=avg_score-1.96*sd_score/sqrt(obs), ymax=avg_score+1.96*sd_score/sqrt(obs)), 
+                width=.2, 
+                position=position_dodge(0.25)) +
+  geom_line(position=position_dodge(0.25)) + 
+  geom_point(position=position_dodge(0.25)) +
+  scale_y_continuous(labels = scales::percent,limits = c(.35,.75)) +
+  scale_x_discrete(breaks=c("TaskPhase1_Score", "TaskPhase2_Score","TaskPhase3_Score"),
+                      labels=c("Phase 1", "Phase 2", "Phase 3")) +
+  xlab('Task Phases') +
+  ylab('Average Task Score (%)') +
+  labs(title='Average score across task phases', color = "Assignment Group")
+```
+
+
 ## Regressions
 
 ```{r,results='asis',message=FALSE,echo=FALSE}
@@ -270,7 +391,8 @@ mod_task2_b <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy +
                                                      TaskPhase1_Score + 
                                                      as.factor(Gender) + 
                                                      as.factor(Education_Level) + 
-                                                     as.factor(Age_Range))]
+                                                     as.factor(Age_Range) +
+                                                     as.factor(US_Dummy))]
 
 #does the specific treatment group have an effect on task phase 2 score?
 mod_task2_c <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group))]
@@ -279,7 +401,8 @@ mod_task2_d <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group)
                                                      TaskPhase1_Score + 
                                                      as.factor(Gender) + 
                                                      as.factor(Education_Level) + 
-                                                     as.factor(Age_Range))]
+                                                     as.factor(Age_Range) +
+                                                     as.factor(US_Dummy))]
 
 #stargazer output
 stargazer(mod_task2_a,
@@ -293,8 +416,8 @@ stargazer(mod_task2_a,
           omit = c("Education_Level","Age_Range"),
           add.lines = list(c('Education FE', 'No','Yes','No','Yes'),
                            c('Age FE','No','Yes','No','Yes')),
-          order = c(1,14,15,16,17),
-          covariate.labels = c('Any Treatment','Medical Feedback','Negative Images','Positive Images','Self-Reflection','Task Phase 1 Score','Male'),
+          order = c(1,15,16,17,18),
+          covariate.labels = c('Any Treatment','Medical Feedback','Negative Images','Positive Images','Self-Reflection','Task Phase 1 Score','Male','US'),
           omit.stat=c("ser","f"),
           dep.var.labels = 'Task Phase 2 Score',
           no.space=TRUE,
@@ -325,7 +448,8 @@ mod_task3_b <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy +
                                                      TaskPhase1_Score + 
                                                      as.factor(Gender) + 
                                                      as.factor(Education_Level) + 
-                                                     as.factor(Age_Range))]
+                                                     as.factor(Age_Range) +
+                                                     as.factor(US_Dummy))]
 
 # test final task and specific treatment
 mod_task3_c <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group))]
@@ -333,8 +457,8 @@ mod_task3_d <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group)
                                                      TaskPhase1_Score + 
                                                      as.factor(Gender) + 
                                                      as.factor(Education_Level) + 
-                                                     as.factor(Age_Range))]
-
+                                                     as.factor(Age_Range) +
+                                                     as.factor(US_Dummy))]
 stargazer(mod_task3_a,
           mod_task3_b,
           mod_task3_c,
@@ -346,13 +470,13 @@ stargazer(mod_task3_a,
           omit = c("Education_Level","Age_Range"),
           add.lines = list(c('Education FE', 'No','Yes','No','Yes'),
                            c('Age FE','No','Yes','No','Yes')),
-          order = c(1,14,15,16,17),
-          covariate.labels = c('Any Treatment','Medical Feedback','Negative Images','Positive Images','Self-Reflection','Task Phase 1 Score','Male'),
+          order = c(1,15,16,17,18),
+          covariate.labels = c('Any Treatment','Medical Feedback','Negative Images','Positive Images','Self-Reflection','Task Phase 1 Score','Male','US'),
           omit.stat=c("ser","f"),
           dep.var.labels = 'Task Phase 3 Score',
           no.space=TRUE,
           header=FALSE,
-          type='latex')
+          type='text')
 
 pander(anova(mod_task3_b, mod_task3_d, test='F'),style='rmarkdown')
 ```
@@ -370,12 +494,11 @@ As a conclusion, we see that feedback has immediate positive effects on performa
 ## Power
 
 ```{r,results='asis',message=FALSE,warning=FALSE,echo=FALSE}
-
-pander(power.t.test( delta = .05, sd = .16, sig.level = 0.05, power = 0.8),style='rmarkdown')
+power.t.test( delta = .05, sd = .16, sig.level = 0.05, power = 0.8)
 kable(d_respondents[, .N, by = .(Assignment_Group)])
 ```
 
-Power analysis shows that our groups did not have a large enough sample size required for each group. Due to the small effect size of approximately 0.05 when comparing mean TaskPhase2 scores in treatment and control groups, for such small effects to be detected with statistical power of 80%, the number of subjects required in each group would be `r round(power.t.test( delta = .05, sd = .16, sig.level = 0.05, power = 0.8)$n)`. Our group sizes for the control group, as well as the medical, positive, negative, and self-reflect treatment groups were `r d_respondents[, .N, by = .(Assignment_Group)][4, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][5, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][2, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][1, 2]`, and `r d_respondents[, .N, by = .(Assignment_Group)][3, 2]` respectively. This is primarily due to the fact that we charged too high of a price point per completed survey. 
+Power analysis shows that our groups did not have a large enough sample size required for each group. Due to the small effect size of approximately 0.05 when comparing mean Task Phase 2 scores in treatment and control groups, for such small effects to be detected with statistical power of 80%, the number of subjects required in each group would be `r round(power.t.test( delta = .05, sd = .16, sig.level = 0.05, power = 0.8)$n)`. Our group sizes for the control group, as well as the medical, positive, negative, and self-reflect treatment groups were `r d_respondents[, .N, by = .(Assignment_Group)][4, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][5, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][2, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][1, 2]`, and `r d_respondents[, .N, by = .(Assignment_Group)][3, 2]` respectively. This is primarily due to the fact that we charged too high of a price point per completed survey. 
 
 # Conclusions 
 Our study found a statistically and practically significant impact of several styles of feedback as it relates to performance scores on the X-Ray lung health analysis. We can reject the null hypothesis that the scores in the feedback groups were the same as the scores in the placebo group. Breaking this down further, we see that ***GO INTO THE INDIVIDUAL TREATMENT ATEs***
@@ -385,4 +508,6 @@ This experiment faces potential limitations when making more generalized conclus
 However, the study's conclusions gives us confidence that feedback positively affects performance in a meaningful way and more specifically targeted, informative feedback drives success. The effects of feedback on performance are significant and merit additional study. 
 
 # Limitations and Future Enhancements
-The research design generated an output with limited power due to several factors. First, we handicapped the total amount of participants by offering too high of a price point for the survey. Our experiment offered a \$1 price point per successful entry (limit of one entry per person). However we should have charged ~ \$0.25. ***DO WE INCLUDE THIS? We also randomized our subjects equally between the four treatment groups and the one control group. In retrospect our group needed to allocate 50% of the participants to the control group and randomly assigned the rest in equal proportions to the four different treatment groups.*** These changes would have given the experiment an estimated 1400 participants, with XYZ in the control group and XYZ split evenly between the different treatment groups. Power for the experiment would have increased substantially and allowed for more meaningful outcomes. 
+The research design generated an output with limited power due to several factors. First, we handicapped the total amount of participants by offering too high of a price point for the survey. Our experiment offered a \$1 price point per successful entry (limit of one entry per person), which afforded only 350 participants in our study to comply with the set $500 budget. We should have, however, charged ~ \$0.25, which is on par with average MTurk prices per task, which would have allowed us to recruit more participants and achieve higher power. ***DO WE INCLUDE THIS? We also randomized our subjects equally between the four treatment groups and the one control group. In retrospect our group needed to allocate 50% of the participants to the control group and randomly assigned the rest in equal proportions to the four different treatment groups.*** These changes would have given the experiment an estimated 1400 participants, with XYZ in the control group and XYZ split evenly between the different treatment groups. Power for the experiment would have increased substantially and allowed for more meaningful outcomes.  
+
+Most notably, our experiment may not generalize well to the external environment because our MTurk worker population may not be a representative cohort of the real working population. In fact, our study participants may reflect more accurately the effect of feedback on people with lower income (income < \$150K) and who are younger (age < 50 years old) [(Moss & Litman, )](https://www.cloudresearch.com/resources/blog/who-uses-amazon-mturk-2020-demographics/). In actuality, the MTurk population may benefit the most from feedback because younger people typically have less work experience and may need guidance to further their performance. In addition, people with lower incomes who accept requests through MTurk also demonstrate a desire to improve their financial position, so they may benefit substantially from feedback that drives performance and, subsequently, income [(Buchheit et al, 2018)](https://libproxy.berkeley.edu/login?qurl=https%3a%2f%2fsearch.ebscohost.com%2flogin.aspx%3fdirect%3dtrue%26db%3dbth%26AN%3d128628976%26site%3deds-live).
