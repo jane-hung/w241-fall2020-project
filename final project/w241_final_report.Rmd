@@ -262,7 +262,7 @@ The second comparison focuses on comparing each individual treatment group with 
 
 ## Regressions
 
-```{r,results='asis',message=FALSE}
+```{r,results='asis',message=FALSE,echo=FALSE}
 # does any treatment have an effect on task phase 2 score?
 mod_task2_a <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy)]
 
@@ -271,15 +271,6 @@ mod_task2_b <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy +
                                                      as.factor(Gender) + 
                                                      as.factor(Education_Level) + 
                                                      as.factor(Age_Range))]
-
-stargazer(mod_task2_a,
-          mod_task2_b,
-          se = list(get_robust_se(mod_task2_a),get_robust_se(mod_task2_b)),
-          omit = c("Education_Level","Age_Range"),
-          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
-                           c('Age Fixed Effects','No','Yes')),
-          header=FALSE,
-          type='latex')
 
 #does the specific treatment group have an effect on task phase 2 score?
 mod_task2_c <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group))]
@@ -291,14 +282,24 @@ mod_task2_d <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group)
                                                      as.factor(Age_Range))]
 
 #stargazer output
-stargazer(mod_task2_c,
+stargazer(mod_task2_a,
+          mod_task2_b,
+          mod_task2_c,
           mod_task2_d,
-          se = list(get_robust_se(mod_task2_c),get_robust_se(mod_task2_d)),
+          se = list(get_robust_se(mod_task2_a),
+                    get_robust_se(mod_task2_b),
+                    get_robust_se(mod_task2_c),
+                    get_robust_se(mod_task2_d)),
           omit = c("Education_Level","Age_Range"),
-          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
-                           c('Age Fixed Effects','No','Yes')),
-          header=FALSE, 
-          type="latex")
+          add.lines = list(c('Education FE', 'No','Yes','No','Yes'),
+                           c('Age FE','No','Yes','No','Yes')),
+          order = c(1,14,15,16,17),
+          covariate.labels = c('Any Treatment','Medical Feedback','Negative Images','Positive Images','Self-Reflection','Task Phase 1 Score','Male'),
+          omit.stat=c("ser","f"),
+          dep.var.labels = 'Task Phase 2 Score',
+          no.space=TRUE,
+          header=FALSE,
+          type='latex')
 
 pander(anova(mod_task2_b, mod_task2_d, test='F'),style='rmarkdown')
 ```
@@ -315,10 +316,9 @@ We hypothesized that the negative images feedback would fare the worst because w
 
 Somewhat surprisingly, we found that people who were asked to self-reflect on their responses had a statistically significant 5.8 percentage point increase in performance. We were primarily interested in pursuing this type of feedback because it is a common personal growth technique to self-reflect that is touted in articles in HBR, Forbes, etc. In this way, we were able to confirm the positive effects of self-reflection; as a manager, you might encourage this behavior through incorporating self-assessments.
 
-Lastly, was this necessary to blow out this analysis to the multiple treatment groups? An F-test suggests that expanding on the treatment groups as shown in the table on the right yields a model that better represents this data.
+Lastly, was this necessary to blow out this analysis to the multiple treatment groups? An F-test suggests that expanding on the treatment groups as shown in the table on the right does not yield a model that better represents this data.
 
-
-```{r,results='asis',message=FALSE}
+```{r,results='asis',message=FALSE,echo=FALSE}
 # test final task and any treatment
 mod_task3_a <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy)]
 mod_task3_b <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy + 
@@ -327,19 +327,6 @@ mod_task3_b <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy +
                                                      as.factor(Education_Level) + 
                                                      as.factor(Age_Range))]
 
-stargazer(mod_task3_a,
-          mod_task3_b,
-          se = list(get_robust_se(mod_task3_a),get_robust_se(mod_task3_b)),
-          omit = c("Education_Level","Age_Range"),
-          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
-                           c('Age Fixed Effects','No','Yes')),
-          header=FALSE,
-          type='latex')
-
-```
-
-
-```{r,results='asis',message=FALSE}
 # test final task and specific treatment
 mod_task3_c <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group))]
 mod_task3_d <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group) + 
@@ -348,36 +335,44 @@ mod_task3_d <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group)
                                                      as.factor(Education_Level) + 
                                                      as.factor(Age_Range))]
 
-stargazer(mod_task3_c,
+stargazer(mod_task3_a,
+          mod_task3_b,
+          mod_task3_c,
           mod_task3_d,
-          se = list(get_robust_se(mod_task3_c),get_robust_se(mod_task3_d)),
+          se = list(get_robust_se(mod_task3_a),
+                    get_robust_se(mod_task3_b),
+                    get_robust_se(mod_task3_c),
+                    get_robust_se(mod_task3_d)),
           omit = c("Education_Level","Age_Range"),
-          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
-                           c('Age Fixed Effects','No','Yes')),
+          add.lines = list(c('Education FE', 'No','Yes','No','Yes'),
+                           c('Age FE','No','Yes','No','Yes')),
+          order = c(1,14,15,16,17),
+          covariate.labels = c('Any Treatment','Medical Feedback','Negative Images','Positive Images','Self-Reflection','Task Phase 1 Score','Male'),
+          omit.stat=c("ser","f"),
+          dep.var.labels = 'Task Phase 3 Score',
+          no.space=TRUE,
           header=FALSE,
           type='latex')
-```
 
-
-```{r,results='asis',message=FALSE}
 pander(anova(mod_task3_b, mod_task3_d, test='F'),style='rmarkdown')
 ```
-```
+
 
 As a quick overview, we’d now like to assess Phase 3 results. As a reminder, this occurs after the subjects have received 2 rounds of treatment or placebo. We’re anticipating that giving more feedback will yield even higher task performance scores compared to Phase 2, and we’re hoping to understand if, as a manager, he/she should instantiate more touchbases to review performance.
 
 What we see across the board though is that the effects of treatment are severely attenuated over time and with an additional round of feedback. For example, when assessing the effect of any feedback, there is a meager .2 percentage point increase in performance, which is not statistically significant.
 
-This may be attributed to a number of things. For example, more frequent feedback during this short time span may be annoying to the receiver. The receiver may have then given much less attention to the feedback because they just received some critique fairly recently.On the other hand, a respondent paying close attention to this feedback may experience increased context switching, which may detract from completing the actual task.
+This may be attributed to a number of things. For example, more frequent feedback during this short time span may be annoying to the receiver. The receiver may have then given much less attention to the feedback because they just received some critique fairly recently. On the other hand, a respondent paying close attention to this feedback may experience increased context switching, which may detract from completing the actual task.
 
 As a conclusion, we see that feedback has immediate positive effects on performance, specifically critique that provides SME or is completed through a self-assessment. Although we did not see statistically significant effects from repeated feedback, this further may be attributed to how we conducted our study and the timespan allotted.
 
 
 ## Power
 
-```{r}
-power.t.test( delta = .05, sd = .16, sig.level = 0.05, power = 0.8)
-d_respondents[, .N, by = .(Assignment_Group)]
+```{r,results='asis',message=FALSE,warning=FALSE,echo=FALSE}
+
+pander(power.t.test( delta = .05, sd = .16, sig.level = 0.05, power = 0.8),style='rmarkdown')
+kable(d_respondents[, .N, by = .(Assignment_Group)])
 ```
 
 Power analysis shows that our groups did not have a large enough sample size required for each group. Due to the small effect size of approximately 0.05 when comparing mean TaskPhase2 scores in treatment and control groups, for such small effects to be detected with statistical power of 80%, the number of subjects required in each group would be `r round(power.t.test( delta = .05, sd = .16, sig.level = 0.05, power = 0.8)$n)`. Our group sizes for the control group, as well as the medical, positive, negative, and self-reflect treatment groups were `r d_respondents[, .N, by = .(Assignment_Group)][4, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][5, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][2, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][1, 2]`, and `r d_respondents[, .N, by = .(Assignment_Group)][3, 2]` respectively. This is primarily due to the fact that we charged too high of a price point per completed survey. 
