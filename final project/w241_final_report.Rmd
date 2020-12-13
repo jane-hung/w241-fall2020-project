@@ -471,7 +471,7 @@ stargazer(mod_task3_a,
           dep.var.labels = 'Task Phase 3 Score',
           no.space=TRUE,
           header=FALSE,
-          type='text')
+          type='latex')
 
 pander(anova(mod_task3_b, mod_task3_d, test='F'),style='rmarkdown')
 ```
@@ -496,7 +496,9 @@ kable(d_respondents[, .N, by = .(Assignment_Group)])
 Power analysis shows that our groups did not have a large enough sample size required for each group. Due to the small effect size of approximately 0.05 when comparing mean Task Phase 2 scores in treatment and control groups, for such small effects to be detected with statistical power of 80%, the number of subjects required in each group would be `r round(power.t.test( delta = .05, sd = .16, sig.level = 0.05, power = 0.8)$n)`. Our group sizes for the control group, as well as the medical, positive, negative, and self-reflect treatment groups were `r d_respondents[, .N, by = .(Assignment_Group)][4, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][5, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][2, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][1, 2]`, and `r d_respondents[, .N, by = .(Assignment_Group)][3, 2]` respectively. This is primarily due to the fact that we charged too high of a price point per completed survey. 
 
 # Conclusions 
-Our study found a statistically and practically significant impact of several styles of feedback as it relates to performance scores on the X-Ray lung health analysis. We can reject the null hypothesis that the scores in the feedback groups were the same as the scores in the placebo group. Breaking this down further, we see that ***GO INTO THE INDIVIDUAL TREATMENT ATEs***
+Our experiment and following study shows that feedback contributes a statistically and practically significant effect in x-ray analysis performance (ATE = 5.1%, SE +- 2.2%). More specifically, targeted medical feedback saw the largest, statistically significant increases in performance (ATE = 5.6%, SE +- 2.9%), showing that expert opinion may lead to more significant outcomes in the real world. Along the same lines, self-reflection lead to statistically and practically significant improvements on performance (ATE = 5.8%, SE +- 2.9%), which bolsters recent research into the power of self-reflection techniques on a variety of everyday activities. Lastly, negative feedback loops fared the worst (ATE = 3.9%, p = 0.14), showing that for recognition-based tasks, negative feedback may not lead to stronger outcomes than other methods. 
+
+Lastly, we found that more frequent feedback loops during a short, iterative task does not lead to significant marginal improvements in performance (ATE = 0.2%, p = 0.92) This may have been due to our experimental design and short duration of the task, but should lead to further research on the relationship between feedback loops and marginal productivity.
 
 This experiment faces potential limitations when making more generalized conclusions about the effects of feedback on performance in addition to lower power. For example, the experiment required analysis of a more simple, X-Ray analysis, which is not as complex of a task when compared to multi-step tasks such as writing a paper or performing quantitative analysis. Furthermore, the experiment's computer-facing setting may have impacted results. Subjects may not have spent as much time on the task as in a real scenario. They certainly did not experiment the same time or social pressures or distractions usually present in most constructive feedback instances 
 
