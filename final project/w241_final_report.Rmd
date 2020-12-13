@@ -44,7 +44,7 @@ d_respondents <- fread('datatable_clean_survey_responses_v2.dta')
 # Abstract
 
 # Background
-Whether its the coach and player, teacher and pupil, or manager and entry-level employee, feedback likely plays an important role in delivering successful outcomes. All managerial figures are encouraged to give feedback as understudies are likewise encouraged to receive critique openly. However, what is good feedback and how much of one's success can be attributed to this feedback? Suprisingly few, well developed experiments have been conducted to investigate this relationship. In this study, we seek to better understand if feedback truly influences successful outcomes and if different types of feedback lead to better outcomes than others. 
+Whether its the coach and player, teacher and pupil, or manager and entry-level employee, feedback likely plays an important role in delivering successful outcomes. All managerial figures are encouraged to give feedback as understudies are likewise encouraged to receive critique openly. However, what is good feedback and how much of one's success can be attributed to this feedback? Suprisingly few, well-developed experiments have been conducted to investigate this relationship. In this study, we seek to better understand if feedback truly influences successful outcomes and if different types of feedback lead to better outcomes than others. 
 
 # Research Question
 Our research highlights the broad field of research around the role of feedback on performance. Successful feedback is thought to lead to improved performance. However it is too broad of a question for an experiment to point to a causal claim.  Exogenous factors such as the learning environment, the learner’s psychological mentality, or the type of task being taught may come into play in an non-experimental analysis. 
@@ -58,7 +58,7 @@ The research question in this experiment attempts to answer the following questi
 
 >*What type of feedback (positive reinforcement, negative reinforcement, self-reflective, etc.) leads to the largest improvements in individual performance within a simple, recognition-based task, if any?*
 
-We are testing the null hypothesis that feedback does not lead to better outcomes. In other words, we are testing that the average treatment effect between those who receive feedback and those who receive a placebo will equal 0. 
+We are testing the null hypothesis that the varying types of feedback do not lead to better outcomes. To generalize, we then test if the average treatment effect between those who receive any feedback and those who receive a placebo will equal 0. 
 
 A related follow-up question addresses: 
 
@@ -94,7 +94,7 @@ Subjects were mostly from the United States (`r d_respondents[, sum(US_Dummy)]`)
 ## Communication and Measurement Tooling
 The experiment recruited participants from Mechanical Turk, who were then given a link to the survey on Qualtrics. They were asked to enter their MTurk Worker ID and start the survey. The entire experiment flow was then run through Qualtrics. Every final participant was recruited through MTurk. Friends and family were used to test the experiment flow, however none were known to have taken the full experiment. 
 
-The survey was compatible with both mobile and desktop applications. This helped reduce the barrier to entry for the survey. To prevent participants from rushing through answers, we put timings on the responses so that subjects completed the survey in one sitting. 
+The survey was compatible with both mobile and desktop applications. This helped reduce the barrier to entry for the survey. To prevent non-compliance, we mandated timings on the treatment phases so that each subject fully received treatment. 
 
 ## Randomization
 Participants recruited were randomly assigned to each of the 5 groups based on randomization logic pre-built on the Qualtrics system. Randomization occurred through the Qualtrics system after the first pre-treatment phase and split the remaining responses evenly between the four treatment groups and the control group. The Qualtrics Flow can be seen below. 
@@ -206,7 +206,7 @@ The data we collected was exported directly from Qualtrics into a CSV file. Data
 + Responses - Survey responses for Task Phase 1 (questions 1 - 10), Task Phase 2 (questions 11 - 20), and Task Phase 3 (questions 21 - 30)
 + Scores - Scores for Task Phase 1, Task Phase 2, Task Phase 3 (out of 10); treatment scores combining Task Phases 2 and 3 (out of 10); cumulative scores (out of 30)
 
-Our outcome measurable follows a difference in differences deisgn. Scoring is based on number of questions a person gets right out of 10 questions per phase. This is then converted to a percentage value so that it will be easier to analyze regression results. So in this case, a 10 percentage point increase in performance would signify getting 1 additional question right. ***DO WE TAKE THE AVERAGE OF TASK PHASE 2 & 3 AS OUR OUTCOME VARIABLE?***
+Our outcome measurable follows a difference in differences deisgn. Scoring is based on number of questions a person gets right out of 10 questions per phase. This is then converted to a percentage value so that it will be easier to analyze regression results. So in this case, a 10 percentage point increase in performance would signify getting 1 additional question right. We will assess three main regressions with the following outcome variables: Task Phase 2 Scores, Task Phase 3 Scores, and an average of Task Phase 2 and 3 Scores. ***DO WE TAKE THE AVERAGE OF TASK PHASE 2 & 3 AS OUR OUTCOME VARIABLE?***
 
 We will focus on two major comparisons. 
 1. Control vs. All Treatment Groups: This compares people who receive the control with people who receive any form of feedback treatment.
