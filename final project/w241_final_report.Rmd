@@ -41,6 +41,27 @@ knitr::opts_chunk$set(echo = TRUE)
 d_respondents <- fread('datatable_clean_survey_responses_v2.dta')
 ```
 
+# Functions
+```{r}
+get_robust_se <- function(model){
+  # Get robust SE for use in stargazer
+  vcov <- vcovHC(model,type = "HC1")
+  return(sqrt(diag(vcov)))
+}
+
+create_heatmap <- function(var1, var2) {
+  ### Create a heatmap for a table of frequencies between two variables ###
+  df <- data.frame(table(var1,var2))
+  
+  ggplot(df,aes(x=var1,y=var2)) +
+    geom_tile(aes(fill=Freq,color=Freq),show.legend=FALSE,alpha=.8) +
+    geom_text(aes(label=Freq)) +
+    theme(axis.text.x = element_text(angle = 90)) + 
+    scale_fill_continuous(high = "darkslategray4", low = "powderblue")
+}
+
+```
+
 # Abstract
 
 # Background
@@ -132,17 +153,6 @@ We had one entry that took `r outlier` hours to complete the survey. This could 
 We performed visual covariate balance checks on the survey data as it relates to gender, age range education, and country. We additionally performed a Chi Squared test to test for independence within each of these categories. None of the Chi-Squared tests were significant at the p = .05 level, signaling that is no relationship between these covariates and the treatment and control assignment groups. 
 
 ```{r}
-create_heatmap <- function(var1, var2) {
-  ### Create a heatmap for a table of frequencies between two variables ###
-  df <- data.frame(table(var1,var2))
-  
-  ggplot(df,aes(x=var1,y=var2)) +
-    geom_tile(aes(fill=Freq,color=Freq),show.legend=FALSE,alpha=.8) +
-    geom_text(aes(label=Freq)) +
-    theme(axis.text.x = element_text(angle = 90)) + 
-    scale_fill_continuous(high = "darkslategray4", low = "powderblue")
-}
-
 # check balance between genders
 gender_chiqq <- chisq.test(d_respondents[ , table(Assignment_Group, Gender)])
   
@@ -237,12 +247,6 @@ The second comparison focuses on comparing each individual treatment group with 
 ## Regressions
 
 ```{r}
-
-get_robust_se <- function(model){
-  # Get robust SE for use in stargazer
-  vcov <- vcovHC(model,type = "HC1")
-  return(sqrt(diag(vcov)))
-}
 
 #does the specific treatment group have an effect on task phase 2 score?
 mod_task2_c <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group))]
