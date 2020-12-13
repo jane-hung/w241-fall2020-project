@@ -68,8 +68,7 @@ We anticipate that more feedback touchpoints will associate with better individu
 
 # Experimental Design
 ## Overview
-This design follows a difference-in-differences design. Participants completed a three-part survey in one sitting. The random assignment occurs after the first round of questions and the core analysis compares the difference in scores between the first iteration (pre-treatment) and the combined second and third iteration scores (post-treatment). 
-***JANE IS THIS CORRECT?^^^***
+This design follows a difference-in-differences design and is implemented through regression adjustment. Participants completed a three-part survey in one sitting. The random assignment occurs after the first round of questions, which allows us to pre-screen for compliance. The core analysis compares the difference in scores between the first iteration (pre-treatment) and the second iteration (post first treatment) scores in order to test the immediate effects of feedback on performance. We further compare the first iteration scores with the third iteration (post second treatment) scores to understand the effect of repeated feedback.
 
 In this experiment, participants will view a set of X-Ray slides. Each slide contains an X-Ray image of a patient’s lungs. The participant will have to determine if the patient’s lungs are healthy or have pneumonia. Responses and timings will be recorded. Three rounds will create an answer set of 30 images (3 Rounds x 10  X-Ray images in each round). Each intervention type, while limited in scope to the X-Ray recognition task, is meant to replicate a real-life style of feedback. Participants will be randomly assigned to the following control or treatment groups, with two one-minute breaks in between sessions. 
 
@@ -206,8 +205,8 @@ The data we collected was exported directly from Qualtrics into a CSV file. Data
 + Responses - Survey responses for Task Phase 1 (questions 1 - 10), Task Phase 2 (questions 11 - 20), and Task Phase 3 (questions 21 - 30)
 + Scores - Scores for Task Phase 1, Task Phase 2, Task Phase 3 (out of 10); treatment scores combining Task Phases 2 and 3 (out of 10); cumulative scores (out of 30)
 
-Our outcome measurable follows a difference in differences deisgn. Scoring is based on number of questions a person gets right out of 10 questions per phase. This is then converted to a percentage value so that it will be easier to analyze regression results. So in this case, a 10 percentage point increase in performance would signify getting 1 additional question right. We will assess three main regressions with the following outcome variables: Task Phase 2 Scores, Task Phase 3 Scores, and an average of Task Phase 2 and 3 Scores. ***DO WE TAKE THE AVERAGE OF TASK PHASE 2 & 3 AS OUR OUTCOME VARIABLE?***
-
+Our outcome measurable follows a difference in differences deisgn. Scoring is based on number of questions a person gets right out of 10 questions per phase. This is then converted to a percentage value so that it will be easier to analyze regression results. So in this case, a 10 percentage point increase in performance would signify getting 1 additional question right. We will assess three main regressions with the following outcome variables: Task Phase 2 Scores and Task Phase 3 Scores.  
+  
 We will focus on two major comparisons. 
 1. Control vs. All Treatment Groups: This compares people who receive the control with people who receive any form of feedback treatment.
 2. Individual Treatment Effects: This second comparison focuses on comparing each individual treatment group with the control and with each other.
@@ -226,7 +225,7 @@ Attrition occurred at several steps in the survey. 14 dropped off before Task Ph
 
 ***NOTE: REPLACE LOCAL FILE REFERENCE WITH GITHUB FILE REFERENCE***
 
-![Survey Funnel Diagram](/Users/dahlerbattle/Desktop/w241_fall2020_taskperformance/final project/images/Blank diagram.png)
+![Survey Funnel Diagram](images/Blank diagram.png)
 
 # Results
 Overall, we have multiple ways we could have assessed this data based on our different treatment groups. We’ll primarily focus on two major comparisons.
