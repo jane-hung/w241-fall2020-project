@@ -246,7 +246,24 @@ The second comparison focuses on comparing each individual treatment group with 
 
 ## Regressions
 
-```{r}
+```{r,results='asis',message=FALSE}
+# does any treatment have an effect on task phase 2 score?
+mod_task2_a <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy)]
+
+mod_task2_b <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy + 
+                                                     TaskPhase1_Score + 
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range))]
+
+stargazer(mod_task2_a,
+          mod_task2_b,
+          se = list(get_robust_se(mod_task2_a),get_robust_se(mod_task2_b)),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
+                           c('Age Fixed Effects','No','Yes')),
+          header=FALSE,
+          type='latex')
 
 #does the specific treatment group have an effect on task phase 2 score?
 mod_task2_c <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group))]
@@ -265,9 +282,9 @@ stargazer(mod_task2_c,
           add.lines = list(c('Education Fixed Effects', 'No','Yes'),
                            c('Age Fixed Effects','No','Yes')),
           header=FALSE, 
-          type="text")
+          type="latex")
 
-pander(anova(mod_task2_c, mod_task2_d, test='F'),style='rmarkdown')
+pander(anova(mod_task2_b, mod_task2_d, test='F'),style='rmarkdown')
 ```
 
 In our first experiment, we hoped to answer whether giving feedback will immediately impact task performance. As such, this model compares Phase 2 task performance results where the subjects have only received 1 round of treatment or placebo.
@@ -285,35 +302,50 @@ Somewhat surprisingly, we found that people who were asked to self-reflect on th
 Lastly, was this necessary to blow out this analysis to the multiple treatment groups? An F-test suggests that expanding on the treatment groups as shown in the table on the right yields a model that better represents this data.
 
 
-```{r}
-#does the specific treatment group have an effect on task phase 3 score?
-mod_task3_e <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score)]
-mod_task3_f <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + Treatment_Dummy)]
-mod_task3_g <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + as.factor(Assignment_Group))]
-mod_task3_h <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + 
-                                                      as.factor(Assignment_Group) + 
-                                                      as.factor(Gender) + 
-                                                      as.factor(Education_Level) + 
-                                                      as.factor(Age_Range))]
-#stargazer output
-stargazer(mod_task3_e,
-          mod_task3_f,
-          mod_task3_g,
-          mod_task3_h,
-          se = list(get_robust_se(mod_task3_e),
-                    get_robust_se(mod_task3_f),
-                    get_robust_se(mod_task3_h)),
-                    get_robust_se(mod_task3_g),
-          omit = c("Education_Level","Age_Range"),
-          add.lines = list(c('Education Fixed Effects', 'No','No','No','Yes'),
-                           c('Age Fixed Effects','No','No','No','Yes')),
-          covariate.labels = c("Task Phase 2 Score", "Any Treatment", "Medical Feedback",
-                               "Negative Images", "Positive Images", "Self-reflection",'Male'),
-          header=FALSE, 
-          type="text")
+```{r,results='asis',message=FALSE}
+# test final task and any treatment
+mod_task3_a <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy)]
+mod_task3_b <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy + 
+                                                     TaskPhase1_Score + 
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range))]
 
-pander(anova(mod_task3_e, mod_task3_f, test='F'),style='rmarkdown')
-pander(anova(mod_task3_g, mod_task3_h, test='F'),style='rmarkdown')
+stargazer(mod_task3_a,
+          mod_task3_b,
+          se = list(get_robust_se(mod_task3_a),get_robust_se(mod_task3_b)),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
+                           c('Age Fixed Effects','No','Yes')),
+          header=FALSE,
+          type='latex')
+
+```
+
+
+```{r,results='asis',message=FALSE}
+# test final task and specific treatment
+mod_task3_c <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group))]
+mod_task3_d <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group) + 
+                                                     TaskPhase1_Score + 
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range))]
+
+stargazer(mod_task3_c,
+          mod_task3_d,
+          se = list(get_robust_se(mod_task3_c),get_robust_se(mod_task3_d)),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
+                           c('Age Fixed Effects','No','Yes')),
+          header=FALSE,
+          type='latex')
+```
+
+
+```{r,results='asis',message=FALSE}
+pander(anova(mod_task3_b, mod_task3_d, test='F'),style='rmarkdown')
+```
 ```
 
 As a quick overview, we’d now like to assess Phase 3 results. As a reminder, this occurs after the subjects have received 2 rounds of treatment or placebo. We’re anticipating that giving more feedback will yield even higher task performance scores compared to Phase 2, and we’re hoping to understand if, as a manager, he/she should instantiate more touchbases to review performance.
