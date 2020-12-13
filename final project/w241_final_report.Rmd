@@ -41,10 +41,31 @@ knitr::opts_chunk$set(echo = TRUE)
 d_respondents <- fread('datatable_clean_survey_responses_v2.dta')
 ```
 
+# Functions
+```{r}
+get_robust_se <- function(model){
+  # Get robust SE for use in stargazer
+  vcov <- vcovHC(model,type = "HC1")
+  return(sqrt(diag(vcov)))
+}
+
+create_heatmap <- function(var1, var2) {
+  ### Create a heatmap for a table of frequencies between two variables ###
+  df <- data.frame(table(var1,var2))
+  
+  ggplot(df,aes(x=var1,y=var2)) +
+    geom_tile(aes(fill=Freq,color=Freq),show.legend=FALSE,alpha=.8) +
+    geom_text(aes(label=Freq)) +
+    theme(axis.text.x = element_text(angle = 90)) + 
+    scale_fill_continuous(high = "darkslategray4", low = "powderblue")
+}
+
+```
+
 # Abstract
 
 # Background
-Whether its the coach and player, teacher and pupil, or manager and entry-level employee, feedback likely plays an important role in delivering successful outcomes. All managerial figures are encouraged to give feedback as understudies are likewise encouraged to receive critique openly. However, what is good feedback and how much of one's success can be attributed to this feedback? Suprisingly few, well developed experiments have been conducted to investigate this relationship. In this study, we seek to better understand if feedback truly influences successful outcomes and if different types of feedback lead to better outcomes than others. 
+Whether its the coach and player, teacher and pupil, or manager and entry-level employee, feedback likely plays an important role in delivering successful outcomes. All managerial figures are encouraged to give feedback as understudies are likewise encouraged to receive critique openly. However, what is good feedback and how much of one's success can be attributed to this feedback? Suprisingly few, well-developed experiments have been conducted to investigate this relationship. In this study, we seek to better understand if feedback truly influences successful outcomes and if different types of feedback lead to better outcomes than others. 
 
 # Research Question
 Our research highlights the broad field of research around the role of feedback on performance. Successful feedback is thought to lead to improved performance. However it is too broad of a question for an experiment to point to a causal claim.  Exogenous factors such as the learning environment, the learner’s psychological mentality, or the type of task being taught may come into play in an non-experimental analysis. 
@@ -58,7 +79,7 @@ The research question in this experiment attempts to answer the following questi
 
 >*What type of feedback (positive reinforcement, negative reinforcement, self-reflective, etc.) leads to the largest improvements in individual performance within a simple, recognition-based task, if any?*
 
-We are testing the null hypothesis that feedback does not lead to better outcomes. In other words, we are testing that the average treatment effect between those who receive feedback and those who receive a placebo will equal 0. 
+We are testing the null hypothesis that the varying types of feedback do not lead to better outcomes. To generalize, we then test if the average treatment effect between those who receive any feedback and those who receive a placebo will equal 0. 
 
 A related follow-up question addresses: 
 
@@ -68,8 +89,7 @@ We anticipate that more feedback touchpoints will associate with better individu
 
 # Experimental Design
 ## Overview
-This design follows a difference-in-differences design. Participants completed a three-part survey in one sitting. The random assignment occurs after the first round of questions and the core analysis compares the difference in scores between the first iteration (pre-treatment) and the combined second and third iteration scores (post-treatment). 
-***JANE IS THIS CORRECT?^^^***
+This design follows a difference-in-differences design and is implemented through regression adjustment. Participants completed a three-part survey in one sitting. The random assignment occurs after the first round of questions, which allows us to pre-screen for compliance. The core analysis compares the difference in scores between the first iteration (pre-treatment) and the second iteration (post first treatment) scores in order to test the immediate effects of feedback on performance. We further compare the first iteration scores with the third iteration (post second treatment) scores to understand the effect of repeated feedback.
 
 In this experiment, participants will view a set of X-Ray slides. Each slide contains an X-Ray image of a patient’s lungs. The participant will have to determine if the patient’s lungs are healthy or have pneumonia. Responses and timings will be recorded. Three rounds will create an answer set of 30 images (3 Rounds x 10  X-Ray images in each round). Each intervention type, while limited in scope to the X-Ray recognition task, is meant to replicate a real-life style of feedback. Participants will be randomly assigned to the following control or treatment groups, with two one-minute breaks in between sessions. 
 
@@ -92,12 +112,12 @@ Subjects were recruited through Mechanical Turk and received $1 upon successful 
 Subjects were mostly from the United States (`r d_respondents[, sum(US_Dummy)]`) and India (`r d_respondents[country == "India", length(country)]`). There were more males that participated in the study (`r d_respondents[Gender == "Male", length(Gender)]`) than females (`r d_respondents[Gender == "Female", length(Gender)]`). 
 
 ## Communication and Measurement Tooling
-The experiment recruited participants from Mechanical Turk, who were then given a link to the survey on Qualtrics. They were asked to enter their MTurk Worker ID and start the survey. The entire experiment flow was then run through Qualtrics. Every final participant was recruited through MTurk. Friends and family were used to test the experiment flow, however none were known to have taken the full experiment. 
+The experiment recruited participants from Mechanical Turk, who were then given a link to the survey on Qualtrics. They were asked to enter their MTurk Worker ID and complete demographic questions before starting the survey. Friends and family were used to test the experiment flow, however none were known to have taken the full experiment, nor were part of our final analysis. 
+The survey was compatible with both mobile and desktop applications. This helped reduce the barrier to entry for the survey. To help prevent non-compliance, we mandated timings on the treatment phases so that each subject fully received treatment. 
 
-The survey was compatible with both mobile and desktop applications. This helped reduce the barrier to entry for the survey. To prevent participants from rushing through answers, we put timings on the responses so that subjects completed the survey in one sitting. 
 
 ## Randomization
-Participants recruited were randomly assigned to each of the 5 groups based on randomization logic pre-built on the Qualtrics system. Randomization occurred through the Qualtrics system after the first pre-treatment phase and split the remaining responses evenly between the four treatment groups and the control group. The Qualtrics Flow can be seen below. 
+Because subjects are recruited from Mechanical Turk, we have access to a global workforce pool. Then, participants were randomly assigned to each of the 5 groups based on randomization logic pre-built on the Qualtrics system. Randomization occurred through the Qualtrics system after the first pre-treatment phase and split the remaining responses evenly between the four treatment groups and the control group. This randomization process is important so that treatment assignments are independent of subjects' potential outcomes. Furthermore, unaccounted-for covariates of the subject pool would not bias our estimate of the ATE. The Qualtrics Flow can be seen below.
 
 ![Qualtrics Flow](../final project/images/qualtrics_flow.png)
 ![Qualtrics Flow](../final project/images/flow_diagram.png)
@@ -105,7 +125,7 @@ Participants recruited were randomly assigned to each of the 5 groups based on r
 
 
 ## Excludability and Non-Interference
-This design also meets the excludability and non-interference assumptions needed to provide an unbiased average treatment effect. The excludability assumption is clearly met since the experiment flow seen above is used to measure both the outcomes in the treatment and the control group. Likewise subjects are asked to identify if a x-ray image of a lung has pnumonia or not. We picked this subject since it would be very difficult to do 3rd party research on the subject. However, we can more definatively answer this subject by looking at the completion times below. 
+This design also meets the excludability and non-interference assumptions needed to provide an unbiased estimate of the average treatment effect. Once a subject is assigned a treatment group, he or she receives a specific treatment for two separate times since treatment phases alternate with task phases II and III. We meet the excludability assumption since outcomes are measured consistently through all task phases and for all assignment groups. Every task phase is scored on a scale from 1 to 10. Thus, what one subject scored in pre-treatment can be directly compared to what he or she scored in post-treatment. Furthermore, subjects are asked to essentially make diagnoses from looking at x-ray images. We believe that this is an esoteric topic, which would make it difficult for respondents to perform third-party research while completing the survey. However, we are better able to answer this subject by looking at the completion times below.
 
 ```{r}
 #n survey responses > 30 mins., take outlier out for analysis but discuss below
@@ -126,11 +146,11 @@ ggplot(completions, aes(x=`Duration (in seconds)`/60, fill = as.factor(Assignmen
 
 ```
 
-We had one entry that took `r outlier` hours to complete the survey. This could be due to research but is likely due to other factors such as just leaving your computer up for certain period of time. Eliminating this outlier, 95% of participants completed the survey in `r upper_cl` minutes or less. As such, subject driven, 3rd party research did not likely play a role in outcomes. The non-interference assumption is also met in this experiment since subjects are not aware of the treatments in other group. They also do not know each other and cannot share about their treatment status with untreated subjects or vice versa. 
+We had one entry that took `r outlier` hours to complete the survey. This could be due to research but is likely due to other factors such as just leaving the computer idle up for certain period of time. Eliminating this outlier, 95% of participants completed the survey in `r upper_cl` minutes or less. As such, subject driven, third-party research did not likely play a role in outcomes. The non-interference assumption is also met in this experiment since subjects are not aware of the treatments in other groups. They also do not know each other and cannot share about their treatment status with untreated subjects or vice versa. 
 
 ## Covariate Balance Checks
 
-We performed visual covariate balance checks on the survey data as it relates to gender, age range education, and country. We additionally performed a Chi Squared test to test for independence within each of these categories. None of the Chi-Squared tests were significant at the p = .05 level, signaling that is no relationship between these covariates and the treatment and control assignment groups. 
+We check how well our randomization worked by checking that the proportion of individuals assigned to each group was similar. Furthermore, we performed visual covariate balance checks on the survey data as it relates to gender, age range, education, and country. We additionally performed Chi Squared Tests for Independence to test for independence within each of these categories. None of the Chi-Squared tests were significant at the p = .05 level, signaling that there is no relationship between these covariates and the treatment and control assignment groups. Proportions of each covariate were consistent across assignment groups.
 
 ```{r}
 create_heatmap <- function(var1, var2) {
@@ -143,6 +163,12 @@ create_heatmap <- function(var1, var2) {
     theme(axis.text.x = element_text(angle = 90)) + 
     scale_fill_continuous(high = "darkslategray4", low = "powderblue")
 }
+
+# check balance between assignment groups
+d_respondents %>% 
+  group_by(Assignment_Group) %>%
+  summarise(count = n())
+
 
 # check balance between genders
 gender_chiqq <- chisq.test(d_respondents[ , table(Assignment_Group, Gender)])
@@ -206,8 +232,8 @@ The data we collected was exported directly from Qualtrics into a CSV file. Data
 + Responses - Survey responses for Task Phase 1 (questions 1 - 10), Task Phase 2 (questions 11 - 20), and Task Phase 3 (questions 21 - 30)
 + Scores - Scores for Task Phase 1, Task Phase 2, Task Phase 3 (out of 10); treatment scores combining Task Phases 2 and 3 (out of 10); cumulative scores (out of 30)
 
-Our outcome measurable follows a difference in differences deisgn. Scoring is based on number of questions a person gets right out of 10 questions per phase. This is then converted to a percentage value so that it will be easier to analyze regression results. So in this case, a 10 percentage point increase in performance would signify getting 1 additional question right. ***DO WE TAKE THE AVERAGE OF TASK PHASE 2 & 3 AS OUR OUTCOME VARIABLE?***
-
+Our outcome measurable follows a difference in differences deisgn. Scoring is based on number of questions a person gets right out of 10 questions per phase. This is then converted to a percentage value so that it will be easier to analyze regression results. So in this case, a 10 percentage point increase in performance would signify getting 1 additional question right. We will assess three main regressions with the following outcome variables: Task Phase 2 Scores and Task Phase 3 Scores.  
+  
 We will focus on two major comparisons. 
 1. Control vs. All Treatment Groups: This compares people who receive the control with people who receive any form of feedback treatment.
 2. Individual Treatment Effects: This second comparison focuses on comparing each individual treatment group with the control and with each other.
@@ -218,15 +244,15 @@ The experiment started off with 381 surveys sourced through MTurk. Off this init
 
 Out of this participant pool, we threw out 97 results. These results were thrown out for the following reasons: 
 
-1. Clear non-compliance (n = 44): Some participants did not give honest effort on the survey and answered all true, all false, or all alternating responses. These were also thrown out of the analysis. 
-2. Multiple submissions and non-valid entries (n = 5):  The research team’s $1.00 per survey price point was too high. As a result, some participants tried to send in multiple survey responses to collect multiple payments or submit an invalid MTurk code. In these instances we only paid for (and used) the first survey.
+1. Clear non-compliance (n = 44): Some participants did not give honest effort on the survey and answered all "Normal", all "Pneumonia", or all alternating responses. These were also thrown out of the analysis. 
+2. Multiple submissions and non-valid entries (n = 5):  The research team’s $1.00 per survey price point was relatively high. As a result, some participants tried to send in multiple survey responses to collect multiple payments or submit an invalid MTurk code. In these instances we only paid for (and used) the first survey.
 3. Incomplete surveys (n = 66): Some people started surveys but never finished. This includes those who never completed the last step of the survey, by closing out their answers. These responses were thrown out and attrition is dealt with in the survey results shown below. 
 
-Attrition occurred at several steps in the survey. 14 dropped off before Task Phase I while collecting demographic information and while entering the MTurk code. 20 dropped the survey during the 10 image set in Task Phase I or during the first intervention. 7 dropped off during Task Phase II or during the second intervention. 4 dropped out during Task Phase 3 and 21 of these participants had made 99% progress but had failed to close the survey. However, we treated all 66 surveys left incomplete after assignment as part of attrition.  A funnel diagram below shows the participant drop offs of each type and at each level of the experiment:
+Attrition occurred at several steps in the survey. 14 dropped off before Task Phase I while collecting demographic information and while entering the MTurk code (did not receive treatment assignment). 20 dropped the survey during the 10 image set in Task Phase I or during the first treatment phase. 7 dropped off during Task Phase II or during the second treatment phase. 4 dropped out during Task Phase 3 and 21 of these participants had made 99% progress but had failed to close the survey. However, we treated all 66 of the aforementioned incomplete survey responses as part of attrition and were not part of our final analysis.  A funnel diagram below shows the participant drop offs of each type and at each level of the experiment:
 
-***NOTE: REPLACE LOCAL FILE REFERENCE WITH GITHUB FILE REFERENCE***
+![Survey Funnel Diagram Flow](../final project/images/Blank diagram.png)
 
-![Survey Funnel Diagram](/Users/dahlerbattle/Desktop/w241_fall2020_taskperformance/final project/images/Blank diagram.png)
+
 
 # Results
 Overall, we have multiple ways we could have assessed this data based on our different treatment groups. We’ll primarily focus on two major comparisons.
@@ -237,13 +263,24 @@ The second comparison focuses on comparing each individual treatment group with 
 
 ## Regressions
 
-```{r}
+```{r,results='asis',message=FALSE}
+# does any treatment have an effect on task phase 2 score?
+mod_task2_a <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy)]
 
-get_robust_se <- function(model){
-  # Get robust SE for use in stargazer
-  vcov <- vcovHC(model,type = "HC1")
-  return(sqrt(diag(vcov)))
-}
+mod_task2_b <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy + 
+                                                     TaskPhase1_Score + 
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range))]
+
+stargazer(mod_task2_a,
+          mod_task2_b,
+          se = list(get_robust_se(mod_task2_a),get_robust_se(mod_task2_b)),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
+                           c('Age Fixed Effects','No','Yes')),
+          header=FALSE,
+          type='latex')
 
 #does the specific treatment group have an effect on task phase 2 score?
 mod_task2_c <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group))]
@@ -262,14 +299,14 @@ stargazer(mod_task2_c,
           add.lines = list(c('Education Fixed Effects', 'No','Yes'),
                            c('Age Fixed Effects','No','Yes')),
           header=FALSE, 
-          type="text")
+          type="latex")
 
-pander(anova(mod_task2_c, mod_task2_d, test='F'),style='rmarkdown')
+pander(anova(mod_task2_b, mod_task2_d, test='F'),style='rmarkdown')
 ```
 
 In our first experiment, we hoped to answer whether giving feedback will immediately impact task performance. As such, this model compares Phase 2 task performance results where the subjects have only received 1 round of treatment or placebo.
 
-In the left table you see, we wanted to condense cells into assessing “any feedback” by creating a treatment dummy variable. We reasoned that in the real world, managers may have diverse ways of giving feedback, but at the end of the day, the direct reports are still receiving ways to understand their past performance and how to improve. Therefore, we want to roll up to a treatment dummy regression to test out this theory.
+**In the left table you see**, we wanted to condense cells into assessing “any feedback” by creating a treatment dummy variable. We reasoned that in the real world, managers may have diverse ways of giving feedback, but at the end of the day, the direct reports are still receiving ways to understand their past performance and how to improve. Therefore, we want to roll up to a treatment dummy regression to test out this theory.
 
 As we look at the second column of this table that contains our covariates (pre-treatment score, Gender, FE from education and age), we see that we experience a 5.1 percentage point increase in task performance when any feedback is given to the survey respondents, which is statistically significant given robust SE of 2.2. What is notable, though, is that adding in these covariates does not severely change our estimate for the effect of feedback and we do not see a marginal decrease in SE, so our estimate is no more precise when controlling for these other variables. As a gut check, we see that each 10% increase in Task Phase 1 scores is associated with a 2.4 percentage point increase in performance, which resonates with us; people who perform well before feedback may also perform well after feedback.
 
@@ -282,35 +319,50 @@ Somewhat surprisingly, we found that people who were asked to self-reflect on th
 Lastly, was this necessary to blow out this analysis to the multiple treatment groups? An F-test suggests that expanding on the treatment groups as shown in the table on the right yields a model that better represents this data.
 
 
-```{r}
-#does the specific treatment group have an effect on task phase 3 score?
-mod_task3_e <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score)]
-mod_task3_f <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + Treatment_Dummy)]
-mod_task3_g <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + as.factor(Assignment_Group))]
-mod_task3_h <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + 
-                                                      as.factor(Assignment_Group) + 
-                                                      as.factor(Gender) + 
-                                                      as.factor(Education_Level) + 
-                                                      as.factor(Age_Range))]
-#stargazer output
-stargazer(mod_task3_e,
-          mod_task3_f,
-          mod_task3_g,
-          mod_task3_h,
-          se = list(get_robust_se(mod_task3_e),
-                    get_robust_se(mod_task3_f),
-                    get_robust_se(mod_task3_h)),
-                    get_robust_se(mod_task3_g),
-          omit = c("Education_Level","Age_Range"),
-          add.lines = list(c('Education Fixed Effects', 'No','No','No','Yes'),
-                           c('Age Fixed Effects','No','No','No','Yes')),
-          covariate.labels = c("Task Phase 2 Score", "Any Treatment", "Medical Feedback",
-                               "Negative Images", "Positive Images", "Self-reflection",'Male'),
-          header=FALSE, 
-          type="text")
+```{r,results='asis',message=FALSE}
+# test final task and any treatment
+mod_task3_a <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy)]
+mod_task3_b <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy + 
+                                                     TaskPhase1_Score + 
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range))]
 
-pander(anova(mod_task3_e, mod_task3_f, test='F'),style='rmarkdown')
-pander(anova(mod_task3_g, mod_task3_h, test='F'),style='rmarkdown')
+stargazer(mod_task3_a,
+          mod_task3_b,
+          se = list(get_robust_se(mod_task3_a),get_robust_se(mod_task3_b)),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
+                           c('Age Fixed Effects','No','Yes')),
+          header=FALSE,
+          type='latex')
+
+```
+
+
+```{r,results='asis',message=FALSE}
+# test final task and specific treatment
+mod_task3_c <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group))]
+mod_task3_d <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group) + 
+                                                     TaskPhase1_Score + 
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range))]
+
+stargazer(mod_task3_c,
+          mod_task3_d,
+          se = list(get_robust_se(mod_task3_c),get_robust_se(mod_task3_d)),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
+                           c('Age Fixed Effects','No','Yes')),
+          header=FALSE,
+          type='latex')
+```
+
+
+```{r,results='asis',message=FALSE}
+pander(anova(mod_task3_b, mod_task3_d, test='F'),style='rmarkdown')
+```
 ```
 
 As a quick overview, we’d now like to assess Phase 3 results. As a reminder, this occurs after the subjects have received 2 rounds of treatment or placebo. We’re anticipating that giving more feedback will yield even higher task performance scores compared to Phase 2, and we’re hoping to understand if, as a manager, he/she should instantiate more touchbases to review performance.
