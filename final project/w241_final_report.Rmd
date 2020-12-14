@@ -2,15 +2,16 @@
 title: 'Effect of Learning Feedback Styles on Learning Outcomes'
 subtitle: 'Fall 2020 - W241 Final Report'
 author: 'Dahler Battle, Guy El Khoury, Jane Hung, Julian Tsang' 
-output: pdf_document
-knit: (function(inputFile, encoding) {
-  rmarkdown::render(
-    inputFile, encoding = encoding,
-    output_format = 'pdf_document') 
-    })
+output: bookdown::pdf_document2
+# knit: (function(inputFile, encoding) {
+#   rmarkdown::render(
+#     inputFile, encoding = encoding,
+#     output_format = 'pdf_document') 
+#     })
+toc: TRUE
 ---
 
-```{r, include=FALSE}
+```{r, warning=FALSE, include=FALSE}
 library(foreign)
 library(data.table)
 library(knitr)
@@ -27,11 +28,12 @@ library(expss)
 library(grid)
 library(gridExtra)
 library(pander)
+library(lmtest)
 ```
 
 ```{r setup, include=FALSE}
 opts_knit$set()
-options(digits=4)
+options(digits=3)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -41,7 +43,6 @@ knitr::opts_chunk$set(echo = TRUE)
 d_respondents <- fread('datatable_clean_survey_responses_v2.dta')
 ```
 
-# Functions
 ```{r, include=FALSE}
 get_robust_se <- function(model){
   # Get robust SE for use in stargazer
@@ -97,7 +98,7 @@ We anticipate that more feedback touchpoints will associate with better individu
 
 # Experimental Design
 ## Overview
-This design follows a difference-in-differences design and is implemented through regression adjustment. Participants completed a three-part survey in one sitting. The random assignment occurs after the first round of questions, which allows us to pre-screen for compliance. The core analysis compares the difference in scores between the first iteration (pre-treatment) and the second iteration (post first treatment) scores in order to test the immediate effects of feedback on performance. We further compare the first iteration scores with the third iteration (post second treatment) scores to understand the effect of repeated feedback.
+This design follows a difference-in-differences design and is implemented through regression adjustment. Participants completed a three-part survey in one sitting. The random assignment occurs after the first round of questions, which allows us to pre-screen for compliance. The core analysis compares the difference in scores between the first iteration (pre-treatment) and the second iteration (after the first round of treatment) in order to test the immediate effects of feedback on performance. We further compare the first iteration scores with those in the third iteration (after the second round of treatment) to understand the effect of repeated feedback.
 
 In this experiment, participants will view a set of X-Ray slides. Each slide contains an X-Ray image of a patient’s lungs. The participant will have to determine if the patient’s lungs are healthy or have pneumonia. Responses and timings will be recorded. Three rounds will create an answer set of 30 images (3 Rounds x 10  X-Ray images in each round). Participants will be randomly assigned to the following control or treatment groups, with two one-minute breaks in between sessions. Each intervention type, while limited in scope to the X-Ray recognition task, is meant to replicate a real-life style of feedback. The interventions are as follows: 
 
@@ -105,7 +106,7 @@ In this experiment, participants will view a set of X-Ray slides. Each slide con
 + *Self Reflective Treatment* - Subject is shown the last round’s images, their answers, and the correct answers. They are then asked to reflect in two sentences about how they can improve. This reflects someone who does not receive feedback from others but thinks critically about their own performance and how to improve.
 + *Positive Reinforcement Treatment* - Subject is shown the images of the last round’s healthy lungs only and is asked to study those images for 1 minute. This reflects someone who is only told the positive aspects of their performance. 
 + *Negative Reinforcement Treatment* - Subject is shown the images of the last round’s pneumonia-filled lungs only and is asked to study those images for 1 minute. This reflects someone who is only told the negative aspects of their performance.
-+ *Specific  Feedback Treatment* - Subject is shown the last round’s images, their answers, and the correct answers. They are then given easy-to-digest information from a medical textbook on how to spot pneumonia. This reflects a situation where someone is given expert-driven advice on how to accomplish a task. 
++ *Specific Feedback Treatment* - Subject is shown the last round’s images, their answers, and the correct answers. They are then given easy-to-digest information from a medical textbook on how to spot pneumonia. This reflects a situation where someone is given expert-driven advice on how to accomplish a task. 
 
 ## Project Timeline
 The project was conducted on the following timeline: 
@@ -161,7 +162,7 @@ We had one entry that took `r outlier` hours to complete the survey. This could 
 
 We examined how well our randomization worked by checking that the proportion of individuals assigned to each group was similar. Furthermore, we performed visual covariate balance checks on the survey data as it relates to gender, age range, education, and country. We additionally performed Chi Squared Tests for Independence to test for independence within each of these categories. None of the Chi-Squared tests were significant at the p = .05 level, signaling that there is no relationship between these covariates and the treatment and control assignment groups. Proportions of each covariate were consistent across assignment groups.
 
-```{r}
+```{r,echo=FALSE}
 # check balance between assignment groups
 d_respondents[, .N, by = .(Assignment_Group)]
 
@@ -227,26 +228,32 @@ The data we collected was exported directly from Qualtrics into a CSV file. Data
 + Responses - Survey responses for Task Phase 1 (questions 1 - 10), Task Phase 2 (questions 11 - 20), and Task Phase 3 (questions 21 - 30)
 + Scores - Scores for Task Phase 1, Task Phase 2, Task Phase 3 (out of 10); treatment scores combining Task Phases 2 and 3 (out of 10); cumulative scores (out of 30)
 
-Our outcome measurable follows a difference in differences deisgn. Scoring is based on number of questions a person gets right out of 10 questions per phase. This is then converted to a percentage value so that it will be easier to analyze regression results. So in this case, a 10 percentage point increase in performance would signify getting 1 additional question right. We will assess three main regressions with the following outcome variables: Task Phase 2 Scores and Task Phase 3 Scores.  
+Scoring is based on the number of questions a person answers correctly out of 10 questions per phase, which is then converted to a ratio value for ease of interpretation. In this case, a 10 percentage point increase in performance would signify getting 1 additional question right.
+
+We will assess two main regressions with the following outcome variables: Task Phase 2 Scores and Task Phase 3 Scores. In the former regression, we assess whether feedback immediately affects performance; in the latter analysis, we asses whether there is a marginal increase in performance from repeated feedback.
   
-We will focus on two major comparisons.
+Within this problem space, we will focus on two major comparisons.
 
 1. Control vs. All Treatment Groups: This compares people who receive the control with people who receive any form of feedback treatment.
 2. Individual Treatment Effects: This second comparison focuses on comparing each individual treatment group with the control and with each other.
-***DO WE FOCUS ON THE MARGINAL EFFECT OF THE SECOND FEEDBACK LOOP VS. THE FIRST FEEDBACK LOOP***
 
 ## Data Completeness 
 The experiment started off with 381 surveys sourced through MTurk. Out of this participant pool, we threw out 97 results. These results were thrown out for the following reasons: 
 
 1. Clear non-compliance (n = 44): Some participants did not give honest effort on the survey and answered all "Normal", all "Pneumonia", or all alternating responses. These results were treated as instances of non-compliance and thrown out of the survey.
+- pretreatment task
+- time settings involved to prevent non-compliance
+- placebo design
 2. Multiple submissions and non-valid entries (n = 5):  The research team’s $1.00 per survey price point was relatively high. As a result, some participants tried to send in multiple survey responses to collect multiple payments or submit an invalid MTurk code (1 instance). In these instances we only paid for (and used) the first survey.
 3. Incomplete surveys (n = 66): Some people started surveys but never finished. This includes those who never completed the last step of the survey by closing out their answers. These responses were thrown out and dealt with as instances of attrition. 
+
+**TODO Add in comparison between treatment and control compliance rate. Chi-sq between comply vs. non-comply and assignment groups.**
 
 Attrition occurred at several steps in the survey. 14 dropped off before Task Phase 1 while collecting demographic information and while entering the MTurk code (did not receive treatment assignment). 20 dropped the survey during the 10 image set in Task Phase 1 or during the first treatment phase. 7 dropped off during Task Phase 2 or during the second treatment phase. 4 dropped out during Task Phase 3 and 21 of these participants had made 99% progress but had failed to close the survey. However, we treated all 66 of the aforementioned incomplete survey responses as part of attrition and were not part of our final analysis.  A funnel diagram below shows the participant drop offs of each type and at each level of the experiment:
 
 ![Survey Funnel Diagram Flow](../final project/images/Blank diagram.png)
 
-
+**TODO SHOULD WE CALL OUT THAT ATTRITION AND NON-COMPLIANCE ARE NOT ISSUES BECAUSE WE COMPLETED A PLACEBO DESIGN?**
 
 # Results
 Overall, we have multiple ways we could have assessed this data based on our different treatment groups. We’ll primarily focus on two major comparisons.
@@ -254,109 +261,43 @@ Overall, we have multiple ways we could have assessed this data based on our dif
 + Control vs. all treatment groups: This compares people who receive the control with people who receive any form of feedback treatment.
 + Differences in individual treatment groups: The second comparison focuses on comparing each individual treatment group with the control and with each other.
 
-## Task Score Analysis
+## Overview
+
+### Control vs. All Treatment Groups
 ```{r, warning=FALSE, echo=FALSE}
-task2a_bp <- ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase1_Score, colour=as.factor(Treatment_Dummy))) +
-  geom_boxplot() + 
-  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
-  xlab('') +
-  ylab('Task Score (%)') +
-  ggtitle("Pre Treatment Scores") +
-  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
-  theme(axis.text.x = element_blank(),
-        axis.ticks = element_blank(), 
-        plot.title = element_text(hjust = 0.5,size=10),
-        legend.position = "bottom",
-        legend.title = element_blank())
+# Compare score across time for any treatment vs control
+# https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_Confidence_Intervals/BS704_Confidence_Intervals_print.html
+# TODO finish formatting
+summary_task_score <- (melt(d_respondents,id.vars=c('Treatment_Dummy'),
+                            measure.vars = c('TaskPhase1_Score','TaskPhase2_Score','TaskPhase3_Score'))[
+  ,.('avg_score'=mean(value),'sd_score'=sd(value),'obs'=.N),keyby=.(Treatment_Dummy,variable)])[
+    ,se:=1.96*sd_score/sqrt(obs)]
+summary_task_score$Treatment_Dummy[summary_task_score$Treatment_Dummy == 1] <- 'Received Feedback'
+summary_task_score$Treatment_Dummy[summary_task_score$Treatment_Dummy == 0] <- 'No Feedback'
+summary_task_score$Treatment_Dummy <- as.factor(summary_task_score$Treatment_Dummy)
 
-task2b_bp <- ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase2_Score, colour=as.factor(Treatment_Dummy))) +
-  geom_boxplot() +
-  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
-  xlab('') +
-  ylab('') +
-  ggtitle("Task Phase 2 Scores") +
-  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
-  theme(axis.text.x = element_blank(),
-        axis.ticks = element_blank(), 
-        plot.title = element_text(hjust = 0.5,size=10),
-        legend.position = "none")
-
-task2c_bp <- ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase3_Score, colour=as.factor(Treatment_Dummy))) +
-  geom_boxplot() + 
-  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
-  xlab('') +
-  ylab('') +
-  ggtitle("Task Phase 3 Scores") +
-  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
-  theme(axis.text.x = element_blank(),
-        axis.ticks = element_blank(), 
-        plot.title = element_text(hjust = 0.5,size=10),
-        legend.position = "none")
-
-mylegend_2<-g_legend(task2a_bp)
-
-grid.arrange(arrangeGrob(task2a_bp + theme(legend.position="none"),task2b_bp,task2c_bp,ncol=3),
-             mylegend_2, 
-             nrow=2, 
-             heights=c(10,1),
-             top = textGrob("Compare task scores in different phases\n",just='right',gp=gpar(fontsize=14,font=1)))
-
-pander(t.test(d_respondents[Treatment_Dummy == 0, TaskPhase1_Score],
-       d_respondents[Treatment_Dummy == 1, TaskPhase1_Score]))
+summary_task_score %>%
+  ggplot( aes(x=variable, y=avg_score, group=Treatment_Dummy, color=Treatment_Dummy)) +
+  geom_errorbar(aes(ymin=avg_score-1.96*sd_score/sqrt(obs), ymax=avg_score+1.96*sd_score/sqrt(obs)), 
+                width=.2, 
+                position=position_dodge(0.25)) +
+  geom_line(position=position_dodge(0.25)) + 
+  geom_point(position=position_dodge(0.25)) +
+  scale_y_continuous(labels = scales::percent,limits = c(.35,.75)) +
+  scale_x_discrete(breaks=c("TaskPhase1_Score", "TaskPhase2_Score","TaskPhase3_Score"),
+                      labels=c("Phase 1", "Phase 2", "Phase 3")) +
+  xlab('Task Phases') +
+  ylab('Average Task Score (%)') +
+  labs(title='Average score across task phases',color="Assignment Group")
 ```
 
-```{r, warning=FALSE, echo=FALSE}
-# boxplots for multiple treatment groups
-task1a_bp <- ggplot(d_respondents, aes(x = Assignment_Group, y=TaskPhase1_Score, colour=as.factor(Assignment_Group))) +
-  geom_boxplot() + 
-  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
-  xlab('') +
-  ylab('Task Score (%)') +
-  ggtitle("Pre Treatment Scores") +
-  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
-  theme(axis.text.x = element_blank(),
-        axis.ticks = element_blank(), 
-        plot.title = element_text(hjust = 0.5,size=10),
-        legend.position = "bottom",
-        legend.title = element_blank())
+When comparing task scores for across people who received feedback and people who received the placebo (shown above), we see that in Phase 1, average task score percentage is fairly similar between groups ($\bar{x}_{treatment}$ = `r summary_task_score[Treatment_Dummy == 'Received Feedback' & variable == 'TaskPhase1_Score', avg_score]` (`r summary_task_score[Treatment_Dummy == 'Received Feedback' & variable == 'TaskPhase1_Score', se]`), $\bar{x}_{control}$ = `r summary_task_score[Treatment_Dummy == 'No Feedback' & variable == 'TaskPhase1_Score', avg_score]` (`r summary_task_score[Treatment_Dummy == 'No Feedback' & variable == 'TaskPhase1_Score', se]`)).
 
-task1b_bp <- ggplot(d_respondents, aes(x = Assignment_Group, y=TaskPhase2_Score, colour=as.factor(Assignment_Group))) +
-  geom_boxplot() + 
-  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
-  xlab('') +
-  ylab('') +
-  ggtitle("Task Phase 2 Scores") +
-  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
-  theme(axis.text.x = element_blank(),
-        axis.ticks = element_blank(), 
-        plot.title = element_text(hjust = 0.5,size=10),
-        legend.position = "none")
-
-task1c_bp <- ggplot(d_respondents, aes(x = Assignment_Group, y=TaskPhase3_Score, colour=as.factor(Assignment_Group))) +
-  geom_boxplot() + 
-  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
-  xlab('') +
-  ylab('') +
-  ggtitle("Task Phase 3 Scores") +
-  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
-  theme(axis.text.x = element_blank(),
-        axis.ticks = element_blank(), 
-        plot.title = element_text(hjust = 0.5,size=10),
-        legend.position = "none")
-
-mylegend_1<-g_legend(task1a_bp)
-
-grid.arrange(arrangeGrob(task1a_bp + theme(legend.position="none"),task1b_bp,task1c_bp,ncol=3),
-             mylegend_1, 
-             nrow=2, 
-             heights=c(10,1),
-             top = textGrob("Compare task scores in different phases\n",just='right',gp=gpar(fontsize=14,font=1)))
-```
+### Individual Treatment Effects
 ```{r, warning=FALSE, echo=FALSE}
 # Compare score across time for all groups
 # https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_Confidence_Intervals/BS704_Confidence_Intervals_print.html
 # TODO finish formatting
-# TODO duplicate for treatment dummy as well
 summary_task_score <- (melt(d_respondents,id.vars=c('Assignment_Group'),
                             measure.vars = c('TaskPhase1_Score','TaskPhase2_Score','TaskPhase3_Score'))[
   ,.('avg_score'=mean(value),'sd_score'=sd(value),'obs'=.N),keyby=.(Assignment_Group,variable)])[
@@ -380,12 +321,13 @@ summary_task_score %>%
 
 ## Regressions
 
-```{r,results='asis',message=FALSE,echo=FALSE}
+### Control vs. All Treatment
+```{r ,results='asis',message=FALSE,echo=FALSE,warning=FALSE}
 # does any treatment have an effect on task phase 2 score?
 mod_task2_a <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy)]
 
 mod_task2_b <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy + 
-                                                     TaskPhase1_Score + 
+                                                     TaskPhase1_Score +
                                                      as.factor(Gender) + 
                                                      as.factor(Education_Level) + 
                                                      as.factor(Age_Range) +
@@ -401,34 +343,51 @@ mod_task2_d <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group)
                                                      as.factor(Age_Range) +
                                                      as.factor(US_Dummy))]
 
+mod_task2_e <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy +
+                                                     TaskPhase1_Score +
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range) +
+                                                     as.factor(US_Dummy) +
+                                                     Treatment_Dummy * TaskPhase1_Score)]
+
 #stargazer output
 stargazer(mod_task2_a,
           mod_task2_b,
+          mod_task2_e,
           mod_task2_c,
           mod_task2_d,
           se = list(get_robust_se(mod_task2_a),
                     get_robust_se(mod_task2_b),
+                    get_robust_se(mod_task2_e),
                     get_robust_se(mod_task2_c),
                     get_robust_se(mod_task2_d)),
           omit = c("Education_Level","Age_Range"),
-          add.lines = list(c('Education FE', 'No','Yes','No','Yes'),
-                           c('Age FE','No','Yes','No','Yes')),
-          order = c(1,15,16,17,18),
-          covariate.labels = c('Any Treatment','Medical Feedback','Negative Images','Positive Images','Self-Reflection','Task Phase 1 Score','Male','US'),
+          add.lines = list(c('Education FE', 'No','Yes','Yes','No','Yes'),
+                           c('Age FE','No','Yes','Yes','No','Yes')),
+          order = c(1,16,17,18,19),
+          covariate.labels = c('Any Treatment','Medical Feedback','Negative Images','Positive Images','Self-Reflect','Task Phase 1 Score','Male','US', 'Any Treatment:Task Phase 1 Score'),
           omit.stat=c("ser","f"),
           dep.var.labels = 'Task Phase 2 Score',
           no.space=TRUE,
           header=FALSE,
-          type='latex')
-
-pander(anova(mod_task2_b, mod_task2_d, test='F'),style='rmarkdown')
+          title = 'Test for immediate effects of feedback on performance',
+          label = 'model2',
+          type='text')
 ```
 
 
-**In the left table you see**, we wanted to condense cells into assessing “any feedback” by creating a treatment dummy variable. We reasoned that in the real world, managers may have diverse ways of giving feedback, but at the end of the day, the direct reports are still receiving ways to understand their past performance and how to improve. Therefore, we want to roll up to a treatment dummy regression to test out this theory.
+```{r model2_ftest,results='asis',message=FALSE,echo=FALSE}
+pander(anova(mod_task2_b, mod_task2_d, test='F'),style='rmarkdown')
+```
 
-As we look at the second column of this table that contains our covariates (pre-treatment score, Gender, FE from education and age), we see that we experience a 5.1 percentage point increase in task performance when any feedback is given to the survey respondents, which is statistically significant given robust SE of 2.2. What is notable, though, is that adding in these covariates does not severely change our estimate for the effect of feedback and we do not see a marginal decrease in SE, so our estimate is no more precise when controlling for these other variables. As a gut check, we see that each 10% increase in Task Phase 1 scores is associated with a 2.4 percentage point increase in performance, which resonates with us; people who perform well before feedback may also perform well after feedback.
+In columns 1 and 2 of Table \@ref(model2), we assess the combined effect of all feedback treatment groups by creating a treatment dummy variable `Any Treatment`. We therefore simulate the real world phenomenon where managers have diverse ways of giving feedback, but the direct reports still receive some semblance of a performance review.
 
+Column 2 of this table includes the effect of the covariates (pre-treatment score, gender, and FE from education, age, and country). Subjects experience a `r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[2,1]*100` (`r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[2,2]*100`) percentage point increase in task performance when any feedback is given to the survey respondents, which is statistically significant given an $\alpha=0.05$. In a notable discovery, adding in these covariates does not lead to a marginal decrease in standard error, so the ATE is no more precise when controlling for these other variables.  
+
+To confirm pre-existing assumtpions around high-performers, we find that each 10 percentage point increase in Task Phase 1 scores is associated with a `r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[3,1]*10` (`r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[3,2]*10`) percentage point increase in performance in Task Phase 2; people who perform well before feedback may also perform well after feedback because high-performers do not require the additional feedback to be successful. This finding naturally motivated an analysis around heterogeneous treatment effects between feedback and high-performers, which found that a 10 percentage point increase in Task 1 Phase score yields an increase of `r coeftest(mod_task2_e,vcov. = vcovHC(mod_task2_e,type='HC1'))[16,1]*10` (`r coeftest(mod_task2_e,vcov. = vcovHC(mod_task2_e,type='HC1'))[16,2]*10`) percentage points, but this is not statistically significant, suggesting that feedback does not high-performers differently than low-performers.
+
+**TODO**
 Building off these results, we were further interested in exploring what type of feedback would yield the most positive impact on task performance. In this way, we were hoping to inform managers what type of feedback they should use with their direct reports. We believed that medical feedback would yield the most benefit because not only do you get information on what you got wrong but you also received expert opinion on how to properly assess the images. Abstracting this out to the real world, this would be akin to having a manager act as a mentor and using their experiences to enable your success. At a high level, we see that when people receive medical feedback, they experience a 5.5 percentage point increase in performance that is statistically significant, thereby confirming our hypothesis.
 
 We hypothesized that the negative images feedback would fare the worst because we are only sharing their responses on the pneumonia images and whether they got them right or wrong. In this way, we wanted to simulate when a manager focuses on giving feedback only in abnormal situations. As a result, direct reports may have a poorer understanding of what “normal” or “good” looks like. Taking a look at that estimate, we see that people in the negative image feedback group have only a 3.9 percentage point increase that is not statistically significant, indicating that negative feedback was not helpful in improving performance.
@@ -437,6 +396,7 @@ Somewhat surprisingly, we found that people who were asked to self-reflect on th
 
 Lastly, was this necessary to blow out this analysis to the multiple treatment groups? An F-test suggests that expanding on the treatment groups as shown in the table on the right does not yield a model that better represents this data.
 
+### Individual Treatment Effects
 ```{r,results='asis',message=FALSE,echo=FALSE}
 # test final task and any treatment
 mod_task3_a <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy)]
@@ -472,7 +432,7 @@ stargazer(mod_task3_a,
           dep.var.labels = 'Task Phase 3 Score',
           no.space=TRUE,
           header=FALSE,
-          type='text')
+          type='latex')
 
 pander(anova(mod_task3_b, mod_task3_d, test='F'),style='rmarkdown')
 ```
