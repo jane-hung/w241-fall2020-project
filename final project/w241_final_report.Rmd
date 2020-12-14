@@ -27,7 +27,7 @@ library(expss)
 library(grid)
 library(gridExtra)
 library(pander)
-library(formattable)
+library(kableExtra)
 ```
 
 ```{r setup, include=FALSE}
@@ -248,18 +248,23 @@ Attrition occurred at several steps in the survey. 14 dropped off before Task Ph
 Our exploratory data analysis digged deeper into the attrition category to see if certain control or feedback groups fell off more than others. The negative images and positive images categories showed a statistically significant attrition correlation at a 1% and 10% confidence level respectively. There were similar results on the stage level as the pre-Task Phase 1 and Pre-Submission stages saw statistically significant correlations at the 1% and 5% levels respectively. There was also signficance correlation in the periods at which All of the attrition before Task Phase 1 occured in the negative images category. This is likely an design error. However, since this occured ***before*** random assignment, it should not be cause for concern in our analysis. 
 
 ```{r}
-
+#table of when subjects left the experiment
 attrition_table <- as.data.frame.matrix(d_attrition[, addmargins(table(Assignment_Group, Attrition_Stage))])
-knitr::kable(attrition_table, 
-             caption = "Attrition by Stage and Feedback Type",
-             footnote = "Random assignment occurs before Task Phase 2") 
 
+kable(attrition_table, caption = "Attrition by Stage and Feedback Type") %>%
+  footnote(general = "Random assignment occurs before Task Phase 2")  %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
+  row_spec(dim(attrition_table)[1], bold = T) %>% # format last row
+  column_spec(1, italic = T) # format first column
 
-
+#when subjects left experiment in proportion to all attrition
 attrition_prop_table <- as.data.frame.matrix(addmargins(round(prop.table(d_attrition[, table(Assignment_Group, Attrition_Stage)]),2)))
-knitr::kable(attrition_prop_table, 
-             caption = "Proportion of Attrition by Stage and Feedback Type",
-             footnote = "Random assignment occurs before Task Phase 2") 
+
+kable(attrition_prop_table, caption = "Attrition Proportions by Stage and Feedback Type") %>%
+  footnote(general = "Random assignment occurs before Task Phase 2")  %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
+  row_spec(dim(attrition_prop_table)[1], bold = T) %>% # format last row
+  column_spec(1, italic = T) # format first column
 
 #Negative Images proportion test
 prop.test(attrition_table[3,], attrition_table[6,])
