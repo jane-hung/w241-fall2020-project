@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  13 DEC 2020 17:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  13 DEC 2020 23:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -539,158 +539,193 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 125
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-)
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
-30.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 131.
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-131.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/lm/ts1lmtt.fd
-File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [1
 
 {/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
-41.
+53.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [2]
-<../final project/images/flow_diagram.png, id=41, 1262.7175pt x 542.025pt>
+<../final project/images/flow_diagram.png, id=32, 1262.7175pt x 542.025pt>
 File: ../final project/images/flow_diagram.png Graphic file (type png)
 <use ../final project/images/flow_diagram.png>
 Package pdftex.def Info: ../final project/images/flow_diagram.png  used on inpu
-t line 356.
+t line 368.
 (pdftex.def)             Requested size: 469.76074pt x 201.6461pt.
 [3]
-<w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf, id=57, 453.695pt x
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
+92.
+(/usr/local/texlive/2020/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 394.
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
+394.
+(/usr/local/texlive/2020/texmf-dist/tex/latex/lm/ts1lmtt.fd
+File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+<w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf, id=49, 453.695pt x
  313.17pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-4-1
-.pdf  used on input line 399.
+.pdf  used on input line 411.
 (pdftex.def)             Requested size: 453.6939pt x 313.16922pt.
 [4 <../final project/images/flow_diagram.png>]
-Overfull \vbox (0.9269pt too high) detected at line 457
+Overfull \vbox (0.9269pt too high) detected at line 469
  []
 
 [5 <./w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf>]
-<w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf, id=80, 464.73625pt
+<w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf, id=76, 464.73625pt
  x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-5-1
-.pdf  used on input line 459.
+.pdf  used on input line 471.
 (pdftex.def)             Requested size: 464.74928pt x 316.19011pt.
-<w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf, id=81, 468.75125pt
+<w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf, id=77, 468.75125pt
  x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-5-2
-.pdf  used on input line 477.
+.pdf  used on input line 489.
 (pdftex.def)             Requested size: 468.75009pt x 316.18047pt.
 [6 <./w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf>]
-<w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf, id=96, 468.75125pt
+<w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf, id=92, 468.75125pt
  x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-5-3
-.pdf  used on input line 495.
+.pdf  used on input line 507.
 (pdftex.def)             Requested size: 468.75009pt x 316.18047pt.
 [7 <./w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf>]
-<w241_final_report_files/figure-latex/unnamed-chunk-5-4.pdf, id=112, 464.73625p
+<w241_final_report_files/figure-latex/unnamed-chunk-5-4.pdf, id=108, 464.73625p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-4.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-5-4.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-5-4
-.pdf  used on input line 516.
+.pdf  used on input line 528.
 (pdftex.def)             Requested size: 464.74928pt x 316.19011pt.
 [8 <./w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf>] [9 <./w241_f
 inal_report_files/figure-latex/unnamed-chunk-5-4.pdf>]
-<../final project/images/Blank diagram.png, id=147, 813.0375pt x 261.97874pt>
+<../final project/images/Blank diagram.png, id=143, 813.0375pt x 261.97874pt>
 File: ../final project/images/Blank diagram.png Graphic file (type png)
 <use ../final project/images/Blank diagram.png>
 Package pdftex.def Info: ../final project/images/Blank diagram.png  used on inp
-ut line 612.
+ut line 622.
 (pdftex.def)             Requested size: 469.75082pt x 151.36414pt.
-<w241_final_report_files/figure-latex/unnamed-chunk-6-1.pdf, id=148, 464.73625p
-t x 318.18875pt>
-File: w241_final_report_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (
-type pdf)
-<use w241_final_report_files/figure-latex/unnamed-chunk-6-1.pdf>
-Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-6-1
-.pdf  used on input line 638.
-(pdftex.def)             Requested size: 464.7351pt x 318.18796pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 644--644
-[]\T1/lmr/m/n/10 (+20) Table 2: Welch Two Sam-ple t-test:
+Underfull \hbox (badness 10000) in paragraph at lines 622--631
+[][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 644--644
-\T1/lmtt/m/n/10 d_respondents[Treatment_Dummy == 0, TaskPhase1_Score]
+Overfull \hbox (15.52153pt too wide) in alignment at lines 641--647
+ [] [] [] [] [] [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 644--644
-\T1/lmr/m/n/10 (+20) and \T1/lmtt/m/n/10 d_respondents[Treatment_Dummy == 1,
+Overfull \hbox (15.52153pt too wide) in alignment at lines 647--652
+ [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (15.52153pt too wide) in alignment at lines 652--660
+ [] [] [] [] [] [] 
  []
 
 [10 <../final project/images/Blank diagram.png>]
-<w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf, id=162, 464.73625p
+Overfull \hbox (15.52153pt too wide) in alignment at lines 671--678
+ [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (15.52153pt too wide) in alignment at lines 678--683
+ [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (15.52153pt too wide) in alignment at lines 683--691
+ [] [] [] [] [] [] 
+ []
+
+[11] [12]
+<w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf, id=166, 464.73625p
 t x 318.18875pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-7-1
-.pdf  used on input line 659.
+.pdf  used on input line 840.
 (pdftex.def)             Requested size: 464.7351pt x 318.18796pt.
-<w241_final_report_files/figure-latex/unnamed-chunk-8-1.pdf, id=163, 458.71375p
-t x 316.18124pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 846--846
+[]\T1/lmr/m/n/10 (+20) Table 4: Welch Two Sam-ple t-test:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 846--846
+\T1/lmtt/m/n/10 d_respondents[Treatment_Dummy == 0, TaskPhase1_Score]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 846--846
+\T1/lmr/m/n/10 (+20) and \T1/lmtt/m/n/10 d_respondents[Treatment_Dummy == 1,
+ []
+
+<w241_final_report_files/figure-latex/unnamed-chunk-8-1.pdf, id=167, 464.73625p
+t x 318.18875pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-8-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-8-1
-.pdf  used on input line 660.
+.pdf  used on input line 861.
+(pdftex.def)             Requested size: 464.7351pt x 318.18796pt.
+<w241_final_report_files/figure-latex/unnamed-chunk-9-1.pdf, id=168, 458.71375p
+t x 316.18124pt>
+File: w241_final_report_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (
+type pdf)
+<use w241_final_report_files/figure-latex/unnamed-chunk-9-1.pdf>
+Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-9-1
+.pdf  used on input line 862.
 (pdftex.def)             Requested size: 458.73363pt x 316.19493pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 659--661
+Underfull \hbox (badness 10000) in paragraph at lines 861--863
 []
  []
 
-[11 <./w241_final_report_files/figure-latex/unnamed-chunk-6-1.pdf>]
+[13 <./w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 668.
+(Font)              <10> on input line 870.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 668.
+(Font)              <7> on input line 870.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 668.
-[12 <./w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf> <./w241_fina
-l_report_files/figure-latex/unnamed-chunk-8-1.pdf>] [13] [14] [15] [16]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 976.
-[17]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 976.
+(Font)              <5> on input line 870.
+[14 <./w241_final_report_files/figure-latex/unnamed-chunk-8-1.pdf> <./w241_fina
+l_report_files/figure-latex/unnamed-chunk-9-1.pdf>] [15] [16] [17] [18]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1179.
+[19]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1179.
 (./w241_final_report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 976.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 976.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1179.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1179.
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 13896 strings out of 480608
- 206345 string characters out of 5903631
- 501734 words of memory out of 5000000
+ 13894 strings out of 480608
+ 206325 string characters out of 5903631
+ 501858 words of memory out of 5000000
  29349 multiletter control sequences out of 15000+600000
- 588130 words of font info for 120 fonts, out of 8000000 for 9000
+ 592271 words of font info for 120 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,10n,42p,816b,475s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/lo
@@ -699,20 +734,21 @@ cal/texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/20
 ist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2020/texmf-dist/fonts/enc/
 dvips/lm/lm-ts1.enc}</usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/l
 mbx10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmbx12.pfb>
-</usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/loca
-l/texlive/2020/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2
-020/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2020/texmf-d
-ist/fonts/type1/public/lm/lmr17.pfb></usr/local/texlive/2020/texmf-dist/fonts/t
-ype1/public/lm/lmr7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/
-lm/lmri10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmsy10.
-pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/l
-ocal/texlive/2020/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/local/texli
-ve/2020/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2020/te
-xmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on w241_final_report.pdf (17 pages, 429188 bytes).
+</usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></usr/loc
+al/texlive/2020/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive
+/2020/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2020/texmf
+-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2020/texmf-dist/fonts
+/type1/public/lm/lmr17.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/publ
+ic/lm/lmr7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmri10
+.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr
+/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texl
+ive/2020/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/local/texlive/2020/t
+exmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2020/texmf-dist/
+fonts/type1/public/lm/lmtti10.pfb>
+Output written on w241_final_report.pdf (19 pages, 446333 bytes).
 PDF statistics:
- 376 PDF objects out of 1000 (max. 8388607)
- 312 compressed objects within 4 object streams
- 78 named destinations out of 1000 (max. 500000)
- 12523 words of extra memory for PDF output out of 14400 (max. 10000000)
+ 380 PDF objects out of 1000 (max. 8388607)
+ 313 compressed objects within 4 object streams
+ 77 named destinations out of 1000 (max. 500000)
+ 12507 words of extra memory for PDF output out of 14400 (max. 10000000)
 
