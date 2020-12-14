@@ -2,7 +2,10 @@
 title: 'Effect of Learning Feedback Styles on Learning Outcomes'
 subtitle: 'Fall 2020 - W241 Final Report'
 author: 'Dahler Battle, Guy El Khoury, Jane Hung, Julian Tsang' 
-output: bookdown::pdf_document2
+output:
+  bookdown::pdf_document2:
+    fig_caption: yes
+    number_sections: yes
 # knit: (function(inputFile, encoding) {
 #   rmarkdown::render(
 #     inputFile, encoding = encoding,
@@ -298,7 +301,7 @@ Overall, we have multiple ways we could have assessed this data based on our dif
 
 ## Overview
 
-### Control vs. All Treatment Groups
+### Immediate Effects of Feedback
 ```{r, warning=FALSE, echo=FALSE}
 # Compare score across time for any treatment vs control
 # https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_Confidence_Intervals/BS704_Confidence_Intervals_print.html
@@ -328,7 +331,7 @@ summary_task_score %>%
 
 When comparing task scores for across people who received feedback and people who received the placebo (shown above), we see that in Phase 1, average task score percentage is fairly similar between groups ($\bar{x}_{treatment}$ = `r summary_task_score[Treatment_Dummy == 'Received Feedback' & variable == 'TaskPhase1_Score', avg_score]` (`r summary_task_score[Treatment_Dummy == 'Received Feedback' & variable == 'TaskPhase1_Score', se]`), $\bar{x}_{control}$ = `r summary_task_score[Treatment_Dummy == 'No Feedback' & variable == 'TaskPhase1_Score', avg_score]` (`r summary_task_score[Treatment_Dummy == 'No Feedback' & variable == 'TaskPhase1_Score', se]`)).
 
-### Individual Treatment Effects
+### Effects of Repeated Feedback
 ```{r, warning=FALSE, echo=FALSE}
 # Compare score across time for all groups
 # https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_Confidence_Intervals/BS704_Confidence_Intervals_print.html
@@ -356,7 +359,7 @@ summary_task_score %>%
 
 ## Regressions
 
-### Control vs. All Treatment
+### Immediate Effects of Feedback
 ```{r ,results='asis',message=FALSE,echo=FALSE,warning=FALSE}
 # does any treatment have an effect on task phase 2 score?
 mod_task2_a <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy)]
@@ -378,13 +381,14 @@ mod_task2_d <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group)
                                                      as.factor(Age_Range) +
                                                      as.factor(US_Dummy))]
 
-mod_task2_e <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy +
-                                                     TaskPhase1_Score +
-                                                     as.factor(Gender) + 
-                                                     as.factor(Education_Level) + 
-                                                     as.factor(Age_Range) +
-                                                     as.factor(US_Dummy) +
-                                                     Treatment_Dummy * TaskPhase1_Score)]
+# does the treatment affect high performers differently
+mod_task2_e <- d_respondents[, High_Performer := ifelse(TaskPhase1_Score>=.8,1,0)][,lm(TaskPhase2_Score ~ Treatment_Dummy +
+                                                     # TaskPhase1_Score +
+                                                     # as.factor(Gender) +
+                                                     # as.factor(Education_Level) +
+                                                     # as.factor(Age_Range) +
+                                                     # as.factor(US_Dummy) +
+                                                     Treatment_Dummy * as.factor(High_Performer))]
 
 #stargazer output
 stargazer(mod_task2_a,
@@ -398,40 +402,40 @@ stargazer(mod_task2_a,
                     get_robust_se(mod_task2_c),
                     get_robust_se(mod_task2_d)),
           omit = c("Education_Level","Age_Range"),
-          add.lines = list(c('Education FE', 'No','Yes','Yes','No','Yes'),
-                           c('Age FE','No','Yes','Yes','No','Yes')),
-          order = c(1,16,17,18,19),
-          covariate.labels = c('Any Treatment','Medical Feedback','Negative Images','Positive Images','Self-Reflect','Task Phase 1 Score','Male','US', 'Any Treatment:Task Phase 1 Score'),
+          add.lines = list(c('Education FE', 'No','Yes','No','No','Yes'),
+                           c('Age FE'      , 'No','Yes','No','No','Yes')),
+          order = c(1,17,18,19,20),
+          covariate.labels = c('Any Feedback','Medical Feedback','Negative Images','Positive Images','Self-Reflect','Task Phase 1 Score','Male','US', 'High Performer','Any Feedback:High Performer'),
           omit.stat=c("ser","f"),
           dep.var.labels = 'Task Phase 2 Score',
           no.space=TRUE,
           header=FALSE,
           title = 'Test for immediate effects of feedback on performance',
           label = 'model2',
-          type='text')
+          type='latex')
+
+pander(anova(mod_task2_a, mod_task2_b, test='F'),style='rmarkdown')
 ```
 
+In columns 1 and 2 of Table \@ref(model2), we assess the combined effect of all feedback treatment groups by creating a treatment dummy variable `Any Feedback`. We therefore simulate the real world phenomenon where managers have diverse ways of giving feedback, but the direct reports still receive some semblance of a performance review.
 
-```{r model2_ftest,results='asis',message=FALSE,echo=FALSE}
+Column 2 of this table includes the effect of the covariates (pre-treatment score, gender, and FE from education, age, and country), which is shown to be necessary according to F-test results in Table \@ref(model_cov_ftest). With all variables remaining constant, subjects experience a `r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[2,1]*100` (`r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[2,2]*100`) percentage point increase in task performance when any feedback is given to the survey respondents, which is statistically significant given an $\alpha=0.05$. In a notable discovery, adding in these covariates does not lead to a marginal decrease in standard error, so the ATE is no more precise when controlling for these other variables.  
+
+To confirm pre-existing assumtpions around high-performers, we find that each 10 percentage point increase in Task Phase 1 scores is associated with a `r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[3,1]*10` (`r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[3,2]*10`) percentage point increase in performance in Task Phase 2; people who perform well before feedback may also perform well after feedback because high-performers do not require the additional feedback to be successful. This finding naturally motivated an analysis around heterogeneous treatment effects between feedback and high-performers, which found that a 10 percentage point increase in Task 1 Phase score yields an increase of `r coeftest(mod_task2_e,vcov. = vcovHC(mod_task2_e,type='HC1'))[4,1]*10` (`r coeftest(mod_task2_e,vcov. = vcovHC(mod_task2_e,type='HC1'))[4,2]*10`) percentage points, but this is not statistically significant, suggesting that there is no incremental benefit of treatment for high performers (Column 3).  
+
+Based on these findings, we then explored the type of feedback that would yield the most positive impact on task performance (Column 4). In doing so, we aimed to inform managers the type of feedback that would garner better performances from their direct reports. We theorized that feedback from domain expertise would foster the highest ATE because not only do you get information on what you got wrong but you also received expert opinion on how to properly assess the images. Abstracting this out to the real world, this would be akin to having a manager act as a mentor and using their experiences to enable individual success. At a high level, we see that when people receive specific medical feedback, they experience a `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[2,1]*100` (`r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[2,2]*100`) percentage point increase in performance that is statistically significant, thereby confirming our hypothesis.
+
+We hypothesized that the negative images feedback would fare the worst because only results from the pneumonia images are shared. In this way, we wanted to simulate when a manager focuses on giving feedback only in abnormal situations. As a result, direct reports may have a poorer understanding of what “normal” or “good” looks like. **TODO INSERT STUDY FROM DAHLER** Taking a look at that estimate, we see that people in the negative image feedback group have only a `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[3,1]*100` (`r coeftest(mod_task2_c,vcov. = vcovHC(mod_task2_d,type='HC1'))[3,2]*100`) percentage point increase that is not statistically significant, indicating that negative feedback was not helpful in improving performance.
+
+Somewhat surprisingly, we found that people who were asked to self-reflect on their responses had a statistically significant `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[5,1]*100` (`r coeftest(mod_task2_c,vcov. = vcovHC(mod_task2_d,type='HC1'))[5,2]*100`)  percentage point increase in performance. We were primarily interested in pursuing this type of feedback because it is a common personal growth technique to self-reflect that is touted in articles in HBR, Forbes, etc. In this way, we were able to confirm the positive effects of self-reflection; as a manager, you might encourage this behavior through incorporating self-assessments.  
+
+```{r model2_ftest,results='asis',message=FALSE,echo=FALSE,fig.cap="\\label{tab:model2_ftest} Analysis of Variance Table. All Feedback vs, Individual Feedback Effects"}
 pander(anova(mod_task2_b, mod_task2_d, test='F'),style='rmarkdown')
 ```
 
-In columns 1 and 2 of Table \@ref(model2), we assess the combined effect of all feedback treatment groups by creating a treatment dummy variable `Any Treatment`. We therefore simulate the real world phenomenon where managers have diverse ways of giving feedback, but the direct reports still receive some semblance of a performance review.
+Lastly, an F-test shown in Table  \@ref(tab:model2_ftest) suggests that expanding on the treatment groups as shown in the table on the right does not yield a model that better represents this data (p=`r anova(mod_task2_b, mod_task2_d, test='F')[2,'Pr(>F)']`).
 
-Column 2 of this table includes the effect of the covariates (pre-treatment score, gender, and FE from education, age, and country). Subjects experience a `r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[2,1]*100` (`r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[2,2]*100`) percentage point increase in task performance when any feedback is given to the survey respondents, which is statistically significant given an $\alpha=0.05$. In a notable discovery, adding in these covariates does not lead to a marginal decrease in standard error, so the ATE is no more precise when controlling for these other variables.  
-
-To confirm pre-existing assumtpions around high-performers, we find that each 10 percentage point increase in Task Phase 1 scores is associated with a `r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[3,1]*10` (`r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[3,2]*10`) percentage point increase in performance in Task Phase 2; people who perform well before feedback may also perform well after feedback because high-performers do not require the additional feedback to be successful. This finding naturally motivated an analysis around heterogeneous treatment effects between feedback and high-performers, which found that a 10 percentage point increase in Task 1 Phase score yields an increase of `r coeftest(mod_task2_e,vcov. = vcovHC(mod_task2_e,type='HC1'))[16,1]*10` (`r coeftest(mod_task2_e,vcov. = vcovHC(mod_task2_e,type='HC1'))[16,2]*10`) percentage points, but this is not statistically significant, suggesting that feedback does not high-performers differently than low-performers.
-
-**TODO**
-Building off these results, we were further interested in exploring what type of feedback would yield the most positive impact on task performance. In this way, we were hoping to inform managers what type of feedback they should use with their direct reports. We believed that feedback from domain expertise would yield the most benefit because not only do you get information on what you got wrong but you also received expert opinion on how to properly assess the images. Abstracting this out to the real world, this would be akin to having a manager act as a mentor and using their experiences to enable your success. At a high level, we see that when people receive specific medical feedback, they experience a 5.5 percentage point increase in performance that is statistically significant, thereby confirming our hypothesis.
-
-We hypothesized that the negative images feedback would fare the worst because we are only sharing their responses on the pneumonia images and whether they got them right or wrong. In this way, we wanted to simulate when a manager focuses on giving feedback only in abnormal situations. As a result, direct reports may have a poorer understanding of what “normal” or “good” looks like. Taking a look at that estimate, we see that people in the negative image feedback group have only a 3.9 percentage point increase that is not statistically significant, indicating that negative feedback was not helpful in improving performance.
-
-Somewhat surprisingly, we found that people who were asked to self-reflect on their responses had a statistically significant 5.8 percentage point increase in performance. We were primarily interested in pursuing this type of feedback because it is a common personal growth technique to self-reflect that is touted in articles in HBR, Forbes, etc. In this way, we were able to confirm the positive effects of self-reflection; as a manager, you might encourage this behavior through incorporating self-assessments.
-
-Lastly, was this necessary to blow out this analysis to the multiple treatment groups? An F-test suggests that expanding on the treatment groups as shown in the table on the right does not yield a model that better represents this data.
-
-### Individual Treatment Effects
+### Effects of Repeated Feedback
 ```{r,results='asis',message=FALSE,echo=FALSE}
 # test final task and any treatment
 mod_task3_a <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy)]
@@ -452,17 +456,17 @@ mod_task3_d <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group)
                                                      as.factor(US_Dummy))]
 stargazer(mod_task3_a,
           mod_task3_b,
-          mod_task3_c,
+          # mod_task3_c,
           mod_task3_d,
           se = list(get_robust_se(mod_task3_a),
                     get_robust_se(mod_task3_b),
-                    get_robust_se(mod_task3_c),
+                    # get_robust_se(mod_task3_c),
                     get_robust_se(mod_task3_d)),
           omit = c("Education_Level","Age_Range"),
-          add.lines = list(c('Education FE', 'No','Yes','No','Yes'),
-                           c('Age FE','No','Yes','No','Yes')),
+          add.lines = list(c('Education FE', 'No','Yes','Yes'),
+                           c('Age FE','No','Yes','Yes')),
           order = c(1,15,16,17,18),
-          covariate.labels = c('Any Treatment','Medical Feedback','Negative Images','Positive Images','Self-Reflection','Task Phase 1 Score','Male','US'),
+          covariate.labels = c('Any Feedback','Medical Feedback','Negative Images','Positive Images','Self-Reflection','Task Phase 1 Score','Male','US'),
           omit.stat=c("ser","f"),
           dep.var.labels = 'Task Phase 3 Score',
           no.space=TRUE,
