@@ -413,13 +413,16 @@ stargazer(mod_task2_a,
           title = 'Test for immediate effects of feedback on performance',
           label = 'model2',
           type='latex')
-
-pander(anova(mod_task2_a, mod_task2_b, test='F'),style='rmarkdown')
 ```
+
 
 In columns 1 and 2 of Table \@ref(model2), we assess the combined effect of all feedback treatment groups by creating a treatment dummy variable `Any Feedback`. We therefore simulate the real world phenomenon where managers have diverse ways of giving feedback, but the direct reports still receive some semblance of a performance review.
 
-Column 2 of this table includes the effect of the covariates (pre-treatment score, gender, and FE from education, age, and country), which is shown to be necessary according to F-test results in Table \@ref(model_cov_ftest). With all variables remaining constant, subjects experience a `r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[2,1]*100` (`r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[2,2]*100`) percentage point increase in task performance when any feedback is given to the survey respondents, which is statistically significant given an $\alpha=0.05$. In a notable discovery, adding in these covariates does not lead to a marginal decrease in standard error, so the ATE is no more precise when controlling for these other variables.  
+```{r ,results='asis',message=FALSE,echo=FALSE,warning=FALSE,fig.cap="\\label{fig:figs}plotting example"}
+pander(anova(mod_task2_a, mod_task2_b, test='F'),style='rmarkdown')
+```
+
+Column 2 of this table includes the effect of the covariates (pre-treatment score, gender, and FE from education, age, and country), which is shown to be necessary according to F-test results in Table \@ref(fig:figs). With all variables remaining constant, subjects experience a `r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[2,1]*100` (`r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[2,2]*100`) percentage point increase in task performance when any feedback is given to the survey respondents, which is statistically significant given an $\alpha=0.05$. In a notable discovery, adding in these covariates does not lead to a marginal decrease in standard error, so the ATE is no more precise when controlling for these other variables.  
 
 To confirm pre-existing assumtpions around high-performers, we find that each 10 percentage point increase in Task Phase 1 scores is associated with a `r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[3,1]*10` (`r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[3,2]*10`) percentage point increase in performance in Task Phase 2; people who perform well before feedback may also perform well after feedback because high-performers do not require the additional feedback to be successful. This finding naturally motivated an analysis around heterogeneous treatment effects between feedback and high-performers, which found that a 10 percentage point increase in Task 1 Phase score yields an increase of `r coeftest(mod_task2_e,vcov. = vcovHC(mod_task2_e,type='HC1'))[4,1]*10` (`r coeftest(mod_task2_e,vcov. = vcovHC(mod_task2_e,type='HC1'))[4,2]*10`) percentage points, but this is not statistically significant, suggesting that there is no incremental benefit of treatment for high performers (Column 3).  
 
@@ -429,11 +432,11 @@ We hypothesized that the negative images feedback would fare the worst because o
 
 Somewhat surprisingly, we found that people who were asked to self-reflect on their responses had a statistically significant `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[5,1]*100` (`r coeftest(mod_task2_c,vcov. = vcovHC(mod_task2_d,type='HC1'))[5,2]*100`)  percentage point increase in performance. We were primarily interested in pursuing this type of feedback because it is a common personal growth technique to self-reflect that is touted in articles in HBR, Forbes, etc. In this way, we were able to confirm the positive effects of self-reflection; as a manager, you might encourage this behavior through incorporating self-assessments.  
 
-```{r model2_ftest,results='asis',message=FALSE,echo=FALSE,fig.cap="\\label{tab:model2_ftest} Analysis of Variance Table. All Feedback vs, Individual Feedback Effects"}
+```{r tab:model2_ftest,results='asis',message=FALSE,echo=FALSE,fig.cap="\\label{tab:model2_ftest} Analysis of Variance Table. All Feedback vs, Individual Feedback Effects"}
 pander(anova(mod_task2_b, mod_task2_d, test='F'),style='rmarkdown')
 ```
 
-Lastly, an F-test shown in Table  \@ref(tab:model2_ftest) suggests that expanding on the treatment groups as shown in the table on the right does not yield a model that better represents this data (p=`r anova(mod_task2_b, mod_task2_d, test='F')[2,'Pr(>F)']`).
+Lastly, an F-test shown in Table  \@ref(tab:model2_ftest) \ref{tab:model2_ftest} suggests that expanding on the treatment groups as shown in the table on the right does not yield a model that better represents this data (p=`r anova(mod_task2_b, mod_task2_d, test='F')[2,'Pr(>F)']`).
 
 ### Effects of Repeated Feedback
 ```{r,results='asis',message=FALSE,echo=FALSE}
