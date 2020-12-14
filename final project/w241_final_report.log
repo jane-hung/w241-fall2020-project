@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  14 DEC 2020 02:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  14 DEC 2020 12:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -674,7 +674,7 @@ LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [3]
-<../final project/images/flow_diagram.png, id=134, 1262.7175pt x 542.025pt>
+<../final project/images/flow_diagram.png, id=139, 1262.7175pt x 542.025pt>
 File: ../final project/images/flow_diagram.png Graphic file (type png)
 <use ../final project/images/flow_diagram.png>
 Package pdftex.def Info: ../final project/images/flow_diagram.png  used on inpu
@@ -708,7 +708,7 @@ Package xcolor Warning: Incompatible color definition on input line 294.
 
 Package xcolor Warning: Incompatible color definition on input line 294.
 
-<w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf, id=145, 453.695pt 
+<w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf, id=151, 453.695pt 
 x 313.17pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (
 type pdf)
@@ -717,7 +717,7 @@ Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-4-1
 .pdf  used on input line 296.
 (pdftex.def)             Requested size: 453.6939pt x 313.16922pt.
 [5 <./w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf>]
-<w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf, id=166, 464.73625p
+<w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf, id=171, 464.73625p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (
 type pdf)
@@ -725,7 +725,7 @@ type pdf)
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-5-1
 .pdf  used on input line 314.
 (pdftex.def)             Requested size: 464.74928pt x 316.19011pt.
-<w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf, id=167, 468.75125p
+<w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf, id=172, 468.75125p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf Graphic file (
 type pdf)
@@ -733,7 +733,7 @@ type pdf)
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-5-2
 .pdf  used on input line 314.
 (pdftex.def)             Requested size: 468.75009pt x 316.18047pt.
-<w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf, id=168, 468.75125p
+<w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf, id=173, 468.75125p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf Graphic file (
 type pdf)
@@ -741,7 +741,7 @@ type pdf)
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-5-3
 .pdf  used on input line 314.
 (pdftex.def)             Requested size: 468.75009pt x 316.18047pt.
-<w241_final_report_files/figure-latex/unnamed-chunk-5-4.pdf, id=169, 464.73625p
+<w241_final_report_files/figure-latex/unnamed-chunk-5-4.pdf, id=174, 464.73625p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-4.pdf Graphic file (
 type pdf)
@@ -768,7 +768,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 314--315
 inal_report_files/figure-latex/unnamed-chunk-5-2.pdf> <./w241_final_report_file
 s/figure-latex/unnamed-chunk-5-3.pdf>] [8 <./w241_final_report_files/figure-lat
 ex/unnamed-chunk-5-4.pdf>]
-<../final project/images/Blank diagram.png, id=225, 813.0375pt x 261.97874pt>
+<../final project/images/Blank diagram.png, id=230, 813.0375pt x 261.97874pt>
 File: ../final project/images/Blank diagram.png Graphic file (type png)
 <use ../final project/images/Blank diagram.png>
 Package pdftex.def Info: ../final project/images/Blank diagram.png  used on inp
@@ -867,7 +867,7 @@ Package xcolor Warning: Incompatible color definition on input line 545.
 Package xcolor Warning: Incompatible color definition on input line 545.
 
 [11]
-<w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf, id=248, 458.71375p
+<w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf, id=253, 458.71375p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (
 type pdf)
@@ -875,7 +875,7 @@ type pdf)
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-7-1
 .pdf  used on input line 586.
 (pdftex.def)             Requested size: 458.73363pt x 316.19493pt.
-<w241_final_report_files/figure-latex/unnamed-chunk-8-1.pdf, id=249, 458.71375p
+<w241_final_report_files/figure-latex/unnamed-chunk-8-1.pdf, id=254, 458.71375p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (
 type pdf)
@@ -883,37 +883,28 @@ type pdf)
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-8-1
 .pdf  used on input line 593.
 (pdftex.def)             Requested size: 458.73363pt x 316.19493pt.
-[12 <./w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf>]
-
-LaTeX Warning: Reference `fig:figs' on page 13 undefined on input line 663.
-
-[13 <./w241_final_report_files/figure-latex/unnamed-chunk-8-1.pdf>] [14pdfTeX w
-arning (ext4): destination with the same identifier (name{table.4}) has been al
-ready used, duplicate ignored
+[12 <./w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf>] [13 <./w241
+_final_report_files/figure-latex/unnamed-chunk-8-1.pdf>] [14pdfTeX warning (ext
+4): destination with the same identifier (name{table.4}) has been already used,
+ duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.666 
+l.668 
       ]
 
 LaTeX Warning: Reference `tab:model2_ftest' on page 15 undefined on input line 
-688.
+690.
 
-[15] [16pdfTeX warning (ext4): destination with the same identifier (name{table
-.7}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.754 
-      ] [17]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 809.
+[15] [16] [17]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 806.
 [18]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 809.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 806.
 (./w241_final_report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 809.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 809.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 806.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 806.
 Package rerunfilecheck Info: File `w241_final_report.out' has not changed.
-(rerunfilecheck)             Checksum: 34DC33B63536CE1D0678F7F3959DF536;2908.
+(rerunfilecheck)             Checksum: 2CC851B2D1C8B0EEC9C105BDB1D54461;3051.
 
 LaTeX Warning: There were undefined references.
 
@@ -922,11 +913,11 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 14988 strings out of 480608
- 221453 string characters out of 5903631
- 527588 words of memory out of 5000000
+ 14995 strings out of 480608
+ 221572 string characters out of 5903631
+ 525617 words of memory out of 5000000
  30376 multiletter control sequences out of 15000+600000
- 592460 words of font info for 122 fonts, out of 8000000 for 9000
+ 592850 words of font info for 125 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  34i,11n,42p,1140b,469s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/
@@ -947,10 +938,10 @@ ive/2020/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texlive/2020/te
 xmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/local/texlive/2020/texmf-dist/f
 onts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1
 /public/lm/lmtti10.pfb>
-Output written on w241_final_report.pdf (18 pages, 453646 bytes).
+Output written on w241_final_report.pdf (18 pages, 458564 bytes).
 PDF statistics:
- 398 PDF objects out of 1000 (max. 8388607)
- 334 compressed objects within 4 object streams
- 82 named destinations out of 1000 (max. 500000)
- 12494 words of extra memory for PDF output out of 14400 (max. 10000000)
+ 405 PDF objects out of 1000 (max. 8388607)
+ 341 compressed objects within 4 object streams
+ 83 named destinations out of 1000 (max. 500000)
+ 12502 words of extra memory for PDF output out of 14400 (max. 10000000)
 
