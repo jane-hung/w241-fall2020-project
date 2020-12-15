@@ -41,6 +41,8 @@ theme_set(theme_light())
 
 # Introduction
 
+
+
 # Load Data
 ```{r, include=FALSE}
 # d <- fread('Lungs_November+14,+2020_17.33.csv')
@@ -985,13 +987,24 @@ coeftest(mod_test2, vcov = mod_test2$vcovHC_)
 
 ```
 
+# Playground 3
+```{r}
+test <- d_respondents[ Assignment_Group %in% c("Medical Feedback", "Self-Reflect"), lm(TaskPhase2_Score ~ Assignment_Group)]
+test$vcovHC_ <- vcovHC(test)
+coeftest(test, vcov. = test$vcovHC_)
+
+test <- d_respondents[ Assignment_Group %in% c("Positive Images", "Negative Images"), lm(TaskPhase2_Score ~ Assignment_Group)]
+test$vcovHC_ <- vcovHC(test)
+coeftest(test, vcov. = test$vcovHC_)
+```
+
+
 # Noncompliance
 EDA for noncompliance? time spent on a page
 how many words written
 
 
 ```{r}
-
 # renaming Control Clicks Phase 1 - submit after 70, advance after 180 seconds
 setnames(d_respondents,
          old = c('Q70_First Click', 'Q70_Last Click', 
@@ -1094,14 +1107,27 @@ d_noncompliance_1[ , Treatment_Phase1_SubmitTime := (coalesce(c(a,b,c,d,e)))]
 
 ########## plot density distributions of timing for Treatment Phase 1
 
-ggplot(d_noncompliance_1, aes(x=Treatment_Phase1_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_density(alpha=0.3) + xlim(60, 500) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 1 Duration Distribution")
+ggplot(d_noncompliance_1, aes(x=Treatment_Phase1_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(60, 500) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 1 Duration Distribution")
 
-ggplot(d_noncompliance_1[Assignment_Group %in% c("Medical Feedback", "Self-Reflect")], aes(x=Treatment_Phase1_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_density(alpha=0.3) + xlim(60, 500) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 1 Duration Distribution") + geom_vline(xintercept = 90, color = "blue") + geom_vline(xintercept = 240, color = "red") 
+ggplot(d_noncompliance_1[Assignment_Group %in% c("Medical Feedback", "Self-Reflect")], aes(x=Treatment_Phase1_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(60, 500) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 1 Duration Distribution") + geom_vline(xintercept = 90, color = "blue") + geom_vline(xintercept = 240, color = "red") 
 
-ggplot(d_noncompliance_1[Assignment_Group %in% c("Positive Images", "Negative Images")], aes(x=Treatment_Phase1_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_density(alpha=0.3) + xlim(20, 200) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 1 Duration Distribution") + geom_vline(xintercept = 45, color = "blue") + geom_vline(xintercept = 120, color = "red") 
+ggplot(d_noncompliance_1[Assignment_Group %in% c("Positive Images", "Negative Images")], aes(x=Treatment_Phase1_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(20, 200) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 1 Duration Distribution") + geom_vline(xintercept = 45, color = "blue") + geom_vline(xintercept = 120, color = "red") 
 
-ggplot(d_noncompliance_1[Assignment_Group %in% c("Control")], aes(x=Treatment_Phase1_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_density(alpha=0.3) + xlim(20, 300) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 1 Duration Distribution") + geom_vline(xintercept = 70, color = "blue") + geom_vline(xintercept = 180, color = "red") 
+ggplot(d_noncompliance_1[Assignment_Group %in% c("Control")], aes(x=Treatment_Phase1_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(20, 300) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 1 Duration Distribution") + geom_vline(xintercept = 70, color = "blue") + geom_vline(xintercept = 180, color = "red") 
 
+
+#### set up t-tests comparing the submit times for Treatment Phase I
+
+t.test(d_noncompliance_1[Assignment_Group %in% c("Medical Feedback"), Treatment_Phase1_SubmitTime], 
+       d_noncompliance_1[Assignment_Group %in% c("Self-Reflect") & Treatment_Phase1_SubmitTime < 250, Treatment_Phase1_SubmitTime])
+
+t.test(d_noncompliance_1[Assignment_Group %in% c("Positive Images"), Treatment_Phase1_SubmitTime], 
+       d_noncompliance_1[Assignment_Group %in% c("Negative Images") & Treatment_Phase1_SubmitTime < 250, Treatment_Phase1_SubmitTime])
+
+# probably not a valid comparison between Treatment and Control since groups have different time limits
+t.test(d_noncompliance_1[Assignment_Group %in% c("Medical Feedback", "Self-Reflect", "Positive Images", "Negative Images"),
+                         Treatment_Phase1_SubmitTime],
+       d_noncompliance_1[Assignment_Group %in% c("Control"), Treatment_Phase1_SubmitTime])
 
 
 #################### set up datatable for Treatment Phase 2 Times
@@ -1121,15 +1147,26 @@ d_noncompliance_2[ , Treatment_Phase2_SubmitTime := (coalesce(c(a,b,c,d,e)))]
 
 ########## plot density distributions of timing for Treatment Phase 2
 
-ggplot(d_noncompliance_2, aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_density(alpha=0.3) + xlim(60, 300) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 2 Duration Distribution")
+ggplot(d_noncompliance_2, aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(60, 300) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 2 Duration Distribution")
 
-ggplot(d_noncompliance_2[Assignment_Group %in% c("Medical Feedback", "Self-Reflect")], aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_density(alpha=0.3) + xlim(60, 500) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 2 Duration Distribution") + geom_vline(xintercept = 90, color = "blue") + geom_vline(xintercept = 240, color = "red") 
+ggplot(d_noncompliance_2[Assignment_Group %in% c("Medical Feedback", "Self-Reflect")], aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(60, 500) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 2 Duration Distribution") + geom_vline(xintercept = 90, color = "blue") + geom_vline(xintercept = 240, color = "red") 
 
-ggplot(d_noncompliance_2[Assignment_Group %in% c("Positive Images", "Negative Images")], aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_density(alpha=0.3) + xlim(20, 200) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 2 Duration Distribution") + geom_vline(xintercept = 45, color = "blue") + geom_vline(xintercept = 120, color = "red") 
+ggplot(d_noncompliance_2[Assignment_Group %in% c("Positive Images", "Negative Images")], aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(20, 200) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 2 Duration Distribution") + geom_vline(xintercept = 45, color = "blue") + geom_vline(xintercept = 120, color = "red") 
 
-ggplot(d_noncompliance_2[Assignment_Group %in% c("Control")], aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_density(alpha=0.3) + xlim(20, 300) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 2 Duration Distribution") + geom_vline(xintercept = 70, color = "blue") + geom_vline(xintercept = 180, color = "red") 
+ggplot(d_noncompliance_2[Assignment_Group %in% c("Control")], aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(20, 300) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 2 Duration Distribution") + geom_vline(xintercept = 70, color = "blue") + geom_vline(xintercept = 180, color = "red") 
 
+#### set up t-tests comparing the submit times for Treatment Phase 2...there seems to be statistical differences here!
 
+t.test(d_noncompliance_2[Assignment_Group %in% c("Medical Feedback"), Treatment_Phase2_SubmitTime], 
+       d_noncompliance_2[Assignment_Group %in% c("Self-Reflect") & Treatment_Phase2_SubmitTime < 250, Treatment_Phase2_SubmitTime])
+
+t.test(d_noncompliance_2[Assignment_Group %in% c("Positive Images"), Treatment_Phase2_SubmitTime], 
+       d_noncompliance_2[Assignment_Group %in% c("Negative Images") & Treatment_Phase2_SubmitTime < 250, Treatment_Phase2_SubmitTime])
+
+# probably not a valid comparison between Treatment and Control since groups have different time limits
+t.test(d_noncompliance_2[Assignment_Group %in% c("Medical Feedback", "Self-Reflect", "Positive Images", "Negative Images"),
+                         Treatment_Phase2_SubmitTime],
+       d_noncompliance_2[Assignment_Group %in% c("Control"), Treatment_Phase2_SubmitTime])
 
 #nrow(d_respondents[ Assignment_Group == "Self-Reflect", ])
 ```
@@ -1186,6 +1223,270 @@ d_respondents[ Assignment_Group == "Control", Control_Phase2_NumWords]
 ```{r}
 # some noncompliant responses for control Q1...assume noncompliant responses have less than 5 words
 d_respondents[d_respondents[ , Control_Phase1_NumWords < 5]]
+```
+
+# NonCompliance pt 2
+
+
+noncompliance is the same across the treatment groups/is there something systematically wrong that affect people from complying...just compare ITTd
+
+```{r, include=FALSE}
+# d <- fread('Lungs_November+14,+2020_17.33.csv')
+d <- fread('../check-valid-responses/data/qualtrics_results_final.csv')
+#head(d)
+```
+
+```{r, include=FALSE}
+d_respondents_only <-
+  d[(Status == "IP Address"),] #& (Finished == 'True'),]
+
+# These WorkerId put in all 1 response (all Normal or all Pneumonia)
+# These people just gave alternating responses (Normal, Pneumonia, Normal,...,Pneumonia)
+d_respondents_noncompliers <-
+  d_respondents_only[Q80 %in% c(
+    "A119EX2L0DNN1B",
+    "A12NQJV6TA5OWB",
+    "A18WFPSLFV4FKY",
+    "A1BUYK6LXYWMLL",
+    "A1FHRZXSE7XNJ4",
+    "A1GMYDH5MKN105",
+    "A2GSZ3D2XXC533",
+    "A2IGIOD74EPOEF",
+    "A2J016DRTOBXWO",
+    "A2NGFU82LMJ80X",
+    "A32K1M0A36EAK5",
+    "A371SNJNNUY9Z6",
+    "A3BPENSX5EVJ2H",
+    "A3EPIT2P3ISA3K",
+    "A3NYIJYBHAJ74V",
+    "AUFLTHQAXWLH1",
+    "AVINXZZV3FNG7",
+    "A1CD7O60QAQQRT",
+    "A1CF1W8CP0DHB0",
+    "A1PGY59BR6C5BX",
+    "A1YSYI926BBOHW",
+    "A1Z3GFH6MNSU46",
+    "A211KGJ94WNFLN",
+    "A26RPQDD0RQEHL",
+    "A2BUHMLNE3LUU0",
+    "A2J5BRQ88W745H",
+    "A2XIHO2W7EEP32",
+    "A3EZ0H07TSDAPW",
+    "A3FLBC6LC5GJ3W",
+    "A3QLKLIQW1B1FR",
+    "A8F6JFG0WSELT",
+    "A9K6IVBA0J1CX",
+    "ADLZLGHKOAEE6",
+    "AE7NJG0KOVZYJ" ,
+    "AG5RF4UGQJ7A7" ,
+    "AQ9Y6WD8O72ZC" ,
+    "tuturtu",
+    'A1W05TSPORJPXR',
+    'A3SUWCLD1GEGM7',
+    'A3A09JB9X1RBXW',
+    'A7VQQEIBSM9IU',
+    'A8DER1QY96C5X',
+    'A1M8MNKK8H5ZGW',
+    'A34D5D6PU193AR'), ]
+
+
+#get rid of duplicate responses
+d_respondents_noncompliers <- d_respondents_noncompliers[duplicated(d_respondents_noncompliers, by = "Q80") == FALSE, ]
+?duplicated
+nrow(d_respondents_noncompliers)
+
+```
+
+```{r}
+#rename task phase questions
+setnames(d_respondents_noncompliers,
+         old = c('Q2', 'Q42'),
+         new = c('Self_Reflect_Q1', 'Self_Reflect_Q2'))
+
+setnames(d_respondents_noncompliers,
+         old = c('Q69', 'Q89'),
+         new = c('Control_Q1', 'Control_Q2'))
+
+setnames(d_respondents_noncompliers,
+         old = c('Q80', 'Q82', 'Q83', 'Q84', 'SC0', 'FL_6_DO'),
+         new = c('Amazon_Turk_ID', 'Gender', 'Age_Range', 'Education_Level', 'Total_Score', 'Assignment'))
+
+setnames(d_respondents_noncompliers, 
+         old = c('Q1', 'Q5', 'Q6', 'Q7', 'Q16', 'Q17', 'Q18', 'Q19', 'Q20', 'Q21',
+                 'Q8', 'Q9', 'Q10', 'Q11', 'Q22', 'Q23', 'Q24', 'Q25', 'Q26', 'Q27',
+                 'Q12', 'Q13', 'Q14', 'Q15', 'Q28', 'Q29', 'Q30', 'Q31', 'Q32', 'Q33'), 
+         new = c('Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9', 'Q10',
+                 'Q11', 'Q12', 'Q13', 'Q14', 'Q15', 'Q16', 'Q17', 'Q18', 'Q19', 'Q20',
+                 'Q21', 'Q22', 'Q23', 'Q24', 'Q25', 'Q26', 'Q27', 'Q28', 'Q29', 'Q30'))
+
+d_respondents_noncompliers[ , c("Q1_Score", "Q2_Score", "Q3_Score", "Q4_Score", "Q5_Score",
+                        "Q6_Score", "Q7_Score", "Q8_Score", "Q9_Score", "Q10_Score",
+                        "Q11_Score", "Q12_Score", "Q13_Score", "Q14_Score", "Q15_Score", 
+                        "Q16_Score", "Q17_Score", "Q18_Score", "Q19_Score", "Q20_Score", 
+                        "Q21_Score", "Q22_Score", "Q23_Score", "Q24_Score", "Q25_Score", "Q26_Score",
+                        "Q27_Score", "Q28_Score", "Q29_Score", "Q30_Score") := 
+                      list(ifelse(Q1 == "Normal", 1, 0),
+                            ifelse(Q2 == "Normal", 1, 0),
+                            ifelse(Q3 == "Pneumonia", 1, 0),
+                            ifelse(Q4 == "Pneumonia", 1, 0),
+                            ifelse(Q5 == "Normal", 1, 0),
+                            ifelse(Q6 == "Pneumonia", 1, 0),
+                            ifelse(Q7 == "Pneumonia", 1, 0),
+                            ifelse(Q8 == "Normal", 1, 0),
+                            ifelse(Q9 == "Pneumonia", 1, 0),
+                            ifelse(Q10 == "Normal", 1, 0),
+                            ifelse(Q11 == "Pneumonia", 1, 0),
+                            ifelse(Q12 == "Normal", 1, 0),
+                            ifelse(Q13 == "Pneumonia", 1, 0),
+                            ifelse(Q14 == "Pneumonia", 1, 0),
+                            ifelse(Q15 == "Normal", 1, 0),
+                            ifelse(Q16 == "Normal", 1, 0),
+                            ifelse(Q17 == "Pneumonia", 1, 0),
+                            ifelse(Q18 == "Normal", 1, 0),
+                            ifelse(Q19 == "Pneumonia", 1, 0),
+                            ifelse(Q20 == "Normal", 1, 0),
+                            ifelse(Q21 == "Normal", 1, 0),
+                            ifelse(Q22 == "Normal", 1, 0),
+                            ifelse(Q23 == "Pneumonia", 1, 0),
+                            ifelse(Q24 == "Normal", 1, 0),
+                            ifelse(Q25 == "Pneumonia", 1, 0),
+                            ifelse(Q26 == "Pneumonia", 1, 0),
+                            ifelse(Q27 == "Pneumonia", 1, 0),
+                            ifelse(Q28 == "Pneumonia", 1, 0),
+                            ifelse(Q29 == "Normal", 1, 0),
+                            ifelse(Q30 == "Normal", 1, 0))]
+
+d_respondents_noncompliers[ , Assignment_Group := ifelse(Assignment == "FL_17", "Control", 
+                                          ifelse(Assignment == "FL_14", "Self-Reflect",
+                                          ifelse(Assignment == "FL_15", "Medical Feedback",
+                                          ifelse(Assignment == "FL_16", "Positive Images", "Negative Images"))))]
+
+d_respondents_noncompliers[ , c("TaskPhase1_Score", "TaskPhase2_Score", "TaskPhase3_Score") :=
+                      list(sum(Q1_Score, Q2_Score, Q3_Score, Q4_Score, Q5_Score, Q6_Score, Q7_Score, Q8_Score, Q9_Score, Q10_Score)/10,
+                           sum(Q11_Score, Q12_Score, Q13_Score, Q14_Score, Q15_Score, Q16_Score, Q17_Score, Q18_Score, Q19_Score, Q20_Score)/10,
+                           sum(Q21_Score, Q22_Score, Q23_Score, Q24_Score, Q25_Score, Q26_Score, Q27_Score, Q28_Score, Q29_Score, Q30_Score)/10),
+                    by = Amazon_Turk_ID]
+
+```
+
+
+
+```{r}
+
+d_respondents_compliers <- d_respondents[, c("housenumber","street","city",
+                                             "county","state","zip","country",
+                                             "US_Dummy"):=NULL]
+d_respondents_compliers[ , Complier_Dummy := 1]
+
+d_respondents_noncompliers[ , Treatment_Dummy := ifelse(Assignment_Group != "Control", 1, 0)]
+d_respondents_noncompliers[ , Complier_Dummy := 0]
+
+d_merge_respondents_noncompliers_compliers <- rbind(d_respondents_compliers, d_respondents_noncompliers, fill=TRUE)
+
+
+```
+
+```{r}
+
+# d_merge_respondents_noncompliers_compliers[ Treatment_Dummy == 1, mean(TaskPhase2_Score)]
+# d_merge_respondents_noncompliers_compliers[ Treatment_Dummy == 0, mean(TaskPhase2_Score)]
+
+#### Take-Up Rates for Medical Feedback
+total_MedFeedback_compliers <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group=="Medical Feedback" & Complier_Dummy==1, ])
+total_MedFeedback_rows <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group == "Medical Feedback",])
+
+total_MedFeedback_compliers/total_MedFeedback_rows
+
+#### Take-Up Rates for Self-Reflect
+total_selfreflect_compliers <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group=="Self-Reflect" & Complier_Dummy==1, ])
+total_selfreflect_rows <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group == "Self-Reflect",])
+
+total_selfreflect_compliers/total_selfreflect_rows
+
+#### Take-Up Rates for Positive Images
+total_positiveimages_compliers <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group=="Positive Images" & Complier_Dummy==1, ])
+total_positiveimages_rows <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group == "Positive Images",])
+
+total_positiveimages_compliers/total_positiveimages_rows
+
+#### Take-Up Rates for Negative Images
+total_negativeimages_compliers <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group=="Negative Images" & Complier_Dummy==1, ])
+total_negativeimages_rows <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group == "Negative Images",])
+
+total_negativeimages_compliers/total_negativeimages_rows
+
+#### Take-Up Rates for Control
+total_control_compliers <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group=="Control" & Complier_Dummy==1, ])
+total_control_rows <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group == "Control",])
+
+total_control_compliers/total_control_rows
+d_respondents_noncompliers[ , table(Assignment_Group)]
+
+
+```
+
+```{r}
+# Medical Feedback CACE
+ITT <- d_merge_respondents_noncompliers_compliers[ Assignment_Group=="Medical Feedback" , mean(TaskPhase2_Score)] - 
+  d_merge_respondents_noncompliers_compliers[Assignment_Group=="Control" , mean(TaskPhase2_Score)]
+
+ITTd <- total_MedFeedback_compliers/total_MedFeedback_rows
+
+ITT/ITTd
+
+# Positive Images CACE
+ITT <- d_merge_respondents_noncompliers_compliers[ Assignment_Group=="Positive Images" , mean(TaskPhase2_Score)] - 
+  d_merge_respondents_noncompliers_compliers[Assignment_Group=="Control" , mean(TaskPhase2_Score)]
+
+ITTd <- total_positiveimages_compliers/total_positiveimages_rows
+
+ITT/ITTd
+
+# Negative Images CACE
+ITT <- d_merge_respondents_noncompliers_compliers[ Assignment_Group=="Negative Images" , mean(TaskPhase2_Score)] - 
+  d_merge_respondents_noncompliers_compliers[Assignment_Group=="Control" , mean(TaskPhase2_Score)]
+
+ITTd <- total_negativeimages_compliers/total_negativeimages_rows
+
+ITT/ITTd
+
+# Self-Reflect CACE
+ITT <- d_merge_respondents_noncompliers_compliers[ Assignment_Group=="Self-Reflect" , mean(TaskPhase2_Score)] - 
+  d_merge_respondents_noncompliers_compliers[Assignment_Group=="Control" , mean(TaskPhase2_Score)]
+
+ITTd <- total_selfreflect_compliers/total_selfreflect_rows
+
+ITT/ITTd
+
+# Any Treatment CACE
+ITT <- d_merge_respondents_noncompliers_compliers[ Treatment_Dummy==1 , mean(TaskPhase2_Score)] - 
+  d_merge_respondents_noncompliers_compliers[Treatment_Dummy==0 , mean(TaskPhase2_Score)]
+
+ITTd <- nrow(d_merge_respondents_noncompliers_compliers[ Treatment_Dummy == 1 & Complier_Dummy == 1,])/
+  nrow(d_merge_respondents_noncompliers_compliers[Treatment_Dummy == 1])
+
+ITT/ITTd
+
+```
+
+
+```{r}
+test <- d_merge_respondents_noncompliers_compliers[Assignment_Group %in% c("Medical Feedback", "Control"),
+                                                   ivreg(TaskPhase2_Score ~ Complier_Dummy, ~Treatment_Dummy)]
+coeftest(test, vcov. = vcovHC(test, type = "HC1"))
+
+summary(d_merge_respondents_noncompliers_compliers$TaskPhase2_Score)
+
+```
+
+
+```{r}
+#estimate CACE of receiving treatment
+d_merge_respondents_noncompliers_compliers[Assignment_Group %in% c("Medical Feedback", "Control"), 
+                                           ivreg(TaskPhase2_Score ~  Complier_Dummy,
+                                                 ~Treatment_Dummy)]
+
+
 ```
 
 
