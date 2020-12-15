@@ -199,7 +199,7 @@ The Qualtrics flow can be seen below.
 ## Excludability and Non-Interference
 This design also meets the excludability and non-interference assumptions needed to provide an unbiased estimate of the average treatment effect. Once a subject is assigned a treatment group, he or she receives a specific treatment for two separate times since treatment phases alternate with task phases 2 and 3. We meet the excludability assumption since outcomes are measured consistently through all task phases and for all assignment groups. Every task phase is scored on a scale from 1 to 10. Thus, what one subject scored in pre-treatment can be directly compared to what he or she scored in post-treatment. Furthermore, subjects are asked to essentially make diagnoses from looking at X-Ray images. We believe that this is an esoteric topic, which would make it difficult for respondents to perform third-party research while completing the survey. However, we are better able to answer this subject by looking at the completion times below.
 
-```{r}
+```{r, echo=FALSE}
 #n survey responses > 30 mins., take outlier out for analysis but discuss below
 outlier <- round(d_respondents[`Duration (in seconds)` > 60*30, `Duration (in seconds)`/60/60],1)
 completions <- d_respondents[`Duration (in seconds)` < 60*30]
@@ -315,14 +315,12 @@ The experiment started off with 381 surveys sourced through MTurk. Out of this p
 2. Multiple submissions and non-valid entries (n = 5):  The research team’s $1.00 per survey price point was relatively high. As a result, some participants tried to send in multiple survey responses to collect multiple payments or submit an invalid MTurk code (1 instance). In these instances we only paid for (and used) the first survey.
 3. Incomplete surveys (n = 66): Some people started surveys but never finished. This includes those who never completed the last step of the survey by closing out their answers. These responses were thrown out and dealt with as instances of attrition. 
 
-**TODO Add in comparison between treatment and control compliance rate. Chi-sq between comply vs. non-comply and assignment groups.**
-
 Attrition occurred at several steps in the survey. 14 dropped off before Task Phase 1 while collecting demographic information and while entering the MTurk code (did not receive treatment assignment). 20 dropped the survey during the 10 image set in Task Phase 1 or during the first treatment phase. 7 dropped off during Task Phase 2 or during the second treatment phase. 4 dropped out during Task Phase 3 and 21 of these participants had made 99% progress but had failed to close the survey. However, we treated all 66 of the aforementioned incomplete survey responses as part of attrition and were not part of our final analysis.  A funnel diagram below shows the participant drop offs of each type and at each level of the experiment:
 
 ![Survey Funnel Diagram Flow](../final project/images/Blank diagram.png)
 Our exploratory data analysis digged deeper into the attrition category to see if certain control or feedback groups fell off more than others. The negative images and positive images categories showed a statistically significant attrition correlation at a 1% and 10% confidence level respectively. There were similar results on the stage level as the pre-Task Phase 1 and Pre-Submission stages saw statistically significant correlations at the 1% and 5% levels respectively. There was also signficance correlation in the periods at which All of the attrition before Task Phase 1 occured in the negative images category. This is likely an design error. However, since this occured ***before*** random assignment, it should not be cause for concern in our analysis. 
 
-```{r}
+```{r,echo=FALSE,results='asis'}
 #table of when subjects left the experiment
 attrition_table <- as.data.frame.matrix(d_attrition[, addmargins(table(Assignment_Group, Attrition_Stage))])
 
@@ -342,16 +340,26 @@ kable(attrition_prop_table, caption = "Attrition Proportions by Stage and Feedba
   column_spec(1, italic = T) # format first column
 
 #Negative Images proportion test
-prop.test(attrition_table[3,], attrition_table[6,])
+# pander(prop.test(attrition_table[3,], attrition_table[6,],))
+pander(fisher.test(cbind(t(attrition_table[3,]),t(attrition_table[6,])))) # TODO perhaps not need this?
 
 #Positive Images proportion test
-prop.test(attrition_table[4,], attrition_table[6,])
+# pander(prop.test(attrition_table[4,], attrition_table[6,]))
+pander(fisher.test(cbind(t(attrition_table[4,]),t(attrition_table[6,])))) #  TODO perhaps not need this?
 
 #before submission prop test
-prop.test(attrition_table[,1], attrition_table[,5])
+# pander(prop.test(attrition_table[,1], attrition_table[,5]))
+pander(fisher.test(attrition_table[,c(1,5)]))
 
 #before task phase 1 prop test
-prop.test(attrition_table[,2], attrition_table[,5])
+# pander(prop.test(attrition_table[,2], attrition_table[,5]))
+pander(fisher.test(attrition_table[,c(2,5)])) # This is due to a coding error on our part.
+
+#before task phase 2
+pander(fisher.test(attrition_table[,c(3,5)]))
+
+#before task phase 3
+pander(fisher.test(attrition_table[,c(4,5)]))
 ```
 
 # Results
@@ -563,7 +571,7 @@ The findings may be attributed to a number of underlying factors. For example, m
 
 ### Exploratory Discussion - Noncompliance During Task Phases
 Based on our definition of noncompliance, we do not consider noncompliance during the treatment phases. Although we have excluded noncompliers from our main regressions, for exploratory reasons, we can consider a scenario in which we do include them in our analysis.
-We start with examining the distribution of noncompliers across control and treatment groups. Interestingly, there are more noncompliers in the "Negative Images" treatment group than in any other group. We run a pair-wise proportions test to see whether the take-up rates across treatment groups are similar. Because we are making multiple comparisons, we use the Boneferroni correction and we seethere are no statistically significant differences between take-up rates across groups at the p = 0.05 level. 
+We start with examining the distribution of noncompliers across control and treatment groups. Interestingly, there are more noncompliers in the "Negative Images" treatment group than in any other group. We run a pair-wise proportions test to see whether the take-up rates across treatment groups are similar. Because we are making multiple comparisons, we use the Boneferroni correction and we see there are no statistically significant differences between take-up rates across groups at the p = 0.05 level. 
 
 
 ```{r, echo=FALSE}
