@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  14 DEC 2020 23:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  15 DEC 2020 12:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -300,69 +300,46 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layouthoffset=\dimen155
 \Gm@layoutvoffset=\dimen156
 \Gm@dimlist=\toks25
-) (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2019/11/23 v1.2a Standard LaTeX Color (DPC)
-(/usr/local/texlive/2020/texmf-dist/tex/latex/graphics-cfg/color.cfg
-File: color.cfg 2016/01/02 v1.6 sample color configuration
-)
-Package color Info: Driver file: pdftex.def on input line 147.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
-)) (/usr/local/texlive/2020/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
-Package: fancyvrb 2020/01/13 v3.5 verbatim text (tvz,hv)
-\FV@CodeLineNo=\count269
-\FV@InFile=\read2
-\FV@TabBox=\box47
-\c@FancyVerbLine=\count270
-\FV@StepNumber=\count271
-\FV@OutFile=\write3
-) (/usr/local/texlive/2020/texmf-dist/tex/latex/framed/framed.sty
-Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
-\OuterFrameSep=\skip54
-\fb@frw=\dimen157
-\fb@frh=\dimen158
-\FrameRule=\dimen159
-\FrameSep=\dimen160
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
-\LTleft=\skip55
-\LTright=\skip56
-\LTpre=\skip57
-\LTpost=\skip58
-\LTchunksize=\count272
-\LTcapwidth=\dimen161
-\LT@head=\box48
-\LT@firsthead=\box49
-\LT@foot=\box50
-\LT@lastfoot=\box51
-\LT@cols=\count273
-\LT@rows=\count274
-\c@LT@tables=\count275
-\c@LT@chunks=\count276
+\LTleft=\skip54
+\LTright=\skip55
+\LTpre=\skip56
+\LTpost=\skip57
+\LTchunksize=\count269
+\LTcapwidth=\dimen157
+\LT@head=\box47
+\LT@firsthead=\box48
+\LT@foot=\box49
+\LT@lastfoot=\box50
+\LT@cols=\count270
+\LT@rows=\count271
+\c@LT@tables=\count272
+\c@LT@chunks=\count273
 \LT@p@ftn=\toks26
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen162
-\lightrulewidth=\dimen163
-\cmidrulewidth=\dimen164
-\belowrulesep=\dimen165
-\belowbottomsep=\dimen166
-\aboverulesep=\dimen167
-\abovetopsep=\dimen168
-\cmidrulesep=\dimen169
-\cmidrulekern=\dimen170
-\defaultaddspace=\dimen171
-\@cmidla=\count277
-\@cmidlb=\count278
-\@aboverulesep=\dimen172
-\@belowrulesep=\dimen173
-\@thisruleclass=\count279
-\@lastruleclass=\count280
-\@thisrulewidth=\dimen174
+\heavyrulewidth=\dimen158
+\lightrulewidth=\dimen159
+\cmidrulewidth=\dimen160
+\belowrulesep=\dimen161
+\belowbottomsep=\dimen162
+\aboverulesep=\dimen163
+\abovetopsep=\dimen164
+\cmidrulesep=\dimen165
+\cmidrulekern=\dimen166
+\defaultaddspace=\dimen167
+\@cmidla=\count274
+\@cmidlb=\count275
+\@aboverulesep=\dimen168
+\@belowrulesep=\dimen169
+\@thisruleclass=\count276
+\@lastruleclass=\count277
+\@thisrulewidth=\dimen170
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/mdwtools/footnote.sty
 Package: footnote 1997/01/28 1.13 Save footnotes around boxes
-\fn@notes=\box52
-\fn@width=\dimen175
+\fn@notes=\box51
+\fn@width=\dimen171
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
 (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/graphics.sty
@@ -373,9 +350,11 @@ Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 105.
-)
-\Gin@req@height=\dimen176
-\Gin@req@width=\dimen177
+(/usr/local/texlive/2020/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen172
+\Gin@req@width=\dimen173
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/grffile/grffile.sty
 Package: grffile 2019/11/11 v2.1 Extended file name support for graphics (legac
 y)
@@ -383,37 +362,44 @@ Package grffile Info: This package is an empty stub for compatibility on input
 line 40.
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/tools/array.sty
 Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
-\col@sep=\dimen178
-\ar@mcellbox=\box53
-\extrarowheight=\dimen179
+\col@sep=\dimen174
+\ar@mcellbox=\box52
+\extrarowheight=\dimen175
 \NC@list=\toks27
-\extratabsurround=\skip59
-\backup@length=\skip60
-\ar@cellbox=\box54
+\extratabsurround=\skip58
+\backup@length=\skip59
+\ar@cellbox=\box53
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2019/05/31 v2.5 Span multiple rows of a table
-\multirow@colwidth=\skip61
-\multirow@cntb=\count281
-\multirow@dima=\skip62
-\bigstrutjot=\dimen180
+\multirow@colwidth=\skip60
+\multirow@cntb=\count278
+\multirow@dima=\skip61
+\bigstrutjot=\dimen176
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/wrapfig/wrapfig.sty
-\wrapoverhang=\dimen181
-\WF@size=\dimen182
-\c@WF@wrappedlines=\count282
-\WF@box=\box55
+\wrapoverhang=\dimen177
+\WF@size=\dimen178
+\c@WF@wrappedlines=\count279
+\WF@box=\box54
 \WF@everypar=\toks28
 Package: wrapfig 2003/01/31  v 3.6
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count283
+\c@float@type=\count280
 \float@exts=\toks29
-\float@box=\box56
+\float@box=\box55
 \@float@everytoks=\toks30
-\@floatcapt=\box57
+\@floatcapt=\box56
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/colortbl/colortbl.sty
 Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2019/11/23 v1.2a Standard LaTeX Color (DPC)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+)
 \everycr=\toks31
-\minrowclearance=\skip63
+\minrowclearance=\skip62
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
 (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/lscape.sty
@@ -424,37 +410,37 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
 (/usr/local/texlive/2020/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box58
-\sift@deathcycles=\count284
-\@vwid@loff=\dimen183
-\@vwid@roff=\dimen184
+\@vwid@box=\box57
+\sift@deathcycles=\count281
+\@vwid@loff=\dimen179
+\@vwid@roff=\dimen180
 )
-\c@taburow=\count285
-\tabu@nbcols=\count286
-\tabu@cnt=\count287
-\tabu@Xcol=\count288
-\tabu@alloc=\count289
-\tabu@nested=\count290
-\tabu@target=\dimen185
-\tabu@spreadtarget=\dimen186
-\tabu@naturalX=\dimen187
-\tabucolX=\dimen188
-\tabu@Xsum=\dimen189
-\extrarowdepth=\dimen190
-\abovetabulinesep=\dimen191
-\belowtabulinesep=\dimen192
-\tabustrutrule=\dimen193
+\c@taburow=\count282
+\tabu@nbcols=\count283
+\tabu@cnt=\count284
+\tabu@Xcol=\count285
+\tabu@alloc=\count286
+\tabu@nested=\count287
+\tabu@target=\dimen181
+\tabu@spreadtarget=\dimen182
+\tabu@naturalX=\dimen183
+\tabucolX=\dimen184
+\tabu@Xsum=\dimen185
+\extrarowdepth=\dimen186
+\abovetabulinesep=\dimen187
+\belowtabulinesep=\dimen188
+\tabustrutrule=\dimen189
 \tabu@thebody=\toks32
 \tabu@footnotes=\toks33
-\tabu@box=\box59
-\tabu@arstrutbox=\box60
-\tabu@hleads=\box61
-\tabu@vleads=\box62
-\tabu@cellskip=\skip64
+\tabu@box=\box58
+\tabu@arstrutbox=\box59
+\tabu@hleads=\box60
+\tabu@vleads=\box61
+\tabu@cellskip=\skip63
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/threeparttable/threeparttable.sty
 Package: threeparttable 2003/06/13  v 3.0
-\@tempboxb=\box63
+\@tempboxb=\box62
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/threeparttablex/threeparttablex.s
 ty
@@ -464,22 +450,22 @@ Package: environ 2014/05/04 v0.3 A new way to define environments
 (/usr/local/texlive/2020/texmf-dist/tex/latex/trimspaces/trimspaces.sty
 Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ))
-\TPTL@width=\skip65
+\TPTL@width=\skip64
 ) (/usr/local/texlive/2020/texmf-dist/tex/generic/ulem/ulem.sty
-\UL@box=\box64
-\UL@hyphenbox=\box65
-\UL@skip=\skip66
+\UL@box=\box63
+\UL@hyphenbox=\box64
+\UL@skip=\skip65
 \UL@hook=\toks34
-\UL@height=\dimen194
-\UL@pe=\count291
-\UL@pixel=\dimen195
-\ULC@box=\box66
+\UL@height=\dimen190
+\UL@pe=\count288
+\UL@pixel=\dimen191
+\ULC@box=\box65
 Package: ulem 2019/11/18
-\ULdepth=\dimen196
+\ULdepth=\dimen192
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/makecell/makecell.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
-\rotheadsize=\dimen197
-\c@nlinenum=\count292
+\rotheadsize=\dimen193
+\c@nlinenum=\count289
 \TeXr@lab=\toks35
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
@@ -499,8 +485,8 @@ Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count293
-\l__pdf_internal_box=\box67
+\l__kernel_color_stack_int=\count290
+\l__pdf_internal_box=\box66
 ) (./w241_final_report.aux
 
 LaTeX Warning: Label `tab:unnamed-chunk-6' multiply defined.
@@ -508,32 +494,32 @@ LaTeX Warning: Label `tab:unnamed-chunk-6' multiply defined.
 )
 \openout1 = `w241_final_report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 136.
-LaTeX Font Info:    ... okay on input line 136.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 136.
-LaTeX Font Info:    ... okay on input line 136.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 136.
-LaTeX Font Info:    ... okay on input line 136.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 136.
-LaTeX Font Info:    ... okay on input line 136.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 136.
-LaTeX Font Info:    ... okay on input line 136.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 136.
-LaTeX Font Info:    ... okay on input line 136.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 136.
-LaTeX Font Info:    ... okay on input line 136.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 136.
-LaTeX Font Info:    ... okay on input line 136.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 136.
-LaTeX Font Info:    ... okay on input line 136.
-LaTeX Info: Redefining \microtypecontext on input line 136.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Info: Redefining \microtypecontext on input line 96.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `basictext'.
-LaTeX Info: Redefining \showhyphens on input line 136.
+LaTeX Info: Redefining \showhyphens on input line 96.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -541,8 +527,8 @@ Package microtype Info: No adjustment of character kerning.
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-\AtBeginShipoutBox=\box68
-Package hyperref Info: Link coloring OFF on input line 136.
+\AtBeginShipoutBox=\box67
+Package hyperref Info: Link coloring OFF on input line 96.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 (/usr/local/texlive/2020/texmf-dist/tex/latex/refcount/refcount.sty
@@ -552,14 +538,14 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count294
+\c@section@level=\count291
 )
-LaTeX Info: Redefining \ref on input line 136.
-LaTeX Info: Redefining \pageref on input line 136.
-LaTeX Info: Redefining \nameref on input line 136.
+LaTeX Info: Redefining \ref on input line 96.
+LaTeX Info: Redefining \pageref on input line 96.
+LaTeX Info: Redefining \nameref on input line 96.
 (./w241_final_report.out) (./w241_final_report.out)
-\@outlinefile=\write4
-\openout4 = `w241_final_report.out'.
+\@outlinefile=\write3
+\openout3 = `w241_final_report.out'.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -597,16 +583,16 @@ LaTeX Info: Redefining \nameref on input line 136.
 
 (/usr/local/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count295
-\scratchdimen=\dimen198
-\scratchbox=\box69
-\nofMPsegments=\count296
-\nofMParguments=\count297
+\scratchcounter=\count292
+\scratchdimen=\dimen194
+\scratchbox=\box68
+\nofMPsegments=\count293
+\nofMParguments=\count294
 \everyMPshowfont=\toks36
-\MPscratchCnt=\count298
-\MPscratchDim=\dimen199
-\MPnumerator=\count299
-\makeMPintoPDFobject=\count300
+\MPscratchCnt=\count295
+\MPscratchDim=\dimen195
+\MPnumerator=\count296
+\makeMPintoPDFobject=\count297
 \everyMPtoPDFconversion=\toks37
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -616,41 +602,41 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-38.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 9
+8.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-38.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 9
+8.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-138.
+98.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-138.
+98.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 138.
+(Font)              <12> on input line 98.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 138.
+(Font)              <8> on input line 98.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 138.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 138
-.
+(Font)              <6> on input line 98.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 98.
+
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 138
-.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 98.
+
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/mt-msb.cfg
@@ -663,588 +649,544 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 4.
 )
-\tf@toc=\write5
-\openout5 = `w241_final_report.toc'.
+\tf@toc=\write4
+\openout4 = `w241_final_report.toc'.
 
 [1
 
 {/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-99.
+61.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [3]
-<../final project/images/flow_diagram.png, id=139, 1262.7175pt x 542.025pt>
+<../final project/images/flow_diagram.png, id=140, 1262.7175pt x 542.025pt>
 File: ../final project/images/flow_diagram.png Graphic file (type png)
 <use ../final project/images/flow_diagram.png>
 Package pdftex.def Info: ../final project/images/flow_diagram.png  used on inpu
-t line 270.
+t line 232.
 (pdftex.def)             Requested size: 469.76074pt x 201.6461pt.
 [4pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.278 
+l.240 
        <../final project/images/flow_diagram.png>]
-
-Package xcolor Warning: Incompatible color definition on input line 279.
-
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-80.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 282.
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-282.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/lm/ts1lmtt.fd
-File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-
-Package xcolor Warning: Incompatible color definition on input line 297.
-
-
-Package xcolor Warning: Incompatible color definition on input line 297.
-
-<w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf, id=151, 453.695pt 
-x 313.17pt>
+<w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf, id=152, 454.69875p
+t x 313.17pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-4-1
-.pdf  used on input line 299.
-(pdftex.def)             Requested size: 453.6939pt x 313.16922pt.
+.pdf  used on input line 241.
+(pdftex.def)             Requested size: 454.70456pt x 313.174pt.
 [5 <./w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 346--346
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
+88.
+(/usr/local/texlive/2020/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+Underfull \hbox (badness 10000) in paragraph at lines 288--288
 []\T1/lmr/m/n/10 (+20) Table 3: Welch Two Sam-ple t-test:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 346--346
+Underfull \hbox (badness 10000) in paragraph at lines 288--288
 \T1/lmtt/m/n/10 d_respondents[Treatment_Dummy == 0, TaskPhase1_Score]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 346--346
+Underfull \hbox (badness 10000) in paragraph at lines 288--288
 \T1/lmr/m/n/10 (+20) and \T1/lmtt/m/n/10 d_respondents[Treatment_Dummy == 1,
  []
 
-<w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf, id=170, 464.73625p
+<w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf, id=168, 464.73625p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-5-1
-.pdf  used on input line 458.
+.pdf  used on input line 400.
 (pdftex.def)             Requested size: 464.74928pt x 316.19011pt.
-<w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf, id=171, 468.75125p
+<w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf, id=169, 468.75125p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-5-2
-.pdf  used on input line 458.
+.pdf  used on input line 400.
 (pdftex.def)             Requested size: 468.75009pt x 316.18047pt.
-<w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf, id=172, 468.75125p
+<w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf, id=170, 468.75125p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-5-3
-.pdf  used on input line 458.
+.pdf  used on input line 400.
 (pdftex.def)             Requested size: 468.75009pt x 316.18047pt.
-<w241_final_report_files/figure-latex/unnamed-chunk-5-4.pdf, id=173, 464.73625p
+<w241_final_report_files/figure-latex/unnamed-chunk-5-4.pdf, id=171, 464.73625p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-4.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-5-4.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-5-4
-.pdf  used on input line 458.
+.pdf  used on input line 400.
 (pdftex.def)             Requested size: 464.74928pt x 316.19011pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 458--459
+Underfull \hbox (badness 10000) in paragraph at lines 400--401
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 458--459
+Underfull \hbox (badness 10000) in paragraph at lines 400--401
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 458--459
+Underfull \hbox (badness 10000) in paragraph at lines 400--401
 []
  []
 
-[6] [7 <./w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf> <./w241_f
-inal_report_files/figure-latex/unnamed-chunk-5-2.pdf>] [8 <./w241_final_report_
-files/figure-latex/unnamed-chunk-5-3.pdf> <./w241_final_report_files/figure-lat
-ex/unnamed-chunk-5-4.pdf>] [9]
-<../final project/images/Blank diagram.png, id=242, 813.0375pt x 261.97874pt>
+[6 <./w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf>] [7 <./w241_f
+inal_report_files/figure-latex/unnamed-chunk-5-2.pdf> <./w241_final_report_file
+s/figure-latex/unnamed-chunk-5-3.pdf>] [8 <./w241_final_report_files/figure-lat
+ex/unnamed-chunk-5-4.pdf>]
+<../final project/images/Blank diagram.png, id=231, 813.0375pt x 261.97874pt>
 File: ../final project/images/Blank diagram.png Graphic file (type png)
 <use ../final project/images/Blank diagram.png>
 Package pdftex.def Info: ../final project/images/Blank diagram.png  used on inp
-ut line 530.
+ut line 470.
 (pdftex.def)             Requested size: 469.75082pt x 151.36414pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 530--532
+Underfull \hbox (badness 10000) in paragraph at lines 470--472
 [][]
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 533.
-
-
-Package xcolor Warning: Incompatible color definition on input line 544.
-
-
-Package xcolor Warning: Incompatible color definition on input line 544.
-
-
-Overfull \hbox (25.89828pt too wide) in paragraph at lines 550--569
+Overfull \hbox (25.89828pt too wide) in paragraph at lines 477--496
  [][] 
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 571.
-
-
-Package xcolor Warning: Incompatible color definition on input line 582.
-
-
-Package xcolor Warning: Incompatible color definition on input line 582.
-
-
-Overfull \hbox (26.89876pt too wide) in paragraph at lines 588--607
+Overfull \hbox (26.89876pt too wide) in paragraph at lines 502--521
  [][] 
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 609.
+Underfull \hbox (badness 10000) in paragraph at lines 524--524
+[]\T1/lmr/m/n/10 (+20) Table 7: Fisher's Ex-act Test for Count Data:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 524--524
+\T1/lmtt/m/n/10 cbind(t(attrition_table[3, ]), t(attrition_table[6,
+ []
+
+[9 <../final project/images/Blank diagram.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 550--550
+[]\T1/lmr/m/n/10 (+20) Table 8: Fisher's Ex-act Test for Count Data:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 550--550
+\T1/lmtt/m/n/10 cbind(t(attrition_table[4, ]), t(attrition_table[6,
+ []
+
+
+Overfull \vbox (301.72551pt too high) has occurred while \output is active []
 
 [10pdfTeX warning (ext4): destination with the same identifier (name{table.5}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.609 \begin{Shaded}
-                     <../final project/images/Blank diagram.png>]
-
-Package xcolor Warning: Incompatible color definition on input line 614.
-
-
-Package xcolor Warning: Incompatible color definition on input line 614.
-
-
-Package xcolor Warning: Incompatible color definition on input line 634.
-
-
-Package xcolor Warning: Incompatible color definition on input line 639.
-
-
-Package xcolor Warning: Incompatible color definition on input line 639.
-
-
-Package xcolor Warning: Incompatible color definition on input line 659.
-
-
-Package xcolor Warning: Incompatible color definition on input line 664.
-
-
-Package xcolor Warning: Incompatible color definition on input line 664.
-
-[11pdfTeX warning (ext4): destination with the same identifier (name{table.6}) 
-has been already used, duplicate ignored
+l.689   D
+         ifferences in individual treatment groups: The second comparison fo...
+pdfTeX warning (ext4): destination with the same identifier (name{table.6}) has
+ been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.682 \end{verbatim}
-                    ]
-
-Package xcolor Warning: Incompatible color definition on input line 684.
-
-
-Package xcolor Warning: Incompatible color definition on input line 689.
-
-
-Package xcolor Warning: Incompatible color definition on input line 689.
-
-<w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf, id=255, 458.71375p
+l.689   D
+         ifferences in individual treatment groups: The second comparison fo...
+]
+<w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf, id=256, 458.71375p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-7-1
-.pdf  used on input line 728.
+.pdf  used on input line 698.
 (pdftex.def)             Requested size: 458.73363pt x 316.19493pt.
-[12]
-Underfull \hbox (badness 10000) in paragraph at lines 737--737
-[]\T1/lmr/m/n/10 (+20) Table 7: Welch Two Sam-ple t-test:
+
+Underfull \hbox (badness 10000) in paragraph at lines 707--707
+[]\T1/lmr/m/n/10 (+20) Table 13: Welch Two Sam-ple t-test:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 737--737
+Underfull \hbox (badness 10000) in paragraph at lines 707--707
 \T1/lmtt/m/n/10 d_respondents[Treatment_Dummy == 0, TaskPhase2_Score]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 737--737
+Underfull \hbox (badness 10000) in paragraph at lines 707--707
 \T1/lmr/m/n/10 (+20) and \T1/lmtt/m/n/10 d_respondents[Treatment_Dummy == 1,
  []
 
-<w241_final_report_files/figure-latex/unnamed-chunk-9-1.pdf, id=264, 458.71375p
+[11 <./w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf>]
+<w241_final_report_files/figure-latex/unnamed-chunk-9-1.pdf, id=280, 458.71375p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-9-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-9-1
-.pdf  used on input line 789.
+.pdf  used on input line 759.
 (pdftex.def)             Requested size: 458.73363pt x 316.19493pt.
-[13 <./w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf>] [14 <./w241
-_final_report_files/figure-latex/unnamed-chunk-9-1.pdf>]
+[12 <./w241_final_report_files/figure-latex/unnamed-chunk-9-1.pdf>] [13pdfTeX w
+arning (ext4): destination with the same identifier (name{table.14}) has been a
+lready used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.820 
+      ] [14]
 
 LaTeX Warning: Reference `tab:model2_ftest' on page 15 undefined on input line 
-891.
+861.
 
-[15] [16pdfTeX warning (ext4): destination with the same identifier (name{table
-.8}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.935 \end{table}
-                 ] [17pdfTeX warning (ext4): destination with the same identifi
-er (name{table.11}) has been already used, duplicate ignored
+[15pdfTeX warning (ext4): destination with the same identifier (name{table.17})
+ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.956 T
-       he findings may be attributed to a number of underlying factors. For ...
-]
-
-Package xcolor Warning: Incompatible color definition on input line 964.
-
-
-Package xcolor Warning: Incompatible color definition on input line 968.
-
-
-Package xcolor Warning: Incompatible color definition on input line 968.
-
-
-Package xcolor Warning: Incompatible color definition on input line 986.
-
-
-Package xcolor Warning: Incompatible color definition on input line 993.
-
-
-Package xcolor Warning: Incompatible color definition on input line 993.
-
-
-Overfull \hbox (1136.74031pt too wide) in paragraph at lines 1008--1008
-[]\T1/lmtt/m/n/10 ## data:  c(total_MedFeedback_compliers, total_selfreflect_co
-mpliers, total_positiveimages_compliers,  out of c(total_MedFeedback_rows, tota
-l_selfreflect_rows, total_positiveimages_rows,      total_negativeimages_compli
-ers, total_control_compliers) out of     total_negativeimages_rows, total_contr
-ol_rows)[] 
+l.923 
+      ]
+Overfull \hbox (11.93445pt too wide) in paragraph at lines 971--973
+[]\T1/lmr/bx/n/10 data.name\T1/lmr/m/n/10 (-20) : \T1/lmr/m/it/10 (-20) c(total
+_MedFeedback_compliers, to-tal_selfreflect_compliers, to-tal_positiveimages_com
+pliers,
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 1010.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1017.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1017.
-
-
-Overfull \hbox (1131.49033pt too wide) in paragraph at lines 1030--1030
-[]\T1/lmtt/m/n/10 ## data:  c(total_MedFeedback_compliers, total_selfreflect_co
-mpliers, total_positiveimages_compliers,  out of c(total_MedFeedback_rows, tota
-l_selfreflect_rows, total_positiveimages_rows,     total_negativeimages_complie
-rs, total_control_compliers) out of     total_negativeimages_rows, total_contro
-l_rows)[] 
+Underfull \hbox (badness 10000) in paragraph at lines 971--973
+\T1/lmr/m/n/10 (+20) tal_negativeimages_compliers, to-tal_control_compliers) ou
+t of to-tal_negativeimages_rows,
  []
 
-[18]
 
-Package xcolor Warning: Incompatible color definition on input line 1034.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1042.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1042.
+Underfull \hbox (badness 1824) in paragraph at lines 1041--1041
+[]\T1/lmr/m/n/10 (+20) Table 21: 5-sample test for equal-ity of pro-por-tions w
+ith-
+ []
 
 
-Package xcolor Warning: Incompatible color definition on input line 1069.
-
-[19]
-
-Package xcolor Warning: Incompatible color definition on input line 1075.
+Overfull \hbox (25.9191pt too wide) in paragraph at lines 1041--1041
+\T1/lmtt/m/n/10 total_selfreflect_compliers, total_positiveimages_compliers,
+ []
 
 
-Package xcolor Warning: Incompatible color definition on input line 1075.
+Underfull \hbox (badness 10000) in paragraph at lines 1041--1041
+\T1/lmtt/m/n/10 out of c(total_MedFeedback_rows,
+ []
 
-<w241_final_report_files/figure-latex/unnamed-chunk-17-1.pdf, id=341, 453.695pt
- x 316.18124pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 1041--1041
+\T1/lmtt/m/n/10 total_selfreflect_rows, total_positiveimages_rows,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1041--1041
+\T1/lmtt/m/n/10 total_negativeimages_compliers,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1041--1041
+\T1/lmtt/m/n/10 total_control_compliers) out of
+ []
+
+[16] [17]
+<w241_final_report_files/figure-latex/unnamed-chunk-17-1.pdf, id=340, 454.69875
+pt x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-17-1.pdf Graphic file 
 (type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-17-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-17-
-1.pdf  used on input line 1089.
-(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-
-Package xcolor Warning: Incompatible color definition on input line 1091.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1095.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1095.
-
-<w241_final_report_files/figure-latex/unnamed-chunk-17-2.pdf, id=342, 453.695pt
- x 316.18124pt>
+1.pdf  used on input line 1156.
+(pdftex.def)             Requested size: 454.70456pt x 316.18529pt.
+<w241_final_report_files/figure-latex/unnamed-chunk-17-2.pdf, id=341, 454.69875
+pt x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-17-2.pdf Graphic file 
 (type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-17-2.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-17-
-2.pdf  used on input line 1105.
-(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
+2.pdf  used on input line 1156.
+(pdftex.def)             Requested size: 454.70456pt x 316.18529pt.
 
-Package xcolor Warning: Incompatible color definition on input line 1107.
-
-[20 <./w241_final_report_files/figure-latex/unnamed-chunk-17-1.pdf>]
-
-Package xcolor Warning: Incompatible color definition on input line 1112.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1112.
-
-
-Overfull \hbox (800.74129pt too wide) in paragraph at lines 1126--1126
-[]\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Medical 
-Feedback"),  and d_noncompliance_1[Assignment_Group %in% c("Self-Reflect") & Tr
-eatment_Phase1_SubmitTime <     Treatment_Phase1_SubmitTime] and     250, Treat
-ment_Phase1_SubmitTime][] 
+Underfull \hbox (badness 10000) in paragraph at lines 1156--1157
+[][]
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 1128.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1133.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1133.
-
-
-Overfull \hbox (800.74129pt too wide) in paragraph at lines 1147--1147
-[]\T1/lmtt/m/n/10 ## data:  d_noncompliance_2[Assignment_Group %in% c("Medical 
-Feedback"),  and d_noncompliance_2[Assignment_Group %in% c("Self-Reflect") & Tr
-eatment_Phase2_SubmitTime <     Treatment_Phase2_SubmitTime] and     250, Treat
-ment_Phase2_SubmitTime][] 
- []
-
-[21 <./w241_final_report_files/figure-latex/unnamed-chunk-17-2.pdf>]
-
-Package xcolor Warning: Incompatible color definition on input line 1149.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1155.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1155.
-
-
-Overfull \hbox (632.74178pt too wide) in paragraph at lines 1169--1169
-[]\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Medical 
-Feedback"),  and d_noncompliance_2[Assignment_Group %in% c("Medical Feedback"),
-     Treatment_Phase1_SubmitTime] and     Treatment_Phase2_SubmitTime][] 
+Underfull \hbox (badness 10000) in paragraph at lines 1159--1159
+[]\T1/lmr/m/n/10 (+20) Table 23: Welch Two Sam-ple t-test:
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 1171.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1177.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1177.
-
-
-Overfull \hbox (522.4921pt too wide) in paragraph at lines 1191--1191
-[]\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Self-Ref
-lect"), Treatment_Phase1_SubmitTime] and d_noncompliance_2[Assignment_Group %in
-% c("Self-Reflect"), Treatment_Phase2_SubmitTime][] 
+Underfull \hbox (badness 10000) in paragraph at lines 1159--1159
+\T1/lmtt/m/n/10 d_noncompliance_1[Assignment_Group %in% c("Medical
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 1197.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1203.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1203.
-
-<w241_final_report_files/figure-latex/unnamed-chunk-18-1.pdf, id=371, 453.695pt
- x 316.18124pt>
-File: w241_final_report_files/figure-latex/unnamed-chunk-18-1.pdf Graphic file 
-(type pdf)
-<use w241_final_report_files/figure-latex/unnamed-chunk-18-1.pdf>
-Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-18-
-1.pdf  used on input line 1213.
-(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-
-Package xcolor Warning: Incompatible color definition on input line 1215.
-
-[22]
-
-Package xcolor Warning: Incompatible color definition on input line 1219.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1219.
-
-<w241_final_report_files/figure-latex/unnamed-chunk-18-2.pdf, id=376, 453.695pt
- x 316.18124pt>
-File: w241_final_report_files/figure-latex/unnamed-chunk-18-2.pdf Graphic file 
-(type pdf)
-<use w241_final_report_files/figure-latex/unnamed-chunk-18-2.pdf>
-Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-18-
-2.pdf  used on input line 1229.
-(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-
-Package xcolor Warning: Incompatible color definition on input line 1231.
-
-[23 <./w241_final_report_files/figure-latex/unnamed-chunk-18-1.pdf>]
-
-Package xcolor Warning: Incompatible color definition on input line 1236.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1236.
-
-
-Overfull \hbox (811.24126pt too wide) in paragraph at lines 1250--1250
-[]\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Positive
- Images"),  and d_noncompliance_1[Assignment_Group %in% c("Negative Images") & 
-    Treatment_Phase1_SubmitTime] and     Treatment_Phase1_SubmitTime < 150, Tre
-atment_Phase1_SubmitTime][] 
+Underfull \hbox (badness 10000) in paragraph at lines 1159--1159
+\T1/lmtt/m/n/10 Feedback"), \T1/lmr/m/n/10 (+20) and \T1/lmtt/m/n/10 d_noncompl
+iance_1[Assignment_Group
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 1252.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1257.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1257.
-
-
-Overfull \hbox (811.24126pt too wide) in paragraph at lines 1271--1271
-[]\T1/lmtt/m/n/10 ## data:  d_noncompliance_2[Assignment_Group %in% c("Positive
- Images"),  and d_noncompliance_2[Assignment_Group %in% c("Negative Images") & 
-    Treatment_Phase2_SubmitTime] and     Treatment_Phase2_SubmitTime < 150, Tre
-atment_Phase2_SubmitTime][] 
- []
-
-[24 <./w241_final_report_files/figure-latex/unnamed-chunk-18-2.pdf>]
-
-Package xcolor Warning: Incompatible color definition on input line 1273.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1279.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1279.
-
-
-Overfull \hbox (622.2418pt too wide) in paragraph at lines 1293--1293
-[]\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Positive
- Images"),  and d_noncompliance_2[Assignment_Group %in% c("Positive Images"),  
-   Treatment_Phase1_SubmitTime] and     Treatment_Phase2_SubmitTime][] 
+Underfull \hbox (badness 10000) in paragraph at lines 1159--1159
+\T1/lmtt/m/n/10 %in% c("Self-Reflect") & Treatment_Phase1_SubmitTime
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 1295.
+Underfull \hbox (badness 10000) in paragraph at lines 1159--1159
+\T1/lmtt/m/n/10 <     Treatment_Phase1_SubmitTime] \T1/lmr/m/n/10 (+20) and \T1
+/lmtt/m/n/10 250,
+ []
 
-
-Package xcolor Warning: Incompatible color definition on input line 1301.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1301.
-
-
-Overfull \hbox (622.2418pt too wide) in paragraph at lines 1315--1315
-[]\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Negative
- Images"),  and d_noncompliance_2[Assignment_Group %in% c("Negative Images"),  
-   Treatment_Phase1_SubmitTime] and     Treatment_Phase2_SubmitTime][] 
+[18 <./w241_final_report_files/figure-latex/unnamed-chunk-17-1.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 1173--1173
+[]\T1/lmr/m/n/10 (+20) Table 24: Welch Two Sam-ple t-test:
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 1321.
+Underfull \hbox (badness 10000) in paragraph at lines 1173--1173
+\T1/lmtt/m/n/10 d_noncompliance_2[Assignment_Group %in% c("Medical
+ []
 
 
-Package xcolor Warning: Incompatible color definition on input line 1327.
+Underfull \hbox (badness 10000) in paragraph at lines 1173--1173
+\T1/lmtt/m/n/10 Feedback"), \T1/lmr/m/n/10 (+20) and \T1/lmtt/m/n/10 d_noncompl
+iance_2[Assignment_Group
+ []
 
 
-Package xcolor Warning: Incompatible color definition on input line 1327.
+Underfull \hbox (badness 10000) in paragraph at lines 1173--1173
+\T1/lmtt/m/n/10 %in% c("Self-Reflect") & Treatment_Phase2_SubmitTime
+ []
 
-<w241_final_report_files/figure-latex/unnamed-chunk-19-1.pdf, id=405, 453.695pt
+
+Underfull \hbox (badness 10000) in paragraph at lines 1173--1173
+\T1/lmtt/m/n/10 <     Treatment_Phase2_SubmitTime] \T1/lmr/m/n/10 (+20) and \T1
+/lmtt/m/n/10 250,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1187--1187
+[]\T1/lmr/m/n/10 (+20) Table 25: Welch Two Sam-ple t-test:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1187--1187
+\T1/lmtt/m/n/10 d_noncompliance_1[Assignment_Group %in% c("Medical
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1187--1187
+\T1/lmtt/m/n/10 c("Medical Feedback"),     Treatment_Phase1_SubmitTime]
+ []
+
+[19 <./w241_final_report_files/figure-latex/unnamed-chunk-17-2.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 1201--1201
+[]\T1/lmr/m/n/10 (+20) Table 26: Welch Two Sam-ple t-test:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1201--1201
+\T1/lmtt/m/n/10 d_noncompliance_1[Assignment_Group %in%
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1201--1201
+\T1/lmtt/m/n/10 c("Self-Reflect"), Treatment_Phase1_SubmitTime]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1201--1201
+\T1/lmr/m/n/10 (+20) and \T1/lmtt/m/n/10 d_noncompliance_2[Assignment_Group %in
+%
+ []
+
+<w241_final_report_files/figure-latex/unnamed-chunk-19-1.pdf, id=374, 453.695pt
  x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-19-1.pdf Graphic file 
 (type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-19-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-19-
-1.pdf  used on input line 1341.
+1.pdf  used on input line 1217.
 (pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-
-Package xcolor Warning: Incompatible color definition on input line 1343.
-
-[25]
-
-Package xcolor Warning: Incompatible color definition on input line 1347.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1347.
-
-<w241_final_report_files/figure-latex/unnamed-chunk-19-2.pdf, id=411, 453.695pt
+<w241_final_report_files/figure-latex/unnamed-chunk-19-2.pdf, id=375, 453.695pt
  x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-19-2.pdf Graphic file 
 (type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-19-2.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-19-
-2.pdf  used on input line 1359.
+2.pdf  used on input line 1217.
 (pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
 
-Package xcolor Warning: Incompatible color definition on input line 1361.
-
-[26 <./w241_final_report_files/figure-latex/unnamed-chunk-19-1.pdf>]
-
-Package xcolor Warning: Incompatible color definition on input line 1366.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1366.
-
-
-Overfull \hbox (469.99225pt too wide) in paragraph at lines 1380--1380
-[]\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Control"
-), Treatment_Phase1_SubmitTime] and d_noncompliance_2[Assignment_Group %in% c("
-Control"), Treatment_Phase2_SubmitTime][] 
+Underfull \hbox (badness 10000) in paragraph at lines 1216--1218
+[]
  []
 
-[27 <./w241_final_report_files/figure-latex/unnamed-chunk-19-2.pdf>] [28]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1464.
-[29]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1464.
+[20]
+Underfull \hbox (badness 10000) in paragraph at lines 1220--1220
+[]\T1/lmr/m/n/10 (+20) Table 27: Welch Two Sam-ple t-test:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1220--1220
+\T1/lmtt/m/n/10 d_noncompliance_1[Assignment_Group %in% c("Positive
+ []
+
+
+Underfull \hbox (badness 5175) in paragraph at lines 1220--1220
+\T1/lmtt/m/n/10 Images"), \T1/lmr/m/n/10 (+20) and \T1/lmtt/m/n/10 d_noncomplia
+nce_1[Assignment_Group %in%
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1220--1220
+\T1/lmtt/m/n/10 c("Negative Images") &     Treatment_Phase1_SubmitTime]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1220--1220
+\T1/lmr/m/n/10 (+20) and \T1/lmtt/m/n/10 Treatment_Phase1_SubmitTime < 150,
+ []
+
+[21 <./w241_final_report_files/figure-latex/unnamed-chunk-19-1.pdf> <./w241_fin
+al_report_files/figure-latex/unnamed-chunk-19-2.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 1234--1234
+[]\T1/lmr/m/n/10 (+20) Table 28: Welch Two Sam-ple t-test:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1234--1234
+\T1/lmtt/m/n/10 d_noncompliance_2[Assignment_Group %in% c("Positive
+ []
+
+
+Underfull \hbox (badness 5175) in paragraph at lines 1234--1234
+\T1/lmtt/m/n/10 Images"), \T1/lmr/m/n/10 (+20) and \T1/lmtt/m/n/10 d_noncomplia
+nce_2[Assignment_Group %in%
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1234--1234
+\T1/lmtt/m/n/10 c("Negative Images") &     Treatment_Phase2_SubmitTime]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1234--1234
+\T1/lmr/m/n/10 (+20) and \T1/lmtt/m/n/10 Treatment_Phase2_SubmitTime < 150,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1248--1248
+[]\T1/lmr/m/n/10 (+20) Table 29: Welch Two Sam-ple t-test:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1248--1248
+\T1/lmtt/m/n/10 d_noncompliance_1[Assignment_Group %in% c("Positive
+ []
+
+
+Underfull \hbox (badness 5175) in paragraph at lines 1248--1248
+\T1/lmtt/m/n/10 Images"), \T1/lmr/m/n/10 (+20) and \T1/lmtt/m/n/10 d_noncomplia
+nce_2[Assignment_Group %in%
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1248--1248
+\T1/lmtt/m/n/10 c("Positive Images"),     Treatment_Phase1_SubmitTime]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1262--1262
+[]\T1/lmr/m/n/10 (+20) Table 30: Welch Two Sam-ple t-test:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1262--1262
+\T1/lmtt/m/n/10 d_noncompliance_1[Assignment_Group %in% c("Negative
+ []
+
+
+Underfull \hbox (badness 5175) in paragraph at lines 1262--1262
+\T1/lmtt/m/n/10 Images"), \T1/lmr/m/n/10 (+20) and \T1/lmtt/m/n/10 d_noncomplia
+nce_2[Assignment_Group %in%
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1262--1262
+\T1/lmtt/m/n/10 c("Negative Images"),     Treatment_Phase1_SubmitTime]
+ []
+
+[22]
+<w241_final_report_files/figure-latex/unnamed-chunk-21-1.pdf, id=414, 453.695pt
+ x 316.18124pt>
+File: w241_final_report_files/figure-latex/unnamed-chunk-21-1.pdf Graphic file 
+(type pdf)
+<use w241_final_report_files/figure-latex/unnamed-chunk-21-1.pdf>
+Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-21-
+1.pdf  used on input line 1279.
+(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
+<w241_final_report_files/figure-latex/unnamed-chunk-21-2.pdf, id=415, 453.695pt
+ x 316.18124pt>
+File: w241_final_report_files/figure-latex/unnamed-chunk-21-2.pdf Graphic file 
+(type pdf)
+<use w241_final_report_files/figure-latex/unnamed-chunk-21-2.pdf>
+Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-21-
+2.pdf  used on input line 1279.
+(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1279--1280
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1282--1282
+[]\T1/lmr/m/n/10 (+20) Table 31: Welch Two Sam-ple t-test:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1282--1282
+\T1/lmtt/m/n/10 d_noncompliance_1[Assignment_Group %in%
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1282--1282
+\T1/lmtt/m/n/10 c("Control"), Treatment_Phase1_SubmitTime] \T1/lmr/m/n/10 (+20)
+ and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1282--1282
+\T1/lmtt/m/n/10 d_noncompliance_2[Assignment_Group %in% c("Control"),
+ []
+
+[23 <./w241_final_report_files/figure-latex/unnamed-chunk-21-1.pdf>] [24 <./w24
+1_final_report_files/figure-latex/unnamed-chunk-21-2.pdf>] [25]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1374.
+[26]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1374.
 (./w241_final_report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1464.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1464.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1374.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1374.
 
 Package rerunfilecheck Info: File `w241_final_report.out' has not changed.
-(rerunfilecheck)             Checksum: 2CC851B2D1C8B0EEC9C105BDB1D54461;3051.
+(rerunfilecheck)             Checksum: 113A9486C3048577D64372CC132F20AA;3039.
 
 LaTeX Warning: There were undefined references.
 
@@ -1253,13 +1195,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 15066 strings out of 480608
- 224242 string characters out of 5903631
- 537196 words of memory out of 5000000
- 30414 multiletter control sequences out of 15000+600000
- 593193 words of font info for 128 fonts, out of 8000000 for 9000
+ 14609 strings out of 480608
+ 216909 string characters out of 5903631
+ 518647 words of memory out of 5000000
+ 29951 multiletter control sequences out of 15000+600000
+ 592334 words of font info for 126 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 34i,11n,42p,1575b,469s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,11n,42p,1183b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/
 texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/20
 20/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2020/texmf-d
@@ -1275,13 +1217,11 @@ ic/lm/lmr17.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmr7.
 pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/
 local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texl
 ive/2020/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texlive/2020/te
-xmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/local/texlive/2020/texmf-dist/f
-onts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1
-/public/lm/lmtti10.pfb>
-Output written on w241_final_report.pdf (29 pages, 510578 bytes).
+xmf-dist/fonts/type1/public/lm/lmtt10.pfb>
+Output written on w241_final_report.pdf (26 pages, 452757 bytes).
 PDF statistics:
- 536 PDF objects out of 1000 (max. 8388607)
- 442 compressed objects within 5 object streams
- 104 named destinations out of 1000 (max. 500000)
+ 538 PDF objects out of 1000 (max. 8388607)
+ 449 compressed objects within 5 object streams
+ 122 named destinations out of 1000 (max. 500000)
  12532 words of extra memory for PDF output out of 14400 (max. 10000000)
 
