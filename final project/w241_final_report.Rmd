@@ -214,7 +214,7 @@ ggplot(completions, aes(x=`Duration (in seconds)`/60, fill = as.factor(Assignmen
   geom_density(alpha = 0.35) + 
   xlim(0,60) +
   ggtitle("Survey Duration by Assignment Group (sans Outlier)") + 
-  labs(x = "Minutes",color="Assignment Group") + 
+  labs(x = "Minutes",color="Assignment Group",caption = "Figure 2. Distribution of survey duration by assignment group (excluding outliers)") + 
   guides(fill=FALSE)+
   geom_vline(xintercept = upper_cl, linetype="dotted", color = "blue", size = 0.5) +
   theme(plot.title = element_text(hjust = 0.5)) 
