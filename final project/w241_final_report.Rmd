@@ -38,7 +38,7 @@ library(kableExtra)
 ```{r setup, include=FALSE}
 opts_knit$set()
 options(digits=3)
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE,warning = FALSE,message=FALSE)
 rm(list = ls())
 ```
 
@@ -143,7 +143,7 @@ Additionally, feedback can take various forms and be delivered as advice, constr
 
 The scope of our experiment is, as a result, intentionally narrow to measure the effect of different types of feedback on task performance. 
 
-#Task selection
+## Task selection
 In our design, we ask survey respondents to recognize if an X-Ray image shows healthy lungs or lungs with pneumonia. This study introduces a novel concept to most, if not all subjects, requires strenous mental thought, and makes several extraneous elements consistent throughout the learning process (i.e. the computer-based learning environment, the feedback types, and the question being asked are the same throughout the program). It also allows to measure outcome on an objective scale (number of images classified correctly) with significant data available on classified images.
 
 ## Hypothesis 
@@ -177,7 +177,7 @@ The project was conducted on the following timeline:
 
 | _Experiment Ideation & Design_  | _Trial Survey_ | _Survey Period_ | _Data Collection & Analysis_ | _Final Presentation_  | _Final Report_ | 
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| Oct. 28 - Nov. 5,2020  | Nov. 6 - 8,2020  | Nov. 9 - 14,2020  | Nov. 15 - 30,2020  | Dec. 8,2020  | Dec. 15,2020  |
+| Oct. 28 - Nov. 5, 2020  | Nov. 6 - 8,2020  | Nov. 9 - 14, 2020  | Nov. 15 - 30, 2020  | Dec. 8, 2020  | Dec. 15, 2020  |
 
 ## Enrollment and Recruitment Process
 Subjects were recruited through Mechanical Turk (MTurk) and received USD 1 upon successful completion. Multiple entries from the same respondent were not permitted. Mechanical Turk lists the survey in a pool of others and payouts were given by the research team after successful completion of the survey. We ended up receiving 447 survey submissions. Since we charged a relatively high price point per survey, we were able to receive all of these responses in a matter of 72 hours. This may have worked in our favor by mitigating time-series related effects in the resulting data, **however it also included several drawbacks mentioned later in the paper.** 
@@ -212,7 +212,8 @@ ggplot(completions, aes(x=`Duration (in seconds)`/60, fill = as.factor(Assignmen
   geom_density(alpha = 0.35) + 
   xlim(0,60) +
   ggtitle("Survey Duration by Assignment Group (sans Outlier)") + 
-  labs(x = "Minutes") + 
+  labs(x = "Minutes",color="Assignment Group") + 
+  guides(fill=FALSE)+
   geom_vline(xintercept = upper_cl, linetype="dotted", color = "blue", size = 0.5) +
   theme(plot.title = element_text(hjust = 0.5)) 
 
@@ -245,7 +246,7 @@ create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Gender
                         round(gender_chisq$parameter,4),' \ndegrees of freedom ', 'yields p=',
                         round(gender_chisq$p.value,4),
                         ', suggesting that there is no relationship between gender and assignment groups at a \nsignificance level of 0.05.')) + 
-  theme(plot.caption = element_text(hjust = 0))
+  theme(plot.caption = element_text(hjust = 0),plot.title = element_text(hjust = 0.5))
 
 # check balance between age ranges
 age_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, Age_Range)],simulate.p.value = TRUE)
@@ -257,7 +258,7 @@ create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Age_Ra
        caption = paste0('Assuming age distributions are the same among assignment groups, a chi-squared test for independence with Monte \nCarlo simulation yields p=',
                         round(age_chisq$p.value,4),
                         ', suggesting that there is no relationship between age and assignment groups at a \nsignificance level of 0.05.')) + 
-  theme(plot.caption = element_text(hjust = 0))
+  theme(plot.caption = element_text(hjust = 0),plot.title = element_text(hjust = 0.5))
 
 #check balance between education levels
 edu_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, Education_Level)],simulate.p.value = TRUE)
@@ -265,11 +266,11 @@ edu_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, Education_Level
 create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Education_Level) +
   xlab('Assignment Group') +
   ylab('Education Level') + 
-  labs(title = 'Contingency table between education and assignment group',
+  labs(title = 'Contingency table between \neducation and assignment group',
        caption = paste0('Assuming education distributions are the same among assignment groups, a chi-squared test for \nindependence with Monte Carlo simulation yields p=',
                         round(edu_chisq$p.value,4),
                         ', suggesting that there is no relationship \nbetween education and assignment groups at a significance level of 0.05.')) + 
-  theme(plot.caption = element_text(hjust = 0))
+  theme(plot.caption = element_text(hjust = 0),plot.title = element_text(hjust = 0.5))
 
 # check balance between US and non-US respondents
 us_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, US_Dummy)])
@@ -284,7 +285,7 @@ create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$US_Dum
                         round(us_chisq$parameter,4),' degrees of freedom ', 'yields p=',
                         round(us_chisq$p.value,4),
                         ', suggesting that there is no relationship between country and assignment \ngroups at a significance level of 0.05.')) + 
-  theme(plot.caption = element_text(hjust = 0))
+  theme(plot.caption = element_text(hjust = 0),plot.title = element_text(hjust = 0.5))
 ```
 
 ## Observation and Outcome Measurables
@@ -395,7 +396,8 @@ summary_task_score %>%
                       labels=c("Phase 1", "Phase 2", "Phase 3")) +
   xlab('Task Phases') +
   ylab('Average Task Score (%)') +
-  labs(title='Average score across task phases',color="Assignment Group")
+  labs(title='Average score across task phases',color="Assignment Group") +
+  theme(plot.caption = element_text(hjust = 0),plot.title = element_text(hjust = 0.5))
 ```
 
 When comparing task scores for across people who received feedback and people who received the placebo (shown above), we see that in Task Phase 1, average task score percentage is fairly similar between groups ($\bar{x}_{treatment}$ = `r summary_task_score[Treatment_Dummy == 'Received Feedback' & variable == 'TaskPhase1_Score', avg_score]` (*SE*=`r summary_task_score[Treatment_Dummy == 'Received Feedback' & variable == 'TaskPhase1_Score', se]`), $\bar{x}_{control}$ = `r summary_task_score[Treatment_Dummy == 'No Feedback' & variable == 'TaskPhase1_Score', avg_score]` (*SE*=`r summary_task_score[Treatment_Dummy == 'No Feedback' & variable == 'TaskPhase1_Score', se]`)). As shown in the [Covariate Balance Checks Section][Covariate Balance Checks], specifically Table **TODO**, there is no statistical significance between pre-treatment scores in the binary assignment group case (p=`r t.test(d_respondents[Treatment_Dummy == 0, TaskPhase1_Score], d_respondents[Treatment_Dummy == 1, TaskPhase1_Score])$p.value`).
@@ -431,7 +433,8 @@ summary_task_score %>%
                       labels=c("Phase 1", "Phase 2", "Phase 3")) +
   xlab('Task Phases') +
   ylab('Average Task Score (%)') +
-  labs(title='Average score across task phases', color = "Assignment Group")
+  labs(title='Average score across task phases', color = "Assignment Group") +
+  theme(plot.caption = element_text(hjust = 0),plot.title = element_text(hjust = 0.5))
 ```
 
 Repeating the former analysis on the individual treatment group parses out any substantive differences in average score across phases. Reviewing the average score within Task Phase 1 for individual treatment groups suggests there is no difference between various types of feedback 
@@ -567,10 +570,12 @@ We test the effect of multiple rounds of feedback on task performance using Task
 
 However, according to Table \@ref(model3), the effects of treatment are severely attenuated over time and with an additional round of feedback. For example, when assessing the effect of any feedback (Column 2), there is a meager `r coeftest(mod_task3_b,vcov. = vcovHC(mod_task3_b,type='HC1'))[2,1]*100` (*SE*=`r coeftest(mod_task3_b,vcov. = vcovHC(mod_task3_b,type='HC1'))[2,2]*100`) percentage point increase in performance, which is not statistically significant. Furthermore, expanding the analysis to illustrate individual treatment effects suggests that the varying feedback types do not garner improved performance after more rounds of feedback (Column 3). Indeed, an F-test shown in Table **TODO** indicates that the expanded model does not add significant value to data representation (p=`r anova(mod_task3_b, mod_task3_d, test='F')[2,'Pr(>F)']`).
 
-The findings may be attributed to a number of underlying factors. For example, more frequent feedback during this short time span may be annoying to the receiver. The subject may have then given much less attention to the feedback because they had already received critique fairly recently. On the other hand, a respondent paying close attention to this feedback may experience increased context switching, which may detract from completing the actual task and performing well.
+The findings may be attributed to a number of underlying factors. For example, more frequent feedback during this short time span may be annoying to the receiver. The subject may have then given much less attention to the feedback because they had already received critique fairly recently. On the other hand, a respondent paying close attention to this feedback may experience increased context switching, which may detract from completing the actual task and performing well.  
 
-### Exploratory Discussion - Noncompliance During Task Phases
-Based on our definition of noncompliance, we do not consider noncompliance during the treatment phases. Although we have excluded noncompliers from our main regressions, for exploratory reasons, we can consider a scenario in which we do include them in our analysis.
+### Exploratory Discussion
+#### Noncompliance During Task Phases
+Based on our definition of noncompliance, we do not consider noncompliance during the treatment phases. Although we have excluded noncompliers from our main regressions, for exploratory reasons, we can consider a scenario in which we do include them in our analysis.  
+
 We start with examining the distribution of noncompliers across control and treatment groups. Interestingly, there are more noncompliers in the "Negative Images" treatment group than in any other group. We run a pair-wise proportions test to see whether the take-up rates across treatment groups are similar. Because we are making multiple comparisons, we use the Boneferroni correction and we see there are no statistically significant differences between take-up rates across groups at the p = 0.05 level. 
 
 
@@ -799,33 +804,33 @@ CACE_Any_Treatment <- ITT/ITTd
 
 ```
 
-```{r}
-kable(d_respondents_noncompliers[ , table(Assignment_Group)])
+```{r, echo=FALSE,results='asis',warning=FALSE}
+pander(d_respondents_noncompliers[ , table(Assignment_Group)])
 
-pairwise.prop.test(x = c(total_MedFeedback_compliers, total_selfreflect_compliers, total_positiveimages_compliers,
+pander(pairwise.prop.test(x = c(total_MedFeedback_compliers, total_selfreflect_compliers, total_positiveimages_compliers,
                 total_negativeimages_compliers, total_control_compliers), 
           n = c(total_MedFeedback_rows, total_selfreflect_rows, total_positiveimages_rows,
-                total_negativeimages_rows, total_control_rows), p.adjust.method = "bonferroni")
-prop.test(x = c(total_MedFeedback_compliers, total_selfreflect_compliers, total_positiveimages_compliers,
+                total_negativeimages_rows, total_control_rows), p.adjust.method = "bonferroni"))
+pander(prop.test(x = c(total_MedFeedback_compliers, total_selfreflect_compliers, total_positiveimages_compliers,
                 total_negativeimages_compliers, total_control_compliers), 
           n = c(total_MedFeedback_rows, total_selfreflect_rows, total_positiveimages_rows,
-                total_negativeimages_rows, total_control_rows))
+                total_negativeimages_rows, total_control_rows)),style='rmarkdown', split.table = Inf)
 
 ```
 
 Now that we have calculated the take-up rate, we can also calculate the Intent-to-Treat effect and the Complier Average Causal Effect, which would undilute our treatment estimates for the various treatment groups in our main regression table. While the CACEs remain very similar to the original coefficients found in column 3 in Figure 3, we see that the CACE for the Negative Treatment group actually becomes negative. 
 
-```{r}
+```{r,echo=FALSE,results='asis'}
 
 treatment_groups <- c("Any Treatment", "Medical Feedback", "Negative Images", "Positive Images", "Self-Reflect")
 list_CACEs <- round(c(CACE_Any_Treatment, CACE_Medical_Feedback, CACE_Negative_Images, CACE_Positive_Images, CACE_Self_Reflect),4)
 
 CACE_list <- cbind(treatment_groups, list_CACEs)
-kable(CACE_list)
+pander(CACE_list)
 
 ```
 
-### Exploratory Discussion - Noncompliance During Treatment Phases
+#### Noncompliance During Treatment Phases
 The only ways we can plausibly detect signs of noncompliance during treatment phases is examining the amount of time spent each user spent on his/her respective treatment pages in the survey. However, determining a hard-set rule that funnels some respondents into noncompliers would also require major assumptions. Thus, our discussion here is only exploratory and does not help us to adjust our treatment estimates. This section is for informative purposes and may help us formulate a better design in the future. In the following figures, we plot the distribution of the times spent during Treatment Phase 1 and Treatment Phase 2 for the 350 respondents that were included in our main analysis.
 
 Both Medical Feedback and Self-Reflect treatment groups shared the same time constraints. We configured the settings so that respondents could proceed to the next page (leave the treatment phase) after 90 seconds have elapsed. The page would automatically advance to the next page after 240 seconds have elapsed. Thus, it is interesting to note that there were respondents who remained on the page beyond the 240-second time limit. We can visually see that respondents in the Medical Feedback group spent more time in Treatment Phase 1 than respondents in the Self-Reflect group did. There was a spike of respondents who exited treatment as soon as they were eligible to at the 90-second marker. Then, the number of people leaving treatment gradually decreased between the minimum and maximum time markers (reminiscent of the shape of a power-law distribution), followed by a second surge of leavers at the maximum time marker. Excluding those who stayed beyond the time limit, when conducting a T-Test comparing the difference in mean times between the two treatment groups, we find that the difference is not statistically significant at the p = 0.05 level.
@@ -916,7 +921,7 @@ setnames(d_respondents,
                  'Negative_Images_Phase2_NumClicks'))
 
 
-################# set up datatable for Treatment Phase 1 Times
+# set up datatable for Treatment Phase 1 Times
 
 a <- d_respondents[ Assignment_Group == "Medical Feedback", Medical_Feedback_Phase1_SubmitTime]
 b <- d_respondents[ Assignment_Group == "Control", (Control_Phase1_SubmitTime)]
@@ -930,7 +935,7 @@ d_noncompliance_1 <- data.table(id=1:333)
 d_noncompliance_1[ , Assignment_Group := (c(rep("Medical Feedback", 66), rep("Control", 65), rep("Positive Images", 66), rep("Negative Images", 70), rep("Self-Reflect", 66)))]
 d_noncompliance_1[ , Treatment_Phase1_SubmitTime := (coalesce(c(a,b,c,d,e)))]
 
-#################### set up datatable for Treatment Phase 2 Times
+#set up datatable for Treatment Phase 2 Times
 
 a <- d_respondents[ Assignment_Group == "Medical Feedback", Medical_Feedback_Phase2_SubmitTime]
 b <- d_respondents[ Assignment_Group == "Control", (Control_Phase2_SubmitTime)]
@@ -946,70 +951,123 @@ d_noncompliance_2[ , Treatment_Phase2_SubmitTime := (coalesce(c(a,b,c,d,e)))]
 
 ```
 
-```{r}
-########## plot density distributions of timing for Treatment Phase 1: Medical Feedback vs Self-Reflect
+```{r,echo=FALSE,results='asis'}
+#plot density distributions of timing for Treatment Phase 1: Medical Feedback vs Self-Reflect
 
-ggplot(d_noncompliance_1[Assignment_Group %in% c("Medical Feedback", "Self-Reflect")], aes(x=Treatment_Phase1_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(60, 500) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 1 Duration Distribution") + geom_vline(xintercept = 90, color = "blue") + geom_vline(xintercept = 240, color = "red") + theme(plot.title = element_text(hjust = 0.5)) 
+ggplot(d_noncompliance_1[Assignment_Group %in% c("Medical Feedback", "Self-Reflect")], aes(x=Treatment_Phase1_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + 
+  geom_histogram(alpha=0.3, position = "identity") + 
+  xlim(60, 500) + 
+  xlab("Completion Time (seconds)") + 
+  ggtitle("Treatment Phase 1 Duration Distribution") + 
+  geom_vline(xintercept = 90, color = "blue") + 
+  geom_vline(xintercept = 240, color = "red") + 
+  labs(fill="Assignment Group") + 
+  guides(color=FALSE)+
+  theme(plot.title = element_text(hjust = 0.5)) 
 
-ggplot(d_noncompliance_2[Assignment_Group %in% c("Medical Feedback", "Self-Reflect")], aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(60, 500) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 2 Duration Distribution") + geom_vline(xintercept = 90, color = "blue") + geom_vline(xintercept = 240, color = "red") + theme(plot.title = element_text(hjust = 0.5)) 
+ggplot(d_noncompliance_2[Assignment_Group %in% c("Medical Feedback", "Self-Reflect")], aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + 
+  geom_histogram(alpha=0.3, position = "identity") + 
+  xlim(60, 500) + xlab("Completion Time (seconds)") + 
+  ggtitle("Treatment Phase 2 Duration Distribution") + 
+  geom_vline(xintercept = 90, color = "blue") + 
+  geom_vline(xintercept = 240, color = "red") + 
+  labs(fill="Assignment Group") + 
+  guides(color=FALSE)+
+  theme(plot.title = element_text(hjust = 0.5)) 
+```
 
-t.test(d_noncompliance_1[Assignment_Group %in% c("Medical Feedback"), Treatment_Phase1_SubmitTime], 
-       d_noncompliance_1[Assignment_Group %in% c("Self-Reflect") & Treatment_Phase1_SubmitTime < 250, Treatment_Phase1_SubmitTime])
+```{r,echo=FALSE,results='asis'}
+pander(t.test(d_noncompliance_1[Assignment_Group %in% c("Medical Feedback"), Treatment_Phase1_SubmitTime], 
+       d_noncompliance_1[Assignment_Group %in% c("Self-Reflect") & Treatment_Phase1_SubmitTime < 250, Treatment_Phase1_SubmitTime]),style='rmarkdown', split.table = Inf)
 
-t.test(d_noncompliance_2[Assignment_Group %in% c("Medical Feedback"), Treatment_Phase2_SubmitTime], 
-       d_noncompliance_2[Assignment_Group %in% c("Self-Reflect") & Treatment_Phase2_SubmitTime < 250, Treatment_Phase2_SubmitTime])
+pander(t.test(d_noncompliance_2[Assignment_Group %in% c("Medical Feedback"), Treatment_Phase2_SubmitTime], 
+       d_noncompliance_2[Assignment_Group %in% c("Self-Reflect") & Treatment_Phase2_SubmitTime < 250, Treatment_Phase2_SubmitTime]),style='rmarkdown', split.table = Inf)
 
 #statistically significant difference in time spent in treatment 1 and 2 for medical feedback
-t.test(d_noncompliance_1[Assignment_Group %in% c("Medical Feedback"), Treatment_Phase1_SubmitTime], 
-       d_noncompliance_2[Assignment_Group %in% c("Medical Feedback"), Treatment_Phase2_SubmitTime])
+pander(t.test(d_noncompliance_1[Assignment_Group %in% c("Medical Feedback"), Treatment_Phase1_SubmitTime], 
+       d_noncompliance_2[Assignment_Group %in% c("Medical Feedback"), Treatment_Phase2_SubmitTime]),style='rmarkdown', split.table = Inf)
 
 #statistically significant difference in time spent in treatment 1 and 2 for self-reflect
-t.test(d_noncompliance_1[Assignment_Group %in% c("Self-Reflect"), Treatment_Phase1_SubmitTime], 
-       d_noncompliance_2[Assignment_Group %in% c("Self-Reflect"), Treatment_Phase2_SubmitTime])
+pander(t.test(d_noncompliance_1[Assignment_Group %in% c("Self-Reflect"), Treatment_Phase1_SubmitTime], 
+       d_noncompliance_2[Assignment_Group %in% c("Self-Reflect"), Treatment_Phase2_SubmitTime]),style='rmarkdown', split.table = Inf)
 ```
 
 Both Positive Images and Negative Images treatment groups shared the same time constraints. We configured the settings so that respondents could proceed to the next page (leave the treatment phase) after 45 seconds have elapsed. The page would automatically advance to the next page after 120 seconds have elapsed. We noticed that there was one respondent who remained on the page beyond the 120-second time limit. Furthermore, we can visually see that respondents in the Negative Images group spent more time in Treatment Phase 1 than respondents in the Positive Images group did. We can confirm this with a T-Test, but the difference is not statistically significant. 
 
 In Treatment Phase 2, we see a similar increase in respondents who leave treatment at the minimum time marker. However, this increase is primarily driven by respondents in the Positive Images group as those in the Negative Images treatment group tended to stay in treatment longer. The difference in mean times between Positive Images and Negative Images groups are also statistically significant. In addition, respondents in the Positive Images group spent less time in the second round of treatment than the first, whereas there was no statistically significant difference in the amount of time that respondents in the Negative Images group spent in both rounds of treatment.
-```{r}
-########## plot density distributions of timing for Treatment Phase 1: Positive vs Negative Images
+```{r,echo=FALSE,results='asis'}
+#plot density distributions of timing for Treatment Phase 1: Positive vs Negative Images
 
-ggplot(d_noncompliance_1[Assignment_Group %in% c("Positive Images", "Negative Images")], aes(x=Treatment_Phase1_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(20, 200) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 1 Duration Distribution") + geom_vline(xintercept = 45, color = "blue") + geom_vline(xintercept = 120, color = "red") + theme(plot.title = element_text(hjust = 0.5)) 
+ggplot(d_noncompliance_1[Assignment_Group %in% c("Positive Images", "Negative Images")], aes(x=Treatment_Phase1_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) +
+  geom_histogram(alpha=0.3, position = "identity") + 
+  xlim(20, 200) + 
+  xlab("Completion Time (seconds)") + 
+  ggtitle("Treatment Phase 1 Duration Distribution") + 
+  geom_vline(xintercept = 45, color = "blue") + 
+  geom_vline(xintercept = 120, color = "red") +
+  labs(fill="Assignment Group") + 
+  guides(color=FALSE)+
+  theme(plot.title = element_text(hjust = 0.5)) 
 
-ggplot(d_noncompliance_2[Assignment_Group %in% c("Positive Images", "Negative Images")], aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(20, 200) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 2 Duration Distribution") + geom_vline(xintercept = 45, color = "blue") + geom_vline(xintercept = 120, color = "red") + theme(plot.title = element_text(hjust = 0.5))
+ggplot(d_noncompliance_2[Assignment_Group %in% c("Positive Images", "Negative Images")], aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + 
+  geom_histogram(alpha=0.3, position = "identity") + 
+  xlim(20, 200) + xlab("Completion Time (seconds)") + 
+  ggtitle("Treatment Phase 2 Duration Distribution") + 
+  geom_vline(xintercept = 45, color = "blue") + 
+  geom_vline(xintercept = 120, color = "red") + 
+  labs(fill="Assignment Group") + 
+  guides(color=FALSE)+
+  theme(plot.title = element_text(hjust = 0.5))
+```
 
-t.test(d_noncompliance_1[Assignment_Group %in% c("Positive Images"), Treatment_Phase1_SubmitTime], 
-       d_noncompliance_1[Assignment_Group %in% c("Negative Images") & Treatment_Phase1_SubmitTime < 150, Treatment_Phase1_SubmitTime])
+```{r,echo=FALSE,results='asis'}
+pander(t.test(d_noncompliance_1[Assignment_Group %in% c("Positive Images"), Treatment_Phase1_SubmitTime], 
+       d_noncompliance_1[Assignment_Group %in% c("Negative Images") & Treatment_Phase1_SubmitTime < 150, Treatment_Phase1_SubmitTime]),style='rmarkdown', split.table = Inf)
 
-t.test(d_noncompliance_2[Assignment_Group %in% c("Positive Images"), Treatment_Phase2_SubmitTime], 
-       d_noncompliance_2[Assignment_Group %in% c("Negative Images") & Treatment_Phase2_SubmitTime < 150, Treatment_Phase2_SubmitTime])
+pander(t.test(d_noncompliance_2[Assignment_Group %in% c("Positive Images"), Treatment_Phase2_SubmitTime], 
+       d_noncompliance_2[Assignment_Group %in% c("Negative Images") & Treatment_Phase2_SubmitTime < 150, Treatment_Phase2_SubmitTime]),style='rmarkdown', split.table = Inf)
 
 #statistically significant difference in time spent in treatment 1 and 2 for positive images
-t.test(d_noncompliance_1[Assignment_Group %in% c("Positive Images"), Treatment_Phase1_SubmitTime], 
-       d_noncompliance_2[Assignment_Group %in% c("Positive Images"), Treatment_Phase2_SubmitTime])
+pander(t.test(d_noncompliance_1[Assignment_Group %in% c("Positive Images"), Treatment_Phase1_SubmitTime], 
+       d_noncompliance_2[Assignment_Group %in% c("Positive Images"), Treatment_Phase2_SubmitTime]),style='rmarkdown', split.table = Inf)
 
 #no statistically significant difference in time spent in treatment 1 and 2 for negative images
-t.test(d_noncompliance_1[Assignment_Group %in% c("Negative Images"), Treatment_Phase1_SubmitTime], 
-       d_noncompliance_2[Assignment_Group %in% c("Negative Images"), Treatment_Phase2_SubmitTime])
-
+pander(t.test(d_noncompliance_1[Assignment_Group %in% c("Negative Images"), Treatment_Phase1_SubmitTime], 
+       d_noncompliance_2[Assignment_Group %in% c("Negative Images"), Treatment_Phase2_SubmitTime]),style='rmarkdown', split.table = Inf)
 ```
 
 For the Control group, we configured the settings so that respondents could proceed to the next page (leave the treatment phase) after 70 seconds have elapsed. The page would automatically advance to the next page after 180 seconds have elapsed. We noticed that there were some respondents who remained on the page beyond the 180-second time limit. Furthermore, respondents in the Control group tended to spend more time in Treatment Phase 1, compared to those in any of the four treatment groups. Recall that in the treatment groups, we would observe a spike of respondents who left treatment at the minimum time marker in blue, which would gradually decrease as completion times increased. This would be followed by another spike at the maximum time marker. However, in the control group, we notice a different behavior in that the distribution of respondents between the minimum and maximum time markers would be relatively uniform. 
 
 During Treatment Phase 2, we also see that respondents spent less time in the second round of treatment relative to the first. This difference is statistically significant at the p = 0.05 level. 
 
-```{r}
-#### set up t-tests comparing the submit times for Treatment Phase I
+```{r,echo=FALSE,results='asis'}
+#set up t-tests comparing the submit times for Treatment Phase I
 
-ggplot(d_noncompliance_1[Assignment_Group %in% c("Control")], aes(x=Treatment_Phase1_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(20, 300) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 1 Duration Distribution") + geom_vline(xintercept = 70, color = "blue") + geom_vline(xintercept = 180, color = "red") + theme(plot.title = element_text(hjust = 0.5))
+ggplot(d_noncompliance_1[Assignment_Group %in% c("Control")], aes(x=Treatment_Phase1_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + 
+  geom_histogram(alpha=0.3, position = "identity") + 
+  xlim(20, 300) + xlab("Completion Time (seconds)") + 
+  ggtitle("Treatment Phase 1 Duration Distribution") + 
+  geom_vline(xintercept = 70, color = "blue") + 
+  geom_vline(xintercept = 180, color = "red") + 
+  labs(fill="Assignment Group") + 
+  guides(color=FALSE)+
+  theme(plot.title = element_text(hjust = 0.5))
 
-ggplot(d_noncompliance_2[Assignment_Group %in% c("Control")], aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(20, 300) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 2 Duration Distribution") + geom_vline(xintercept = 70, color = "blue") + geom_vline(xintercept = 180, color = "red") + theme(plot.title = element_text(hjust = 0.5))
+ggplot(d_noncompliance_2[Assignment_Group %in% c("Control")], aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + 
+  geom_histogram(alpha=0.3, position = "identity") + 
+  xlim(20, 300) + xlab("Completion Time (seconds)") + 
+  ggtitle("Treatment Phase 2 Duration Distribution") + 
+  geom_vline(xintercept = 70, color = "blue") + 
+  geom_vline(xintercept = 180, color = "red") + 
+  labs(fill="Assignment Group") + 
+  guides(color=FALSE)+
+  theme(plot.title = element_text(hjust = 0.5))
+```
 
 
-t.test(d_noncompliance_1[Assignment_Group %in% c("Control"), Treatment_Phase1_SubmitTime], 
-       d_noncompliance_2[Assignment_Group %in% c("Control"), Treatment_Phase2_SubmitTime])
-
-
+```{r,echo=FALSE,results='asis'}
+pander(t.test(d_noncompliance_1[Assignment_Group %in% c("Control"), Treatment_Phase1_SubmitTime], 
+       d_noncompliance_2[Assignment_Group %in% c("Control"), Treatment_Phase2_SubmitTime]),style='rmarkdown', split.table = Inf)
 ```
 
 Throughout this exploratory discussion, we see consistent behavior in which respondents spent less time in the second round of treatment relative to the first. Further investigation will be needed to determine if this behavior is related to the attenuating treatment effects that we observed in our regressions. This also raises questions about whether feedback fatigue triggers noncompliance for our respondents. Nevertheless, when designing our experiment, we expected that people were to be exposed to treatment in both phases at relatively equal times. This discussion illustrates that we should focus on design improvements that encourage people to take treatment consistently.
@@ -1024,20 +1082,20 @@ pander(d_respondents[, .N, by = .(Assignment_Group)])
 Power analysis shows that our groups did not have a large enough sample size required for each group. Due to the small effect size of approximately 0.05 when comparing mean Task Phase 2 scores in treatment and control groups, for such small effects to be detected with statistical power of 80%, the number of subjects required in each group would be `r round(power.t.test( delta = .05, sd = .16, sig.level = 0.05, power = 0.8)$n)`. Our group sizes for the control group, as well as the targeted medical feedback, positive, negative, and self-reflect treatment groups were `r d_respondents[, .N, by = .(Assignment_Group)][4, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][5, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][2, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][1, 2]`, and `r d_respondents[, .N, by = .(Assignment_Group)][3, 2]` respectively. This is primarily due to the fact that we charged too high of a price point per completed survey. 
 
 # Conclusions 
-Our experiment and following study shows that feedback contributes a statistically and practically significant effect in X-Ray analysis performance (ATE = 5.1%, SE +- 2.2%). More specifically, targeted medical feedback saw the most statistically significant increases in performance (ATE = 5.6%, SE +- 2.9%), showing that expert opinion may lead to more significant outcomes in the real world. Along the same lines, self-reflection lead to statistically and practically significant improvements on performance (ATE = 5.9%, SE +- 2.9%), which bolsters recent research into the power of self-reflection techniques on a variety of everyday activities. Lastly, negative feedback loops fared the worst (ATE = 4.0%, p = 0.14), showing that for recognition-based tasks, negative feedback may not lead to stronger outcomes than other methods. 
+Our experiment and following study shows that feedback contributes a statistically and practically significant effect in X-Ray analysis performance (ATE = `r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[2,1]*100`, SE +- `r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[2,2]*100`%). More specifically, targeted medical feedback saw the most statistically significant increases in performance (ATE = `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[2,1]*100`, SE +- `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[2,2]*100`), showing that expert opinion may lead to more significant outcomes in the real world. Along the same lines, self-reflection led to statistically and practically significant improvements on performance (ATE = `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[5,1]*100`, SE +- `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[5,2]*100`), which bolsters recent research into the power of self-reflection techniques on a variety of everyday activities. Lastly, negative feedback loops fared the worst (ATE = `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[3,1]*100`, p = `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[3,4]`), showing that for recognition-based tasks, negative feedback may not lead to stronger outcomes than other methods. 
 
-Lastly, we found that more frequent feedback loops during a short, iterative task does not lead to significant marginal improvements in performance (ATE = 0.2%, p = 0.92) This may have been due to our experimental design and short duration of the task, but should lead to further research on the relationship between feedback loops and marginal productivity.
+Lastly, we found that more frequent feedback loops during a short, iterative task does not lead to significant marginal improvements in performance (ATE = `r coeftest(mod_task3_b,vcov. = vcovHC(mod_task3_b,type='HC1'))[2,1]*100`, p = `r coeftest(mod_task3_b,vcov. = vcovHC(mod_task3_b,type='HC1'))[2,4]`) This may have been due to our experimental design and short duration of the task, but should lead to further research on the relationship between feedback loops and marginal productivity.
 
 This experiment faces potential limitations when making more generalized conclusions about the effects of feedback on performance in addition to lower power. For example, the experiment required analysis of a more simple, X-Ray analysis, which is not as complex of a task when compared to multi-step tasks such as writing a paper or performing quantitative analysis. Furthermore, the experiment's computer-facing setting may have impacted results. Subjects may not have spent as much time on the task as in a real scenario. They certainly did not experiment the same time or social pressures or distractions usually present in most constructive feedback instances 
+
+Most notably, our experiment may not generalize well to the external environment because our MTurk worker population may not be a representative cohort of the real working population. In fact, our study participants may reflect more accurately the effect of feedback on people with lower income (income < \$150K) and who are younger (age < 50 years old) [(Moss & Litman, )](https://www.cloudresearch.com/resources/blog/who-uses-amazon-mturk-2020-demographics/). In actuality, the MTurk population may benefit the most from feedback because younger people typically have less work experience and may need guidance to further their performance. In addition, people with lower incomes who accept requests through MTurk also demonstrate a desire to improve their financial position, so they may benefit substantially from feedback that drives performance and, subsequently, income [(Buchheit et al, 2018)](https://libproxy.berkeley.edu/login?qurl=https%3a%2f%2fsearch.ebscohost.com%2flogin.aspx%3fdirect%3dtrue%26db%3dbth%26AN%3d128628976%26site%3deds-live).
 
 However, the study's conclusions gives us confidence that feedback positively affects performance in a meaningful way and more specifically targeted, informative feedback drives success. The effects of feedback on performance are significant and merit additional study. 
 
 # Limitations and Future Enhancements
 The research design generated an output with limited power due to several factors. First, we handicapped the total amount of participants by offering too high of a price point for the survey. Our experiment offered a \$1 price point per successful entry (limit of one entry per person), which afforded only 350 participants in our study to comply with the set $500 budget. We should have, however, charged ~ \$0.25, which is on par with average MTurk prices per task and would have allowed us to recruit more participants and achieve higher power. These changes would have given the experiment an estimated 2000 participants, with 400 in the control group and in each of the treatment groups. Power for the experiment would have increased substantially and allowed for more meaningful outcomes.  
 
-## Generalizeability
-Most notably, our experiment may not generalize well to the external environment because our MTurk worker population may not be a representative cohort of the real working population. In fact, our study participants may reflect more accurately the effect of feedback on people with lower income (income < \$150K) and who are younger (age < 50 years old) [(Moss & Litman, )](https://www.cloudresearch.com/resources/blog/who-uses-amazon-mturk-2020-demographics/). In actuality, the MTurk population may benefit the most from feedback because younger people typically have less work experience and may need guidance to further their performance. In addition, people with lower incomes who accept requests through MTurk also demonstrate a desire to improve their financial position, so they may benefit substantially from feedback that drives performance and, subsequently, income [(Buchheit et al, 2018)](https://libproxy.berkeley.edu/login?qurl=https%3a%2f%2fsearch.ebscohost.com%2flogin.aspx%3fdirect%3dtrue%26db%3dbth%26AN%3d128628976%26site%3deds-live).
-
 Survey improvements such as enforcing word limits in specific treatment phases and tracking the time lapsed during task phases would also help us limit noncompliance. We saw several terse responses in the self-reflect and control groups, which are possible signs of noncompliance. Implementing a word limit for respondents in the survey would deter this behavior. 
 
 Another improvement that could enhance the experiment would be a factorial design which would allow us to explore heterogeneous treatment effects. Our current implementation explores the differences between four selected types of feedback. However, our analysis would be more robust if we considered whether certain components of feedback were more effective in improving task performance. A factorial design would allow us to consider if it is the presence of a writing component, reading component, or an answer key that improves task performance.
+
