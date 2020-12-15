@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  13 DEC 2020 17:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  14 DEC 2020 20:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -125,6 +125,15 @@ Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
 Package: iftex 2020/03/06 v1.0d TeX engine tests
 )) (/usr/local/texlive/2020/texmf-dist/tex/generic/iftex/ifluatex.sty
 Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
+) (/usr/local/texlive/2020/texmf-dist/tex/latex/base/fixltx2e.sty
+Package: fixltx2e 2016/12/29 v2.1a fixes to LaTeX (obsolete)
+Applying: [2015/01/01] Old fixltx2e package on input line 46.
+
+Package fixltx2e Warning: fixltx2e is not required with releases after 2015
+(fixltx2e)                All fixes are now in the LaTeX kernel.
+(fixltx2e)                See the latexrelease package for details.
+
+Already applied: [0000/00/00] Old fixltx2e package on input line 53.
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
 LaTeX Font Info:    Trying to load font information for T1+lmr on input line 11
@@ -173,32 +182,7 @@ Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
 )) (/usr/local/texlive/2020/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count189
-)) (/usr/local/texlive/2020/texmf-dist/tex/latex/xcolor/xcolor.sty
-Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
-(/usr/local/texlive/2020/texmf-dist/tex/latex/graphics-cfg/color.cfg
-File: color.cfg 2016/01/02 v1.6 sample color configuration
-)
-Package xcolor Info: Driver file: pdftex.def on input line 225.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
-)
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
-Package xcolor Info: Model `RGB' extended on input line 1364.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
-) (/usr/local/texlive/2020/texmf-dist/tex/latex/xurl/xurl.sty
-Package: xurl 2020/01/24 v 0.09 modify URL breaks
-(/usr/local/texlive/2020/texmf-dist/tex/latex/url/url.sty
-\Urlmuskip=\muskip17
-Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
-)) (/usr/local/texlive/2020/texmf-dist/tex/latex/bookmark/bookmark.sty
-Package: bookmark 2019/12/03 v1.28 PDF bookmarks (HO)
-(/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/hyperref.sty
+)) (/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2020/01/14 v7.00d Hypertext links for LaTeX
 (/usr/local/texlive/2020/texmf-dist/tex/latex/pdftexcmds/pdftexcmds.sty
 Package: pdftexcmds 2019/11/24 v0.31 Utility functions of pdfTeX for LuaTeX (HO
@@ -247,6 +231,10 @@ Package hyperref Info: Backreferencing OFF on input line 4567.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4800.
 \c@Hy@tempcnt=\count193
+(/usr/local/texlive/2020/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
 LaTeX Info: Redefining \url on input line 5159.
 \XeTeXLinkMargin=\dimen146
 (/usr/local/texlive/2020/texmf-dist/tex/generic/bitset/bitset.sty
@@ -293,17 +281,16 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 86.
 )
 \Hy@SectionHShift=\skip53
-) (/usr/local/texlive/2020/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
-File: bkm-pdftex.def 2019/12/03 v1.28 bookmark driver for pdfTeX (HO)
-\BKM@id=\count266
-)) (/usr/local/texlive/2020/texmf-dist/tex/latex/geometry/geometry.sty
+)
+Package hyperref Info: Option `breaklinks' set `true' on input line 35.
+(/usr/local/texlive/2020/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
 (/usr/local/texlive/2020/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count267
-\Gm@cntv=\count268
-\c@Gm@tempcnt=\count269
+\Gm@cnth=\count266
+\Gm@cntv=\count267
+\c@Gm@tempcnt=\count268
 \Gm@bindingoffset=\dimen149
 \Gm@wd@mp=\dimen150
 \Gm@odd@mp=\dimen151
@@ -313,13 +300,21 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layouthoffset=\dimen155
 \Gm@layoutvoffset=\dimen156
 \Gm@dimlist=\toks25
-) (/usr/local/texlive/2020/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+) (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2019/11/23 v1.2a Standard LaTeX Color (DPC)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+(/usr/local/texlive/2020/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+)) (/usr/local/texlive/2020/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
 Package: fancyvrb 2020/01/13 v3.5 verbatim text (tvz,hv)
-\FV@CodeLineNo=\count270
+\FV@CodeLineNo=\count269
 \FV@InFile=\read2
 \FV@TabBox=\box47
-\c@FancyVerbLine=\count271
-\FV@StepNumber=\count272
+\c@FancyVerbLine=\count270
+\FV@StepNumber=\count271
 \FV@OutFile=\write3
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/framed/framed.sty
 Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
@@ -334,16 +329,16 @@ Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
 \LTright=\skip56
 \LTpre=\skip57
 \LTpost=\skip58
-\LTchunksize=\count273
+\LTchunksize=\count272
 \LTcapwidth=\dimen161
 \LT@head=\box48
 \LT@firsthead=\box49
 \LT@foot=\box50
 \LT@lastfoot=\box51
-\LT@cols=\count274
-\LT@rows=\count275
-\c@LT@tables=\count276
-\c@LT@chunks=\count277
+\LT@cols=\count273
+\LT@rows=\count274
+\c@LT@tables=\count275
+\c@LT@chunks=\count276
 \LT@p@ftn=\toks26
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
@@ -357,17 +352,17 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \cmidrulesep=\dimen169
 \cmidrulekern=\dimen170
 \defaultaddspace=\dimen171
-\@cmidla=\count278
-\@cmidlb=\count279
+\@cmidla=\count277
+\@cmidlb=\count278
 \@aboverulesep=\dimen172
 \@belowrulesep=\dimen173
-\@thisruleclass=\count280
-\@lastruleclass=\count281
+\@thisruleclass=\count279
+\@lastruleclass=\count280
 \@thisrulewidth=\dimen174
-) (/usr/local/texlive/2020/texmf-dist/tex/latex/footnotehyper/footnotehyper.sty
-Package: footnotehyper 2019/11/07 v1.1a hyperref aware footnote.sty (JFB)
-\FNH@notes=\box52
-\FNH@width=\dimen175
+) (/usr/local/texlive/2020/texmf-dist/tex/latex/mdwtools/footnote.sty
+Package: footnote 1997/01/28 1.13 Save footnotes around boxes
+\fn@notes=\box52
+\fn@width=\dimen175
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
 (/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/graphics.sty
@@ -388,7 +383,7 @@ Package grffile Info: This package is an empty stub for compatibility on input
 line 40.
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count282
+\l__kernel_color_stack_int=\count281
 \l__pdf_internal_box=\box53
 ) (./w241_final_report.aux
 
@@ -397,61 +392,41 @@ LaTeX Warning: Label `' multiply defined.
 )
 \openout1 = `w241_final_report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 123.
-LaTeX Font Info:    ... okay on input line 123.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 123.
-LaTeX Font Info:    ... okay on input line 123.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 123.
-LaTeX Font Info:    ... okay on input line 123.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 123.
-LaTeX Font Info:    ... okay on input line 123.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 123.
-LaTeX Font Info:    ... okay on input line 123.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 123.
-LaTeX Font Info:    ... okay on input line 123.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 123.
-LaTeX Font Info:    ... okay on input line 123.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 123.
-LaTeX Font Info:    ... okay on input line 123.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 123.
-LaTeX Font Info:    ... okay on input line 123.
-LaTeX Info: Redefining \microtypecontext on input line 123.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 122.
+LaTeX Font Info:    ... okay on input line 122.
+LaTeX Info: Redefining \microtypecontext on input line 122.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `basictext'.
-LaTeX Info: Redefining \showhyphens on input line 123.
+LaTeX Info: Redefining \showhyphens on input line 122.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
-) (/usr/local/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count283
-\scratchdimen=\dimen178
-\scratchbox=\box54
-\nofMPsegments=\count284
-\nofMParguments=\count285
-\everyMPshowfont=\toks27
-\MPscratchCnt=\count286
-\MPscratchDim=\dimen179
-\MPnumerator=\count287
-\makeMPintoPDFobject=\count288
-\everyMPtoPDFconversion=\toks28
-) (/usr/local/texlive/2020/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
-Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
-85.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
-\AtBeginShipoutBox=\box55
-Package hyperref Info: Link coloring OFF on input line 123.
+)
+\AtBeginShipoutBox=\box54
+Package hyperref Info: Link coloring OFF on input line 122.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 (/usr/local/texlive/2020/texmf-dist/tex/latex/refcount/refcount.sty
@@ -461,11 +436,15 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count289
+\c@section@level=\count282
 )
-LaTeX Info: Redefining \ref on input line 123.
-LaTeX Info: Redefining \pageref on input line 123.
-LaTeX Info: Redefining \nameref on input line 123.
+LaTeX Info: Redefining \ref on input line 122.
+LaTeX Info: Redefining \pageref on input line 122.
+LaTeX Info: Redefining \nameref on input line 122.
+(./w241_final_report.out) (./w241_final_report.out)
+\@outlinefile=\write4
+\openout4 = `w241_final_report.out'.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -500,40 +479,61 @@ LaTeX Info: Redefining \nameref on input line 123.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+(/usr/local/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count283
+\scratchdimen=\dimen178
+\scratchbox=\box55
+\nofMPsegments=\count284
+\nofMParguments=\count285
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count286
+\MPscratchDim=\dimen179
+\MPnumerator=\count287
+\makeMPintoPDFobject=\count288
+\everyMPtoPDFconversion=\toks28
+) (/usr/local/texlive/2020/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+(/usr/local/texlive/2020/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-25.
+24.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-25.
+24.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-125.
+124.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-125.
+124.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 125.
+(Font)              <12> on input line 124.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 125.
+(Font)              <8> on input line 124.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 125.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 125
+(Font)              <6> on input line 124.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 124
 .
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 125
+LaTeX Font Info:    Trying to load font information for U+msb on input line 124
 .
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -541,158 +541,288 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
-30.
+29.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 131.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 130.
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-131.
+130.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [1
 
 {/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
-41.
+40.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [2]
-<../final project/images/flow_diagram.png, id=41, 1262.7175pt x 542.025pt>
+<../final project/images/flow_diagram.png, id=132, 1262.7175pt x 542.025pt>
 File: ../final project/images/flow_diagram.png Graphic file (type png)
 <use ../final project/images/flow_diagram.png>
 Package pdftex.def Info: ../final project/images/flow_diagram.png  used on inpu
-t line 356.
+t line 355.
 (pdftex.def)             Requested size: 469.76074pt x 201.6461pt.
 [3]
-<w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf, id=57, 453.695pt x
- 313.17pt>
+<w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf, id=144, 453.695pt 
+x 313.17pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-4-1
-.pdf  used on input line 399.
+.pdf  used on input line 398.
 (pdftex.def)             Requested size: 453.6939pt x 313.16922pt.
 [4 <../final project/images/flow_diagram.png>]
-Overfull \vbox (0.9269pt too high) detected at line 457
+Overfull \vbox (0.9269pt too high) detected at line 456
  []
 
 [5 <./w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf>]
-<w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf, id=80, 464.73625pt
- x 316.18124pt>
+<w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf, id=167, 464.73625p
+t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-5-1
-.pdf  used on input line 459.
+.pdf  used on input line 458.
 (pdftex.def)             Requested size: 464.74928pt x 316.19011pt.
-<w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf, id=81, 468.75125pt
- x 316.18124pt>
+<w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf, id=168, 468.75125p
+t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-5-2
-.pdf  used on input line 477.
+.pdf  used on input line 476.
 (pdftex.def)             Requested size: 468.75009pt x 316.18047pt.
 [6 <./w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf>]
-<w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf, id=96, 468.75125pt
- x 316.18124pt>
+<w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf, id=183, 468.75125p
+t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-5-3
-.pdf  used on input line 495.
+.pdf  used on input line 494.
 (pdftex.def)             Requested size: 468.75009pt x 316.18047pt.
 [7 <./w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf>]
-<w241_final_report_files/figure-latex/unnamed-chunk-5-4.pdf, id=112, 464.73625p
+<w241_final_report_files/figure-latex/unnamed-chunk-5-4.pdf, id=199, 464.73625p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-4.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-5-4.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-5-4
-.pdf  used on input line 516.
+.pdf  used on input line 515.
 (pdftex.def)             Requested size: 464.74928pt x 316.19011pt.
 [8 <./w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf>] [9 <./w241_f
 inal_report_files/figure-latex/unnamed-chunk-5-4.pdf>]
-<../final project/images/Blank diagram.png, id=147, 813.0375pt x 261.97874pt>
+<../final project/images/Blank diagram.png, id=232, 813.0375pt x 261.97874pt>
 File: ../final project/images/Blank diagram.png Graphic file (type png)
 <use ../final project/images/Blank diagram.png>
 Package pdftex.def Info: ../final project/images/Blank diagram.png  used on inp
-ut line 612.
+ut line 611.
 (pdftex.def)             Requested size: 469.75082pt x 151.36414pt.
-<w241_final_report_files/figure-latex/unnamed-chunk-6-1.pdf, id=148, 464.73625p
+<w241_final_report_files/figure-latex/unnamed-chunk-6-1.pdf, id=233, 464.73625p
 t x 318.18875pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-6-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-6-1
-.pdf  used on input line 638.
+.pdf  used on input line 637.
 (pdftex.def)             Requested size: 464.7351pt x 318.18796pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 644--644
+Underfull \hbox (badness 10000) in paragraph at lines 643--643
 []\T1/lmr/m/n/10 (+20) Table 2: Welch Two Sam-ple t-test:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 644--644
+Underfull \hbox (badness 10000) in paragraph at lines 643--643
 \T1/lmtt/m/n/10 d_respondents[Treatment_Dummy == 0, TaskPhase1_Score]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 644--644
+Underfull \hbox (badness 10000) in paragraph at lines 643--643
 \T1/lmr/m/n/10 (+20) and \T1/lmtt/m/n/10 d_respondents[Treatment_Dummy == 1,
  []
 
 [10 <../final project/images/Blank diagram.png>]
-<w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf, id=162, 464.73625p
+<w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf, id=245, 464.73625p
 t x 318.18875pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-7-1
-.pdf  used on input line 659.
+.pdf  used on input line 658.
 (pdftex.def)             Requested size: 464.7351pt x 318.18796pt.
-<w241_final_report_files/figure-latex/unnamed-chunk-8-1.pdf, id=163, 458.71375p
+<w241_final_report_files/figure-latex/unnamed-chunk-8-1.pdf, id=246, 458.71375p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-8-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-8-1
-.pdf  used on input line 660.
+.pdf  used on input line 659.
 (pdftex.def)             Requested size: 458.73363pt x 316.19493pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 659--661
+Underfull \hbox (badness 10000) in paragraph at lines 658--660
 []
  []
 
 [11 <./w241_final_report_files/figure-latex/unnamed-chunk-6-1.pdf>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 668.
+(Font)              <10> on input line 667.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 668.
+(Font)              <7> on input line 667.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 668.
+(Font)              <5> on input line 667.
 [12 <./w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf> <./w241_fina
-l_report_files/figure-latex/unnamed-chunk-8-1.pdf>] [13] [14] [15] [16]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 976.
+l_report_files/figure-latex/unnamed-chunk-8-1.pdf>] [13] [14] [15]
+Overfull \hbox (1047.49057pt too wide) in paragraph at lines 920--920
+[]\T1/lmtt/m/n/10 ## data:  c(total_MedFeedback_compliers, total_selfreflect_co
+mpliers, total_positiveimages_compliers, total_negativeimages_compliers, total_
+control_compliers) out of c(total_MedFeedback_rows, total_selfreflect_rows, tot
+al_positiveimages_rows, total_negativeimages_rows, total_control_rows)[] 
+ []
+
+[16]
+<w241_final_report_files/figure-latex/unnamed-chunk-15-1.pdf, id=308, 453.695pt
+ x 316.18124pt>
+File: w241_final_report_files/figure-latex/unnamed-chunk-15-1.pdf Graphic file 
+(type pdf)
+<use w241_final_report_files/figure-latex/unnamed-chunk-15-1.pdf>
+Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-15-
+1.pdf  used on input line 1022.
+(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
 [17]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 976.
+<w241_final_report_files/figure-latex/unnamed-chunk-15-2.pdf, id=314, 453.695pt
+ x 316.18124pt>
+File: w241_final_report_files/figure-latex/unnamed-chunk-15-2.pdf Graphic file 
+(type pdf)
+<use w241_final_report_files/figure-latex/unnamed-chunk-15-2.pdf>
+Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-15-
+2.pdf  used on input line 1038.
+(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
+[18 <./w241_final_report_files/figure-latex/unnamed-chunk-15-1.pdf>]
+Overfull \hbox (732.49149pt too wide) in paragraph at lines 1059--1059
+[]\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Medical 
+Feedback"), Treatment_Phase1_SubmitTime] and d_noncompliance_1[Assignment_Group
+ %in% c("Self-Reflect") & Treatment_Phase1_SubmitTime < 250, Treatment_Phase1_S
+ubmitTime][] 
+ []
+
+
+Overfull \hbox (732.49149pt too wide) in paragraph at lines 1080--1080
+[]\T1/lmtt/m/n/10 ## data:  d_noncompliance_2[Assignment_Group %in% c("Medical 
+Feedback"), Treatment_Phase2_SubmitTime] and d_noncompliance_2[Assignment_Group
+ %in% c("Self-Reflect") & Treatment_Phase2_SubmitTime < 250, Treatment_Phase2_S
+ubmitTime][] 
+ []
+
+[19 <./w241_final_report_files/figure-latex/unnamed-chunk-15-2.pdf>]
+Overfull \hbox (564.49197pt too wide) in paragraph at lines 1102--1102
+[]\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Medical 
+Feedback"), Treatment_Phase1_SubmitTime] and d_noncompliance_2[Assignment_Group
+ %in% c("Medical Feedback"), Treatment_Phase2_SubmitTime][] 
+ []
+
+
+Overfull \hbox (522.4921pt too wide) in paragraph at lines 1124--1124
+[]\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Self-Ref
+lect"), Treatment_Phase1_SubmitTime] and d_noncompliance_2[Assignment_Group %in
+% c("Self-Reflect"), Treatment_Phase2_SubmitTime][] 
+ []
+
+<w241_final_report_files/figure-latex/unnamed-chunk-16-1.pdf, id=344, 453.695pt
+ x 316.18124pt>
+File: w241_final_report_files/figure-latex/unnamed-chunk-16-1.pdf Graphic file 
+(type pdf)
+<use w241_final_report_files/figure-latex/unnamed-chunk-16-1.pdf>
+Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-16-
+1.pdf  used on input line 1164.
+(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
+[20]
+<w241_final_report_files/figure-latex/unnamed-chunk-16-2.pdf, id=349, 453.695pt
+ x 316.18124pt>
+File: w241_final_report_files/figure-latex/unnamed-chunk-16-2.pdf Graphic file 
+(type pdf)
+<use w241_final_report_files/figure-latex/unnamed-chunk-16-2.pdf>
+Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-16-
+2.pdf  used on input line 1180.
+(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
+[21 <./w241_final_report_files/figure-latex/unnamed-chunk-16-1.pdf>]
+Overfull \hbox (742.99146pt too wide) in paragraph at lines 1201--1201
+[]\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Positive
+ Images"), Treatment_Phase1_SubmitTime] and d_noncompliance_1[Assignment_Group 
+%in% c("Negative Images") & Treatment_Phase1_SubmitTime < 150, Treatment_Phase1
+_SubmitTime][] 
+ []
+
+
+Overfull \hbox (742.99146pt too wide) in paragraph at lines 1222--1222
+[]\T1/lmtt/m/n/10 ## data:  d_noncompliance_2[Assignment_Group %in% c("Positive
+ Images"), Treatment_Phase2_SubmitTime] and d_noncompliance_2[Assignment_Group 
+%in% c("Negative Images") & Treatment_Phase2_SubmitTime < 150, Treatment_Phase2
+_SubmitTime][] 
+ []
+
+[22 <./w241_final_report_files/figure-latex/unnamed-chunk-16-2.pdf>]
+Overfull \hbox (553.992pt too wide) in paragraph at lines 1244--1244
+[]\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Positive
+ Images"), Treatment_Phase1_SubmitTime] and d_noncompliance_2[Assignment_Group 
+%in% c("Positive Images"), Treatment_Phase2_SubmitTime][] 
+ []
+
+
+Overfull \hbox (553.992pt too wide) in paragraph at lines 1266--1266
+[]\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Negative
+ Images"), Treatment_Phase1_SubmitTime] and d_noncompliance_2[Assignment_Group 
+%in% c("Negative Images"), Treatment_Phase2_SubmitTime][] 
+ []
+
+<w241_final_report_files/figure-latex/unnamed-chunk-17-1.pdf, id=378, 453.695pt
+ x 316.18124pt>
+File: w241_final_report_files/figure-latex/unnamed-chunk-17-1.pdf Graphic file 
+(type pdf)
+<use w241_final_report_files/figure-latex/unnamed-chunk-17-1.pdf>
+Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-17-
+1.pdf  used on input line 1307.
+(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
+[23]
+<w241_final_report_files/figure-latex/unnamed-chunk-17-2.pdf, id=383, 453.695pt
+ x 316.18124pt>
+File: w241_final_report_files/figure-latex/unnamed-chunk-17-2.pdf Graphic file 
+(type pdf)
+<use w241_final_report_files/figure-latex/unnamed-chunk-17-2.pdf>
+Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-17-
+2.pdf  used on input line 1325.
+(pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
+[24 <./w241_final_report_files/figure-latex/unnamed-chunk-17-1.pdf>]
+Overfull \hbox (469.99225pt too wide) in paragraph at lines 1346--1346
+[]\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Control"
+), Treatment_Phase1_SubmitTime] and d_noncompliance_2[Assignment_Group %in% c("
+Control"), Treatment_Phase2_SubmitTime][] 
+ []
+
+[25 <./w241_final_report_files/figure-latex/unnamed-chunk-17-2.pdf>] [26]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1488.
+[27]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1488.
 (./w241_final_report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 976.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 976.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1488.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1488.
+
+Package rerunfilecheck Info: File `w241_final_report.out' has not changed.
+(rerunfilecheck)             Checksum: 1D8983421BDA6E3FC5421B40387D3385;3930.
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 13896 strings out of 480608
- 206345 string characters out of 5903631
- 501734 words of memory out of 5000000
- 29349 multiletter control sequences out of 15000+600000
- 588130 words of font info for 120 fonts, out of 8000000 for 9000
+ 13293 strings out of 480608
+ 200379 string characters out of 5903631
+ 488555 words of memory out of 5000000
+ 28726 multiletter control sequences out of 15000+600000
+ 588296 words of font info for 122 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,10n,42p,816b,475s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,10n,42p,1575b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/lo
 cal/texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/20
 20/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2020/texmf-d
@@ -709,10 +839,10 @@ pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/l
 ocal/texlive/2020/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/local/texli
 ve/2020/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2020/te
 xmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on w241_final_report.pdf (17 pages, 429188 bytes).
+Output written on w241_final_report.pdf (27 pages, 482820 bytes).
 PDF statistics:
- 376 PDF objects out of 1000 (max. 8388607)
- 312 compressed objects within 4 object streams
- 78 named destinations out of 1000 (max. 500000)
- 12523 words of extra memory for PDF output out of 14400 (max. 10000000)
+ 500 PDF objects out of 1000 (max. 8388607)
+ 407 compressed objects within 5 object streams
+ 94 named destinations out of 1000 (max. 500000)
+ 12569 words of extra memory for PDF output out of 14400 (max. 10000000)
 

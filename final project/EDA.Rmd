@@ -1385,6 +1385,7 @@ d_merge_respondents_noncompliers_compliers <- rbind(d_respondents_compliers, d_r
 
 
 ```
+
 ```{r}
 
 # d_merge_respondents_noncompliers_compliers[ Treatment_Dummy == 1, mean(TaskPhase2_Score)]
