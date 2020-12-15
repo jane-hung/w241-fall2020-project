@@ -45,7 +45,59 @@ rm(list = ls())
 
 ```{r include=FALSE}
 d_respondents <- fread('datatable_clean_survey_responses_v2.dta')
+d_respondents <-
+  d_respondents[!Amazon_Turk_ID %in% c(
+    "A32K1M0A36EAK5",
+    "A3I700VG8POSWH",
+    "A3EPIT2P3ISA3K",
+    "A390TP4DJI9P9W",
+    "A3EPIT2P3ISA3K",
+    "AUFLTHQAXWLH1",
+    "AMZ1NNF182G8V",
+    "A3BG20JPQLNKE1",
+    "AVINXZZV3FNG7",
+    "A3D4CITR1C9L3W",
+    "A1BUYK6LXYWMLL",
+    "A1FHRZXSE7XNJ4",
+    "A12NQJV6TA5OWB",
+    "AGCQCHHAQVA6R",
+    "A119EX2L0DNN1B",
+    "A3BPENSX5EVJ2H",
+    "A371SNJNNUY9Z6",
+    "A33YPBYXXZP3HY",
+    "A3NYIJYBHAJ74V",
+    "A2NGFU82LMJ80X",
+    "A2J016DRTOBXWO",
+    "A2GSZ3D2XXC533",
+    "A2IGIOD74EPOEF",
+    "A18WFPSLFV4FKY",
+    "A1GMYDH5MKN105",
+    "A8H1AW1NWPMAJ",
+    "A39AAWF3F8OM6Q",
+    "A26399B1QZ7XJJ",
+    "A1NA92R0YGX32U",
+    "A30UB0NUUWB3RM",
+    "A16JX1MOPDCYDN",
+    "A16X5FB3HAFCKN",
+    "A211KGJ94WNFLN",
+    "A1PGY59BR6C5BX",
+    "AG5RF4UGQJ7A7",
+    "A13T1DZG02HLNL",
+    "A1WUFHQ1YGHK3C",
+    "A1GNPQ5LM6YY5I",
+    "A3EZ0H07TSDAPW",
+    "ADLZLGHKOAEE6",
+    "A1CF1W8CP0DHB0",
+    "A3VP14XN3WUUOC",
+    "A7VQQEIBSM9IU",
+    "A8DER1QY96C5X",
+    "A1M8MNKK8H5ZGW",
+    "A1J3ICF1NZYFCR",
+    "A34D5D6PU193AR"
+  ), ]
+
 d_attrition <- fread('attrition_only_responses_v2.dta')
+
 ```
 
 ```{r, include=FALSE}
@@ -524,50 +576,53 @@ d <-
 # These people just gave alternating responses (Normal, Pneumonia, Normal,...,Pneumonia)
 d_respondents_noncompliers <-
   d[Q80 %in% c(
-    "A119EX2L0DNN1B",
-    "A12NQJV6TA5OWB",
-    "A18WFPSLFV4FKY",
+    "A32K1M0A36EAK5",
+    "A3I700VG8POSWH",
+    "A3EPIT2P3ISA3K",
+    "A390TP4DJI9P9W",
+    "A3EPIT2P3ISA3K",
+    "AUFLTHQAXWLH1",
+    "AMZ1NNF182G8V",
+    "A3BG20JPQLNKE1",
+    "AVINXZZV3FNG7",
+    "A3D4CITR1C9L3W",
     "A1BUYK6LXYWMLL",
     "A1FHRZXSE7XNJ4",
-    "A1GMYDH5MKN105",
+    "A12NQJV6TA5OWB",
+    "AGCQCHHAQVA6R",
+    "A119EX2L0DNN1B",
+    "A3BPENSX5EVJ2H",
+    "A371SNJNNUY9Z6",
+    "A33YPBYXXZP3HY",
+    "A3NYIJYBHAJ74V",
+    "A2NGFU82LMJ80X",
+    "A2J016DRTOBXWO",
     "A2GSZ3D2XXC533",
     "A2IGIOD74EPOEF",
-    "A2J016DRTOBXWO",
-    "A2NGFU82LMJ80X",
-    "A32K1M0A36EAK5",
-    "A371SNJNNUY9Z6",
-    "A3BPENSX5EVJ2H",
-    "A3EPIT2P3ISA3K",
-    "A3NYIJYBHAJ74V",
-    "AUFLTHQAXWLH1",
-    "AVINXZZV3FNG7",
-    "A1CD7O60QAQQRT",
-    "A1CF1W8CP0DHB0",
-    "A1PGY59BR6C5BX",
-    "A1YSYI926BBOHW",
-    "A1Z3GFH6MNSU46",
+    "A18WFPSLFV4FKY",
+    "A1GMYDH5MKN105",
+    "A8H1AW1NWPMAJ",
+    "A39AAWF3F8OM6Q",
+    "A26399B1QZ7XJJ",
+    "A1NA92R0YGX32U",
+    "A30UB0NUUWB3RM",
+    "A16JX1MOPDCYDN",
+    "A16X5FB3HAFCKN",
     "A211KGJ94WNFLN",
-    "A26RPQDD0RQEHL",
-    "A2BUHMLNE3LUU0",
-    "A2J5BRQ88W745H",
-    "A2XIHO2W7EEP32",
+    "A1PGY59BR6C5BX",
+    "AG5RF4UGQJ7A7",
+    "A13T1DZG02HLNL",
+    "A1WUFHQ1YGHK3C",
+    "A1GNPQ5LM6YY5I",
     "A3EZ0H07TSDAPW",
-    "A3FLBC6LC5GJ3W",
-    "A3QLKLIQW1B1FR",
-    "A8F6JFG0WSELT",
-    "A9K6IVBA0J1CX",
     "ADLZLGHKOAEE6",
-    "AE7NJG0KOVZYJ" ,
-    "AG5RF4UGQJ7A7" ,
-    "AQ9Y6WD8O72ZC" ,
-    "tuturtu",
-    'A1W05TSPORJPXR',
-    'A3SUWCLD1GEGM7',
-    'A3A09JB9X1RBXW',
-    'A7VQQEIBSM9IU',
-    'A8DER1QY96C5X',
-    'A1M8MNKK8H5ZGW',
-    'A34D5D6PU193AR'), ]
+    "A1CF1W8CP0DHB0",
+    "A3VP14XN3WUUOC",
+    "A7VQQEIBSM9IU",
+    "A8DER1QY96C5X",
+    "A1M8MNKK8H5ZGW",
+    "A1J3ICF1NZYFCR",
+    "A34D5D6PU193AR"), ]
 
 
 #get rid of duplicate responses
@@ -743,7 +798,10 @@ pairwise.prop.test(x = c(total_MedFeedback_compliers, total_selfreflect_complier
                 total_negativeimages_compliers, total_control_compliers), 
           n = c(total_MedFeedback_rows, total_selfreflect_rows, total_positiveimages_rows,
                 total_negativeimages_rows, total_control_rows), p.adjust.method = "bonferroni")
-
+prop.test(x = c(total_MedFeedback_compliers, total_selfreflect_compliers, total_positiveimages_compliers,
+                total_negativeimages_compliers, total_control_compliers), 
+          n = c(total_MedFeedback_rows, total_selfreflect_rows, total_positiveimages_rows,
+                total_negativeimages_rows, total_control_rows))
 
 ```
 
@@ -860,8 +918,8 @@ e <- d_respondents[ Assignment_Group == "Self-Reflect", (Self_Reflect_Phase1_Sub
 
 #(coalesce(c(a,b,c,d,e)))
 
-d_noncompliance_1 <- data.table(id=1:350)
-d_noncompliance_1[ , Assignment_Group := (c(rep("Medical Feedback", 70), rep("Control", 69), rep("Positive Images", 70), rep("Negative Images", 72), rep("Self-Reflect", 69)))]
+d_noncompliance_1 <- data.table(id=1:333)
+d_noncompliance_1[ , Assignment_Group := (c(rep("Medical Feedback", 66), rep("Control", 65), rep("Positive Images", 66), rep("Negative Images", 70), rep("Self-Reflect", 66)))]
 d_noncompliance_1[ , Treatment_Phase1_SubmitTime := (coalesce(c(a,b,c,d,e)))]
 
 #################### set up datatable for Treatment Phase 2 Times
@@ -874,8 +932,8 @@ e <- d_respondents[ Assignment_Group == "Self-Reflect", (Self_Reflect_Phase2_Sub
 
 #(coalesce(c(a,b,c,d,e)))
 
-d_noncompliance_2 <- data.table(id=1:350)
-d_noncompliance_2[ , Assignment_Group := (c(rep("Medical Feedback", 70), rep("Control", 69), rep("Positive Images", 70), rep("Negative Images", 72), rep("Self-Reflect", 69)))]
+d_noncompliance_2 <- data.table(id=1:333)
+d_noncompliance_2[ , Assignment_Group := (c(rep("Medical Feedback", 66), rep("Control", 65), rep("Positive Images", 66), rep("Negative Images", 70), rep("Self-Reflect", 66)))]
 d_noncompliance_2[ , Treatment_Phase2_SubmitTime := (coalesce(c(a,b,c,d,e)))]
 
 ```
