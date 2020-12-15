@@ -310,10 +310,7 @@ Within this problem space, we will focus on two major comparisons.
 ## Data Completeness 
 The experiment started off with 381 surveys sourced through MTurk. Out of this participant pool, we threw out 97 results. These results were thrown out for the following reasons: 
 
-1. Clear non-compliance (n = 44): Some participants did not give honest effort on the survey and answered all "Normal", all "Pneumonia", or all alternating responses. These results were treated as instances of non-compliance and thrown out of the survey.
-- pretreatment task
-- time settings involved to prevent non-compliance
-- placebo design
+1. Clear non-compliance (n = 46): Some participants did not give honest effort on the survey and answered all "Normal", all "Pneumonia", or all alternating responses during Task Phase 1. This phase served as both a method to garner pre-treatment scores as well as screen for non-compliers. As such, results that aligned with this definition were treated as instances of non-compliance and thrown out of the survey; this methodology would not bias our estimates because we conducted a placebo design to assess the number of Never Takers that occur in our control/placebo group.
 2. Multiple submissions and non-valid entries (n = 5):  The research team’s $1.00 per survey price point was relatively high. As a result, some participants tried to send in multiple survey responses to collect multiple payments or submit an invalid MTurk code (1 instance). In these instances we only paid for (and used) the first survey.
 3. Incomplete surveys (n = 66): Some people started surveys but never finished. This includes those who never completed the last step of the survey by closing out their answers. These responses were thrown out and dealt with as instances of attrition. 
 
