@@ -82,19 +82,22 @@ Feedback can be used as a useful tool for personal growth and success. While res
 We found that expert-driven feedback was statistically significant and led to some of the highest improvements in X-Ray analysis. Furthermore, self-reflective feedback techniques were shown to be just as significant and effective. In quick, recognition-based tasks, focusing on negative feedback (i.e. what is wrong) may not be an effective strategy to improve performance. We also found that the marginal improvements in scores from a second feedback session are not significant and may not be worthwhile for shorter duration jobs. Lastly, feedback was found to be more impactful for low achieving performers. High performers do not exhibit any increased boost from feedback and may have been just as successful regardless of feedback sessions. 
 
 # Background
-Whether its the coach and player, teacher and pupil, or managers and direct reports, feedback likely plays an important role in delivering successful outcomes. All leaders are encouraged to give feedback while understudies are taught  to receive critique openly. However, what is good feedback and how much of one's success on a given task be attributed to this feedback? Suprisingly few, well-developed experiments have been conducted to investigate this relationship.In this study, we seek to better understand if feedback truly influences successful outcomes and if different types of feedback lead to better outcomes than others. 
+Whether its the coach and player, teacher and pupil, or managers and direct reports, feedback is used pervasively in organizations with the objective of driving performance improvement at the task at hand. All leaders are encouraged to give feedback while understudies are taught to receive it openly. However, what is good feedback and how much of one's success on a given task be attributed to this feedback? A large number of studies looked into the relationship between feedback and performance, summarized in a meta-analysis by Kluger & DeNisi (1996) (The effects of feedback interventions on performance: A historical review, a meta-analysis, and a preliminary feedback intervention theory. Psychological Bulletin, 119(2), 254–284). Kluger & DeNisi review shows that while "feedback interventions" overall incrased performance, they in some cases led to decreased performance. In this study, we seek to better understand how feedback influences successful outcomes and whether different types of feedback lead to better outcomes than others. 
 
 # Research Question
-Our study highlights the broad field of research around the role of feedback on performance. Successful feedback is thought to lead to improved performance. However it is too broad of a question for an experiment to point to a causal claim.  Exogenous factors such as the learning environment, the learner’s psychological mentality, or the type of task being taught may come into play in an non-experimental analysis. 
+Our study highlights the broad field of research around the role of feedback on performance. Successful feedback is thought to lead to improved performance. However it is too broad of a question for an experiment to point to a causal claim. Exogenous factors such as the learning environment, the learner’s psychological mentality, or the type of task being taught may come into play in an non-experimental analysis.
 
-Additionally, feedback comes in various forms, both positive and negative, internal and external. Some strategies may be better than others and others may actually negatively influence performance. As such, a well-designed experiment is necessary to find a true causal effect on learning outcomes (if any). 
+Additionally, feedback can take various forms and be delivered as advice, constructive critique, or in some cases as harsh criticism. Some strategies may be better than others and others may actually negatively influence performance. As such, a well-designed experiment is necessary to find a true causal effect on learning outcomes (if any). 
 
-The scope of our experiment is, as a result, intentionally narrow to measure the effect of different types of feedback on task performance. In our design, we ask survey respondents to recognize if an X-Ray image shows healthy lungs or lungs with pneumonia. This study introduces a novel concept to most, if not all subjects, requires strenous mental thought, and makes several extraneous elements consistent throughout the learning process (i.e. the computer-based learning environment, the feedback types, and the question being asked are the same throughout the program). 
+The scope of our experiment is, as a result, intentionally narrow to measure the effect of different types of feedback on task performance. 
+
+#Task selection
+In our design, we ask survey respondents to recognize if an X-Ray image shows healthy lungs or lungs with pneumonia. This study introduces a novel concept to most, if not all subjects, requires strenous mental thought, and makes several extraneous elements consistent throughout the learning process (i.e. the computer-based learning environment, the feedback types, and the question being asked are the same throughout the program). It also allows to measure outcome on an objective scale (number of images classified correctly) with significant data available on classified images.
 
 ## Hypothesis 
 Our study seeks to answer the following question: 
 
->*What type of feedback (positive reinforcement, negative reinforcement, self-reflective, etc.) leads to the largest improvements in individual performance within a simple, recognition-based task, if any?*
+>*What type of feedback (detailed feedback, self-reflective, etc.) leads to the largest improvements in individual performance within a simple, recognition-based task, if any?*
 
 We are testing the null hypothesis that the varying types of feedback do not lead to better outcomes. To generalize, we then test if the average treatment effect between those who receive any feedback and those who receive a placebo will equal 0. 
 
@@ -108,23 +111,24 @@ We anticipate that more feedback touchpoints will associate with better individu
 ## Overview
 This design follows a difference-in-differences design and is implemented through regression adjustment. Participants completed a three-part survey in one sitting. The random assignment occurs after the first round of questions, which allows us to pre-screen for compliance. The core analysis compares the difference in scores between the first iteration (pre-treatment) and the second iteration (after the first round of treatment) in order to test the immediate effects of feedback on performance. We further compare the first iteration scores with those in the third iteration (after the second round of treatment) to understand the effect of repeated feedback.
 
-In this experiment, participants will view a set of X-Ray slides. Each slide contains an X-Ray image of a patient’s lungs. The participant will have to determine if the patient’s lungs are healthy or have pneumonia. Responses and timings will be recorded. Three rounds will create an answer set of 30 images (3 Rounds x 10  X-Ray images in each round). Participants will be randomly assigned to the following control or treatment groups, with two one-minute breaks in between sessions. Each intervention type, while limited in scope to the X-Ray recognition task, is meant to replicate a real-life style of feedback. The interventions are as follows: 
+In this experiment, participants will view a set of X-Ray slides. Each slide contains an X-Ray image of a patient’s lungs. The participant will have to determine if the patient’s lungs are healthy or have pneumonia. Responses and timings will be recorded. Three rounds will create an answer set of 30 images (3 Rounds x 10  X-Ray images in each round). Participants will be randomly assigned to the following control or treatment groups, with two one-minute breaks in between sessions. Each intervention type, while limited in scope to the X-Ray recognition task, is meant to replicate a real-life style of feedback. The interventions are as follows:
 
 + *Control* - Subject watches a pharmaceutical video and is asked how the video makes them feel. This replicates the experience of someone that does not receive any internal or external feedback.
 + *Self Reflective Treatment* - Subject is shown the last round’s images, their answers, and the correct answers. They are then asked to reflect in two sentences about how they can improve. This reflects someone who does not receive feedback from others but thinks critically about their own performance and how to improve.
-+ *Positive Images Treatment* - Subject is shown the images of the last round’s healthy lungs only and is asked to study those images for 1 minute. This reflects someone who is only told the positive aspects of their performance. 
-+ *Negative Images Treatment* - Subject is shown the images of the last round’s pneumonia-filled lungs only and is asked to study those images for 1 minute. This reflects someone who is only told the negative aspects of their performance.
-+ *Specific  Feedback Treatment* - Subject is shown the last round’s images, their answers, and the correct answers. They are then given easy-to-digest information from a medical textbook on how to spot pneumonia. This reflects a situation where someone is given expert-driven advice on how to accomplish a task.
++ *Positive Images Treatment* - Subject is shown the images of the last round’s healthy lungs only and is asked to study those images for 1 minute. This reflects a situation where a manager provides one dimension of feedback to drive pattern recognition - in this case only images that should have passed the test. 
++ *Negative Images Treatment* - Subject is shown the images of the last round’s pneumonia-filled lungs only and is asked to study those images for 1 minute. This reflects a situation where a manager provides one dimension of feedback to drive pattern recognition - in this case only images that should not have passed the test.
++ *Specific Feedback Treatment* - Subject is shown the last round’s images, their answers, and the correct answers. They are then given easy-to-digest information from a medical textbook on how to spot pneumonia. This reflects a situation where someone is given expert-driven advice on how to accomplish a task. 
+
 
 ## Project Timeline
 The project was conducted on the following timeline: 
 
 | _Experiment Ideation & Design_  | _Trial Survey_ | _Survey Period_ | _Data Collection & Analysis_ | _Final Presentation_  | _Final Report_ | 
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| Oct. 28 - Nov. 5  | Nov. 6 - 8  | Nov. 9 - 14  | Nov. 15 - 30  | Dec. 8  | Dec. 15  |
+| Oct. 28 - Nov. 5,2020  | Nov. 6 - 8,2020  | Nov. 9 - 14,2020  | Nov. 15 - 30,2020  | Dec. 8,2020  | Dec. 15,2020  |
 
 ## Enrollment and Recruitment Process
-Subjects were recruited through Mechanical Turk (MTurk) and received $1 upon successful completion. Multiple entries from the same respondent were not permitted. Mechanical Turk lists the survey in a pool of others and payouts were given by the research team after successful completion of the survey. We ended up receiving 447 survey submissions. Since we charged a relatively high price point per survey, we were able to receive all of these responses in a matter of 72 hours. This may have worked in our favor by mitigating time-series related effects in the resulting data, **however it also included several drawbacks mentioned later in the paper.** 
+Subjects were recruited through Mechanical Turk (MTurk) and received USD 1 upon successful completion. Multiple entries from the same respondent were not permitted. Mechanical Turk lists the survey in a pool of others and payouts were given by the research team after successful completion of the survey. We ended up receiving 447 survey submissions. Since we charged a relatively high price point per survey, we were able to receive all of these responses in a matter of 72 hours. This may have worked in our favor by mitigating time-series related effects in the resulting data, **however it also included several drawbacks mentioned later in the paper.** 
 
 Subjects were mostly from the United States (`r d_respondents[, sum(US_Dummy)]`) and India (`r d_respondents[country == "India", length(country)]`). There were more males that participated in the study (`r d_respondents[Gender == "Male", length(Gender)]`) than females (`r d_respondents[Gender == "Female", length(Gender)]`). 
 
@@ -297,8 +301,6 @@ prop.test(attrition_table[,1], attrition_table[,5])
 #before task phase 1 prop test
 prop.test(attrition_table[,2], attrition_table[,5])
 ```
-
-**TODO SHOULD WE CALL OUT THAT ATTRITION AND NON-COMPLIANCE ARE NOT ISSUES BECAUSE WE COMPLETED A PLACEBO DESIGN?**
 
 # Results
 Overall, we have multiple ways we could have assessed this data based on our different treatment groups. We’ll primarily focus on two major comparisons.
