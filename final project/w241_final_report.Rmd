@@ -371,7 +371,11 @@ summary_task_score %>%
   ylab('Average Task Score (%)') +
   labs(title='Average score across task phases', color = "Assignment Group")
 ```
-(p=`r anova(d_respondents[,aov(TaskPhase1_Score~Assignment_Group)])[1,'Pr(>F)']`)
+
+Repeating the former analysis on the individual treatment group parses out any substantive differences in average score across phases. Reviewing the average score within Task Phase 1 for individual treatment groups suggests there is no difference between various types of feedback 
+(p=`r anova(d_respondents[,aov(TaskPhase1_Score~Assignment_Group)])[1,'Pr(>F)']`).
+
+Most notably, respondents in the Medical Feedback Group typically score higher than the rest of the survey pool, whereas respondents in the Negative Images Group typically score lower than people in other feedback groups. However, as shown in Figure **TODO**, there is much overlap in 95% confidence intervals within each task phase, suggesting that any difference is not statistically significant at the 5% significance level.
 
 ## Regressions
 
