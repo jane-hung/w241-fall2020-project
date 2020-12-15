@@ -168,9 +168,15 @@ We had one entry that took `r outlier` hours to complete the survey. This could 
 
 We examined how well our randomization worked by checking that the proportion of individuals assigned to each group was similar. Furthermore, we performed visual covariate balance checks on the survey data as it relates to gender, age range, education, and country. We additionally performed Chi Squared Tests for Independence to test for independence within each of these categories. None of the Chi-Squared tests were significant at the p = .05 level, signaling that there is no relationship between these covariates and the treatment and control assignment groups. Proportions of each covariate were consistent across assignment groups.
 
-```{r,echo=FALSE}
+```{r,results='asis',echo=FALSE}
 # check balance between assignment groups
-d_respondents[, .N, by = .(Assignment_Group)]
+pander(d_respondents[, .N, by = .(Assignment_Group)])
+
+# check balance between Task 1 Score
+pander(t.test(d_respondents[Treatment_Dummy == 0, TaskPhase1_Score], d_respondents[Treatment_Dummy == 1, TaskPhase1_Score]))
+
+# check balance between Task 1 Score, expanded
+pander(anova(d_respondents[,aov(TaskPhase1_Score~Assignment_Group)]))
 
 # check balance between genders
 gender_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, Gender)])
@@ -330,7 +336,16 @@ summary_task_score %>%
   labs(title='Average score across task phases',color="Assignment Group")
 ```
 
-When comparing task scores for across people who received feedback and people who received the placebo (shown above), we see that in Phase 1, average task score percentage is fairly similar between groups ($\bar{x}_{treatment}$ = `r summary_task_score[Treatment_Dummy == 'Received Feedback' & variable == 'TaskPhase1_Score', avg_score]` (*SE*=`r summary_task_score[Treatment_Dummy == 'Received Feedback' & variable == 'TaskPhase1_Score', se]`), $\bar{x}_{control}$ = `r summary_task_score[Treatment_Dummy == 'No Feedback' & variable == 'TaskPhase1_Score', avg_score]` (*SE*=`r summary_task_score[Treatment_Dummy == 'No Feedback' & variable == 'TaskPhase1_Score', se]`)).
+When comparing task scores for across people who received feedback and people who received the placebo (shown above), we see that in Task Phase 1, average task score percentage is fairly similar between groups ($\bar{x}_{treatment}$ = `r summary_task_score[Treatment_Dummy == 'Received Feedback' & variable == 'TaskPhase1_Score', avg_score]` (*SE*=`r summary_task_score[Treatment_Dummy == 'Received Feedback' & variable == 'TaskPhase1_Score', se]`), $\bar{x}_{control}$ = `r summary_task_score[Treatment_Dummy == 'No Feedback' & variable == 'TaskPhase1_Score', avg_score]` (*SE*=`r summary_task_score[Treatment_Dummy == 'No Feedback' & variable == 'TaskPhase1_Score', se]`)). As shown in the [Covariate Balance Checks Section][Covariate Balance Checks], specifically Table **TODO**, there is no statistical significance between pre-treatment scores in the binary assignment group case (p=`r t.test(d_respondents[Treatment_Dummy == 0, TaskPhase1_Score], d_respondents[Treatment_Dummy == 1, TaskPhase1_Score])$p.value`).
+
+In Task Phase 2, there is a notable difference in performance after the treatment group received feedback and the control group received the placebo, which a t-test in Table **TODO** deems statistically significant (p=`r t.test(d_respondents[Treatment_Dummy == 0, TaskPhase2_Score], d_respondents[Treatment_Dummy == 1, TaskPhase2_Score])$p.value`). Furthermore, there is an overall drop in performance between Phase 1 and Phase 2, which suggests that the Phase 2 scores were more difficult compared to those in Phase 1.
+
+Task Phase 3 scores recovered across both binary assignment groups (t(`r t.test(d_respondents[Treatment_Dummy == 0, TaskPhase3_Score], d_respondents[Treatment_Dummy == 1, TaskPhase3_Score])$parameter`) = `r t.test(d_respondents[Treatment_Dummy == 0, TaskPhase3_Score], d_respondents[Treatment_Dummy == 1, TaskPhase3_Score])$statistic`, p=`r t.test(d_respondents[Treatment_Dummy == 0, TaskPhase3_Score], d_respondents[Treatment_Dummy == 1, TaskPhase3_Score])$p.value`), which may indicate that more rounds of feedback within this timespan do not makea significant impact compared with the placebo (see [Effects of Repeated Feedback][Effects of Repeated Feedback] for more information).
+
+```{r,resulst='asis',warning=FALSE, echo=FALSE}
+pander(t.test(d_respondents[Treatment_Dummy == 0, TaskPhase2_Score], d_respondents[Treatment_Dummy == 1, TaskPhase2_Score]))
+```
+
 
 ### Effects of Repeated Feedback
 ```{r, warning=FALSE, echo=FALSE}
@@ -356,7 +371,7 @@ summary_task_score %>%
   ylab('Average Task Score (%)') +
   labs(title='Average score across task phases', color = "Assignment Group")
 ```
-
+(p=`r anova(d_respondents[,aov(TaskPhase1_Score~Assignment_Group)])[1,'Pr(>F)']`)
 
 ## Regressions
 
@@ -476,25 +491,23 @@ stargazer(mod_task3_a,
           dep.var.labels = 'Task Phase 3 Score',
           no.space=TRUE,
           header=FALSE,
-          type='text')
+          label = 'model3',
+          type='latex')
 
 pander(anova(mod_task3_b, mod_task3_d, test='F'),style='rmarkdown')
 ```
 
-By assessing Task Phase 3 scores his occurs after the subjects have received 2 rounds of treatment or placebo. We’re anticipating that giving more feedback will yield even higher task performance scores compared to Phase 2, and we’re hoping to understand if, as a manager, he/she should instantiate more touchbases to review performance.
+We test the effect of multiple rounds of feedback on task performance using Task Phase 3 as an outcome variable since this task phase occurs after the subjects have received two rounds of treatment or placebo. We anticipate that more feedback received will yield even higher task performance scores compared to Task Phase 2. As a result, we would like to assess if, as a manager, he/she should instantiate more touchbases to review performance.
 
-What we see across the board though is that the effects of treatment are severely attenuated over time and with an additional round of feedback. For example, when assessing the effect of any feedback, there is a meager .2 percentage point increase in performance, which is not statistically significant.
+However, according to Table \@ref(model3), the effects of treatment are severely attenuated over time and with an additional round of feedback. For example, when assessing the effect of any feedback (Column 2), there is a meager `r coeftest(mod_task3_b,vcov. = vcovHC(mod_task3_b,type='HC1'))[2,1]*100` (*SE*=`r coeftest(mod_task3_b,vcov. = vcovHC(mod_task3_b,type='HC1'))[2,2]*100`) percentage point increase in performance, which is not statistically significant. Furthermore, expanding the analysis to illustrate individual treatment effects suggests that the varying feedback types do not garner improved performance after more rounds of feedback (Column 3). Indeed, an F-test shown in Table **TODO** indicates that the expanded model does not add significant value to data representation (p=`r anova(mod_task3_b, mod_task3_d, test='F')[2,'Pr(>F)']`).
 
-This may be attributed to a number of things. For example, more frequent feedback during this short time span may be annoying to the receiver. The receiver may have then given much less attention to the feedback because they just received some critique fairly recently. On the other hand, a respondent paying close attention to this feedback may experience increased context switching, which may detract from completing the actual task.
-
-As a conclusion, we see that feedback has immediate positive effects on performance, specifically critique that provides SME or is completed through a self-assessment. Although we did not see statistically significant effects from repeated feedback, this further may be attributed to how we conducted our study and the timespan allotted.
-
+The findings may be attributed to a number of underlying factors. For example, more frequent feedback during this short time span may be annoying to the receiver. The subject may have then given much less attention to the feedback because they had already received critique fairly recently. On the other hand, a respondent paying close attention to this feedback may experience increased context switching, which may detract from completing the actual task and performing well.
 
 ## Power
 
 ```{r,results='asis',message=FALSE,warning=FALSE,echo=FALSE}
 power.t.test( delta = .05, sd = .16, sig.level = 0.05, power = 0.8)
-kable(d_respondents[, .N, by = .(Assignment_Group)])
+pander(d_respondents[, .N, by = .(Assignment_Group)])
 ```
 
 Power analysis shows that our groups did not have a large enough sample size required for each group. Due to the small effect size of approximately 0.05 when comparing mean Task Phase 2 scores in treatment and control groups, for such small effects to be detected with statistical power of 80%, the number of subjects required in each group would be `r round(power.t.test( delta = .05, sd = .16, sig.level = 0.05, power = 0.8)$n)`. Our group sizes for the control group, as well as the targeted medical feedback, positive, negative, and self-reflect treatment groups were `r d_respondents[, .N, by = .(Assignment_Group)][4, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][5, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][2, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][1, 2]`, and `r d_respondents[, .N, by = .(Assignment_Group)][3, 2]` respectively. This is primarily due to the fact that we charged too high of a price point per completed survey. 
