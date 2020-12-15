@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  14 DEC 2020 20:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  14 DEC 2020 22:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -553,155 +553,159 @@ LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [1
 
-{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
-40.
+97.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [2]
-<../final project/images/flow_diagram.png, id=132, 1262.7175pt x 542.025pt>
+) [3]
+<../final project/images/flow_diagram.png, id=136, 1262.7175pt x 542.025pt>
 File: ../final project/images/flow_diagram.png Graphic file (type png)
 <use ../final project/images/flow_diagram.png>
 Package pdftex.def Info: ../final project/images/flow_diagram.png  used on inpu
-t line 355.
+t line 412.
 (pdftex.def)             Requested size: 469.76074pt x 201.6461pt.
-[3]
-<w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf, id=144, 453.695pt 
+[4]
+<w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf, id=148, 453.695pt 
 x 313.17pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-4-1
-.pdf  used on input line 398.
+.pdf  used on input line 455.
 (pdftex.def)             Requested size: 453.6939pt x 313.16922pt.
-[4 <../final project/images/flow_diagram.png>]
-Overfull \vbox (0.9269pt too high) detected at line 456
- []
-
-[5 <./w241_final_report_files/figure-latex/unnamed-chunk-4-1.pdf>]
-<w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf, id=167, 464.73625p
+[5 <../final project/images/flow_diagram.png>] [6 <./w241_final_report_files/fi
+gure-latex/unnamed-chunk-4-1.pdf>]
+<w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf, id=171, 464.73625p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-5-1
-.pdf  used on input line 458.
+.pdf  used on input line 515.
 (pdftex.def)             Requested size: 464.74928pt x 316.19011pt.
-<w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf, id=168, 468.75125p
+<w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf, id=172, 468.75125p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-5-2
-.pdf  used on input line 476.
+.pdf  used on input line 533.
 (pdftex.def)             Requested size: 468.75009pt x 316.18047pt.
-[6 <./w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf>]
-<w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf, id=183, 468.75125p
+[7 <./w241_final_report_files/figure-latex/unnamed-chunk-5-1.pdf>]
+<w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf, id=188, 468.75125p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-5-3
-.pdf  used on input line 494.
+.pdf  used on input line 551.
 (pdftex.def)             Requested size: 468.75009pt x 316.18047pt.
-[7 <./w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf>]
-<w241_final_report_files/figure-latex/unnamed-chunk-5-4.pdf, id=199, 464.73625p
+[8 <./w241_final_report_files/figure-latex/unnamed-chunk-5-2.pdf>]
+<w241_final_report_files/figure-latex/unnamed-chunk-5-4.pdf, id=203, 464.73625p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-5-4.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-5-4.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-5-4
-.pdf  used on input line 515.
+.pdf  used on input line 572.
 (pdftex.def)             Requested size: 464.74928pt x 316.19011pt.
-[8 <./w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf>] [9 <./w241_f
-inal_report_files/figure-latex/unnamed-chunk-5-4.pdf>]
-<../final project/images/Blank diagram.png, id=232, 813.0375pt x 261.97874pt>
+[9 <./w241_final_report_files/figure-latex/unnamed-chunk-5-3.pdf>] [10 <./w241_
+final_report_files/figure-latex/unnamed-chunk-5-4.pdf>]
+<../final project/images/Blank diagram.png, id=236, 813.0375pt x 261.97874pt>
 File: ../final project/images/Blank diagram.png Graphic file (type png)
 <use ../final project/images/Blank diagram.png>
 Package pdftex.def Info: ../final project/images/Blank diagram.png  used on inp
-ut line 611.
+ut line 668.
 (pdftex.def)             Requested size: 469.75082pt x 151.36414pt.
-<w241_final_report_files/figure-latex/unnamed-chunk-6-1.pdf, id=233, 464.73625p
+<w241_final_report_files/figure-latex/unnamed-chunk-6-1.pdf, id=237, 464.73625p
 t x 318.18875pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-6-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-6-1
-.pdf  used on input line 637.
+.pdf  used on input line 694.
 (pdftex.def)             Requested size: 464.7351pt x 318.18796pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 643--643
+Underfull \hbox (badness 10000) in paragraph at lines 700--700
 []\T1/lmr/m/n/10 (+20) Table 2: Welch Two Sam-ple t-test:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 643--643
+Underfull \hbox (badness 10000) in paragraph at lines 700--700
 \T1/lmtt/m/n/10 d_respondents[Treatment_Dummy == 0, TaskPhase1_Score]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 643--643
+Underfull \hbox (badness 10000) in paragraph at lines 700--700
 \T1/lmr/m/n/10 (+20) and \T1/lmtt/m/n/10 d_respondents[Treatment_Dummy == 1,
  []
 
-[10 <../final project/images/Blank diagram.png>]
-<w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf, id=245, 464.73625p
+[11 <../final project/images/Blank diagram.png>]
+<w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf, id=249, 464.73625p
 t x 318.18875pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-7-1
-.pdf  used on input line 658.
+.pdf  used on input line 715.
 (pdftex.def)             Requested size: 464.7351pt x 318.18796pt.
-<w241_final_report_files/figure-latex/unnamed-chunk-8-1.pdf, id=246, 458.71375p
+<w241_final_report_files/figure-latex/unnamed-chunk-8-1.pdf, id=250, 458.71375p
 t x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (
 type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-8-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-8-1
-.pdf  used on input line 659.
+.pdf  used on input line 716.
 (pdftex.def)             Requested size: 458.73363pt x 316.19493pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 658--660
+Underfull \hbox (badness 10000) in paragraph at lines 715--717
 []
  []
 
-[11 <./w241_final_report_files/figure-latex/unnamed-chunk-6-1.pdf>]
+[12 <./w241_final_report_files/figure-latex/unnamed-chunk-6-1.pdf>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 667.
+(Font)              <10> on input line 724.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 667.
+(Font)              <7> on input line 724.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 667.
-[12 <./w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf> <./w241_fina
-l_report_files/figure-latex/unnamed-chunk-8-1.pdf>] [13] [14] [15]
-Overfull \hbox (1047.49057pt too wide) in paragraph at lines 920--920
+(Font)              <5> on input line 724.
+[13 <./w241_final_report_files/figure-latex/unnamed-chunk-7-1.pdf> <./w241_fina
+l_report_files/figure-latex/unnamed-chunk-8-1.pdf>] [14] [15] [16]
+Overfull \hbox (1047.49057pt too wide) in paragraph at lines 977--977
 []\T1/lmtt/m/n/10 ## data:  c(total_MedFeedback_compliers, total_selfreflect_co
 mpliers, total_positiveimages_compliers, total_negativeimages_compliers, total_
 control_compliers) out of c(total_MedFeedback_rows, total_selfreflect_rows, tot
 al_positiveimages_rows, total_negativeimages_rows, total_control_rows)[] 
  []
 
-[16]
-<w241_final_report_files/figure-latex/unnamed-chunk-15-1.pdf, id=308, 453.695pt
+
+Overfull \hbox (1047.49057pt too wide) in paragraph at lines 999--999
+[]\T1/lmtt/m/n/10 ## data:  c(total_MedFeedback_compliers, total_selfreflect_co
+mpliers, total_positiveimages_compliers, total_negativeimages_compliers, total_
+control_compliers) out of c(total_MedFeedback_rows, total_selfreflect_rows, tot
+al_positiveimages_rows, total_negativeimages_rows, total_control_rows)[] 
+ []
+
+[17] [18]
+<w241_final_report_files/figure-latex/unnamed-chunk-15-1.pdf, id=317, 453.695pt
  x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-15-1.pdf Graphic file 
 (type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-15-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-15-
-1.pdf  used on input line 1022.
+1.pdf  used on input line 1101.
 (pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-[17]
-<w241_final_report_files/figure-latex/unnamed-chunk-15-2.pdf, id=314, 453.695pt
+<w241_final_report_files/figure-latex/unnamed-chunk-15-2.pdf, id=318, 453.695pt
  x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-15-2.pdf Graphic file 
 (type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-15-2.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-15-
-2.pdf  used on input line 1038.
+2.pdf  used on input line 1117.
 (pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-[18 <./w241_final_report_files/figure-latex/unnamed-chunk-15-1.pdf>]
-Overfull \hbox (732.49149pt too wide) in paragraph at lines 1059--1059
+[19 <./w241_final_report_files/figure-latex/unnamed-chunk-15-1.pdf>]
+Overfull \hbox (732.49149pt too wide) in paragraph at lines 1138--1138
 []\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Medical 
 Feedback"), Treatment_Phase1_SubmitTime] and d_noncompliance_1[Assignment_Group
  %in% c("Self-Reflect") & Treatment_Phase1_SubmitTime < 250, Treatment_Phase1_S
@@ -709,46 +713,46 @@ ubmitTime][]
  []
 
 
-Overfull \hbox (732.49149pt too wide) in paragraph at lines 1080--1080
+Overfull \hbox (732.49149pt too wide) in paragraph at lines 1159--1159
 []\T1/lmtt/m/n/10 ## data:  d_noncompliance_2[Assignment_Group %in% c("Medical 
 Feedback"), Treatment_Phase2_SubmitTime] and d_noncompliance_2[Assignment_Group
  %in% c("Self-Reflect") & Treatment_Phase2_SubmitTime < 250, Treatment_Phase2_S
 ubmitTime][] 
  []
 
-[19 <./w241_final_report_files/figure-latex/unnamed-chunk-15-2.pdf>]
-Overfull \hbox (564.49197pt too wide) in paragraph at lines 1102--1102
+[20 <./w241_final_report_files/figure-latex/unnamed-chunk-15-2.pdf>]
+Overfull \hbox (564.49197pt too wide) in paragraph at lines 1181--1181
 []\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Medical 
 Feedback"), Treatment_Phase1_SubmitTime] and d_noncompliance_2[Assignment_Group
  %in% c("Medical Feedback"), Treatment_Phase2_SubmitTime][] 
  []
 
 
-Overfull \hbox (522.4921pt too wide) in paragraph at lines 1124--1124
+Overfull \hbox (522.4921pt too wide) in paragraph at lines 1203--1203
 []\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Self-Ref
 lect"), Treatment_Phase1_SubmitTime] and d_noncompliance_2[Assignment_Group %in
 % c("Self-Reflect"), Treatment_Phase2_SubmitTime][] 
  []
 
-<w241_final_report_files/figure-latex/unnamed-chunk-16-1.pdf, id=344, 453.695pt
+<w241_final_report_files/figure-latex/unnamed-chunk-16-1.pdf, id=348, 453.695pt
  x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-16-1.pdf Graphic file 
 (type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-16-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-16-
-1.pdf  used on input line 1164.
+1.pdf  used on input line 1243.
 (pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-[20]
-<w241_final_report_files/figure-latex/unnamed-chunk-16-2.pdf, id=349, 453.695pt
+[21]
+<w241_final_report_files/figure-latex/unnamed-chunk-16-2.pdf, id=353, 453.695pt
  x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-16-2.pdf Graphic file 
 (type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-16-2.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-16-
-2.pdf  used on input line 1180.
+2.pdf  used on input line 1259.
 (pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-[21 <./w241_final_report_files/figure-latex/unnamed-chunk-16-1.pdf>]
-Overfull \hbox (742.99146pt too wide) in paragraph at lines 1201--1201
+[22 <./w241_final_report_files/figure-latex/unnamed-chunk-16-1.pdf>]
+Overfull \hbox (742.99146pt too wide) in paragraph at lines 1280--1280
 []\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Positive
  Images"), Treatment_Phase1_SubmitTime] and d_noncompliance_1[Assignment_Group 
 %in% c("Negative Images") & Treatment_Phase1_SubmitTime < 150, Treatment_Phase1
@@ -756,58 +760,58 @@ _SubmitTime][]
  []
 
 
-Overfull \hbox (742.99146pt too wide) in paragraph at lines 1222--1222
+Overfull \hbox (742.99146pt too wide) in paragraph at lines 1301--1301
 []\T1/lmtt/m/n/10 ## data:  d_noncompliance_2[Assignment_Group %in% c("Positive
  Images"), Treatment_Phase2_SubmitTime] and d_noncompliance_2[Assignment_Group 
 %in% c("Negative Images") & Treatment_Phase2_SubmitTime < 150, Treatment_Phase2
 _SubmitTime][] 
  []
 
-[22 <./w241_final_report_files/figure-latex/unnamed-chunk-16-2.pdf>]
-Overfull \hbox (553.992pt too wide) in paragraph at lines 1244--1244
+[23 <./w241_final_report_files/figure-latex/unnamed-chunk-16-2.pdf>]
+Overfull \hbox (553.992pt too wide) in paragraph at lines 1323--1323
 []\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Positive
  Images"), Treatment_Phase1_SubmitTime] and d_noncompliance_2[Assignment_Group 
 %in% c("Positive Images"), Treatment_Phase2_SubmitTime][] 
  []
 
 
-Overfull \hbox (553.992pt too wide) in paragraph at lines 1266--1266
+Overfull \hbox (553.992pt too wide) in paragraph at lines 1345--1345
 []\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Negative
  Images"), Treatment_Phase1_SubmitTime] and d_noncompliance_2[Assignment_Group 
 %in% c("Negative Images"), Treatment_Phase2_SubmitTime][] 
  []
 
-<w241_final_report_files/figure-latex/unnamed-chunk-17-1.pdf, id=378, 453.695pt
+<w241_final_report_files/figure-latex/unnamed-chunk-17-1.pdf, id=382, 453.695pt
  x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-17-1.pdf Graphic file 
 (type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-17-1.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-17-
-1.pdf  used on input line 1307.
+1.pdf  used on input line 1386.
 (pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-[23]
-<w241_final_report_files/figure-latex/unnamed-chunk-17-2.pdf, id=383, 453.695pt
+[24]
+<w241_final_report_files/figure-latex/unnamed-chunk-17-2.pdf, id=387, 453.695pt
  x 316.18124pt>
 File: w241_final_report_files/figure-latex/unnamed-chunk-17-2.pdf Graphic file 
 (type pdf)
 <use w241_final_report_files/figure-latex/unnamed-chunk-17-2.pdf>
 Package pdftex.def Info: w241_final_report_files/figure-latex/unnamed-chunk-17-
-2.pdf  used on input line 1325.
+2.pdf  used on input line 1404.
 (pdftex.def)             Requested size: 453.6939pt x 316.18047pt.
-[24 <./w241_final_report_files/figure-latex/unnamed-chunk-17-1.pdf>]
-Overfull \hbox (469.99225pt too wide) in paragraph at lines 1346--1346
+[25 <./w241_final_report_files/figure-latex/unnamed-chunk-17-1.pdf>]
+Overfull \hbox (469.99225pt too wide) in paragraph at lines 1425--1425
 []\T1/lmtt/m/n/10 ## data:  d_noncompliance_1[Assignment_Group %in% c("Control"
 ), Treatment_Phase1_SubmitTime] and d_noncompliance_2[Assignment_Group %in% c("
 Control"), Treatment_Phase2_SubmitTime][] 
  []
 
-[25 <./w241_final_report_files/figure-latex/unnamed-chunk-17-2.pdf>] [26]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1488.
-[27]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1488.
+[26 <./w241_final_report_files/figure-latex/unnamed-chunk-17-2.pdf>] [27]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1567.
+[28]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1567.
 (./w241_final_report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1488.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1488.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1567.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1567.
 
 Package rerunfilecheck Info: File `w241_final_report.out' has not changed.
 (rerunfilecheck)             Checksum: 1D8983421BDA6E3FC5421B40387D3385;3930.
@@ -816,9 +820,9 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 13293 strings out of 480608
- 200379 string characters out of 5903631
- 488555 words of memory out of 5000000
+ 13294 strings out of 480608
+ 200386 string characters out of 5903631
+ 488556 words of memory out of 5000000
  28726 multiletter control sequences out of 15000+600000
  588296 words of font info for 122 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -839,10 +843,10 @@ pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/l
 ocal/texlive/2020/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/local/texli
 ve/2020/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2020/te
 xmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on w241_final_report.pdf (27 pages, 482820 bytes).
+Output written on w241_final_report.pdf (28 pages, 485634 bytes).
 PDF statistics:
- 500 PDF objects out of 1000 (max. 8388607)
- 407 compressed objects within 5 object streams
- 94 named destinations out of 1000 (max. 500000)
+ 504 PDF objects out of 1000 (max. 8388607)
+ 410 compressed objects within 5 object streams
+ 95 named destinations out of 1000 (max. 500000)
  12569 words of extra memory for PDF output out of 14400 (max. 10000000)
 
