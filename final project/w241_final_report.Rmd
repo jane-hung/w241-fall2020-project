@@ -298,7 +298,7 @@ The data we collected was exported directly from Qualtrics into a CSV file. Data
 + Demographic Data - Age Range, Education Level, Gender
 + Assignment Group - Control, Positive Images, Negative Images, Self-Reflection, and Specific Medical Feedback
 + Responses - Survey responses for Task Phase 1 (questions 1 - 10), Task Phase 2 (questions 11 - 20), and Task Phase 3 (questions 21 - 30)
-+ Scores - Scores for Task Phase 1, Task Phase 2, Task Phase 3 (each out of 10); treatment scores combining Task Phases 2 and 3 (out of 10); cumulative scores (out of 30)
++ Scores - Scores for Task Phase 1, Task Phase 2, Task Phase 3 (each scored out of 10); treatment scores combining Task Phases 2 and 3 (out of 10); cumulative scores (out of 30)
 
 Scoring is based on the number of questions a person answers correctly out of 10 questions per phase, which is then converted to a ratio value for ease of interpretation. In this case, a 10 percentage point increase in performance would signify getting 1 additional question right.
 
@@ -375,7 +375,7 @@ pander(fisher.test(attrition_table[,c(3,4)]))
 
 ```
 
-As a next step, we compared attrition rates within treatment groups and within phases as described in Table 5. We found that attrition rates were not statistically significant within these comparisons using a Fisher test (p>>.05). Since attrition is not due to any one task phase stage or treatment group, we do not have much reason for concern going forward and can contribute this attrition to randomness rather than systematic effects from any particular treatment or the experimental design.  
+As a next step, we compared attrition rates within treatment groups and within phases as described in Table 5. We found that attrition rates were not statistically significant within these comparisons using a Fisher test (p>>.05). Since attrition is not caused by any one task phase stage or treatment group, we do not have much reason for concern going forward and can contribute this attrition to randomness rather than systematic effects from any particular treatment or the experimental design.  
 
 # Results
 Overall, we have multiple ways we could have assessed this data based on our different treatment groups. We’ll primarily focus on two major comparisons.
@@ -816,7 +816,7 @@ CACE_Any_Treatment <- ITT/ITTd
 
 ```
 
-We start with examining the distribution of noncompliers across control and treatment groups. We run a 5-sample proportions test to see whether the take-up rates across treatment groups are similar. With a p-value of `r prop.test(x = c(total_MedFeedback_compliers, total_selfreflect_compliers, total_positiveimages_compliers,total_negativeimages_compliers, total_control_compliers), n = c(total_MedFeedback_rows, total_selfreflect_rows, total_positiveimages_rows, total_negativeimages_rows, total_control_rows))[3][1]`, there are no statistically significant differences between take-up rates across groups at the $\alpha=0.05$ level and no evidence of differential noncompliance.
+We start with examining the distribution of noncompliers across control and treatment groups. We run a 5-sample proportions test to see whether the take-up rates across treatment groups are similar. With a p-value of `r prop.test(x = c(total_MedFeedback_compliers, total_selfreflect_compliers, total_positiveimages_compliers,total_negativeimages_compliers, total_control_compliers), n = c(total_MedFeedback_rows, total_selfreflect_rows, total_positiveimages_rows, total_negativeimages_rows, total_control_rows))$p.value`, there are no statistically significant differences between take-up rates across groups at the $\alpha=0.05$ level and no evidence of differential noncompliance.
 
 ```{r, echo=FALSE,results='asis',warning=FALSE}
 pander(d_respondents_noncompliers[ , table(Assignment_Group)])
@@ -998,6 +998,7 @@ ggplot(d_noncompliance_2[Assignment_Group %in% c("Medical Feedback", "Self-Refle
 
 
 ```{r,echo=FALSE,results='asis'}
+options(digits=3)
 pander(t.test(d_noncompliance_1[Assignment_Group %in% c("Medical Feedback") & Treatment_Phase1_SubmitTime <= 240,
                          Treatment_Phase1_SubmitTime], 
        d_noncompliance_1[Assignment_Group %in% c("Self-Reflect") & Treatment_Phase1_SubmitTime <= 240, 
@@ -1026,11 +1027,11 @@ pander(t.test(d_noncompliance_1[Assignment_Group %in% c("Self-Reflect") & Treatm
        style='rmarkdown', split.table = Inf)
 ```
 
-Both Positive Images and Negative Images treatment groups shared the same time constraints to each other. We configured the survey settings so that respondents could proceed to the next page (leave the treatment phase) after 45 seconds have elapsed. The page would automatically advance to the next page after 120 seconds have elapsed. We noticed that there was one respondent who remained on the page beyond the 120-second time limit during Treatment Phase 1. Furthermore, we can visually see that respondents in the Negative Images group spent more time in Treatment Phase 1 than respondents in the Positive Images group did. Excluding those who stayed beyond the time limit, we can confirm this with a T-Test, where the difference is statistically significant at a p-value of `r t.test(d_noncompliance_1[Assignment_Group %in% c("Positive Images"), Treatment_Phase1_SubmitTime], d_noncompliance_1[Assignment_Group %in% c("Negative Images") & Treatment_Phase1_SubmitTime <= 120, Treatment_Phase1_SubmitTime])[3][1]`. 
+Both Positive Images and Negative Images treatment groups shared the same time constraints to each other. We configured the survey settings so that respondents could proceed to the next page (leave the treatment phase) after 45 seconds have elapsed. The page would automatically advance to the next page after 120 seconds have elapsed. We noticed that there was one respondent who remained on the page beyond the 120-second time limit during Treatment Phase 1. Furthermore, we can visually see that respondents in the Negative Images group spent more time in Treatment Phase 1 than respondents in the Positive Images group did. Excluding those who stayed beyond the time limit, we can confirm this with a T-Test, where the difference is statistically significant at a p-value << 0. 
 
 Similar to the Medical Feedback and Self-Reflect groups, in Treatment Phase 2, we see an increase in respondents who leave treatment at the minimum time marker. However, this increase is primarily driven by respondents in the Positive Images group as those in the Negative Images treatment group tended to stay in treatment longer, but the difference in mean times between Positive Images and Negative Images groups during this phase are not statistically significant at the $\alpha=0.05$ level. 
 
-While the differences in mean times are not statisically significant, we do see that the amount of time respondents in the Positive Images group spent in the second round of treatment was generally less than the first. However, respondents in the Negative Images group spent roughly equal amounts of time in the first and second rounds of treatment. 
+While the differences in mean times between treatment phases are not statisically significant, we do see that the amount of time respondents in the Positive Images group spent in the second round of treatment was generally less than the first. However, respondents in the Negative Images group spent roughly equal amounts of time in the first and second rounds of treatment. 
 
 ```{r,echo=FALSE,results='asis'}
 ########## plot density distributions of timing for Treatment Phase 1: Positive vs Negative Images
@@ -1082,7 +1083,7 @@ ggplot(d_noncompliance_1[Assignment_Group %in% c("Control")], aes(x=Treatment_Ph
   annotate("text", x = 64, y = 5, label = "Eligible to Submit", angle=90, color="dodgerblue4") +
   annotate("text", x = 174, y = 5, label = "Auto-Advance", angle=90, color = "midnightblue")
 
-ggplot(d_noncompliance_2[Assignment_Group %in% c("Control")], aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(20, 300) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 2 Duration Distribution") + geom_vline(xintercept = 70, color = "blue") + geom_vline(xintercept = 180, color = "red") + theme(plot.title = element_text(hjust = 0.5)) + 
+ggplot(d_noncompliance_2[Assignment_Group %in% c("Control")], aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(20, 300) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 2 Duration Distribution") + geom_vline(xintercept = 70, color = "dodgerblue4") + geom_vline(xintercept = 180, color = "midnightblue") + theme(plot.title = element_text(hjust = 0.5)) + 
   labs(fill="Assignment Group") + 
   annotate("text", x = 64, y = 5, label = "Eligible to Submit", angle=90, color="dodgerblue4") +
   annotate("text", x = 174, y = 5, label = "Auto-Advance", angle=90, color = "midnightblue") +
