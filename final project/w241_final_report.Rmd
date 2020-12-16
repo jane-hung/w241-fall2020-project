@@ -12,6 +12,9 @@ output:
 #     output_format = 'pdf_document') 
 #     })
 toc: TRUE
+header-includes:
+   \usepackage{float}
+   \floatplacement{figure}{H}
 ---
 
 ```{r, warning=FALSE, include=FALSE}
@@ -39,7 +42,7 @@ library(bookdown)
 ```{r setup, include=FALSE}
 opts_knit$set()
 options(digits=3)
-knitr::opts_chunk$set(echo = FALSE,warning = FALSE,message=FALSE)
+knitr::opts_chunk$set(echo = FALSE,warning = FALSE,message=FALSE,fig.pos = "H")
 rm(list = ls())
 ```
 
@@ -184,7 +187,7 @@ The project was conducted on the following timeline:
 Table: Project Timeline
 
 ## Enrollment and Recruitment Process
-Subjects were recruited through Mechanical Turk (MTurk) and received USD 1 upon successful completion. Multiple entries from the same respondent were not permitted. Mechanical Turk lists the survey in a pool of others and payouts were given by the research team after successful completion of the survey. We ended up receiving 333 survey submissions for our main analysis. Since we charged a relatively high price point per survey, we were able to receive all of these responses in a matter of 72 hours. This may have worked in our favor by mitigating time-series related effects in the resulting data, **however it also included several drawbacks mentioned later in the paper.** 
+Subjects were recruited through Mechanical Turk (MTurk) and received USD 1 upon successful completion. Multiple entries from the same respondent were not permitted. Mechanical Turk lists the survey in a pool of others and payouts were given by the research team after successful completion of the survey. We ended up receiving 333 compliant survey submissions for our main analysis. Since we charged a relatively high price point per survey, we were able to receive all of these responses in a matter of 72 hours. This may have worked in our favor by mitigating time-series related effects in the resulting data, **however it also included several drawbacks mentioned later in the paper.** 
 
 Subjects were mostly from the United States (`r d_respondents[, sum(US_Dummy)]`) and India (`r d_respondents[country == "India", length(country)]`). There were more males that participated in the study (`r d_respondents[Gender == "Male", length(Gender)]`) than females (`r d_respondents[Gender == "Female", length(Gender)]`). 
 
@@ -342,13 +345,11 @@ Our exploratory data analysis digged deeper into the attrition category to see i
 attrition_table <- as.data.frame.matrix(d_attrition[, addmargins(table(Assignment_Group, Attrition_Stage))])
 attrition_table <- attrition_table[c(3, 4, 1, 5)]
 
-kable(attrition_table, caption = "Attrition by Stage and Feedback Type") %>%
+kable(attrition_table[1:5,1:3], caption = "Attrition by Stage and Feedback Type") %>%
   footnote(number = c("Random assignment occurs before Task Phase 2", "14 people attrited out of the study before Task Phase 1, and were not assigned to a treatment group"),
            footnote_as_chunk = FALSE) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
-  row_spec(dim(attrition_table)[1], bold = T) %>% # format last row
-  column_spec(1, italic = T) %>% # format first column  
-  column_spec(5, bold = T)# format last row
+  column_spec(1, italic = T) # format first column  
 
 ```
 
@@ -433,7 +434,7 @@ summary_task_score %>%
 
 When comparing task scores for across people who received feedback and people who received the placebo (shown above), we see that in Task Phase 1, average task score percentage is fairly similar between groups ($\bar{x}_{treatment}$ = `r summary_task_score[Treatment_Dummy == 'Received Feedback' & variable == 'TaskPhase1_Score', avg_score]` (*SE*=`r summary_task_score[Treatment_Dummy == 'Received Feedback' & variable == 'TaskPhase1_Score', se]`), $\bar{x}_{control}$ = `r summary_task_score[Treatment_Dummy == 'No Feedback' & variable == 'TaskPhase1_Score', avg_score]` (*SE*=`r summary_task_score[Treatment_Dummy == 'No Feedback' & variable == 'TaskPhase1_Score', se]`)). As shown in the [Covariate Balance Checks Section][Covariate Balance Checks], specifically Table 4, there is no statistical significance between pre-treatment scores in the binary assignment group case (p=`r t.test(d_respondents[Treatment_Dummy == 0, TaskPhase1_Score], d_respondents[Treatment_Dummy == 1, TaskPhase1_Score])$p.value`).
 
-In Task Phase 2, there is a notable difference in performance after the treatment group received feedback and the control group received the placebo, which a t-test in Table 7 deems statistically significant (p=`r t.test(d_respondents[Treatment_Dummy == 0, TaskPhase2_Score], d_respondents[Treatment_Dummy == 1, TaskPhase2_Score])$p.value`). Furthermore, there is an overall drop in performance between Phase 1 and Phase 2, which suggests that the questions asked in Phase 2 were more difficult compared to those in Phase 1.
+In Task Phase 2, there is a notable difference in performance after the treatment group received feedback and the control group received the placebo, which a t-test in Table 7 deems statistically significant (p=`r t.test(d_respondents[Treatment_Dummy == 0, TaskPhase2_Score], d_respondents[Treatment_Dummy == 1, TaskPhase2_Score])$p.value`). Furthermore, there is an overall drop in performance between Phase 1 and Phase 2, which suggests that the questions asked in Phase 2 were more difficult compared to those in Phase 1. As a future enhancement, we may need to consider checking randomization of images across phases.
 
 Task Phase 3 scores recovered across both binary assignment groups (t(`r t.test(d_respondents[Treatment_Dummy == 0, TaskPhase3_Score], d_respondents[Treatment_Dummy == 1, TaskPhase3_Score])$parameter`) = `r t.test(d_respondents[Treatment_Dummy == 0, TaskPhase3_Score], d_respondents[Treatment_Dummy == 1, TaskPhase3_Score])$statistic`, p=`r t.test(d_respondents[Treatment_Dummy == 0, TaskPhase3_Score], d_respondents[Treatment_Dummy == 1, TaskPhase3_Score])$p.value`), which may indicate that more rounds of feedback within this timespan do not make a significant impact compared with the placebo (see [Effects of Repeated Feedback][Effects of Repeated Feedback] for more information).
 
@@ -1054,7 +1055,7 @@ pander(t.test(d_noncompliance_1[Assignment_Group %in% c("Self-Reflect") & Treatm
        style='rmarkdown', split.table = Inf,caption='t-test comparing phase 1 duration and phase 2 duration within Self-Reflect')
 ```
 
-Both Positive Images and Negative Images treatment groups shared the same time constraints to each other. We configured the survey settings so that respondents could proceed to the next page (leave the treatment phase) after 45 seconds have elapsed. The page would automatically advance to the next page after 120 seconds have elapsed. We noticed that there was one respondent who remained on the page beyond the 120-second time limit during Treatment Phase 1. Furthermore, we can visually see that respondents in the Negative Images group spent more time in Treatment Phase 1 than respondents in the Positive Images group did. Excluding those who stayed beyond the time limit, we can confirm this with a T-Test, where the difference is statistically significant at a p-value << 0.05. 
+Both Positive Images and Negative Images treatment groups shared the same time constraints to each other. We configured the survey settings so that respondents could proceed to the next page (leave the treatment phase) after 45 seconds have elapsed. The page would automatically advance to the next page after 120 seconds have elapsed. We noticed that there was one respondent who remained on the page beyond the 120-second time limit during Treatment Phase 1. Furthermore, we can visually see that respondents in the Negative Images group spent more time in Treatment Phase 1 than respondents in the Positive Images group did. Excluding those who stayed beyond the time limit, we can confirm this difference is statistically significant with a p-value = `r t.test(d_noncompliance_1[Assignment_Group %in% c("Positive Images"), Treatment_Phase1_SubmitTime], d_noncompliance_1[Assignment_Group %in% c("Negative Images") & Treatment_Phase1_SubmitTime <= 120, Treatment_Phase1_SubmitTime])$p.value`. 
 
 Similar to the Medical Feedback and Self-Reflect groups, in Treatment Phase 2, we see an increase in respondents who leave treatment at the minimum time marker. However, this increase is primarily driven by respondents in the Positive Images group as those in the Negative Images treatment group tended to stay in treatment longer, but the difference in mean times between Positive Images and Negative Images groups during this phase are not statistically significant at the $\alpha=0.05$ level. 
 
@@ -1144,10 +1145,10 @@ Throughout this exploratory discussion, with the exception of respondents in the
 pander(power.t.test( delta = .06, sd = .16, sig.level = 0.05, power = 0.8),style='rmarkdown',split.table=Inf,caption='two-sample t-test for power calculation')
 ```
 
-Power analysis shows that our groups did not have a large enough sample size required for each group. Due to the small effect size of approximately 0.05 when comparing mean Task Phase 2 scores in treatment and control groups, for such small effects to be detected with statistical power of 80%, the number of subjects required in each group would be `r round(power.t.test( delta = .06, sd = .16, sig.level = 0.05, power = 0.8)$n)`. Our group sizes for the control group, as well as the targeted medical feedback, positive, negative, and self-reflect treatment groups were `r d_respondents[, .N, by = .(Assignment_Group)][4, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][5, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][2, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][1, 2]`, and `r d_respondents[, .N, by = .(Assignment_Group)][3, 2]` respectively. This is primarily due to the fact that we charged too high of a price point per completed survey. 
+Power analysis shows that our groups did not have a large enough sample size required for each group. Due to the small effect size of approximately 0.06 when comparing mean Task Phase 2 scores in treatment and control groups, for such small effects to be detected with statistical power of 80%, the number of subjects required in each group would be `r round(power.t.test( delta = .06, sd = .16, sig.level = 0.05, power = 0.8)$n)`. Our group sizes for the control group, as well as the targeted medical feedback, positive, negative, and self-reflect treatment groups were `r d_respondents[, .N, by = .(Assignment_Group)][4, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][5, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][2, 2]`, `r d_respondents[, .N, by = .(Assignment_Group)][1, 2]`, and `r d_respondents[, .N, by = .(Assignment_Group)][3, 2]` respectively. This is primarily due to the fact that we charged too high of a price point per completed survey. 
 
 # Conclusions 
-Our experiment and following study shows that feedback contributes a statistically and practically significant effect in X-Ray analysis performance (ATE = `r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[2,1]*100`, SE +- `r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[2,2]*100`%). More specifically, targeted medical feedback saw the most statistically significant increases in performance (ATE = `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[2,1]*100`, SE +- `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[2,2]*100`), showing that expert opinion may lead to more significant outcomes in the real world. Along the same lines, self-reflection led to statistically and practically significant improvements on performance (ATE = `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[5,1]*100`, SE +- `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[5,2]*100`), which bolsters recent research into the power of self-reflection techniques on a variety of everyday activities. Lastly, negative feedback loops fared the worst (ATE = `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[3,1]*100`, p = `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[3,4]`), showing that for recognition-based tasks, negative feedback may not lead to stronger outcomes than other methods. 
+Our experiment and following study shows that feedback contributes a statistically and practically significant effect in X-Ray analysis performance (ATE = `r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[2,1]*100`, SE +- `r coeftest(mod_task2_b,vcov. = vcovHC(mod_task2_b,type='HC1'))[2,2]*100`). More specifically, targeted medical feedback saw the most statistically significant increases in performance (ATE = `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[2,1]*100`, SE +- `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[2,2]*100`), showing that expert opinion may lead to more significant outcomes in the real world. Along the same lines, self-reflection led to statistically and practically significant improvements on performance (ATE = `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[5,1]*100`, SE +- `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[5,2]*100`), which bolsters recent research into the power of self-reflection techniques on a variety of everyday activities. Lastly, negative feedback loops fared the worst (ATE = `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[3,1]*100`, p = `r coeftest(mod_task2_d,vcov. = vcovHC(mod_task2_d,type='HC1'))[3,4]`), showing that for recognition-based tasks, negative feedback may not lead to stronger outcomes than other methods. 
 
 Lastly, we found that more frequent feedback loops during a short, iterative task does not lead to significant marginal improvements in performance (ATE = `r coeftest(mod_task3_b,vcov. = vcovHC(mod_task3_b,type='HC1'))[2,1]*100`, p = `r coeftest(mod_task3_b,vcov. = vcovHC(mod_task3_b,type='HC1'))[2,4]`) This may have been due to our experimental design and short duration of the task, but should lead to further research on the relationship between feedback loops and marginal productivity.
 
