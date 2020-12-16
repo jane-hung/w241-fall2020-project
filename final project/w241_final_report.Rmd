@@ -131,7 +131,7 @@ g_legend<-function(a.gplot){
 ```
 
 # Abstract
-Feedback can be used as a useful tool for personal growth and success. While researchers have studied the topic for decades, few controlled studies have been conducted to fully understand the relationship between critique types, feedback loops, and their correlation with successful outcomes. The aim of this study was to assess the effectiveness of several different types of feedback in identifying positive and negative X-Ray images. 333 participants went through an online test session analyzing three sets of X-Ray lung images to determine if they contained pneumonia or if they were healthy. Participants were randomly assigned to five different feedback groups and received feedback twice in between the X-Ray image identification sessions. 
+Feedback interventions are pervasive to professional environments. The aim of this study is to assess the effectiveness of different types of feedback. We use a controlled experiment and ask subjects to classify X-Ray images for healthy or penumonia-sick lungs. 333 participants recruited on Amazon's Mechanical Turk analyzed three sets of X-Ray lung images on an online survey. After a pre-treatment test, participants are randomly assigned to five different feedback groups (one control and four types of feedback) and received feedback in between each set of X-Ray images (twice in total).
 
 We found that expert-driven feedback was statistically significant and led to some of the highest improvements in X-Ray analysis. Furthermore, self-reflective feedback techniques were shown to be just as significant and effective. In quick, recognition-based tasks, focusing on negative feedback (i.e. what is wrong) may not be an effective strategy to improve performance. We also found that the marginal improvements in scores from a second feedback session are not significant and may not be worthwhile for shorter duration jobs. Lastly, feedback was found to be more impactful for low achieving performers. High performers do not exhibit any increased boost from feedback and may have been just as successful regardless of feedback sessions. 
 
@@ -146,7 +146,7 @@ Additionally, feedback can take various forms and be delivered as advice, constr
 The scope of our experiment is, as a result, intentionally narrow to measure the effect of different types of feedback on task performance. 
 
 ## Task selection
-In our design, we ask survey respondents to recognize if an X-Ray image shows healthy lungs or lungs with pneumonia. This study introduces a novel concept to most, if not all subjects, requires strenous mental thought, and makes several extraneous elements consistent throughout the learning process (i.e. the computer-based learning environment, the feedback types, and the questions being asked are the same throughout the program). It also allows us to measure outcomes on an objective scale (number of images classified correctly) with significant data available on classified images. Our images were sourced from a labeled dataset in [Kaggle](https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia).
+In our design, we ask survey respondents to recognize if an X-Ray image shows healthy lungs or lungs with pneumonia. This study introduces a novel concept to most, if not all subjects, requires strenous mental thought, and makes several extraneous elements consistent throughout the learning process (i.e. the computer-based learning environment, the feedback types, and the questions being asked are the same throughout the program). It also allows us to measure outcomes on an objective scale (number of images classified correctly) with significant data available on classified images.
 
 ## Hypothesis 
 Our study seeks to answer the following question: 
@@ -165,13 +165,15 @@ We anticipate that more feedback touchpoints will associate with better individu
 ## Overview
 This design follows a difference-in-differences design and is implemented through regression adjustment. Participants completed a three-part survey in one sitting. The random assignment occurs after the first round of questions, which allows us to pre-screen for compliance. The core analysis compares the difference in scores between the first iteration (pre-treatment) and the second iteration (after the first round of treatment) in order to test the immediate effects of feedback on performance. We further compare the first iteration scores with those in the third iteration (after the second round of treatment) to understand the effect of repeated feedback.
 
-In this experiment, participants will view a set of X-Ray slides. Each slide contains an X-Ray image of a patient’s lungs. The participant will have to determine if the patient’s lungs are healthy or have pneumonia. Responses and timings will be recorded. Three rounds will create an answer set of 30 images (3 Rounds x 10  X-Ray images in each round). Participants will be randomly assigned to the following control or treatment groups, with two one-minute breaks in between sessions. Each intervention type, while limited in scope to the X-Ray recognition task, is meant to replicate a real-life style of feedback. The interventions are as follows:
+In this experiment, participants are shown a set of X-Ray slides. Each slide contains an X-Ray image of a patient’s lungs. The participant is asked to determine whether the patient’s lungs are healthy or have pneumonia. Responses and timings are recorded. The experiment proceeds in threerounds to create an answer set of 30 images, with 10 X-Ray images in each round. Images were sourced from a labeled dataset in [Kaggle](https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia), and selected randomly.
 
-+ *Control* - Subject watches a pharmaceutical video and is asked how the video makes them feel. This replicates the experience of someone that does not receive any internal or external feedback.
-+ *Self Reflective Treatment* - Subject is shown the last round’s images, their answers, and the correct answers. They are then asked to reflect in two sentences about how they can improve. This reflects someone who does not receive feedback from others but thinks critically about their own performance and how to improve.
-+ *Positive Images Treatment* - Subject is shown the images of the last round’s healthy lungs only and is asked to study those images for 1 minute. This reflects a situation where a manager provides one dimension of feedback to drive pattern recognition - in this case only images that should have passed the test. 
-+ *Negative Images Treatment* - Subject is shown the images of the last round’s pneumonia-filled lungs only and is asked to study those images for 1 minute. This reflects a situation where a manager provides one dimension of feedback to drive pattern recognition - in this case only images that should not have passed the test.
-+ *Specific Feedback Treatment* - Subject is shown the last round’s images, their answers, and the correct answers. They are then given easy-to-digest information from a medical textbook on how to spot pneumonia. This reflects a situation where someone is given expert-driven advice on how to accomplish a task. 
+Participants are randomly assigned to the following control or treatment groups, with two one-minute breaks in between sessions. Each intervention type, while limited in scope to the X-Ray recognition task, is meant to replicate a real-life style of feedback. The interventions are as follows:
+
++ *Control* - Subject watches a pharmaceutical video and is asked how the video makes them feel. This replicates the experience of someone that does not receive any internal or external feedback. Subject can only progress to the next task phase after having spent a minimum of 70 seconds. Subjects are automatically progressed after 180 seconds.
++ *Self Reflective Treatment* - Subject is shown the last round’s images, their answers, and the correct answers. They are then asked to reflect in two sentences about how they can improve. This reflects someone who does not receive feedback from others but thinks critically about their own performance and how to improve. Subject can only progress to the next task phase after having spent a minimum of 90 seconds. Subjects are automatically progressed after 240 seconds.
++ *Positive Images Treatment* - Subject is shown the images of the last round’s healthy lungs only and is asked to study those images for 1 minute. This reflects a situation where a manager provides one dimension of feedback to drive pattern recognition - in this case only images that should have been classified as healthy. Subject can only progress to the next task phase after having spent a minimum of 45 seconds. Subjects are automatically progressed after 120 seconds.
++ *Negative Images Treatment* - Subject is shown the images of the last round’s pneumonia-filled lungs only and is asked to study those images for 1 minute. This reflects a situation where a manager provides one dimension of feedback to drive pattern recognition - in this case only images that should have been classified as infected with pneumonia. Subject can only progress to the next task phase after having spent a minimum of 45 seconds. Subjects are automatically progressed after 120 seconds.
++ *Medical (or Specific) Feedback Treatment* - Subject is shown the last round’s images, their answers, and the correct answers. They are then given easy-to-digest information from a medical textbook on how to spot pneumonia. This reflects a situation where someone is given expert-driven advice on how to accomplish a task. Subject can only progress to the next task phase after having spent a minimum of 90 seconds.
 
 
 ## Project Timeline
@@ -192,14 +194,18 @@ The survey was compatible with both mobile and desktop applications. This helped
 
 
 ## Randomization
-Since subjects were recruited from Mechanical Turk, the experiment had access to a global pool of candidates. Then, participants were randomly assigned to each of the 5 groups based on randomization logic pre-built on the Qualtrics system. Randomization occurred through the Qualtrics system after the first pre-treatment phase and split the remaining responses evenly between the four treatment groups and the control group. This randomization process is important so that treatment assignments are independent of subjects' potential outcomes. Furthermore, unaccounted-for covariates of the subject pool would not bias our estimate of the ATE. 
+Since subjects were recruited from Mechanical Turk, we had access to a global pool of candidates. Participants are randomly assigned to each of the 5 groups based on a randomization logic pre-built on the Qualtrics system. Randomization occurred through the Qualtrics system after the first pre-treatment phase and assigned respondents between the four treatment groups and the control group. 
 
-The Qualtrics flow can be seen below.
+This randomization process is important so that treatment assignments are independent of subjects' potential outcomes. Furthermore, unaccounted-for covariates of the subject pool would not bias our estimate of the ATE. 
+
+A summary flow is reported below.
 
 ![Qualtrics Flow](../final project/images/flow_diagram.png)
 
 ## Excludability and Non-Interference
-This design also meets the excludability and non-interference assumptions needed to provide an unbiased estimate of the average treatment effect. Once a subject is assigned a treatment group, he or she receives a specific treatment for two separate times since treatment phases alternate with task phases 2 and 3. We meet the excludability assumption since outcomes are measured consistently through all task phases and for all assignment groups. Every task phase is scored on a scale from 1 to 10. Thus, what one subject scored in pre-treatment can be directly compared to what he or she scored in post-treatment. Furthermore, subjects are asked to essentially make diagnoses from looking at X-Ray images. We believe that this is an esoteric topic, which would make it difficult for respondents to perform third-party research while completing the survey. However, we are better able to answer this subject by reviewing the completion times below.
+This design also meets the excludability and non-interference assumptions needed to provide an unbiased estimate of the average treatment effect. Once a subject is assigned a treatment group, he or she receives a specific treatment for two separate times since treatment phases alternate with task phases 2 and 3. 
+
+The experiment meets the excludability assumption since outcomes are measured consistently through all task phases and for all assignment groups. Every task phase is scored on a scale from 1 to 10. Thus, what one subject scored in pre-treatment can be directly compared to what he or she scored in post-treatment. Furthermore, subjects are asked to essentially make diagnoses from looking at X-Ray images. We believe that this is an esoteric topic, which would make it difficult for respondents to perform third-party research while completing the survey. However, we are better able to answer this subject by reviewing the completion times below.
 
 ```{r, echo=FALSE}
 #n survey responses > 30 mins., take outlier out for analysis but discuss below
@@ -221,11 +227,17 @@ ggplot(completions, aes(x=`Duration (in seconds)`/60, fill = as.factor(Assignmen
 
 ```
 
-We had one entry that took `r outlier` hours to complete the survey. This could be due to research but is likely due to other factors such as just leaving the computer idle up for certain period of time. Eliminating this outlier, 95% of participants completed the survey in `r upper_cl` minutes or less (`r upper_cl/3` minutes or less per task phase), which is illustrated by the dotted vertical line in the figure above. As such, subject driven, third-party research did not likely play a role in outcomes. The non-interference assumption is also met in this experiment since subjects are not aware of the treatments in other groups. They also do not know each other and cannot share about their treatment status with untreated subjects or vice versa. 
+We had one entry that took `r outlier` hours to complete the survey. This could be due to research but is likely due to other factors such as just leaving the computer idle up for certain period of time. Eliminating this outlier, 95% of participants completed the survey in `r upper_cl` minutes or less (`r upper_cl/3` minutes or less per task phase), which is illustrated by the dotted vertical line in the figure above. As such, subject driven, third-party research did not likely play a role in outcomes. 
+
+The non-interference assumption is also met in this experiment since subjects are not aware of the treatments in other groups. They also do not know each other and cannot share about their treatment status with untreated subjects or vice versa. 
 
 ## Covariate Balance Checks
 
-We examined how well our randomization worked by checking that the proportion of individuals assigned to each group was similar. Furthermore, we performed visual covariate balance checks on the survey data as it relates to gender, age range, education, and country. We additionally performed Chi Squared Tests for Independence to test for independence within each of these categories. None of the Chi-Squared tests were significant at the p = .05 level, signaling that there is no relationship between these covariates and the treatment and control assignment groups. Proportions of each covariate were consistent across assignment groups.
+We examined how well our randomization worked by checking that the proportion of individuals assigned to each group was similar. 
+
+We performed covariate balance checks on the survey data as it relates to gender, age range, education, and country. 
+
+We additionally performed Chi Squared Tests for Independence to test for independence within each of these categories. None of the Chi-Squared tests were significant at the p = .05 level, signaling that there is no relationship between these covariates and the treatment and control assignment groups. Proportions of each covariate were consistent across assignment groups.
 
 ```{r,results='asis',echo=FALSE}
 # check balance between assignment groups
@@ -300,7 +312,7 @@ The data we collected was exported directly from Qualtrics into a CSV file. Data
 + Responses - Survey responses for Task Phase 1 (questions 1 - 10), Task Phase 2 (questions 11 - 20), and Task Phase 3 (questions 21 - 30)
 + Scores - Scores for Task Phase 1, Task Phase 2, Task Phase 3 (each scored out of 10); treatment scores combining Task Phases 2 and 3 (out of 10); cumulative scores (out of 30)
 
-Scoring is based on the number of questions a person answers correctly out of 10 questions per phase, which is then converted to a ratio value for ease of interpretation. In this case, a 10 percentage point increase in performance would signify getting 1 additional question right.
+Scoring is based on the number of questions a person answers correctly out of 10 questions per phase (each question asks the subject to classify the image into healthy vs. pneumonia lungs), which is then converted to a ratio value for ease of interpretation. In this case, a 10 percentage point increase in performance would signify getting 1 additional question right.
 
 We will assess two main regressions with the following outcome variables: Task Phase 2 Scores and Task Phase 3 Scores. In the former regression, we assess whether feedback immediately affects performance; in the latter analysis, we assess whether there is a marginal increase in performance from repeated feedback.
   
@@ -310,7 +322,7 @@ Within this problem space, we will focus on two major comparisons.
 2. Individual Treatment Effects: This second comparison focuses on comparing each individual treatment group with the control and with each other.
 
 ## Data Completeness 
-The experiment started off with 450 surveys sourced through MTurk. Out of this participant pool, we threw out 117 results. These results were thrown out for the following reasons: 
+The experiment started off with 450 surveys sourced through MTurk. Out of this participant pool, we threw out 117 results. These results were thrown out for the following reasons:
 
 1. Clear non-compliance (n = 46): Some participants did not give honest effort on the survey and answered all "Normal", all "Pneumonia", or all alternating responses during Task Phase 1. This phase served as both a method to garner pre-treatment scores as well as screen for non-compliers. As such, results that aligned with this definition were treated as instances of non-compliance and thrown out of the survey; this methodology would not bias our estimates because we conducted a placebo design to assess the number of Never Takers that occur in our control/placebo group.
 2. Multiple submissions and non-valid entries (n = 5):  The research team’s $1.00 per survey price point was relatively high. As a result, some participants tried to send in multiple survey responses to collect multiple payments or submit an invalid MTurk code (1 instance). In these instances we only paid for (and used) the first survey.
