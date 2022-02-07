@@ -1,0 +1,1696 @@
+---
+title: "Feedback MTurk Study"
+author: "Dahler Battle, Guy El Khoury, Jane Hung, and Julian Tsang"
+date: "15 Dec 2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(foreign)
+library(data.table)
+library(knitr)
+library(stargazer)
+library(sandwich)
+library(car)
+library(dplyr)
+library(ggmap)
+library(revgeo)
+library(AER)
+library(ggplot2)
+library(expss)
+library(grid)
+library(gridExtra)
+library(pander)
+```
+
+
+```{r, include=FALSE}
+# clears workspace
+rm(list = ls())
+
+# round all numbers to 4 decimals
+options(digits=4)
+
+# set theme for ggplot to be cleaner
+theme_set(theme_light())
+```
+
+# Introduction
+
+
+
+# Load Data
+```{r, include=FALSE}
+# d <- fread('Lungs_November+14,+2020_17.33.csv')
+d <- fread('../check-valid-responses/data/qualtrics_results_final.csv')
+#head(d)
+```
+
+```{r, include=FALSE}
+d_respondents_only <-
+  d[(Status == "IP Address") & (Finished == 'True'),]
+
+# Remove these survey responses because they were from people who did the survey again. Double check that they are removed:
+d_respondents_only <-
+  d_respondents_only[!ResponseId %in% c(
+    'R_1eRkKqfVAmkVzj2',
+    'R_3FR03xu5zyOsRSU',
+    'R_3HBQsMSMCgXPpKf',
+    'R_dbzictBknL9jG3T'
+  ), ]
+
+# These WorkerId put in all 1 response (all Normal or all Pneumonia)
+d_respondents_only <-
+  d_respondents_only[!Q80 %in% c(
+    "A119EX2L0DNN1B",
+    "A12NQJV6TA5OWB",
+    "A18WFPSLFV4FKY",
+    "A1BUYK6LXYWMLL",
+    "A1FHRZXSE7XNJ4",
+    "A1GMYDH5MKN105",
+    "A2GSZ3D2XXC533",
+    "A2IGIOD74EPOEF",
+    "A2J016DRTOBXWO",
+    "A2NGFU82LMJ80X",
+    "A32K1M0A36EAK5",
+    "A371SNJNNUY9Z6",
+    "A3BPENSX5EVJ2H",
+    "A3EPIT2P3ISA3K",
+    "A3NYIJYBHAJ74V",
+    "AUFLTHQAXWLH1",
+    "AVINXZZV3FNG7" ,
+    "A1CD7O60QAQQRT",
+    "A1CF1W8CP0DHB0",
+    "A1PGY59BR6C5BX",
+    "A1YSYI926BBOHW",
+    "A1Z3GFH6MNSU46",
+    "A211KGJ94WNFLN",
+    "A26RPQDD0RQEHL",
+    "A2BUHMLNE3LUU0",
+    "A2J5BRQ88W745H",
+    "A2XIHO2W7EEP32",
+    "A3EZ0H07TSDAPW",
+    "A3FLBC6LC5GJ3W",
+    "A3QLKLIQW1B1FR",
+    "A8F6JFG0WSELT",
+    "A9K6IVBA0J1CX",
+    "ADLZLGHKOAEE6",
+    "AE7NJG0KOVZYJ" ,
+    "AG5RF4UGQJ7A7" ,
+    "AQ9Y6WD8O72ZC" ,
+    "tuturtu"
+  ), ]
+
+# These people just gave alternating responses (Normal, Pneumonia, Normal,...,Pneumonia)
+
+d_respondents_only <- d_respondents_only[!Q80 %in% c(
+'A1W05TSPORJPXR'
+,'A3SUWCLD1GEGM7'
+,'A3A09JB9X1RBXW'
+,'A7VQQEIBSM9IU'
+,'A8DER1QY96C5X'
+,'A1M8MNKK8H5ZGW'
+,'A34D5D6PU193AR'
+),]
+
+#head(d_respondents_only)
+```
+
+```{r, include=FALSE}
+#rename task phase questions
+setnames(d_respondents_only,
+         old = c('Q2', 'Q42'),
+         new = c('Self_Reflect_Q1', 'Self_Reflect_Q2'))
+
+setnames(d_respondents_only,
+         old = c('Q69', 'Q89'),
+         new = c('Control_Q1', 'Control_Q2'))
+
+setnames(d_respondents_only,
+         old = c('Q80', 'Q82', 'Q83', 'Q84', 'SC0', 'FL_6_DO'),
+         new = c('Amazon_Turk_ID', 'Gender', 'Age_Range', 'Education_Level', 'Total_Score', 'Assignment'))
+
+setnames(d_respondents_only, 
+         old = c('Q1', 'Q5', 'Q6', 'Q7', 'Q16', 'Q17', 'Q18', 'Q19', 'Q20', 'Q21',
+                 'Q8', 'Q9', 'Q10', 'Q11', 'Q22', 'Q23', 'Q24', 'Q25', 'Q26', 'Q27',
+                 'Q12', 'Q13', 'Q14', 'Q15', 'Q28', 'Q29', 'Q30', 'Q31', 'Q32', 'Q33'), 
+         new = c('Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9', 'Q10',
+                 'Q11', 'Q12', 'Q13', 'Q14', 'Q15', 'Q16', 'Q17', 'Q18', 'Q19', 'Q20',
+                 'Q21', 'Q22', 'Q23', 'Q24', 'Q25', 'Q26', 'Q27', 'Q28', 'Q29', 'Q30'))
+
+d_respondents_only[ , c("Q1_Score", "Q2_Score", "Q3_Score", "Q4_Score", "Q5_Score",
+                        "Q6_Score", "Q7_Score", "Q8_Score", "Q9_Score", "Q10_Score",
+                        "Q11_Score", "Q12_Score", "Q13_Score", "Q14_Score", "Q15_Score", 
+                        "Q16_Score", "Q17_Score", "Q18_Score", "Q19_Score", "Q20_Score", 
+                        "Q21_Score", "Q22_Score", "Q23_Score", "Q24_Score", "Q25_Score", "Q26_Score",
+                        "Q27_Score", "Q28_Score", "Q29_Score", "Q30_Score") := 
+                      list(ifelse(Q1 == "Normal", 1, 0),
+                            ifelse(Q2 == "Normal", 1, 0),
+                            ifelse(Q3 == "Pneumonia", 1, 0),
+                            ifelse(Q4 == "Pneumonia", 1, 0),
+                            ifelse(Q5 == "Normal", 1, 0),
+                            ifelse(Q6 == "Pneumonia", 1, 0),
+                            ifelse(Q7 == "Pneumonia", 1, 0),
+                            ifelse(Q8 == "Normal", 1, 0),
+                            ifelse(Q9 == "Pneumonia", 1, 0),
+                            ifelse(Q10 == "Normal", 1, 0),
+                            ifelse(Q11 == "Pneumonia", 1, 0),
+                            ifelse(Q12 == "Normal", 1, 0),
+                            ifelse(Q13 == "Pneumonia", 1, 0),
+                            ifelse(Q14 == "Pneumonia", 1, 0),
+                            ifelse(Q15 == "Normal", 1, 0),
+                            ifelse(Q16 == "Normal", 1, 0),
+                            ifelse(Q17 == "Pneumonia", 1, 0),
+                            ifelse(Q18 == "Normal", 1, 0),
+                            ifelse(Q19 == "Pneumonia", 1, 0),
+                            ifelse(Q20 == "Normal", 1, 0),
+                            ifelse(Q21 == "Normal", 1, 0),
+                            ifelse(Q22 == "Normal", 1, 0),
+                            ifelse(Q23 == "Pneumonia", 1, 0),
+                            ifelse(Q24 == "Normal", 1, 0),
+                            ifelse(Q25 == "Pneumonia", 1, 0),
+                            ifelse(Q26 == "Pneumonia", 1, 0),
+                            ifelse(Q27 == "Pneumonia", 1, 0),
+                            ifelse(Q28 == "Pneumonia", 1, 0),
+                            ifelse(Q29 == "Normal", 1, 0),
+                            ifelse(Q30 == "Normal", 1, 0))]
+
+d_respondents_only[ , Assignment_Group := ifelse(Assignment == "FL_17", "Control", 
+                                          ifelse(Assignment == "FL_14", "Self-Reflect",
+                                          ifelse(Assignment == "FL_15", "Medical Feedback",
+                                          ifelse(Assignment == "FL_16", "Positive Images", "Negative Images"))))]
+
+d_respondents_only[ , c("TaskPhase1_Score", "TaskPhase2_Score", "TaskPhase3_Score") :=
+                      list(sum(Q1_Score, Q2_Score, Q3_Score, Q4_Score, Q5_Score, Q6_Score, Q7_Score, Q8_Score, Q9_Score, Q10_Score)/10,
+                           sum(Q11_Score, Q12_Score, Q13_Score, Q14_Score, Q15_Score, Q16_Score, Q17_Score, Q18_Score, Q19_Score, Q20_Score)/10,
+                           sum(Q21_Score, Q22_Score, Q23_Score, Q24_Score, Q25_Score, Q26_Score, Q27_Score, Q28_Score, Q29_Score, Q30_Score)/10),
+                    by = Amazon_Turk_ID]
+
+#head(d_respondents_only)
+
+```
+
+
+```{r, results='asis'}
+# ?register_google
+# register_google(key = "AIzaSyCTk2a5vIEqcvgz9KmQmItoNF7J8_hiMMk")
+# 
+# #uses Google API to obtain location data based on longitude and latitude....dont use unless necessary for new data
+# d_respondents_only[ , c("housenumber", "street", "city", "county", "state", "zip", "country") := revgeo(as.numeric(LocationLongitude),as.numeric(LocationLatitude), provider = 'google', API = "AIzaSyCTk2a5vIEqcvgz9KmQmItoNF7J8_hiMMk", output='frame')]
+# # 
+# head(d_respondents_only)
+# # 
+# # 
+# fwrite(d_respondents_only, file='datatable_clean_survey_responses_v2.dta')
+
+d_respondents <- fread('datatable_clean_survey_responses_v2.dta')
+
+setnames(d_respondents,
+         old = c('Duration (in seconds)'),
+         new = c('Survey_Duration'))
+kable(t(head(d_respondents[, names(d_respondents)[!names(d_respondents) %in% c(
+    "Q70_First Click","Q70_Last Click","Q70_Page Submit","Q70_Click Count",
+    "Q90_First Click","Q90_Last Click","Q90_Page Submit","Q90_Click Count",
+    "Q61_First Click","Q61_Last Click","Q61_Page Submit","Q61_Click Count",
+    "Q62_First Click","Q62_Last Click","Q62_Page Submit","Q62_Click Count",
+    "Q63_First Click","Q63_Last Click","Q63_Page Submit","Q63_Click Count",
+    "Q64_First Click","Q64_Last Click","Q64_Page Submit","Q64_Click Count",
+    "Q65_First Click","Q65_Last Click","Q65_Page Submit","Q65_Click Count",
+    "Q66_First Click","Q66_Last Click","Q66_Page Submit","Q66_Click Count",
+    "Q67_First Click","Q67_Last Click","Q67_Page Submit","Q67_Click Count",
+    "Q68_First Click","Q68_Last Click","Q68_Page Submit","Q68_Click Count",
+    "housenumber","street","zip")],with=FALSE],3)))
+```
+
+```{r}
+nrow(d_respondents)
+```
+
+```{r, include=FALSE}
+#skip
+
+# ?register_google
+# register_google(key = "AIzaSyCTk2a5vIEqcvgz9KmQmItoNF7J8_hiMMk")
+# ggmap_show_api_key()
+# 
+# 
+# revgeocode(c(df$lon[1], df$lat[1]))
+# 
+# d_respondents_only[ Q80 == "A1AC47WJLNW4G7", revgeocode(c(as.numeric(LocationLongitude)[1], as.numeric(LocationLatitude)[1]), output = "address")]
+# ?revgeocode
+```
+
+```{r}
+#remove duplicate Amazon Turk IDs
+nrow(d_respondents)  #350 rows
+d_respondents <- d_respondents[ !duplicated(d_respondents$Amazon_Turk_ID) , ]  #350 rows
+
+head(d_respondents)
+
+d_respondents[, hist(Survey_Duration), by = .(Assignment_Group)]
+
+ggplot(data=d_respondents,aes(x=d_respondents$Survey_Duration, group=d_respondents$Assignment_Group, fill=d_respondents$Assignment_Group))+
+  geom_histogram(position="dodge",binwidth=0.25)+theme_bw()
+
+ggplot(d_respondents, aes(x=Survey_Duration, fill = as.factor(Assignment_Group), colour=as.factor(Assignment_Group))) +
+  geom_density(alpha = 0.2) + 
+  ggtitle("Survey Duration by Assignment Group") + 
+  theme(plot.title = element_text(hjust = 0.5))
+
+outliers <- d_respondents[Survey_Duration > 60*60]
+completions <- d_respondents[Survey_Duration < 5000]
+
+ggplot(completions, aes(x=Survey_Duration/60, fill = as.factor(Assignment_Group), colour=as.factor(Assignment_Group))) +
+  geom_density(alpha = 0.35) + 
+  xlim(0,60) +
+  ggtitle("Survey Duration by Assignment Group") + 
+  labs(x = "Minutes") + 
+  geom_vline(xintercept = mean((completions$Survey_Duration)/60) + (2 *(sd(completions$Survey_Duration)/60)), linetype="dotted", color = "blue", size = 0.5) +
+  theme(plot.title = element_text(hjust = 0.5)) 
+    
+```
+
+
+
+# EDA
+
+## Helper Functions
+```{r}
+create_heatmap <- function(var1, var2) {
+  ### Create a heatmap for a table of frequencies between two variables ###
+  df <- data.frame(table(var1,var2))
+  
+  ggplot(df,aes(x=var1,y=var2)) +
+    geom_tile(aes(fill=Freq,color=Freq),show.legend=FALSE,alpha=.8) +
+    geom_text(aes(label=Freq)) +
+    scale_fill_continuous(high = "darkslategray4", low = "powderblue")
+}
+
+g_legend<-function(a.gplot){
+  #extract legend from a ggplot object
+  #https://stackoverflow.com/questions/13649473/add-a-common-legend-for-combined-ggplots
+  #https://github.com/hadley/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)}
+```
+
+```{r}
+#some EDA
+
+#d_respondents[ , table(state, country)]
+
+
+table(d_respondents$state, d_respondents$country) %>% 
+        as.data.frame() %>% 
+        arrange(desc(Freq)) %>%
+        filter(Freq>0)
+
+table(d_respondents$country) %>% 
+        as.data.frame() %>% 
+        arrange(desc(Freq))
+
+```
+
+```{r}
+
+table(d_respondents$Total_Score) %>%
+  as.data.frame() %>%
+  arrange(desc(Var1))
+
+d_respondents %>% 
+  group_by(Assignment_Group) %>%
+  summarise(mean = mean(Total_Score),
+            count = n(),
+            time_duration = mean(Survey_Duration))
+#d_respondents[ , .(count = .N, avg = mean(Total_Score)), by=Assignment_Group] #same thing
+
+d_respondents[ , hist(Total_Score)]
+
+
+tapply(d_respondents$Total_Score, d_respondents$Assignment_Group, summary)
+tapply(d_respondents$Total_Score, d_respondents$Assignment_Group, sd)
+d_respondents[ , sd(Total_Score)]
+```
+
+```{r}
+library(ggmap)
+?register_google
+register_google(key = "AIzaSyCTk2a5vIEqcvgz9KmQmItoNF7J8_hiMMk")
+# ggmap_show_api_key()
+
+us_map<-get_map(location='united states', zoom=4, maptype = "terrain",
+             source='google',color='color')
+
+ggmap(us_map) + geom_point(x=d_respondents$LocationLongitude, y = d_respondents$LocationLatitude, show_guide = TRUE, data = d_respondents, alpha = 0.5, na.rm = T) + scale_color_gradient(low="beige", high="red")
+
+india_map<-get_map(location='india', zoom=5, maptype = "terrain",
+             source='google',color='color')
+
+ggmap(india_map) + geom_point(x=d_respondents$LocationLongitude, y = d_respondents$LocationLatitude, show_guide = TRUE, data = d_respondents, alpha = 0.5, na.rm = T) + scale_color_gradient(low="beige", high="red")
+```
+
+
+
+## Randomization Check
+```{r, results='asis'}
+#http://www.sthda.com/english/wiki/chi-square-goodness-of-fit-test-in-r
+
+respondent_counts <- d_respondents[ , .(.N), keyby=Assignment_Group]
+
+respondent_counts_chisq_test <- chisq.test(respondent_counts[,2], p=c(1/5, 1/5, 1/5, 1/5, 1/5))
+pander(respondent_counts_chisq_test,style ='rmarkdown')
+
+respondent_counts %>% 
+  ggplot(aes(x = Assignment_Group,y=N)) + 
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  xlab('Assignment Group') +
+  ylab('Number of Observations') +
+  labs(title='Randomization check among assignment groups',
+       caption = paste0('Assuming equal distribution among assignment groups, a chi-squared goodness of fit test with ',
+                        round(respondent_counts_chisq_test$parameter,4),' degrees of \nfreedom ', 'yields p=',
+                        round(respondent_counts_chisq_test$p.value,4),
+                        ', suggesting that the observed proportions are not significantly different from the \nexpected proportions at a significance level of 0.05.')) + 
+  theme(plot.caption = element_text(hjust = 0))
+#p-value = 0.9991, which is greater than significance level of 0.05. 
+#We can conclude that the observed proportions are not significantly different from the expected proportions
+```
+
+## Covariate Balance Check
+
+```{r}
+#let's consider adding age bins and education bins
+
+d_respondents[ Age_Range == "18-24", age_bin := 1]
+d_respondents[ Age_Range == "25-34", age_bin := 2]
+d_respondents[ Age_Range == "35-44", age_bin := 3]
+d_respondents[ Age_Range == "45-54", age_bin := 4]
+d_respondents[ Age_Range == "55-64", age_bin := 5]
+d_respondents[ Age_Range == "Above 65", age_bin := 6]
+
+d_respondents[ Education_Level == "Associate's degree", edu_bin := 1]
+d_respondents[ Education_Level == "Bachelor's degree", edu_bin := 2]
+d_respondents[ Education_Level == "High school", edu_bin := 3]
+d_respondents[ Education_Level == "Master's degree and above", edu_bin := 4]
+d_respondents[ Education_Level == "Some high school", edu_bin := 5]
+d_respondents[ Education_Level == "Trade school", edu_bin := 6]
+
+d_respondents[ Assignment_Group == "Control", assign_bin := 1]
+d_respondents[ Assignment_Group == "Medical Feedback", assign_bin := 2]
+d_respondents[ Assignment_Group == "Negative Images", assign_bin := 3]
+d_respondents[ Assignment_Group == "Positive Images", assign_bin := 4]
+d_respondents[ Assignment_Group == "Self-Reflect", assign_bin := 5]
+
+d_respondents[ , US_Dummy := ifelse(country == "United States", 1, 0)]
+
+d_respondents[ , Male_Dummy := ifelse(Gender == "Male", 1, 0)]
+
+#add treatment dummy
+
+d_respondents[ , Treatment_Dummy := ifelse(Assignment_Group != "Control", 1, 0)]
+
+#head(d_respondents)
+
+
+
+```
+
+
+```{r}
+d_respondents %>% 
+  group_by(Assignment_Group) %>%
+  summarise(num_respondents = n(),
+            pre_treatment_avg = mean(TaskPhase1_Score),
+            taskphase2_avg = mean(TaskPhase2_Score),
+            taskphase3_avg = mean(TaskPhase3_Score))
+
+
+d_respondents %>% 
+  group_by(Assignment_Group) %>%
+  summarise(num_respondents = n(),
+            avg_age_bin = mean(age_bin),
+            avg_edu_bin = mean(edu_bin),
+            male = mean(Male_Dummy),
+            US = mean(US_Dummy))
+
+d_respondents %>%
+  group_by(Assignment_Group) %>%
+  summarise(num_respondents = n(),
+            )
+```
+
+### Visuals
+
+```{r}
+#Density distribution of Survey Duration
+ggplot(d_respondents, aes(x=Survey_Duration, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + 
+  geom_density(alpha = 0.3) + 
+  xlim(0, 1500) + 
+  xlab("Completion Time (seconds)") +
+  ggtitle("Survey Duration Distribution")
+
+
+#Comparing pretreatment values
+ggplot(d_respondents, aes(x=TaskPhase1_Score, fill = as.factor(Treatment_Dummy), colour=as.factor(Treatment_Dummy))) + geom_density(alpha = 0.3)
+
+ggplot(d_respondents, aes(x=TaskPhase1_Score, fill = as.factor(Assignment_Group), colour=as.factor(Assignment_Group))) + geom_density(alpha = 0.3) + ggtitle("PreTreatment Scores by Group") + theme(plot.title = element_text(hjust = 0.5))
+
+
+#Comparing taskphase2 values
+ggplot(d_respondents, aes(x=TaskPhase2_Score, fill = as.factor(Assignment_Group), colour=as.factor(Assignment_Group))) + geom_density(alpha = 0.2) + ggtitle("TaskPhase2 Scores by Group") + theme(plot.title = element_text(hjust = 0.5))
+
+#Comparing taskphase3 values
+ggplot(d_respondents, aes(x=TaskPhase3_Score, fill = as.factor(Assignment_Group), colour=as.factor(Assignment_Group))) + geom_density(alpha = 0.2) + ggtitle("TaskPhase3 Scores by Group") + theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r}
+task2a_bp <- ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase1_Score, colour=as.factor(Treatment_Dummy))) +
+  geom_boxplot() + 
+  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
+  xlab('') +
+  ylab('Task Score (%)') +
+  ggtitle("Pre Treatment Scores") +
+  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank(), 
+        plot.title = element_text(hjust = 0.5,size=10),
+        legend.position = "bottom",
+        legend.title = element_blank())
+
+task2b_bp <- ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase2_Score, colour=as.factor(Treatment_Dummy))) +
+  geom_boxplot() + 
+  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
+  xlab('') +
+  ylab('') +
+  ggtitle("Task Phase 2 Scores") +
+  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank(), 
+        plot.title = element_text(hjust = 0.5,size=10),
+        legend.position = "none")
+
+task2c_bp <- ggplot(d_respondents, aes(x = Treatment_Dummy, y=TaskPhase3_Score, colour=as.factor(Treatment_Dummy))) +
+  geom_boxplot() + 
+  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
+  xlab('') +
+  ylab('') +
+  ggtitle("Task Phase 3 Scores") +
+  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank(), 
+        plot.title = element_text(hjust = 0.5,size=10),
+        legend.position = "none")
+
+mylegend_2<-g_legend(task2a_bp)
+
+grid.arrange(arrangeGrob(task2a_bp + theme(legend.position="none"),task2b_bp,task2c_bp,ncol=3),
+             mylegend_2, 
+             nrow=2, 
+             heights=c(10,1),
+             top = textGrob("Compare task scores in different phases\n",just='right',gp=gpar(fontsize=14,font=1)))
+
+pander(t.test(d_respondents[Treatment_Dummy == 0, TaskPhase1_Score],
+       d_respondents[Treatment_Dummy == 1, TaskPhase1_Score]))
+```
+
+
+```{r}
+# boxplots for multiple treatment groups
+task1a_bp <- ggplot(d_respondents, aes(x = Assignment_Group, y=TaskPhase1_Score, colour=as.factor(Assignment_Group))) +
+  geom_boxplot() + 
+  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
+  xlab('') +
+  ylab('Task Score (%)') +
+  ggtitle("Pre Treatment Scores") +
+  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank(), 
+        plot.title = element_text(hjust = 0.5,size=10),
+        legend.position = "bottom",
+        legend.title = element_blank())
+
+task1b_bp <- ggplot(d_respondents, aes(x = Assignment_Group, y=TaskPhase2_Score, colour=as.factor(Assignment_Group))) +
+  geom_boxplot() + 
+  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
+  xlab('') +
+  ylab('') +
+  ggtitle("Task Phase 2 Scores") +
+  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank(), 
+        plot.title = element_text(hjust = 0.5,size=10),
+        legend.position = "none")
+
+task1c_bp <- ggplot(d_respondents, aes(x = Assignment_Group, y=TaskPhase3_Score, colour=as.factor(Assignment_Group))) +
+  geom_boxplot() + 
+  stat_summary(fun.y = mean, geom = "errorbar", aes(ymax = ..y.., ymin = ..y..), width = .75, linetype = "dashed") +
+  xlab('') +
+  ylab('') +
+  ggtitle("Task Phase 3 Scores") +
+  scale_y_continuous(labels = scales::percent,limits = c(0,1)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank(), 
+        plot.title = element_text(hjust = 0.5,size=10),
+        legend.position = "none")
+
+mylegend_1<-g_legend(task1a_bp)
+
+grid.arrange(arrangeGrob(task1a_bp + theme(legend.position="none"),task1b_bp,task1c_bp,ncol=3),
+             mylegend_1, 
+             nrow=2, 
+             heights=c(10,1),
+             top = textGrob("Compare task scores in different phases\n",just='right',gp=gpar(fontsize=14,font=1)))
+# pander(t.test(d_respondents[Treatment_Dummy == 0, TaskPhase1_Score],
+#        d_respondents[Treatment_Dummy == 1, TaskPhase1_Score]))
+```
+
+```{r}
+# Compare score across time for all groups
+# https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_Confidence_Intervals/BS704_Confidence_Intervals_print.html
+# TODO finish formatting
+# TODO duplicate for treatment dummy as well
+summary_task_score <- (melt(d_respondents,id.vars=c('Assignment_Group'),
+                            measure.vars = c('TaskPhase1_Score','TaskPhase2_Score','TaskPhase3_Score'))[
+  ,.('avg_score'=mean(value),'sd_score'=sd(value),'obs'=.N),keyby=.(Assignment_Group,variable)])[
+    ,se:=1.96*sd_score/sqrt(obs)]
+
+summary_task_score %>%
+  ggplot( aes(x=variable, y=avg_score, group=Assignment_Group, color=Assignment_Group)) +
+  geom_errorbar(aes(ymin=avg_score-1.96*sd_score/sqrt(obs), ymax=avg_score+1.96*sd_score/sqrt(obs)), 
+                width=.2, 
+                position=position_dodge(0.25)) +
+  geom_line(position=position_dodge(0.25)) + 
+  geom_point(position=position_dodge(0.25)) +
+  scale_y_continuous(labels = scales::percent,limits = c(.35,.75)) +
+  scale_x_discrete(breaks=c("TaskPhase1_Score", "TaskPhase2_Score","TaskPhase3_Score"),
+                      labels=c("Phase 1", "Phase 2", "Phase 3")) +
+  xlab('Task Phases') +
+  ylab('Average Task Score (%)') +
+  labs(title='Average score across task phases', color = "Assignment Group")
+
+
+```
+
+
+```{r, results='asis'}
+# TODO add this to the appendix
+kable(summary_task_score)
+```
+
+
+#### Gender
+```{r fig.width=9}
+# TODO format figures and captions
+#check balance between gender
+
+gender_chiqq <- chisq.test(d_respondents[ , table(Assignment_Group, Gender)])
+pander(gender_chiqq,style='rmarkdown')
+
+create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Gender) +
+  xlab('Assignment Group') +
+  ylab('Gender') +
+  labs(title = 'Contingency table between gender and assignment group',
+       caption = paste0('Assuming gender distributions are the same among assignment groups, a chi-squared test for independence with ',
+                        round(gender_chiqq$parameter,4),' \ndegrees of freedom ', 'yields p=',
+                        round(gender_chiqq$p.value,4),
+                        ', suggesting that there is no relationship between gender and assignment groups at a \nsignificance level of 0.05.')) + 
+  theme(plot.caption = element_text(hjust = 0))
+
+```
+
+#### Age Range
+```{r fig.width=9}
+# TODO format figures and captions
+#check balance between age-range
+
+# expected frequency count for each cell of the contingency table should be at least 5. Since this is not the case, we set simulate.p.value = TRUE to use Monte Carlo simulation
+# https://stats.stackexchange.com/questions/81483/warning-in-r-chi-squared-approximation-may-be-incorrect
+age_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, Age_Range)],simulate.p.value = TRUE)
+pander(age_chisq,style='rmarkdown')
+
+create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Age_Range) +
+  xlab('Assignment Group') +
+  ylab('Age') +
+  labs(title = 'Contingency table between age range and assignment group',
+       caption = paste0('Assuming age distributions are the same among assignment groups, a chi-squared test for independence with Monte \nCarlo simulation yields p=',
+                        round(age_chisq$p.value,4),
+                        ', suggesting that there is no relationship between age and assignment groups at a \nsignificance level of 0.05.')) + 
+  theme(plot.caption = element_text(hjust = 0))
+```
+
+#### Education Level
+```{r fig.width=9}
+# TODO format figures and captions
+#check balance between education levels
+edu_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, Education_Level)],simulate.p.value = TRUE)
+pander(edu_chisq,style='rmarkdown')
+
+create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$Education_Level) +
+  xlab('Assignment Group') +
+  ylab('Education Level') +
+  labs(title = 'Contingency table between education and assignment group',
+       caption = paste0('Assuming education distributions are the same among assignment groups, a chi-squared test for \nindependence with Monte Carlo simulation yields p=',
+                        round(edu_chisq$p.value,4),
+                        ', suggesting that there is no relationship \nbetween education and assignment groups at a significance level of 0.05.')) + 
+  theme(plot.caption = element_text(hjust = 0))
+```
+
+#### Country: US, non-US
+```{r fig.width=9}
+# TODO format figures and captions
+# out.width = "80%"
+# check balance between US and non-US respondents
+
+us_chisq <- chisq.test(d_respondents[ , table(Assignment_Group, US_Dummy)])
+pander(us_chisq,style='rmarkdown')
+
+create_heatmap(var1 = d_respondents$Assignment_Group,var2 = d_respondents$US_Dummy) +
+  xlab('Assignment Group') +
+  ylab('Country') +
+  scale_y_discrete(breaks=c("0", "1"),
+                      labels=c("Non-US", "United States")) +
+  labs(title = 'Contingency table between country and assignment group',
+       caption = paste0('Assuming country distributions are the same among assignment groups, a chi-squared test for independence with \n',
+                        round(us_chisq$parameter,4),' degrees of freedom ', 'yields p=',
+                        round(us_chisq$p.value,4),
+                        ', suggesting that there is no relationship between country and assignment \ngroups at a significance level of 0.05.')) + 
+  theme(plot.caption = element_text(hjust = 0))
+
+```
+
+
+```{r}
+# ATE of treatment on Total Score
+
+d_respondents[ Treatment_Dummy == 1, mean(Total_Score)] - d_respondents[ Treatment_Dummy == 0, mean(Total_Score)] 
+
+sd(d_respondents$Total_Score)
+```
+
+```{r}
+# ATE of treatment on TaskPhase2 Score
+
+d_respondents[ Treatment_Dummy == 1, mean(TaskPhase2_Score)] - d_respondents[ Treatment_Dummy == 0, mean(TaskPhase2_Score)] 
+sd(d_respondents$TaskPhase2_Score)
+
+d_respondents[Assignment_Group == "Medical Feedback", mean(TaskPhase2_Score)] - d_respondents[Assignment_Group == "Control", mean(TaskPhase2_Score)]
+
+
+
+```
+
+```{r}
+#trying 2SLS...but dont think it applies here
+
+# d_respondents[ , lm(Total_Score ~ Education_Level)]
+# d_respondents[ , ivreg(Total_Score ~ Education_Level | Assignment_Group)]
+
+```
+
+```{r}
+power.t.test( n = 70, delta = .05, sd=.16, sig.level = 0.05)
+#where we stand at group sizes of 70, power is at 45%
+
+power.t.test( delta = .05, sd=.16, sig.level = 0.05, power = 0.8)
+#requires each group size of 160 to be at 80% power
+
+```
+
+# Analysis
+
+## Helper Functions
+```{r}
+get_robust_se <- function(model){
+  # Get robust SE for use in stargazer
+  vcov <- vcovHC(model,type = "HC1")
+  return(sqrt(diag(vcov)))
+}
+```
+
+## Task Phase 2 Analysis
+```{r,results='asis',message=FALSE}
+# does any treatment have an effect on task phase 2 score?
+mod_task2_a <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy)]
+
+mod_task2_b <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy + 
+                                                     TaskPhase1_Score + 
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range))]
+
+stargazer(mod_task2_a,
+          mod_task2_b,
+          se = list(get_robust_se(mod_task2_a),get_robust_se(mod_task2_b)),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
+                           c('Age Fixed Effects','No','Yes')),
+          header=FALSE,
+          type='latex')
+
+#add an F test to compare
+pander(anova(mod_task2_a, mod_task2_b, test='F'),stle='rmarkdown')
+
+#does the specific treatment group have an effect on task phase 2 score?
+mod_task2_c <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group))]
+
+mod_task2_d <- d_respondents[, lm(TaskPhase2_Score ~ as.factor(Assignment_Group) + 
+                                                     TaskPhase1_Score + 
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range))]
+
+# Do you think that there are features of the data that might systematically predict that people will respond strongly or weakly to the treatment effect? List two that you think might be there, in the order that you would like to test them. Then, test for these heterogeneities.
+# TODO update this heterogeneity issue. I'm not quite sure this applies because they're both considered treatment groups, just with different granularities
+# mod5 <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy + as.factor(assign_bin) + 
+#                              Treatment_Dummy * as.factor(assign_bin))]
+stargazer(mod_task2_c,
+          mod_task2_d,
+          se = list(get_robust_se(mod_task2_c),get_robust_se(mod_task2_d)),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
+                           c('Age Fixed Effects','No','Yes')),
+          header=FALSE,
+          type='text')
+
+pander(anova(mod_task2_c, mod_task2_d, test='F'),style='rmarkdown')
+```
+
+## Task Phase 3 Analysis
+
+```{r,results='asis',message=FALSE}
+# test final task and any treatment
+mod_task3_a <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy)]
+mod_task3_b <- d_respondents[, lm(TaskPhase3_Score ~ Treatment_Dummy + 
+                                                     TaskPhase1_Score + 
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range))]
+
+stargazer(mod_task3_a,
+          mod_task3_b,
+          se = list(get_robust_se(mod_task3_a),get_robust_se(mod_task3_b)),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
+                           c('Age Fixed Effects','No','Yes')),
+          header=FALSE,
+          type='latex')
+
+pander(anova(mod_task3_a, mod_task3_b, test='F'),style='rmarkdown')
+```
+
+
+```{r,results='asis',message=FALSE}
+# test final task and specific treatment
+mod_task3_c <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group))]
+mod_task3_d <- d_respondents[, lm(TaskPhase3_Score ~ as.factor(Assignment_Group) + 
+                                                     TaskPhase1_Score + 
+                                                     as.factor(Gender) + 
+                                                     as.factor(Education_Level) + 
+                                                     as.factor(Age_Range))]
+
+stargazer(mod_task3_c,
+          mod_task3_d,
+          se = list(get_robust_se(mod_task3_c),get_robust_se(mod_task3_d)),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','Yes'),
+                           c('Age Fixed Effects','No','Yes')),
+          header=FALSE,
+          type='text')
+
+pander(anova(mod_task3_c, mod_task3_d, test='F'),style='rmarkdown')
+```
+
+## Wearing Off Effects
+```{r,results='asis',message=FALSE}
+# TODO add within subjects design: Phase2 against Phase1 or Phase2&3 together against Phase1 
+# factor(ID)
+
+# TODO d_respondents[ , lm(mean(TaskPhase3_Score,TaskPhase2_Score) ~  Assignment_Group + TaskPhase1_Score)]
+# TODO d_respondents[ , lm(TaskPhaseB ~  Assignment_Group + TaskPhaseA + as.factor(AmazonTurk_ID))] where each respondent is duplicated for task 2 and 3
+# TODO move Gender Male covariate to the bottome fixed effect
+
+mod_task3_e <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score)]
+mod_task3_f <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + Treatment_Dummy)]
+mod_task3_g <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + as.factor(Assignment_Group))]
+mod_task3_h <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase2_Score + 
+                                                      as.factor(Assignment_Group) + 
+                                                      as.factor(Gender) + 
+                                                      as.factor(Education_Level) + 
+                                                      as.factor(Age_Range))]
+
+stargazer(mod_task3_e,
+          mod_task3_f,
+          mod_task3_g,
+          mod_task3_h,
+          se = list(get_robust_se(mod_task3_e),
+                    get_robust_se(mod_task3_f),
+                    get_robust_se(mod_task3_h)),
+                    get_robust_se(mod_task3_g),
+          omit = c("Education_Level","Age_Range"),
+          add.lines = list(c('Education Fixed Effects', 'No','No','No','Yes'),
+                           c('Age Fixed Effects','No','No','No','Yes')),
+          covariate.labels = c("Task Phase 2 Score", "Any Treatment", "Medical Feedback",
+                               "Negative Images", "Positive Images", "Self-reflection",'Male'),
+          header=FALSE,
+          type='latex')
+
+pander(anova(mod_task3_e, mod_task3_f, test='F'),style='rmarkdown')
+pander(anova(mod_task3_g, mod_task3_h, test='F'),style='rmarkdown')
+
+```
+
+## Within Subjects Design 
+```{r}
+
+d_respondents[,score_phase2_3 := mean(TaskPhase2_Score,TaskPhase3_Score,na.rm = FALSE),by = (Amazon_Turk_ID)]
+test <- d_respondents[ , lm(score_phase2_3 ~ Assignment_Group + TaskPhase1_Score)]
+stargazer(test,se = list(get_robust_se(test)),type='text'
+)
+```
+
+```{r,results='asis',message=FALSE}
+##
+mod_task3_i <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase1_Score + TaskPhase2_Score)]
+mod_task3_j <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase1_Score + TaskPhase2_Score + Treatment_Dummy)]
+mod_task3_k <- d_respondents[ , lm(TaskPhase3_Score ~ TaskPhase1_Score + TaskPhase2_Score + as.factor(Assignment_Group))]
+mod_task3_l <- d_respondents[, lm(TaskPhase3_Score ~ TaskPhase1_Score + TaskPhase2_Score + 
+                                                      as.factor(Assignment_Group) + 
+                                                      as.factor(Gender) + 
+                                                      as.factor(Education_Level) + 
+                                                      as.factor(Age_Range))]
+
+stargazer(mod_task3_i,
+          mod_task3_j,
+          mod_task3_k,
+          mod_task3_l,
+          se = list(get_robust_se(mod_task3_i),
+                    get_robust_se(mod_task3_j),
+                    get_robust_se(mod_task3_k),
+                    get_robust_se(mod_task3_l)),
+          header=FALSE,
+          type='latex')
+
+pander(anova(mod_task3_i, mod_task3_j, test = 'F'),style='rmarkdown')
+pander(anova(mod_task3_k, mod_task3_l, test = 'F'),style='rmarkdown')
+
+# lm(TaskPhase3_Score ~ TaskPhase2_Score) vs lm(TaskPhase3_Score ~ TaskPhase1_Score + TaskPhase2_Score)
+pander(anova(mod_task3_e, mod_task3_i, test = 'F'),style='rmarkdown')
+```
+
+
+## Playground
+
+```{r}
+# compare self-reflect against medical feedback groups?
+#make dummies
+d_respondents[ , Self_Reflect_Dummy := ifelse(Assignment_Group == "Self-Reflect", 1, 0)]
+d_respondents[ , Med_Feedback_Dummy := ifelse(Assignment_Group == "Medical Feedback", 1, 0)]
+
+mod_test_dummies1 <- d_respondents[ , lm(TaskPhase2_Score ~ Treatment_Dummy + Self_Reflect_Dummy)]
+mod_test_dummies2 <- d_respondents[ , lm(TaskPhase2_Score ~ Treatment_Dummy + Med_Feedback_Dummy)]
+
+stargazer(mod_test_dummies1,
+          mod_test_dummies2,
+          se = list(get_robust_se(mod_test_dummies1),
+                    get_robust_se(mod_test_dummies2)),
+          header=FALSE,
+          type = 'latex')
+
+```
+
+```{r}
+# compare positive images against negative images feedback groups?
+#make dummies
+d_respondents[ , Positive_Images_Dummy := ifelse(Assignment_Group == "Positive Images", 1, 0)]
+d_respondents[ , Negative_Images_Dummy := ifelse(Assignment_Group == "Negative Images", 1, 0)]
+
+mod_test_dummies3 <- d_respondents[ , lm(TaskPhase2_Score ~ Treatment_Dummy + Positive_Images_Dummy)]
+mod_test_dummies4 <- d_respondents[ , lm(TaskPhase2_Score ~ Treatment_Dummy + Negative_Images_Dummy)]
+
+stargazer(mod_test_dummies3,
+          mod_test_dummies4,
+          se = list(get_robust_se(mod_test_dummies3),
+                    get_robust_se(mod_test_dummies4)),
+          type = 'text')
+
+```
+
+## Playground 2
+```{r}
+
+### linear model playground
+d_test <- d_respondents[,c("Assignment_Group","TaskPhase1_Score","TaskPhase2_Score","TaskPhase3_Score",'Age_Range',"Education_Level","Gender","Treatment_Dummy")]
+
+#does treatment have an effect on total score?
+mod_test1 <- d_test[ , lm(TaskPhase2_Score ~ TaskPhase1_Score + Treatment_Dummy)]
+
+
+mod_test2 <- d_test[, lm(TaskPhase2_Score ~ TaskPhase1_Score + Treatment_Dummy + (TaskPhase1_Score * Treatment_Dummy))]
+
+#does treatment and pretreatment score have an effect on total score?
+
+
+###
+# seems that if i ad in TaskPhase1 to the linear model, the RSEs disappear...
+mod_test3 <- d_test[, lm(TaskPhase2_Score ~  Treatment_Dummy  + 
+                                  TaskPhase1_Score +
+                                  as.factor(Education_Level) +  
+                                  as.factor(Gender) +
+                                  as.factor(Age_Range)
+                         )]
+
+coeftest(mod_test3, vcov = vcovHC(mod_test3,"HC1"))
+
+summary(d_respondents$TaskPhase1_Score)
+
+
+stargazer(mod_test1,
+          mod_test2,
+          mod_test3,
+          se = list(get_robust_se(mod_test1),get_robust_se(mod_test2), get_robust_se(mod_test3)),
+          type='latex')
+
+
+mod_test4 <- d_test[ , lm(TaskPhase3_Score ~ TaskPhase2_Score)]
+coeftest(mod_test4)
+
+# use Robust SE
+mod_test2 <- d_respondents[, lm(TaskPhase2_Score ~ Treatment_Dummy  + as.factor(Education_Level) + (Treatment_Dummy * as.factor(Education_Level)))]
+mod_test2$vcovHC_ <- vcovHC(mod_test2)
+coeftest(mod_test2, vcov = mod_test2$vcovHC_)
+
+```
+
+# Playground 3
+```{r}
+test <- d_respondents[ Assignment_Group %in% c("Medical Feedback", "Self-Reflect"), lm(TaskPhase2_Score ~ Assignment_Group)]
+test$vcovHC_ <- vcovHC(test)
+coeftest(test, vcov. = test$vcovHC_)
+
+test <- d_respondents[ Assignment_Group %in% c("Positive Images", "Negative Images"), lm(TaskPhase2_Score ~ Assignment_Group)]
+test$vcovHC_ <- vcovHC(test)
+coeftest(test, vcov. = test$vcovHC_)
+```
+
+
+# Noncompliance
+EDA for noncompliance? time spent on a page
+how many words written
+
+
+```{r}
+# renaming Control Clicks Phase 1 - submit after 70, advance after 180 seconds
+setnames(d_respondents,
+         old = c('Q70_First Click', 'Q70_Last Click', 
+                 'Q70_Page Submit', 'Q70_Click Count'),
+         new = c('Control_Phase1_First_ClickTime', 'Control_Phase1_Last_ClickTime',
+                 'Control_Phase1_SubmitTime', 'Control_Phase1_NumClicks'))
+
+# renaming Control Clicks Phase 2 - submit after 70, advance after 180 seconds
+setnames(d_respondents,
+         old = c('Q90_First Click', 'Q90_Last Click', 
+                 'Q90_Page Submit', 'Q90_Click Count'),
+         new = c('Control_Phase2_First_ClickTime', 'Control_Phase2_Last_ClickTime',
+                 'Control_Phase2_SubmitTime', 'Control_Phase2_NumClicks'))
+
+# renaming Self Reflect Clicks Phase 1 - submit after 90, advance after 240 seconds
+setnames(d_respondents,
+         old = c('Q61_First Click', 'Q61_Last Click', 
+                 'Q61_Page Submit', 'Q61_Click Count'),
+         new = c('Self_Reflect_Phase1_First_ClickTime', 'Self_Reflect_Phase1_Last_ClickTime',
+                 'Self_Reflect_Phase1_SubmitTime', 'Self_Reflect_Phase1_NumClicks'))
+
+# renaming Self Reflect Clicks Phase 2 - submit after 90, advance after 240 seconds
+setnames(d_respondents,
+         old = c('Q62_First Click', 'Q62_Last Click', 
+                 'Q62_Page Submit', 'Q62_Click Count'),
+         new = c('Self_Reflect_Phase2_First_ClickTime', 'Self_Reflect_Phase2_Last_ClickTime',
+                 'Self_Reflect_Phase2_SubmitTime', 'Self_Reflect_Phase2_NumClicks'))
+
+# renaming Medical Feedback Clicks Phase 1 - submit after 90, advance after 240 seconds
+setnames(d_respondents,
+         old = c('Q63_First Click', 'Q63_Last Click', 
+                 'Q63_Page Submit', 'Q63_Click Count'),
+         new = c('Medical_Feedback_Phase1_First_ClickTime',
+                 'Medical_Feedback_Phase1_Last_ClickTime',
+                 'Medical_Feedback_Phase1_SubmitTime', 
+                 'Medical_Feedback_Phase1_NumClicks'))
+
+# renaming Medical Feedback Clicks Phase 2 - submit after 90, advance after 240 seconds
+setnames(d_respondents,
+         old = c('Q64_First Click', 'Q64_Last Click', 
+                 'Q64_Page Submit', 'Q64_Click Count'),
+         new = c('Medical_Feedback_Phase2_First_ClickTime', 
+                 'Medical_Feedback_Phase2_Last_ClickTime',
+                 'Medical_Feedback_Phase2_SubmitTime', 
+                 'Medical_Feedback_Phase2_NumClicks'))
+
+# renaming Positive Images Clicks Phase 1 - submit after 45, advance after 120 seconds
+setnames(d_respondents,
+         old = c('Q65_First Click', 'Q65_Last Click', 
+                 'Q65_Page Submit', 'Q65_Click Count'),
+         new = c('Positive_Images_Phase1_First_ClickTime', 
+                 'Positive_Images_Phase1_Last_ClickTime',
+                 'Positive_Images_Phase1_SubmitTime', 
+                 'Positive_Images_Phase1_NumClicks'))
+
+# renaming Positive Images Clicks Phase 2 - submit after 45, advance after 120 seconds
+setnames(d_respondents,
+         old = c('Q66_First Click', 'Q66_Last Click', 
+                 'Q66_Page Submit', 'Q66_Click Count'),
+         new = c('Positive_Images_Phase2_First_ClickTime', 
+                 'Positive_Images_Phase2_Last_ClickTime',
+                 'Positive_Images_Phase2_SubmitTime', 
+                 'Positive_Images_Phase2_NumClicks'))
+
+# renaming Negative Images Clicks Phase 1 - submit after 45, advance after 120 seconds
+setnames(d_respondents,
+         old = c('Q67_First Click', 'Q67_Last Click', 
+                 'Q67_Page Submit', 'Q67_Click Count'),
+         new = c('Negative_Images_Phase1_First_ClickTime', 
+                 'Negative_Images_Phase1_Last_ClickTime',
+                 'Negative_Images_Phase1_SubmitTime', 
+                 'Negative_Images_Phase1_NumClicks'))
+
+# renaming Negative Images Clicks Phase 2 - submit after 45, advance after 120 seconds
+setnames(d_respondents,
+         old = c('Q68_First Click', 'Q68_Last Click', 
+                 'Q68_Page Submit', 'Q68_Click Count'),
+         new = c('Negative_Images_Phase2_First_ClickTime', 
+                 'Negative_Images_Phase2_Last_ClickTime',
+                 'Negative_Images_Phase2_SubmitTime', 
+                 'Negative_Images_Phase2_NumClicks'))
+
+```
+
+```{R}
+################# set up datatable for Treatment Phase 1 Times
+
+a <- d_respondents[ Assignment_Group == "Medical Feedback", Medical_Feedback_Phase1_SubmitTime]
+b <- d_respondents[ Assignment_Group == "Control", (Control_Phase1_SubmitTime)]
+c <- d_respondents[ Assignment_Group == "Positive Images", (Positive_Images_Phase1_SubmitTime)]
+d <- d_respondents[ Assignment_Group == "Negative Images", (Negative_Images_Phase1_SubmitTime)]
+e <- d_respondents[ Assignment_Group == "Self-Reflect", (Self_Reflect_Phase1_SubmitTime)]
+
+(coalesce(c(a,b,c,d,e)))
+
+d_noncompliance_1 <- data.table(id=1:350)
+d_noncompliance_1[ , Assignment_Group := (c(rep("Medical Feedback", 70), rep("Control", 69), rep("Positive Images", 70), rep("Negative Images", 72), rep("Self-Reflect", 69)))]
+d_noncompliance_1[ , Treatment_Phase1_SubmitTime := (coalesce(c(a,b,c,d,e)))]
+
+
+########## plot density distributions of timing for Treatment Phase 1
+
+ggplot(d_noncompliance_1, aes(x=Treatment_Phase1_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(60, 500) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 1 Duration Distribution")
+
+ggplot(d_noncompliance_1[Assignment_Group %in% c("Medical Feedback", "Self-Reflect")], aes(x=Treatment_Phase1_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(60, 500) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 1 Duration Distribution") + geom_vline(xintercept = 90, color = "blue") + geom_vline(xintercept = 240, color = "red") 
+
+ggplot(d_noncompliance_1[Assignment_Group %in% c("Positive Images", "Negative Images")], aes(x=Treatment_Phase1_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(20, 200) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 1 Duration Distribution") + geom_vline(xintercept = 45, color = "blue") + geom_vline(xintercept = 120, color = "red") 
+
+ggplot(d_noncompliance_1[Assignment_Group %in% c("Control")], aes(x=Treatment_Phase1_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(20, 300) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 1 Duration Distribution") + geom_vline(xintercept = 70, color = "blue") + geom_vline(xintercept = 180, color = "red") 
+
+
+#### set up t-tests comparing the submit times for Treatment Phase I
+
+t.test(d_noncompliance_1[Assignment_Group %in% c("Medical Feedback"), Treatment_Phase1_SubmitTime], 
+       d_noncompliance_1[Assignment_Group %in% c("Self-Reflect") & Treatment_Phase1_SubmitTime < 250, Treatment_Phase1_SubmitTime])
+
+t.test(d_noncompliance_1[Assignment_Group %in% c("Positive Images"), Treatment_Phase1_SubmitTime], 
+       d_noncompliance_1[Assignment_Group %in% c("Negative Images") & Treatment_Phase1_SubmitTime < 250, Treatment_Phase1_SubmitTime])
+
+# probably not a valid comparison between Treatment and Control since groups have different time limits
+t.test(d_noncompliance_1[Assignment_Group %in% c("Medical Feedback", "Self-Reflect", "Positive Images", "Negative Images"),
+                         Treatment_Phase1_SubmitTime],
+       d_noncompliance_1[Assignment_Group %in% c("Control"), Treatment_Phase1_SubmitTime])
+
+
+#################### set up datatable for Treatment Phase 2 Times
+
+a <- d_respondents[ Assignment_Group == "Medical Feedback", Medical_Feedback_Phase2_SubmitTime]
+b <- d_respondents[ Assignment_Group == "Control", (Control_Phase2_SubmitTime)]
+c <- d_respondents[ Assignment_Group == "Positive Images", (Positive_Images_Phase2_SubmitTime)]
+d <- d_respondents[ Assignment_Group == "Negative Images", (Negative_Images_Phase2_SubmitTime)]
+e <- d_respondents[ Assignment_Group == "Self-Reflect", (Self_Reflect_Phase2_SubmitTime)]
+
+(coalesce(c(a,b,c,d,e)))
+
+d_noncompliance_2 <- data.table(id=1:350)
+d_noncompliance_2[ , Assignment_Group := (c(rep("Medical Feedback", 70), rep("Control", 69), rep("Positive Images", 70), rep("Negative Images", 72), rep("Self-Reflect", 69)))]
+d_noncompliance_2[ , Treatment_Phase2_SubmitTime := (coalesce(c(a,b,c,d,e)))]
+
+
+########## plot density distributions of timing for Treatment Phase 2
+
+ggplot(d_noncompliance_2, aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(60, 300) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 2 Duration Distribution")
+
+ggplot(d_noncompliance_2[Assignment_Group %in% c("Medical Feedback", "Self-Reflect")], aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(60, 500) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 2 Duration Distribution") + geom_vline(xintercept = 90, color = "blue") + geom_vline(xintercept = 240, color = "red") 
+
+ggplot(d_noncompliance_2[Assignment_Group %in% c("Positive Images", "Negative Images")], aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(20, 200) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 2 Duration Distribution") + geom_vline(xintercept = 45, color = "blue") + geom_vline(xintercept = 120, color = "red") 
+
+ggplot(d_noncompliance_2[Assignment_Group %in% c("Control")], aes(x=Treatment_Phase2_SubmitTime, colour=as.factor(Assignment_Group), fill = as.factor(Assignment_Group))) + geom_histogram(alpha=0.3, position = "identity") + xlim(20, 300) + xlab("Completion Time (seconds)") + ggtitle("Treatment Phase 2 Duration Distribution") + geom_vline(xintercept = 70, color = "blue") + geom_vline(xintercept = 180, color = "red") 
+
+#### set up t-tests comparing the submit times for Treatment Phase 2...there seems to be statistical differences here!
+
+t.test(d_noncompliance_2[Assignment_Group %in% c("Medical Feedback"), Treatment_Phase2_SubmitTime], 
+       d_noncompliance_2[Assignment_Group %in% c("Self-Reflect") & Treatment_Phase2_SubmitTime < 250, Treatment_Phase2_SubmitTime])
+
+t.test(d_noncompliance_2[Assignment_Group %in% c("Positive Images"), Treatment_Phase2_SubmitTime], 
+       d_noncompliance_2[Assignment_Group %in% c("Negative Images") & Treatment_Phase2_SubmitTime < 250, Treatment_Phase2_SubmitTime])
+
+# probably not a valid comparison between Treatment and Control since groups have different time limits
+t.test(d_noncompliance_2[Assignment_Group %in% c("Medical Feedback", "Self-Reflect", "Positive Images", "Negative Images"),
+                         Treatment_Phase2_SubmitTime],
+       d_noncompliance_2[Assignment_Group %in% c("Control"), Treatment_Phase2_SubmitTime])
+
+#nrow(d_respondents[ Assignment_Group == "Self-Reflect", ])
+```
+
+```{r}
+#compare against designated miniumum time
+
+d_respondents[ Assignment_Group == "Medical Feedback", hist(Medical_Feedback_Phase1_SubmitTime)]
+d_respondents[ Assignment_Group == "Control", hist(Control_Phase1_SubmitTime)]
+d_respondents[ Assignment_Group == "Positive Images", hist(Positive_Images_Phase1_SubmitTime)]
+d_respondents[ Assignment_Group == "Negative Images", hist(Negative_Images_Phase1_SubmitTime)]
+d_respondents[ Assignment_Group == "Self-Reflect", hist(Self_Reflect_Phase1_SubmitTime)]
+
+d_respondents[ Assignment_Group == "Medical Feedback", mean(Medical_Feedback_Phase1_SubmitTime)]
+d_respondents[ Assignment_Group == "Control", mean(Control_Phase1_SubmitTime)]
+d_respondents[ Assignment_Group == "Positive Images", mean(Positive_Images_Phase1_SubmitTime)]
+d_respondents[ Assignment_Group == "Negative Images", mean(Negative_Images_Phase1_SubmitTime)]
+d_respondents[ Assignment_Group == "Self-Reflect", mean(Self_Reflect_Phase1_SubmitTime)]
+
+```
+
+
+```{r}
+d_respondents[ Assignment_Group == "Self-Reflect", 
+               Self_Reflect_Q1_NumWords := sapply(strsplit(Self_Reflect_Q1, " "), length)]
+
+d_respondents[ Assignment_Group == "Self-Reflect", 
+               Self_Reflect_Q2_NumWords := sapply(strsplit(Self_Reflect_Q2, " "), length)]
+
+
+d_respondents[ Assignment_Group == "Self-Reflect", Self_Reflect_Q1_NumWords]
+d_respondents[ Assignment_Group == "Self-Reflect", Self_Reflect_Q2_NumWords]
+```
+
+```{r}
+# some noncompliant responses for self reflection Q1...assume noncompliant responses have less than 5 words
+d_respondents[d_respondents[ , Self_Reflect_Q1_NumWords < 5]]
+```
+
+
+
+```{r}
+d_respondents[ Assignment_Group == "Control", 
+               Control_Phase1_NumWords := sapply(strsplit(Control_Q1, " "), length)]
+
+d_respondents[ Assignment_Group == "Control", 
+               Control_Phase2_NumWords := sapply(strsplit(Control_Q2, " "), length)]
+
+
+d_respondents[ Assignment_Group == "Control", Control_Phase1_NumWords]
+d_respondents[ Assignment_Group == "Control", Control_Phase2_NumWords]
+```
+
+```{r}
+# some noncompliant responses for control Q1...assume noncompliant responses have less than 5 words
+d_respondents[d_respondents[ , Control_Phase1_NumWords < 5]]
+```
+
+# NonCompliance pt 2
+
+
+noncompliance is the same across the treatment groups/is there something systematically wrong that affect people from complying...just compare ITTd
+
+```{r, include=FALSE}
+# d <- fread('Lungs_November+14,+2020_17.33.csv')
+d <- fread('../check-valid-responses/data/qualtrics_results_final.csv')
+#head(d)
+```
+
+```{r, include=FALSE}
+d_respondents_only <-
+  d[(Status == "IP Address"),] #& (Finished == 'True'),]
+
+# These WorkerId put in all 1 response (all Normal or all Pneumonia)
+# These people just gave alternating responses (Normal, Pneumonia, Normal,...,Pneumonia)
+d_respondents_noncompliers <-
+  d_respondents_only[Q80 %in% c(
+    "A119EX2L0DNN1B",
+    "A12NQJV6TA5OWB",
+    "A18WFPSLFV4FKY",
+    "A1BUYK6LXYWMLL",
+    "A1FHRZXSE7XNJ4",
+    "A1GMYDH5MKN105",
+    "A2GSZ3D2XXC533",
+    "A2IGIOD74EPOEF",
+    "A2J016DRTOBXWO",
+    "A2NGFU82LMJ80X",
+    "A32K1M0A36EAK5",
+    "A371SNJNNUY9Z6",
+    "A3BPENSX5EVJ2H",
+    "A3EPIT2P3ISA3K",
+    "A3NYIJYBHAJ74V",
+    "AUFLTHQAXWLH1",
+    "AVINXZZV3FNG7",
+    "A1CD7O60QAQQRT",
+    "A1CF1W8CP0DHB0",
+    "A1PGY59BR6C5BX",
+    "A1YSYI926BBOHW",
+    "A1Z3GFH6MNSU46",
+    "A211KGJ94WNFLN",
+    "A26RPQDD0RQEHL",
+    "A2BUHMLNE3LUU0",
+    "A2J5BRQ88W745H",
+    "A2XIHO2W7EEP32",
+    "A3EZ0H07TSDAPW",
+    "A3FLBC6LC5GJ3W",
+    "A3QLKLIQW1B1FR",
+    "A8F6JFG0WSELT",
+    "A9K6IVBA0J1CX",
+    "ADLZLGHKOAEE6",
+    "AE7NJG0KOVZYJ" ,
+    "AG5RF4UGQJ7A7" ,
+    "AQ9Y6WD8O72ZC" ,
+    "tuturtu",
+    'A1W05TSPORJPXR',
+    'A3SUWCLD1GEGM7',
+    'A3A09JB9X1RBXW',
+    'A7VQQEIBSM9IU',
+    'A8DER1QY96C5X',
+    'A1M8MNKK8H5ZGW',
+    'A34D5D6PU193AR'), ]
+
+
+#get rid of duplicate responses
+d_respondents_noncompliers <- d_respondents_noncompliers[duplicated(d_respondents_noncompliers, by = "Q80") == FALSE, ]
+?duplicated
+nrow(d_respondents_noncompliers)
+
+```
+
+```{r}
+#rename task phase questions
+setnames(d_respondents_noncompliers,
+         old = c('Q2', 'Q42'),
+         new = c('Self_Reflect_Q1', 'Self_Reflect_Q2'))
+
+setnames(d_respondents_noncompliers,
+         old = c('Q69', 'Q89'),
+         new = c('Control_Q1', 'Control_Q2'))
+
+setnames(d_respondents_noncompliers,
+         old = c('Q80', 'Q82', 'Q83', 'Q84', 'SC0', 'FL_6_DO'),
+         new = c('Amazon_Turk_ID', 'Gender', 'Age_Range', 'Education_Level', 'Total_Score', 'Assignment'))
+
+setnames(d_respondents_noncompliers, 
+         old = c('Q1', 'Q5', 'Q6', 'Q7', 'Q16', 'Q17', 'Q18', 'Q19', 'Q20', 'Q21',
+                 'Q8', 'Q9', 'Q10', 'Q11', 'Q22', 'Q23', 'Q24', 'Q25', 'Q26', 'Q27',
+                 'Q12', 'Q13', 'Q14', 'Q15', 'Q28', 'Q29', 'Q30', 'Q31', 'Q32', 'Q33'), 
+         new = c('Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9', 'Q10',
+                 'Q11', 'Q12', 'Q13', 'Q14', 'Q15', 'Q16', 'Q17', 'Q18', 'Q19', 'Q20',
+                 'Q21', 'Q22', 'Q23', 'Q24', 'Q25', 'Q26', 'Q27', 'Q28', 'Q29', 'Q30'))
+
+d_respondents_noncompliers[ , c("Q1_Score", "Q2_Score", "Q3_Score", "Q4_Score", "Q5_Score",
+                        "Q6_Score", "Q7_Score", "Q8_Score", "Q9_Score", "Q10_Score",
+                        "Q11_Score", "Q12_Score", "Q13_Score", "Q14_Score", "Q15_Score", 
+                        "Q16_Score", "Q17_Score", "Q18_Score", "Q19_Score", "Q20_Score", 
+                        "Q21_Score", "Q22_Score", "Q23_Score", "Q24_Score", "Q25_Score", "Q26_Score",
+                        "Q27_Score", "Q28_Score", "Q29_Score", "Q30_Score") := 
+                      list(ifelse(Q1 == "Normal", 1, 0),
+                            ifelse(Q2 == "Normal", 1, 0),
+                            ifelse(Q3 == "Pneumonia", 1, 0),
+                            ifelse(Q4 == "Pneumonia", 1, 0),
+                            ifelse(Q5 == "Normal", 1, 0),
+                            ifelse(Q6 == "Pneumonia", 1, 0),
+                            ifelse(Q7 == "Pneumonia", 1, 0),
+                            ifelse(Q8 == "Normal", 1, 0),
+                            ifelse(Q9 == "Pneumonia", 1, 0),
+                            ifelse(Q10 == "Normal", 1, 0),
+                            ifelse(Q11 == "Pneumonia", 1, 0),
+                            ifelse(Q12 == "Normal", 1, 0),
+                            ifelse(Q13 == "Pneumonia", 1, 0),
+                            ifelse(Q14 == "Pneumonia", 1, 0),
+                            ifelse(Q15 == "Normal", 1, 0),
+                            ifelse(Q16 == "Normal", 1, 0),
+                            ifelse(Q17 == "Pneumonia", 1, 0),
+                            ifelse(Q18 == "Normal", 1, 0),
+                            ifelse(Q19 == "Pneumonia", 1, 0),
+                            ifelse(Q20 == "Normal", 1, 0),
+                            ifelse(Q21 == "Normal", 1, 0),
+                            ifelse(Q22 == "Normal", 1, 0),
+                            ifelse(Q23 == "Pneumonia", 1, 0),
+                            ifelse(Q24 == "Normal", 1, 0),
+                            ifelse(Q25 == "Pneumonia", 1, 0),
+                            ifelse(Q26 == "Pneumonia", 1, 0),
+                            ifelse(Q27 == "Pneumonia", 1, 0),
+                            ifelse(Q28 == "Pneumonia", 1, 0),
+                            ifelse(Q29 == "Normal", 1, 0),
+                            ifelse(Q30 == "Normal", 1, 0))]
+
+d_respondents_noncompliers[ , Assignment_Group := ifelse(Assignment == "FL_17", "Control", 
+                                          ifelse(Assignment == "FL_14", "Self-Reflect",
+                                          ifelse(Assignment == "FL_15", "Medical Feedback",
+                                          ifelse(Assignment == "FL_16", "Positive Images", "Negative Images"))))]
+
+d_respondents_noncompliers[ , c("TaskPhase1_Score", "TaskPhase2_Score", "TaskPhase3_Score") :=
+                      list(sum(Q1_Score, Q2_Score, Q3_Score, Q4_Score, Q5_Score, Q6_Score, Q7_Score, Q8_Score, Q9_Score, Q10_Score)/10,
+                           sum(Q11_Score, Q12_Score, Q13_Score, Q14_Score, Q15_Score, Q16_Score, Q17_Score, Q18_Score, Q19_Score, Q20_Score)/10,
+                           sum(Q21_Score, Q22_Score, Q23_Score, Q24_Score, Q25_Score, Q26_Score, Q27_Score, Q28_Score, Q29_Score, Q30_Score)/10),
+                    by = Amazon_Turk_ID]
+
+```
+
+
+
+```{r}
+
+d_respondents_compliers <- d_respondents[, c("housenumber","street","city",
+                                             "county","state","zip","country",
+                                             "US_Dummy"):=NULL]
+d_respondents_compliers[ , Complier_Dummy := 1]
+
+d_respondents_noncompliers[ , Treatment_Dummy := ifelse(Assignment_Group != "Control", 1, 0)]
+d_respondents_noncompliers[ , Complier_Dummy := 0]
+
+d_merge_respondents_noncompliers_compliers <- rbind(d_respondents_compliers, d_respondents_noncompliers, fill=TRUE)
+
+
+```
+
+```{r}
+
+# d_merge_respondents_noncompliers_compliers[ Treatment_Dummy == 1, mean(TaskPhase2_Score)]
+# d_merge_respondents_noncompliers_compliers[ Treatment_Dummy == 0, mean(TaskPhase2_Score)]
+
+#### Take-Up Rates for Medical Feedback
+total_MedFeedback_compliers <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group=="Medical Feedback" & Complier_Dummy==1, ])
+total_MedFeedback_rows <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group == "Medical Feedback",])
+
+total_MedFeedback_compliers/total_MedFeedback_rows
+
+#### Take-Up Rates for Self-Reflect
+total_selfreflect_compliers <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group=="Self-Reflect" & Complier_Dummy==1, ])
+total_selfreflect_rows <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group == "Self-Reflect",])
+
+total_selfreflect_compliers/total_selfreflect_rows
+
+#### Take-Up Rates for Positive Images
+total_positiveimages_compliers <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group=="Positive Images" & Complier_Dummy==1, ])
+total_positiveimages_rows <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group == "Positive Images",])
+
+total_positiveimages_compliers/total_positiveimages_rows
+
+#### Take-Up Rates for Negative Images
+total_negativeimages_compliers <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group=="Negative Images" & Complier_Dummy==1, ])
+total_negativeimages_rows <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group == "Negative Images",])
+
+total_negativeimages_compliers/total_negativeimages_rows
+
+#### Take-Up Rates for Control
+total_control_compliers <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group=="Control" & Complier_Dummy==1, ])
+total_control_rows <- nrow(d_merge_respondents_noncompliers_compliers[ Assignment_Group == "Control",])
+
+total_control_compliers/total_control_rows
+d_respondents_noncompliers[ , table(Assignment_Group)]
+
+
+```
+
+```{r}
+# Medical Feedback CACE
+ITT <- d_merge_respondents_noncompliers_compliers[ Assignment_Group=="Medical Feedback" , mean(TaskPhase2_Score)] - 
+  d_merge_respondents_noncompliers_compliers[Assignment_Group=="Control" , mean(TaskPhase2_Score)]
+
+ITTd <- total_MedFeedback_compliers/total_MedFeedback_rows
+
+ITT/ITTd
+
+# Positive Images CACE
+ITT <- d_merge_respondents_noncompliers_compliers[ Assignment_Group=="Positive Images" , mean(TaskPhase2_Score)] - 
+  d_merge_respondents_noncompliers_compliers[Assignment_Group=="Control" , mean(TaskPhase2_Score)]
+
+ITTd <- total_positiveimages_compliers/total_positiveimages_rows
+
+ITT/ITTd
+
+# Negative Images CACE
+ITT <- d_merge_respondents_noncompliers_compliers[ Assignment_Group=="Negative Images" , mean(TaskPhase2_Score)] - 
+  d_merge_respondents_noncompliers_compliers[Assignment_Group=="Control" , mean(TaskPhase2_Score)]
+
+ITTd <- total_negativeimages_compliers/total_negativeimages_rows
+
+ITT/ITTd
+
+# Self-Reflect CACE
+ITT <- d_merge_respondents_noncompliers_compliers[ Assignment_Group=="Self-Reflect" , mean(TaskPhase2_Score)] - 
+  d_merge_respondents_noncompliers_compliers[Assignment_Group=="Control" , mean(TaskPhase2_Score)]
+
+ITTd <- total_selfreflect_compliers/total_selfreflect_rows
+
+ITT/ITTd
+
+# Any Treatment CACE
+ITT <- d_merge_respondents_noncompliers_compliers[ Treatment_Dummy==1 , mean(TaskPhase2_Score)] - 
+  d_merge_respondents_noncompliers_compliers[Treatment_Dummy==0 , mean(TaskPhase2_Score)]
+
+ITTd <- nrow(d_merge_respondents_noncompliers_compliers[ Treatment_Dummy == 1 & Complier_Dummy == 1,])/
+  nrow(d_merge_respondents_noncompliers_compliers[Treatment_Dummy == 1])
+
+ITT/ITTd
+
+```
+
+
+```{r}
+test <- d_merge_respondents_noncompliers_compliers[Assignment_Group %in% c("Medical Feedback", "Control"),
+                                                   ivreg(TaskPhase2_Score ~ Complier_Dummy, ~Treatment_Dummy)]
+coeftest(test, vcov. = vcovHC(test, type = "HC1"))
+
+summary(d_merge_respondents_noncompliers_compliers$TaskPhase2_Score)
+
+```
+
+
+```{r}
+#estimate CACE of receiving treatment
+d_merge_respondents_noncompliers_compliers[Assignment_Group %in% c("Medical Feedback", "Control"), 
+                                           ivreg(TaskPhase2_Score ~  Complier_Dummy,
+                                                 ~Treatment_Dummy)]
+
+
+```
+
+
+
+# Attrition
+develop EDA where people churn off
+balance check for attrition
+
+```{r}
+d_attrition <- fread('../check-valid-responses/data/qualtrics_results_final.csv')
+
+d_attrition <- d_attrition[(Status == "IP Address") & (Finished != 'True'),]
+```
+
+```{r, include=FALSE}
+#rename task phase questions
+setnames(d_attrition,
+         old = c('Q2', 'Q42'),
+         new = c('Self_Reflect_Q1', 'Self_Reflect_Q2'))
+
+setnames(d_attrition,
+         old = c('Q69', 'Q89'),
+         new = c('Control_Q1', 'Control_Q2'))
+
+setnames(d_attrition,
+         old = c('Q80', 'Q82', 'Q83', 'Q84', 'SC0', 'FL_6_DO'),
+         new = c('Amazon_Turk_ID', 'Gender', 'Age_Range', 'Education_Level', 'Total_Score', 'Assignment'))
+
+setnames(d_attrition, 
+         old = c('Q1', 'Q5', 'Q6', 'Q7', 'Q16', 'Q17', 'Q18', 'Q19', 'Q20', 'Q21',
+                 'Q8', 'Q9', 'Q10', 'Q11', 'Q22', 'Q23', 'Q24', 'Q25', 'Q26', 'Q27',
+                 'Q12', 'Q13', 'Q14', 'Q15', 'Q28', 'Q29', 'Q30', 'Q31', 'Q32', 'Q33'), 
+         new = c('Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9', 'Q10',
+                 'Q11', 'Q12', 'Q13', 'Q14', 'Q15', 'Q16', 'Q17', 'Q18', 'Q19', 'Q20',
+                 'Q21', 'Q22', 'Q23', 'Q24', 'Q25', 'Q26', 'Q27', 'Q28', 'Q29', 'Q30'))
+
+d_attrition[ , c("Q1_Score", "Q2_Score", "Q3_Score", "Q4_Score", "Q5_Score",
+                        "Q6_Score", "Q7_Score", "Q8_Score", "Q9_Score", "Q10_Score",
+                        "Q11_Score", "Q12_Score", "Q13_Score", "Q14_Score", "Q15_Score", 
+                        "Q16_Score", "Q17_Score", "Q18_Score", "Q19_Score", "Q20_Score", 
+                        "Q21_Score", "Q22_Score", "Q23_Score", "Q24_Score", "Q25_Score", "Q26_Score",
+                        "Q27_Score", "Q28_Score", "Q29_Score", "Q30_Score") := 
+                      list(ifelse(Q1 == "Normal", 1, 0),
+                            ifelse(Q2 == "Normal", 1, 0),
+                            ifelse(Q3 == "Pneumonia", 1, 0),
+                            ifelse(Q4 == "Pneumonia", 1, 0),
+                            ifelse(Q5 == "Normal", 1, 0),
+                            ifelse(Q6 == "Pneumonia", 1, 0),
+                            ifelse(Q7 == "Pneumonia", 1, 0),
+                            ifelse(Q8 == "Normal", 1, 0),
+                            ifelse(Q9 == "Pneumonia", 1, 0),
+                            ifelse(Q10 == "Normal", 1, 0),
+                            ifelse(Q11 == "Pneumonia", 1, 0),
+                            ifelse(Q12 == "Normal", 1, 0),
+                            ifelse(Q13 == "Pneumonia", 1, 0),
+                            ifelse(Q14 == "Pneumonia", 1, 0),
+                            ifelse(Q15 == "Normal", 1, 0),
+                            ifelse(Q16 == "Normal", 1, 0),
+                            ifelse(Q17 == "Pneumonia", 1, 0),
+                            ifelse(Q18 == "Normal", 1, 0),
+                            ifelse(Q19 == "Pneumonia", 1, 0),
+                            ifelse(Q20 == "Normal", 1, 0),
+                            ifelse(Q21 == "Normal", 1, 0),
+                            ifelse(Q22 == "Normal", 1, 0),
+                            ifelse(Q23 == "Pneumonia", 1, 0),
+                            ifelse(Q24 == "Normal", 1, 0),
+                            ifelse(Q25 == "Pneumonia", 1, 0),
+                            ifelse(Q26 == "Pneumonia", 1, 0),
+                            ifelse(Q27 == "Pneumonia", 1, 0),
+                            ifelse(Q28 == "Pneumonia", 1, 0),
+                            ifelse(Q29 == "Normal", 1, 0),
+                            ifelse(Q30 == "Normal", 1, 0))]
+
+d_attrition[ , Assignment_Group := ifelse(Assignment == "FL_17", "Control", 
+                                          ifelse(Assignment == "FL_14", "Self-Reflect",
+                                          ifelse(Assignment == "FL_15", "Medical Feedback",
+                                          ifelse(Assignment == "FL_16", "Positive Images", "Negative Images"))))]
+
+
+d_attrition[ , c("TaskPhase1_Score", "TaskPhase2_Score", "TaskPhase3_Score") :=
+                      list(sum(Q1_Score, Q2_Score, Q3_Score, Q4_Score, Q5_Score, Q6_Score, Q7_Score, Q8_Score, Q9_Score, Q10_Score)/10,
+                           sum(Q11_Score, Q12_Score, Q13_Score, Q14_Score, Q15_Score, Q16_Score, Q17_Score, Q18_Score, Q19_Score, Q20_Score)/10,
+                           sum(Q21_Score, Q22_Score, Q23_Score, Q24_Score, Q25_Score, Q26_Score, Q27_Score, Q28_Score, Q29_Score, Q30_Score)/10),
+                    by = Amazon_Turk_ID]
+
+
+
+# renaming Control Clicks Phase 1 - submit after 70, advance after 180 seconds
+setnames(d_attrition,
+         old = c('Q70_First Click', 'Q70_Last Click', 
+                 'Q70_Page Submit', 'Q70_Click Count'),
+         new = c('Control_Phase1_First_ClickTime', 'Control_Phase1_Last_ClickTime',
+                 'Control_Phase1_SubmitTime', 'Control_Phase1_NumClicks'))
+
+# renaming Control Clicks Phase 2 - submit after 70, advance after 180 seconds
+setnames(d_attrition,
+         old = c('Q90_First Click', 'Q90_Last Click', 
+                 'Q90_Page Submit', 'Q90_Click Count'),
+         new = c('Control_Phase2_First_ClickTime', 'Control_Phase2_Last_ClickTime',
+                 'Control_Phase2_SubmitTime', 'Control_Phase2_NumClicks'))
+
+# renaming Self Reflect Clicks Phase 1 - submit after 90, advance after 240 seconds
+setnames(d_attrition,
+         old = c('Q61_First Click', 'Q61_Last Click', 
+                 'Q61_Page Submit', 'Q61_Click Count'),
+         new = c('Self_Reflect_Phase1_First_ClickTime', 'Self_Reflect_Phase1_Last_ClickTime',
+                 'Self_Reflect_Phase1_SubmitTime', 'Self_Reflect_Phase1_NumClicks'))
+
+# renaming Self Reflect Clicks Phase 2 - submit after 90, advance after 240 seconds
+setnames(d_attrition,
+         old = c('Q62_First Click', 'Q62_Last Click', 
+                 'Q62_Page Submit', 'Q62_Click Count'),
+         new = c('Self_Reflect_Phase2_First_ClickTime', 'Self_Reflect_Phase2_Last_ClickTime',
+                 'Self_Reflect_Phase2_SubmitTime', 'Self_Reflect_Phase2_NumClicks'))
+
+# renaming Medical Feedback Clicks Phase 1 - submit after 90, advance after 240 seconds
+setnames(d_attrition,
+         old = c('Q63_First Click', 'Q63_Last Click', 
+                 'Q63_Page Submit', 'Q63_Click Count'),
+         new = c('Medical_Feedback_Phase1_First_ClickTime',
+                 'Medical_Feedback_Phase1_Last_ClickTime',
+                 'Medical_Feedback_Phase1_SubmitTime', 
+                 'Medical_Feedback_Phase1_NumClicks'))
+
+# renaming Medical Feedback Clicks Phase 2 - submit after 90, advance after 240 seconds
+setnames(d_attrition,
+         old = c('Q64_First Click', 'Q64_Last Click', 
+                 'Q64_Page Submit', 'Q64_Click Count'),
+         new = c('Medical_Feedback_Phase2_First_ClickTime', 
+                 'Medical_Feedback_Phase2_Last_ClickTime',
+                 'Medical_Feedback_Phase2_SubmitTime', 
+                 'Medical_Feedback_Phase2_NumClicks'))
+
+# renaming Positive Images Clicks Phase 1 - submit after 45, advance after 120 seconds
+setnames(d_attrition,
+         old = c('Q65_First Click', 'Q65_Last Click', 
+                 'Q65_Page Submit', 'Q65_Click Count'),
+         new = c('Positive_Images_Phase1_First_ClickTime', 
+                 'Positive_Images_Phase1_Last_ClickTime',
+                 'Positive_Images_Phase1_SubmitTime', 
+                 'Positive_Images_Phase1_NumClicks'))
+
+# renaming Positive Images Clicks Phase 2 - submit after 45, advance after 120 seconds
+setnames(d_attrition,
+         old = c('Q66_First Click', 'Q66_Last Click', 
+                 'Q66_Page Submit', 'Q66_Click Count'),
+         new = c('Positive_Images_Phase2_First_ClickTime', 
+                 'Positive_Images_Phase2_Last_ClickTime',
+                 'Positive_Images_Phase2_SubmitTime', 
+                 'Positive_Images_Phase2_NumClicks'))
+
+# renaming Negative Images Clicks Phase 1 - submit after 45, advance after 120 seconds
+setnames(d_attrition,
+         old = c('Q67_First Click', 'Q67_Last Click', 
+                 'Q67_Page Submit', 'Q67_Click Count'),
+         new = c('Negative_Images_Phase1_First_ClickTime', 
+                 'Negative_Images_Phase1_Last_ClickTime',
+                 'Negative_Images_Phase1_SubmitTime', 
+                 'Negative_Images_Phase1_NumClicks'))
+
+# renaming Negative Images Clicks Phase 2 - submit after 45, advance after 120 seconds
+setnames(d_attrition,
+         old = c('Q68_First Click', 'Q68_Last Click', 
+                 'Q68_Page Submit', 'Q68_Click Count'),
+         new = c('Negative_Images_Phase2_First_ClickTime', 
+                 'Negative_Images_Phase2_Last_ClickTime',
+                 'Negative_Images_Phase2_SubmitTime', 
+                 'Negative_Images_Phase2_NumClicks'))
+
+```
+
+```{r}
+d_attrition  #66 rows in total
+d_attrition[ , (as.numeric(Progress))]
+
+```
+
+```{r}
+#14 people attritted before answering a single question...did not receive assignment
+d_attrition[Q1 == "", Attrition_Stage := "Before TaskPhase1"] 
+
+```
+
+
+```{r}
+#20 people attrited before answering Question 11
+d_attrition[(Q1 != "") & (Q11 == ""), Attrition_Stage := "Before TaskPhase2"] 
+
+```
+
+```{r}
+#7 people attrited before answering Question 21
+d_attrition[(Q1 != "") & (Q11 != "") & (Q21 == ""), Attrition_Stage := "Before TaskPhase3"] 
+
+```
+
+```{r}
+# 25 people completed all questions but did not submit
+d_attrition[(Q1 != "") & (Q11 != "") & (Q21 != "") & (Q30 != ""), Attrition_Stage := "Before Submission"] 
+
+```
+
+
+```{r}
+# look at where people fall off
+d_attrition[ , (.N), by = .(Attrition_Stage)]
+```
